@@ -14,6 +14,6 @@ setup(
     url='http://github.com/lserraga/labugr',
     license='LICENSE.txt',
     description='LAboratorio de señales UGR.',
-    long_description=open('README.txt').read()
+    long_description=open('README.md').read()
 )
 
