@@ -1,0 +1,15 @@
+# Archivos Python #
+###################
+# directorio de trabajo de setup.py 
+build
+# directorio dist de setup.py
+dist
+
+# Archivos Cache #
+##################
+# codigo compilado de los modulos
+*.pyc
+# codigo compilado optimizado
+*.pyo
+# archivo dll generado en windows 
+*.pyd
