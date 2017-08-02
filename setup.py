@@ -15,6 +15,6 @@ setup(
     license='LICENSE.txt',
     description='Laboratorio de señales UGR.',
     long_description=open('README.md').read(),
-    install_requires=['numpy','matplotlib']
+    install_requires=['numpy>=1.13.1','matplotlib>=2.0.2']
 )
 
