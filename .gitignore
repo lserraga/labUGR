@@ -4,6 +4,8 @@
 build
 # directorio dist de setup.py
 dist
+# directorio eggs (generado por setuptools)
+*.eggs
 
 # Archivos Cache #
 ##################
