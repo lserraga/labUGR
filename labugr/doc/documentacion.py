@@ -11,15 +11,19 @@ funciones = dir()
 funciones = list(filter(lambda a: not a.startswith('__'), funciones))
 
 import os
+import sys 
 
-#Guardando el directorio del script podemos asegurarnos que la
-#documentación se guarda siempre en la misma carpeta
-directorio = os.path.dirname(__file__)
+#Cambiando directorio de trabajo al directorio del script
+os.chdir(sys.path[0])
+
+#Crear el directorio funciones si este no eciste
+if not os.path.exists("funciones"):
+	os.makedirs("funciones")
 
 aux = 0
 for funcion in funciones:
 	#Cada documentación se guarda como "nombre_función".txt
-	nombre_doc = '{}/funciones/{}.txt'.format(directorio, funcion)
+	nombre_doc = os.path.join('funciones','{}.txt'.format(funcion))
 
 	#Si el archivo ya existe, no sobreescribirlo
 	if not os.path.isfile(nombre_doc):
@@ -35,3 +39,4 @@ for funcion in funciones:
 					.format(funcion))
 
 print("La documentación de {} funciones ha sido actualizada".format(aux))
+

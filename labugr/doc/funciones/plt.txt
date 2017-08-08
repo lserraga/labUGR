@@ -1,0 +1,100 @@
+
+This is an object-oriented plotting library.
+
+A procedural interface is provided by the companion pyplot module,
+which may be imported directly, e.g.::
+
+    import matplotlib.pyplot as plt
+
+or using ipython::
+
+    ipython
+
+at your terminal, followed by::
+
+    In [1]: %matplotlib
+    In [2]: import matplotlib.pyplot as plt
+
+at the ipython shell prompt.
+
+For the most part, direct use of the object-oriented library is
+encouraged when programming; pyplot is primarily for working
+interactively.  The
+exceptions are the pyplot commands :func:`~matplotlib.pyplot.figure`,
+:func:`~matplotlib.pyplot.subplot`,
+:func:`~matplotlib.pyplot.subplots`, and
+:func:`~pyplot.savefig`, which can greatly simplify scripting.
+
+Modules include:
+
+    :mod:`matplotlib.axes`
+        defines the :class:`~matplotlib.axes.Axes` class.  Most pylab
+        commands are wrappers for :class:`~matplotlib.axes.Axes`
+        methods.  The axes module is the highest level of OO access to
+        the library.
+
+    :mod:`matplotlib.figure`
+        defines the :class:`~matplotlib.figure.Figure` class.
+
+    :mod:`matplotlib.artist`
+        defines the :class:`~matplotlib.artist.Artist` base class for
+        all classes that draw things.
+
+    :mod:`matplotlib.lines`
+        defines the :class:`~matplotlib.lines.Line2D` class for
+        drawing lines and markers
+
+    :mod:`matplotlib.patches`
+        defines classes for drawing polygons
+
+    :mod:`matplotlib.text`
+        defines the :class:`~matplotlib.text.Text`,
+        :class:`~matplotlib.text.TextWithDash`, and
+        :class:`~matplotlib.text.Annotate` classes
+
+    :mod:`matplotlib.image`
+        defines the :class:`~matplotlib.image.AxesImage` and
+        :class:`~matplotlib.image.FigureImage` classes
+
+    :mod:`matplotlib.collections`
+        classes for efficient drawing of groups of lines or polygons
+
+    :mod:`matplotlib.colors`
+        classes for interpreting color specifications and for making
+        colormaps
+
+    :mod:`matplotlib.cm`
+        colormaps and the :class:`~matplotlib.image.ScalarMappable`
+        mixin class for providing color mapping functionality to other
+        classes
+
+    :mod:`matplotlib.ticker`
+        classes for calculating tick mark locations and for formatting
+        tick labels
+
+    :mod:`matplotlib.backends`
+        a subpackage with modules for various gui libraries and output
+        formats
+
+The base matplotlib namespace includes:
+
+    :data:`~matplotlib.rcParams`
+        a global dictionary of default configuration settings.  It is
+        initialized by code which may be overridded by a matplotlibrc
+        file.
+
+    :func:`~matplotlib.rc`
+        a function for setting groups of rcParams values
+
+    :func:`~matplotlib.use`
+        a function for setting the matplotlib backend.  If used, this
+        function must be called immediately after importing matplotlib
+        for the first time.  In particular, it must be called
+        **before** importing pylab (if pylab is imported).
+
+matplotlib was initially written by John D. Hunter (1968-2012) and is now
+developed and maintained by a host of others.
+
+Occasionally the internal documentation (python docstrings) will refer
+to MATLAB&reg;, a registered trademark of The MathWorks, Inc.
+
