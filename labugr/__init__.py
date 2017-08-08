@@ -9,7 +9,7 @@ from numpy import arange, pi
 #Creacion de arrays
 from numpy import (
 	array, zeros, ones, eye, full, asarray, copy, fromfunction,
-	arrange, linspace, logspace, geomspace, tri)
+	arange, linspace, logspace, geomspace, tri)
 
 #Guardando y cargando arrays
 from numpy import (
