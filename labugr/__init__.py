@@ -19,4 +19,4 @@ from numpy import (
 from numpy import (
 	shape, ndim, size, dtype, real, imag, diag, tril ,triu)
 
-__all__ = [s for s in dir() if not (s=='waveforms' or s=='dependencias' or s.startswith('_'))]
+__all__ = [s for s in dir() if not (s=='waveforms' or s=='scipy' or s=='dependencias' or s.startswith('_'))]
