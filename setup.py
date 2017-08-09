@@ -9,7 +9,7 @@ setup(
     version='0.1.0',
     author='Luis Serra Garcia',
     author_email='lsgarcia@correo.ugr.es',
-    packages=['labugr', 'labugr.scipy', 'labugr.dependencias', 'labugr.doc'],
+    packages=['labugr', 'labugr.scipy', 'labugr.dependencias', 'labugr.doc','labugr.fftpack'],
     scripts=[],
     url='http://github.com/lserraga/labugr',
     license='LICENSE.txt',
