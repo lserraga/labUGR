@@ -1,20 +1,62 @@
-from setuptools import setup
+from numpy.distutils.core import setup
 import sys
 
 if sys.version_info[:2] < (2, 7) or (3, 0) <= sys.version_info[:2] < (3, 4):
     raise RuntimeError("Python version 2.7 or >= 3.4 required.")
 
-setup(
-    name='LabUGR',
-    version='0.1.0',
-    author='Luis Serra Garcia',
-    author_email='lsgarcia@correo.ugr.es',
-    packages=['labugr', 'labugr.scipy', 'labugr.dependencias', 'labugr.doc','labugr.fftpack'],
-    scripts=[],
-    url='http://github.com/lserraga/labugr',
-    license='LICENSE.txt',
-    description='Laboratorio de señales UGR.',
-    long_description=open('README.md').read(),
-    install_requires=['numpy>=1.13.1','matplotlib>=2.0.2']
-)
 
+
+def configuration(parent_package='', top_path=None):
+    from numpy.distutils.misc_util import Configuration
+    config = Configuration(None, parent_package, top_path)
+    config.set_options(ignore_setup_xxx_py=True,
+                       assume_default_configuration=True,
+                       delegate_options_to_subpackages=True,
+                       quiet=True)
+
+    config.add_subpackage('labugr')
+    return config
+
+
+
+def setup_package():
+
+    # Figure out whether to add ``*_requires = ['numpy']``.
+    # We don't want to do that unconditionally, because we risk updating
+    # an installed numpy which fails too often.  Just if it's not installed, we
+    # may give it a try.  See gh-3379.
+    try:
+        import numpy, matplotlib
+    except ImportError:  # We do not have numpy installed
+        build_requires = ['numpy>=1.8.2','matplotlib>=2.0.2']
+    else:
+        # If we're building a wheel, assume there already exist numpy wheels
+        # for this platform, so it is safe to add numpy to build requirements.
+        # See gh-5184.
+        build_requires = (['numpy>=1.8.2','matplotlib>=2.0.2'] if 'bdist_wheel' in sys.argv[1:]
+                          else [])
+
+    metadata = dict(
+        name='scipy',
+        ame='LabUGR',
+        version='0.1.0',
+        author='Luis Serra Garcia',
+        author_email='lsgarcia@correo.ugr.es',
+        url='http://github.com/lserraga/labugr',
+        scripts=[],
+        download_url="https://github.com/scipy/scipy/releases",
+        description='Laboratorio de señales UGR.',
+        long_description=open('README.md').read(),
+        setup_requires=build_requires,
+        install_requires=build_requires,
+        python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*',
+    )
+
+    from numpy.distutils.core import setup
+    metadata['configuration'] = configuration
+
+    setup(**metadata)
+
+
+if __name__ == '__main__':
+    setup_package()
