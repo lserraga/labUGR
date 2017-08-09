@@ -2,6 +2,28 @@
 Recopilación de funciones para el análisis de señales en python
 """
 
+
+
+# Primero detectamos si estamos en el proceso de instalación de la 
+# librería. La herramienta que utilizamos para generar el paquete
+# crea la variable __LABUGR_SETUP__
+try:
+    __LABUGR_SETUP__
+except NameError:
+    __LABUGR_SETUP__ = False
+
+# Si no estamos en el setup hay que comprobar que no se intenta 
+# importar desde el directorio fuente
+if not __LABUGR_SETUP__:
+    try:
+        from labugr.__config__ import show as show_config
+    except ImportError:
+        msg = """Error importando labugr: labugr no se puede importar
+        mientras estés en el directorio fuente. Por favor, ejecute 
+        Python desde otro directorio."""
+        raise ImportError(msg)
+
+
 from .scipy.waveforms import *
 from .scipy.respuestaF import *
 from .doc.ayuda import ayuda
