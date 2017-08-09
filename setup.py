@@ -13,8 +13,8 @@ def configuration(parent_package='', top_path=None):
                        assume_default_configuration=True,
                        delegate_options_to_subpackages=True,
                        quiet=True)
-
     config.add_subpackage('labugr')
+
     return config
 
 
@@ -36,19 +36,20 @@ def setup_package():
         build_requires = (['numpy>=1.8.2','matplotlib>=2.0.2'] if 'bdist_wheel' in sys.argv[1:]
                           else [])
 
+    packages = ['labugr.scipy','labugr.dependencias','labugr.doc','labugr.fftpack']
+ 
     metadata = dict(
-        name='scipy',
-        ame='LabUGR',
+        name='labugr',
         version='0.1.0',
         author='Luis Serra Garcia',
         author_email='lsgarcia@correo.ugr.es',
         url='http://github.com/lserraga/labugr',
         scripts=[],
-        download_url="https://github.com/scipy/scipy/releases",
         description='Laboratorio de señales UGR.',
         long_description=open('README.md').read(),
         setup_requires=build_requires,
         install_requires=build_requires,
+        packages=packages,
         python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*',
     )
 

@@ -7,8 +7,8 @@ from __future__ import division, print_function, absolute_import
 __all__ = ['dct', 'idct', 'dst', 'idst']
 
 import numpy as np
-from scipy.fftpack import _fftpack
-from scipy.fftpack.basic import _datacopied, _fix_shape, _asfarray
+from . import _fftpack
+from .basic import _datacopied, _fix_shape, _asfarray
 
 import atexit
 atexit.register(_fftpack.destroy_ddct1_cache)
