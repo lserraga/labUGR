@@ -54,6 +54,6 @@ from numpy import (
 #Algebra lineal
 #from numpy.linalg import 
 
-from .fftpack import *
+from . import fftpack
 
 __all__ = [s for s in dir() if not (s=='doc' or s=='waveforms' or s=='scipy' or s=='dependencias' or s.startswith('_'))]

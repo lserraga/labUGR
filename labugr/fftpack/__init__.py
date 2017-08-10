@@ -96,6 +96,7 @@ from .basic import *
 from .pseudo_diffs import *
 from .helper import *
 
+#Utilizando funciones especiales de numpy para acelerar la computación
 from numpy.dual import register_func
 for k in ['fft', 'ifft', 'fftn', 'ifftn', 'fft2', 'ifft2']:
     register_func(k, eval(k))
@@ -104,6 +105,7 @@ del k, register_func
 from .realtransforms import *
 __all__.extend(['dct', 'idct', 'dst', 'idst'])
 
-#from labugr._lib._testutils import PytestTester
-#test = PytestTester(__name__)
-#del PytestTester
+
+from labugr.testing.utils import PytestTester
+test = PytestTester(__name__)
+del PytestTester

@@ -36,7 +36,7 @@ def setup_package():
         build_requires = (['numpy>=1.8.2','matplotlib>=2.0.2'] if 'bdist_wheel' in sys.argv[1:]
                           else [])
 
-    packages = []
+    packages = ['labugr.testing']
  
     metadata = dict(
         name='labugr',

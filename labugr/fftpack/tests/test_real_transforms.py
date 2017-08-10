@@ -5,7 +5,7 @@ from os.path import join, dirname
 import numpy as np
 from numpy.testing import assert_array_almost_equal, assert_equal
 
-from scipy.fftpack.realtransforms import dct, idct, dst, idst
+from labugr.fftpack.realtransforms import dct, idct, dst, idst
 
 # Matlab reference data
 MDATA = np.load(join(dirname(__file__), 'test.npz'))

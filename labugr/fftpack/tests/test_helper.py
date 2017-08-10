@@ -13,8 +13,8 @@ Run tests if fftpack is not installed:
 
 from numpy.testing import (assert_array_almost_equal,
                            assert_equal, assert_)
-from scipy.fftpack import fftshift,ifftshift,fftfreq,rfftfreq
-from scipy.fftpack.helper import next_fast_len
+from labugr.fftpack import fftshift,ifftshift,fftfreq,rfftfreq
+from labugr.fftpack.helper import next_fast_len
 
 from numpy import pi, random
 

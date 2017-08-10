@@ -16,11 +16,11 @@ if sys.version_info >= (3, 4):
     import re
     import tokenize
     from numpy.testing import assert_
-    import scipy
+    import labugr
 
     class TestFFTPackImport(object):
         def test_fftpack_import(self):
-            base = Path(scipy.__file__).parent
+            base = Path(labugr.__file__).parent
             regexp = r"\s*from.+\.fftpack import .*\n"
             for path in base.rglob("*.py"):
                 if base / "fftpack" in path.parents:
