@@ -38,8 +38,6 @@ def setup_package():
 
     packages = ['labugr.testing']
     
-    documentacion = os.path.join(os.path.dirname(__file__),'labugr','doc','funciones')
-
     metadata = dict(
         name='labugr',
         version='0.1.0',

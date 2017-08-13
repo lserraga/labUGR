@@ -16,6 +16,8 @@ def ayuda(funcion):
 
 	lista = __nombre_funciones()
 	
+	if not isinstance(funcion,str):
+		funcion = funcion.__name__
 	if not funcion in lista:
 		parecida = difflib.get_close_matches(funcion, lista)
 		print("""
