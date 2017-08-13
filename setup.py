@@ -1,5 +1,5 @@
 from numpy.distutils.core import setup
-import sys
+import sys, os
 
 if sys.version_info[:2] < (2, 7) or (3, 0) <= sys.version_info[:2] < (3, 4):
     raise RuntimeError("Python version 2.7 or >= 3.4 required.")
@@ -37,7 +37,9 @@ def setup_package():
                           else [])
 
     packages = ['labugr.testing']
- 
+    
+    documentacion = os.path.join(os.path.dirname(__file__),'labugr','doc','funciones')
+
     metadata = dict(
         name='labugr',
         version='0.1.0',
@@ -50,6 +52,7 @@ def setup_package():
         setup_requires=build_requires,
         install_requires=build_requires,
         packages=packages,
+        include_package_data=True,
         python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*',
     )
 

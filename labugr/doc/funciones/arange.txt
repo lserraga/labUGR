@@ -1,4 +1,4 @@
-arange([start,] stop[, step,], dtype=None)
+range([start,] stop[, step,], dtype=None)
 
     Return evenly spaced values within a given interval.
 

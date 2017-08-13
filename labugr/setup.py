@@ -9,9 +9,11 @@ def configuration(parent_package='',top_path=None):
     config.add_subpackage('testing')
     config.add_subpackage('fftpack')
     config.add_subpackage('scipy')
-    config.add_subpackage('doc')
+    config.add_subpackage('doc') 
     config.add_subpackage('dependencias')
-    config.make_config_py() #conb esto generamos __config__
+    config.add_data_dir('doc')#Importamos la documentacion de las funciones para poder encontrarlas con ayuda()
+
+    config.make_config_py() #con esto generamos __config__ que nos sirve para comprobar que no se importa desde el source dir
     return config
 
 if __name__ == '__main__':
