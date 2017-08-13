@@ -56,4 +56,4 @@ from numpy import (
 
 from . import fftpack
 
-__all__ = [s for s in dir() if not (s=='doc' or s=='waveforms' or s=='scipy' or s=='dependencias' or s.startswith('_'))]
+__all__ = [s for s in dir() if not (s=='doc' or s=='waveforms' or s=='dependencias' or s.startswith('_'))]
