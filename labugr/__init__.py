@@ -26,6 +26,7 @@ if not __LABUGR_SETUP__:
 
 from .scipy.waveforms import *
 from .scipy.respuestaF import *
+from .scipy.windows import *
 from .doc.ayuda import ayuda
 
 import numpy as np
