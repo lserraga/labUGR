@@ -1,3 +1,7 @@
+# Al compilar el código en modo developer generamos archivos
+# en el directorio fuente que no queremos importar a git
+
+
 # Archivos Python #
 ###################
 # directorio de trabajo de setup.py 
@@ -6,6 +10,16 @@ build
 dist
 # directorio eggs (generado por setuptools)
 *.eggs
+labugr.egg-info
+# Archivo generado cuando instalamos version developer
+__config__.py
+#Imformación de la librería
+*.so
+# Archivos c generados en fftpack 
+dct.c
+dst.c
+convolvemodule.c
+_fftpackmodule.c
 
 # Archivos Cache #
 ##################
