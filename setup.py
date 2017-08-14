@@ -1,5 +1,6 @@
 from numpy.distutils.core import setup
 import sys, os
+from setuptools import find_packages
 
 if sys.version_info[:2] < (2, 7) or (3, 0) <= sys.version_info[:2] < (3, 4):
     raise RuntimeError("Python version 2.7 or >= 3.4 required.")
@@ -35,8 +36,6 @@ def setup_package():
         # See gh-5184.
         build_requires = (['numpy>=1.8.2','matplotlib>=2.0.2'] if 'bdist_wheel' in sys.argv[1:]
                           else [])
-
-    packages = ['labugr.testing']
     
     metadata = dict(
         name='labugr',
@@ -49,7 +48,7 @@ def setup_package():
         long_description=open('README.md').read(),
         setup_requires=build_requires,
         install_requires=build_requires,
-        packages=packages,
+        packages=find_packages(), #Encuentra automaticamente todos los paquetes
         include_package_data=True,
         python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*',
     )

@@ -29,3 +29,5 @@ _fftpackmodule.c
 *.pyo
 # archivo dll generado en windows 
 *.pyd
+# resultado de pytests
+.cache
