@@ -8,7 +8,7 @@ def configuration(parent_package='',top_path=None):
     config = Configuration('labugr',parent_package,top_path)
     config.add_subpackage('testing')
     config.add_subpackage('fftpack')
-    config.add_subpackage('scipy')
+    config.add_subpackage('signal')
     config.add_subpackage('doc') 
     config.add_subpackage('dependencias')
     config.add_data_dir('doc')#Importamos la documentacion de las funciones para poder encontrarlas con ayuda()

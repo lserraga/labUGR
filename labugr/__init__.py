@@ -24,10 +24,10 @@ if not __LABUGR_SETUP__:
         raise ImportError(msg)
 
 
-from .scipy.waveforms import *
-from .scipy.respuestaF import *
-from .scipy.windows import *
-from .scipy.spectral import *
+from .signal.waveforms import *
+from .signal.respuestaF import *
+from .signal.windows import *
+from .signal.spectral import *
 from .doc.ayuda import ayuda
 
 import numpy as np

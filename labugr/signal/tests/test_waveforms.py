@@ -5,7 +5,7 @@ from numpy.testing import (assert_almost_equal, assert_equal,
                            assert_, assert_raises,
                            assert_allclose, assert_array_equal)
 
-import labugr.scipy.waveforms as waveforms
+import labugr.signal.waveforms as waveforms
 
 
 # These chirp_* functions are the instantaneous frequencies of the signals

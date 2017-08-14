@@ -7,7 +7,7 @@ from numpy.testing import (assert_array_almost_equal, assert_array_equal,
                            assert_equal, assert_, assert_array_less)
 from numpy.testing import suppress_warnings
 from labugr import fftpack
-from labugr.scipy import windows as signal
+from labugr.signal import windows as signal
 
 
 

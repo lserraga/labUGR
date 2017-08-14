@@ -8,11 +8,11 @@ from numpy.testing import (assert_,
 import pytest
 from numpy.testing import suppress_warnings
 from labugr import fftpack
-from labugr.scipy.signaltools import detrend
-from labugr.scipy.windows import get_window 
-from labugr.scipy.spectral import (periodogram, welch, csd, coherence,
+from labugr.signal.signaltools import detrend
+from labugr.signal.windows import get_window 
+from labugr.signal.spectral import (periodogram, welch, csd, coherence,
                           spectrogram, stft, istft, check_COLA)
-from labugr.scipy.spectral import _spectral_helper
+from labugr.signal.spectral import _spectral_helper
 
 
 class TestPeriodogram(object):
