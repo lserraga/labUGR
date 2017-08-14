@@ -36,6 +36,8 @@ def setup_package():
         # See gh-5184.
         build_requires = (['numpy>=1.8.2','matplotlib>=2.0.2'] if 'bdist_wheel' in sys.argv[1:]
                           else [])
+
+    packages = ['labugr.testing']
     
     metadata = dict(
         name='labugr',
@@ -48,7 +50,7 @@ def setup_package():
         long_description=open('README.md').read(),
         setup_requires=build_requires,
         install_requires=build_requires,
-        packages=find_packages(), #Encuentra automaticamente todos los paquetes
+        packages=packages,
         include_package_data=True,
         python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*',
     )
