@@ -24,10 +24,7 @@ if not __LABUGR_SETUP__:
         raise ImportError(msg)
 
 
-from .signal.waveforms import *
-from .signal.respuestaF import *
-from .signal.windows import *
-from .signal.spectral import *
+from .signal import *
 from .doc.ayuda import ayuda
 
 import numpy as np
@@ -56,6 +53,16 @@ from numpy import (
 #Algebra lineal
 #from numpy.linalg import 
 
+#Ecuaciones matemáticas
+
 from . import fftpack
 
-__all__ = [s for s in dir() if not (s=='doc' or s=='waveforms' or s=='dependencias' or s.startswith('_'))]
+from labugr.testing.utils import PytestTester
+test = PytestTester(__name__)
+del PytestTester
+
+excluidos = ['respuestaF', 'signal', 'spectral', 'testing', 'windows',
+            'doc','waveforms','dependencias']
+
+__all__ = [s for s in dir() if not ((s in excluidos)or s.startswith('_'))]
+

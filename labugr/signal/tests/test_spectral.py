@@ -8,7 +8,7 @@ from numpy.testing import (assert_,
 import pytest
 from numpy.testing import suppress_warnings
 from labugr import fftpack
-from labugr.signal.signaltools import detrend
+from labugr.signal.tools.signaltools import detrend
 from labugr.signal.windows import get_window 
 from labugr.signal.spectral import (periodogram, welch, csd, coherence,
                           spectrogram, stft, istft, check_COLA)

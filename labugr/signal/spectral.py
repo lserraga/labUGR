@@ -5,16 +5,17 @@ from __future__ import division, print_function, absolute_import
 
 import numpy as np
 from labugr import fftpack
-from . import signaltools
+from .tools import signaltools
 from .windows import get_window
 #from ._spectral import _lombscargle
-from ._arraytools import const_ext, even_ext, odd_ext, zero_ext
+from .tools._arraytools import const_ext, even_ext, odd_ext, zero_ext
 import warnings
 
 from labugr.dependencias.six import string_types
 
-__all__ = ['periodogram', 'welch',  'csd', 'coherence',
-           'spectrogram', 'stft', 'istft', 'check_COLA']
+# __all__ = ['periodogram', 'welch',  'csd', 'coherence',
+#            'spectrogram', 'stft', 'istft', 'check_COLA']
+__all__ = ['periodogram', 'spectrogram']
 
 
 # def lombscargle(x,
