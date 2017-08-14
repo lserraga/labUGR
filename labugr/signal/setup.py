@@ -5,8 +5,9 @@ def configuration(parent_package='', top_path=None):
 
     config = Configuration('signal', parent_package, top_path)
 
-    config.add_data_dir('tests')
-
+    config.add_data_dir('tests') # Como tests no es considerado como un
+    							 # package, hay que añadirlo como 
+    							 # directorio de datos
     return config
 
 

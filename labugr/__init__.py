@@ -50,10 +50,25 @@ from numpy import (
 	sin, cos, tan, arcsin, arccos, arctan, hypot, sinh, cosh,
 	tanh, arcsinh, arccosh, arctanh, deg2rad, rad2deg)
 
+#Manipulación de arrays
+from numpy import (
+    reshape, transpose, concatenate, stack, delete, insert,
+    unique, roll)
+import numpy.array_split as split
+
+
 #Algebra lineal
 #from numpy.linalg import 
 
-#Ecuaciones matemáticas
+#See masked arrays, y allclose para eliminar e-12
+
+#Funciones matemáticas (abs() y pow() estan incluido)
+from math import (
+    floor, ceil, gcd, isfinite, isinf, isnan, exp, e, log,
+    sqrt, )
+
+#sdjvnd
+from numpy import nditer
 
 from . import fftpack
 
