@@ -45,7 +45,7 @@ from numpy import (
 from numpy import (
 	shape, ndim, size, dtype, real, imag, diag, tril ,triu)
 
-#Funciones trigonométricas
+#Funciones trigonométricas (son igual que las de math pero se pueden utilizar en arrays)
 from numpy import (
 	sin, cos, tan, arcsin, arccos, arctan, hypot, sinh, cosh,
 	tanh, arcsinh, arccosh, arctanh, deg2rad, rad2deg)
