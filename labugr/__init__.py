@@ -58,7 +58,8 @@ from numpy import array_split as split
 
 #Funciones matemáticas (abs() y pow() estan incluido)
 from numpy import(
-    floor, ceil, exp, log, sqrt, sum, gradient, cross)
+    floor, ceil, exp, log, sqrt, sum, gradient, cross, maximum,
+    minimum)
 from numpy import around as round 
 
 

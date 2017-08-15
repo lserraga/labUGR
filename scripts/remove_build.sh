@@ -6,6 +6,8 @@ sudo rm -r labugr.egg-info
 
 sudo rm -r build
 
+sudo rm -r dist
+
 sudo rm labugr/__config__.py 
 
 sudo rm labugr/fftpack/src/dct.c 

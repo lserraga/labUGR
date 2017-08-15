@@ -1,7 +1,5 @@
-from numpy.distutils.core import setup
+from setuptools import setup
 import sys, os
-from setuptools import find_packages
-
 if sys.version_info[:2] < (2, 7) or (3, 0) <= sys.version_info[:2] < (3, 4):
     raise RuntimeError("Python version 2.7 or >= 3.4 required.")
 
@@ -41,13 +39,14 @@ def setup_package():
     
     metadata = dict(
         name='labugr',
-        version='0.1.0',
+        version='0.1.0.3',
         author='Luis Serra Garcia',
         author_email='lsgarcia@correo.ugr.es',
         url='http://github.com/lserraga/labugr',
-        scripts=[],
+        package_data={'':['README.md']},
+        scripts=['scripts/remove_build.sh'],
         description='Laboratorio de señales UGR.',
-        long_description=open('README.md').read(),
+        long_description="open('README.md').read()",
         setup_requires=build_requires,
         install_requires=build_requires,
         packages=packages,
