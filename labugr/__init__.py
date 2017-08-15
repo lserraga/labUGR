@@ -12,22 +12,22 @@ try:
 except NameError:
     __LABUGR_SETUP__ = False
 
-# Si no estamos en el setup hay que comprobar que no se intenta 
-# importar desde el directorio fuente
-if not __LABUGR_SETUP__:
-    try:
-        from labugr.__config__ import show as show_config
-    except ImportError:
-        msg = """Error importando labugr: labugr no se puede importar
-        mientras estés en el directorio fuente. Por favor, ejecute 
-        Python desde otro directorio."""
-        raise ImportError(msg)
+# # Si no estamos en el setup hay que comprobar que no se intenta 
+# # importar desde el directorio fuente
+# if not __LABUGR_SETUP__:
+#     try:
+#         from labugr.__config__ import show as show_config
+#     except ImportError:
+#         msg = """Error importando labugr: labugr no se puede importar
+#         mientras estés en el directorio fuente. Por favor, ejecute 
+#         Python desde otro directorio."""
+#         raise ImportError(msg)
 
 
 from .signal import *
 from .doc.ayuda import ayuda
 
-import numpy as np
+#import numpy as np
 import matplotlib as plt
 
 from numpy import arange, pi
@@ -53,8 +53,9 @@ from numpy import (
 #Manipulación de arrays
 from numpy import (
     reshape, transpose, concatenate, stack, delete, insert,
-    unique, roll)
-import numpy.array_split as split
+    unique, roll, where, )
+#En where, el primer array contiene el indice de la fila y el segundo el de las columnas
+from numpy import array_split as split
 
 
 #Algebra lineal
