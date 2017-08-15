@@ -131,7 +131,7 @@
   prod(shape_a). The bound may be loose, but it is possible to construct hard
   instances where ufunc is faster (adapted from [2,3])::
 
-      from numpy.lib.stride_tricks import as_strided
+      from labugr.np.lib.stride_tricks import as_strided
       # Construct non-overlapping x1 and x2
       x = np.zeros([192163377], dtype=np.int8)
       x1 = as_strided(x, strides=(36674, 61119, 85569), shape=(1049, 1049, 1049))

@@ -1,7 +1,7 @@
 from __future__ import division, absolute_import, print_function
 
-import numpy as np
-from numpy.testing import run_module_suite, assert_raises
+import labugr.np as np
+from labugr.np.testing import run_module_suite, assert_raises
 
 class TestIndexErrors(object):
     '''Tests to exercise indexerrors not covered by other tests.'''

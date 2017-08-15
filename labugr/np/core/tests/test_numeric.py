@@ -6,10 +6,10 @@ import itertools
 import platform
 from decimal import Decimal
 
-import numpy as np
-from numpy.core import umath
-from numpy.random import rand, randint, randn
-from numpy.testing import (
+import labugr.np as np
+from labugr.np.core import umath
+from labugr.np.random import rand, randint, randn
+from labugr.np.testing import (
     run_module_suite, assert_, assert_equal, assert_raises,
     assert_raises_regex, assert_array_equal, assert_almost_equal,
     assert_array_almost_equal, dec, HAS_REFCOUNT, suppress_warnings

@@ -145,7 +145,7 @@ class NumpyDocTestCase(npd.DocTestCase):
                                      checker=checker)
 
 
-print_state = numpy.get_printoptions()
+print_state = labugr.np.get_printoptions()
 
 class NumpyDoctest(npd.Doctest):
     name = 'numpydoctest'   # call nosetests with --with-numpydoctest
@@ -181,8 +181,8 @@ class NumpyDoctest(npd.Doctest):
         if self.enabled:
             # Pull standard doctest out of plugin list; there's no reason to run
             # both.  In practice the Unplugger plugin above would cover us when
-            # run from a standard numpy.test() call; this is just in case
-            # someone wants to run our plugin outside the numpy.test() machinery
+            # run from a standard labugr.np.test() call; this is just in case
+            # someone wants to run our plugin outside the labugr.np.test() machinery
             config.plugins.plugins = [p for p in config.plugins.plugins
                                       if p.name != 'doctest']
 
@@ -208,7 +208,7 @@ class NumpyDoctest(npd.Doctest):
         pkg_name = get_package_name(os.path.dirname(test.filename))
 
         # Each doctest should execute in an environment equivalent to
-        # starting Python and executing "import numpy as np", and,
+        # starting Python and executing "import labugr.np as np", and,
         # for SciPy packages, an additional import of the local
         # package (so that scipy.linalg.basic.py's doctests have an
         # implicit "from scipy import linalg" as well.
@@ -257,7 +257,7 @@ class NumpyDoctest(npd.Doctest):
     # Add an afterContext method to nose.plugins.doctests.Doctest in order
     # to restore print options to the original state after each doctest
     def afterContext(self):
-        numpy.set_printoptions(**print_state)
+        labugr.np.set_printoptions(**print_state)
 
     # Ignore NumPy-specific build files that shouldn't be searched for tests
     def wantFile(self, file):

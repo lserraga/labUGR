@@ -4,8 +4,8 @@ import sys
 import locale
 import nose
 
-import numpy as np
-from numpy.testing import (
+import labugr.np as np
+from labugr.np.testing import (
     run_module_suite, assert_, assert_equal, SkipTest
 )
 

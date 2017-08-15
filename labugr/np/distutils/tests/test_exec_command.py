@@ -4,9 +4,9 @@ import os
 import sys
 from tempfile import TemporaryFile
 
-from numpy.distutils import exec_command
-from numpy.distutils.exec_command import get_pythonexe
-from numpy.testing import run_module_suite, tempdir, assert_
+from labugr.np.distutils import exec_command
+from labugr.np.distutils.exec_command import get_pythonexe
+from labugr.np.testing import run_module_suite, tempdir, assert_
 
 # In python 3 stdout, stderr are text (unicode compliant) devices, so to
 # emulate them import StringIO from the io module.

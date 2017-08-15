@@ -6,7 +6,7 @@ from __future__ import division, absolute_import, print_function
 import types
 import warnings
 
-import numpy as np
+import labugr.np as np
 from .. import VisibleDeprecationWarning
 from . import multiarray as mu
 from . import umath as um
@@ -239,7 +239,7 @@ def choose(a, choices, out=None, mode='raise'):
     First of all, if confused or uncertain, definitely look at the Examples -
     in its full generality, this function is less simple than it might
     seem from the following code description (below ndi =
-    `numpy.lib.index_tricks`):
+    `labugr.np.lib.index_tricks`):
 
     ``np.choose(a,c) == np.array([c[a[I]][I] for I in ndi.ndindex(a.shape)])``.
 
@@ -449,7 +449,7 @@ def put(a, ind, v, mode='raise'):
     try:
         put = a.put
     except AttributeError:
-        raise TypeError("argument 1 must be numpy.ndarray, "
+        raise TypeError("argument 1 must be labugr.np.ndarray, "
                         "not {name}".format(name=type(a).__name__))
 
     return put(ind, v, mode=mode)
@@ -1639,7 +1639,7 @@ def compress(condition, a, axis=None, out=None):
     take, choose, diag, diagonal, select
     ndarray.compress : Equivalent method in ndarray
     np.extract: Equivalent method when working on 1-D arrays
-    numpy.doc.ufuncs : Section "Output arguments"
+    labugr.np.doc.ufuncs : Section "Output arguments"
 
     Examples
     --------
@@ -1704,7 +1704,7 @@ def clip(a, a_min, a_max, out=None):
 
     See Also
     --------
-    numpy.doc.ufuncs : Section "Output arguments"
+    labugr.np.doc.ufuncs : Section "Output arguments"
 
     Examples
     --------
@@ -1871,7 +1871,7 @@ def alltrue(a, axis=None, out=None, keepdims=np._NoValue):
 
     See Also
     --------
-    numpy.all : Equivalent function; see for details.
+    labugr.np.all : Equivalent function; see for details.
 
     """
     arr = asanyarray(a)
@@ -2453,7 +2453,7 @@ def prod(a, axis=None, dtype=None, out=None, keepdims=np._NoValue):
     See Also
     --------
     ndarray.prod : equivalent method
-    numpy.doc.ufuncs : Section "Output arguments"
+    labugr.np.doc.ufuncs : Section "Output arguments"
 
     Notes
     -----
@@ -2546,7 +2546,7 @@ def cumprod(a, axis=None, dtype=None, out=None):
 
     See Also
     --------
-    numpy.doc.ufuncs : Section "Output arguments"
+    labugr.np.doc.ufuncs : Section "Output arguments"
 
     Notes
     -----
@@ -2625,7 +2625,7 @@ def rank(a):
 
     .. note::
         This function is deprecated in NumPy 1.9 to avoid confusion with
-        `numpy.linalg.matrix_rank`. The ``ndim`` attribute or function
+        `labugr.np.linalg.matrix_rank`. The ``ndim`` attribute or function
         should be used instead.
 
     Parameters
@@ -2664,7 +2664,7 @@ def rank(a):
     # 2014-04-12, 1.9
     warnings.warn(
         "`rank` is deprecated; use the `ndim` attribute or function instead. "
-        "To find the rank of a matrix see `numpy.linalg.matrix_rank`.",
+        "To find the rank of a matrix see `labugr.np.linalg.matrix_rank`.",
         VisibleDeprecationWarning, stacklevel=2)
     try:
         return a.ndim
@@ -2959,7 +2959,7 @@ def std(a, axis=None, dtype=None, out=None, ddof=0, keepdims=np._NoValue):
     See Also
     --------
     var, mean, nanmean, nanstd, nanvar
-    numpy.doc.ufuncs : Section "Output arguments"
+    labugr.np.doc.ufuncs : Section "Output arguments"
 
     Notes
     -----
@@ -3078,7 +3078,7 @@ def var(a, axis=None, dtype=None, out=None, ddof=0, keepdims=np._NoValue):
     See Also
     --------
     std , mean, nanmean, nanstd, nanvar
-    numpy.doc.ufuncs : Section "Output arguments"
+    labugr.np.doc.ufuncs : Section "Output arguments"
 
     Notes
     -----

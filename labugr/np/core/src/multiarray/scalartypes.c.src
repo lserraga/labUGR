@@ -56,7 +56,7 @@ NPY_NO_EXPORT PyTypeObject Py@NAME@ArrType_Type = {
     PyObject_HEAD_INIT(NULL)
     0,                                          /* ob_size */
 #endif
-    "numpy.@name@",                             /* tp_name*/
+    "labugr.np.@name@",                             /* tp_name*/
     sizeof(PyObject),                           /* tp_basicsize*/
     0,                                          /* tp_itemsize */
     /* methods */
@@ -655,14 +655,14 @@ datetimetype_repr(PyObject *self)
      */
     if ((scal->obmeta.num == 1 && scal->obmeta.base != NPY_FR_h) ||
             scal->obmeta.base == NPY_FR_GENERIC) {
-        ret = PyUString_FromString("numpy.datetime64('");
+        ret = PyUString_FromString("labugr.np.datetime64('");
         PyUString_ConcatAndDel(&ret,
                 PyUString_FromString(iso));
         PyUString_ConcatAndDel(&ret,
                 PyUString_FromString("')"));
     }
     else {
-        ret = PyUString_FromString("numpy.datetime64('");
+        ret = PyUString_FromString("labugr.np.datetime64('");
         PyUString_ConcatAndDel(&ret,
                 PyUString_FromString(iso));
         PyUString_ConcatAndDel(&ret,
@@ -691,17 +691,17 @@ timedeltatype_repr(PyObject *self)
 
     /* The value */
     if (scal->obval == NPY_DATETIME_NAT) {
-        ret = PyUString_FromString("numpy.timedelta64('NaT'");
+        ret = PyUString_FromString("labugr.np.timedelta64('NaT'");
     }
     else {
         /*
          * Can't use "%lld" if HAVE_LONG_LONG is not defined
          */
 #if defined(HAVE_LONG_LONG)
-        ret = PyUString_FromFormat("numpy.timedelta64(%lld",
+        ret = PyUString_FromFormat("labugr.np.timedelta64(%lld",
                                             (long long)scal->obval);
 #else
-        ret = PyUString_FromFormat("numpy.timedelta64(%ld",
+        ret = PyUString_FromFormat("labugr.np.timedelta64(%ld",
                                             (long)scal->obval);
 #endif
     }
@@ -1736,7 +1736,7 @@ gentype_reduce(PyObject *self, PyObject *NPY_UNUSED(args))
         Py_DECREF(ret);
         return NULL;
     }
-    mod = PyImport_ImportModule("numpy.core.multiarray");
+    mod = PyImport_ImportModule("labugr.np.core.multiarray");
     if (mod == NULL) {
         return NULL;
     }
@@ -2431,7 +2431,7 @@ NPY_NO_EXPORT PyTypeObject PyGenericArrType_Type = {
     PyObject_HEAD_INIT(NULL)
     0,                                          /* ob_size */
 #endif
-    "numpy.generic",                            /* tp_name*/
+    "labugr.np.generic",                            /* tp_name*/
     sizeof(PyObject),                           /* tp_basicsize*/
     0,                                          /* tp_itemsize */
     /* methods */
@@ -3375,7 +3375,7 @@ NPY_NO_EXPORT PyTypeObject PyObjectArrType_Type = {
     PyObject_HEAD_INIT(NULL)
     0,                                          /* ob_size */
 #endif
-    "numpy.object_",                            /* tp_name*/
+    "labugr.np.object_",                            /* tp_name*/
     sizeof(PyObjectScalarObject),               /* tp_basicsize*/
     0,                                          /* tp_itemsize */
     (destructor)object_arrtype_dealloc,         /* tp_dealloc */
@@ -3473,7 +3473,7 @@ NPY_NO_EXPORT PyTypeObject Py@NAME@ArrType_Type = {
     PyObject_HEAD_INIT(NULL)
     0,                                          /* ob_size */
 #endif
-    "numpy." NAME_@name@ "@ex@",                /* tp_name*/
+    "labugr.np." NAME_@name@ "@ex@",                /* tp_name*/
     sizeof(Py@NAME@ScalarObject),               /* tp_basicsize*/
     0,                                          /* tp_itemsize */
     0,                                          /* tp_dealloc */
@@ -3562,7 +3562,7 @@ NPY_NO_EXPORT PyTypeObject Py@NAME@ArrType_Type = {
     PyObject_HEAD_INIT(NULL)
     0,                                          /* ob_size */
 #endif
-    "numpy.@name@" _THIS_SIZE,                  /* tp_name*/
+    "labugr.np.@name@" _THIS_SIZE,                  /* tp_name*/
     sizeof(Py@NAME@ScalarObject),               /* tp_basicsize*/
     0,                                          /* tp_itemsize */
     0,                                          /* tp_dealloc */
@@ -3662,7 +3662,7 @@ NPY_NO_EXPORT PyTypeObject Py@NAME@ArrType_Type = {
     PyObject_HEAD_INIT(0)
     0,                                          /* ob_size */
 #endif
-    "numpy.@name@" _THIS_SIZE1,                 /* tp_name*/
+    "labugr.np.@name@" _THIS_SIZE1,                 /* tp_name*/
     sizeof(Py@NAME@ScalarObject),               /* tp_basicsize*/
     0,                                          /* tp_itemsize*/
     0,                                          /* tp_dealloc*/

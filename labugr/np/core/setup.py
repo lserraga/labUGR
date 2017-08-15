@@ -7,13 +7,13 @@ import copy
 import sysconfig
 import warnings
 from os.path import join
-from numpy.distutils import log
+from labugr.np.distutils import log
 from distutils.dep_util import newer
 from distutils.sysconfig import get_config_var
-from numpy._build_utils.apple_accelerate import (
+from labugr.np._build_utils.apple_accelerate import (
     uses_accelerate_framework, get_sgemv_fix
     )
-from numpy.compat import npy_load_module
+from labugr.np.compat import npy_load_module
 from setup_common import *
 
 # Set to True to enable relaxed strides checking. This (mostly) means
@@ -90,7 +90,7 @@ def is_npy_no_smp():
     return 'NPY_NOSMP' in os.environ
 
 def win32_checks(deflist):
-    from numpy.distutils.misc_util import get_build_architecture
+    from labugr.np.distutils.misc_util import get_build_architecture
     a = get_build_architecture()
 
     # Distutils hack on AMD64 on windows
@@ -384,8 +384,8 @@ def visibility_define(config):
         return ''
 
 def configuration(parent_package='',top_path=None):
-    from numpy.distutils.misc_util import Configuration, dot_join
-    from numpy.distutils.system_info import get_info
+    from labugr.np.distutils.misc_util import Configuration, dot_join
+    from labugr.np.distutils.system_info import get_info
 
     config = Configuration('core', parent_package, top_path)
     local_dir = config.local_path
@@ -403,7 +403,7 @@ def configuration(parent_package='',top_path=None):
     generate_umath = npy_load_module('_'.join(n.split('.')),
                                      generate_umath_py, ('.py', 'U', 1))
 
-    header_dir = 'include/numpy'  # this is relative to config.path_in_package
+    header_dir = 'include/labugr/np'  # this is relative to config.path_in_package
 
     cocache = CallOnceOnly()
 
@@ -615,7 +615,7 @@ def configuration(parent_package='',top_path=None):
     config.add_include_dirs(join(local_dir, "src"))
     config.add_include_dirs(join(local_dir))
 
-    config.add_data_files('include/numpy/*.h')
+    config.add_data_files('include/labugr/np/*.h')
     config.add_include_dirs(join('src', 'npymath'))
     config.add_include_dirs(join('src', 'multiarray'))
     config.add_include_dirs(join('src', 'umath'))
@@ -633,7 +633,7 @@ def configuration(parent_package='',top_path=None):
     config.numpy_include_dirs.extend(config.paths('include'))
 
     deps = [join('src', 'npymath', '_signbit.c'),
-            join('include', 'numpy', '*object.h'),
+            join('include', 'labugr', 'join', '*object.h'),
             join(codegen_dir, 'genapi.py'),
             ]
 
@@ -658,7 +658,7 @@ def configuration(parent_package='',top_path=None):
     #                          npymath library                            #
     #######################################################################
 
-    subst_dict = dict([("sep", os.path.sep), ("pkgname", "numpy.core")])
+    subst_dict = dict([("sep", os.path.sep), ("pkgname", "labugr.np.core")])
 
     def get_mathlib_info(*args):
         # Another ugly hack: the mathlib info is known once build_src is run,
@@ -752,23 +752,23 @@ def configuration(parent_package='',top_path=None):
             join('src', 'private', 'ufunc_override.h'),
             join('src', 'private', 'binop_override.h'),
             join('src', 'private', 'npy_extint128.h'),
-            join('include', 'numpy', 'arrayobject.h'),
-            join('include', 'numpy', '_neighborhood_iterator_imp.h'),
-            join('include', 'numpy', 'npy_endian.h'),
-            join('include', 'numpy', 'arrayscalars.h'),
-            join('include', 'numpy', 'noprefix.h'),
-            join('include', 'numpy', 'npy_interrupt.h'),
-            join('include', 'numpy', 'npy_3kcompat.h'),
-            join('include', 'numpy', 'npy_math.h'),
-            join('include', 'numpy', 'halffloat.h'),
-            join('include', 'numpy', 'npy_common.h'),
-            join('include', 'numpy', 'npy_os.h'),
-            join('include', 'numpy', 'utils.h'),
-            join('include', 'numpy', 'ndarrayobject.h'),
-            join('include', 'numpy', 'npy_cpu.h'),
-            join('include', 'numpy', 'numpyconfig.h'),
-            join('include', 'numpy', 'ndarraytypes.h'),
-            join('include', 'numpy', 'npy_1_7_deprecated_api.h'),
+            join('include', 'labugr', 'join', 'arrayobject.h'),
+            join('include', 'labugr', 'join', '_neighborhood_iterator_imp.h'),
+            join('include', 'labugr', 'join', 'npy_endian.h'),
+            join('include', 'labugr', 'join', 'arrayscalars.h'),
+            join('include', 'labugr', 'join', 'noprefix.h'),
+            join('include', 'labugr', 'join', 'npy_interrupt.h'),
+            join('include', 'labugr', 'join', 'npy_3kcompat.h'),
+            join('include', 'labugr', 'join', 'npy_math.h'),
+            join('include', 'labugr', 'join', 'halffloat.h'),
+            join('include', 'labugr', 'join', 'npy_common.h'),
+            join('include', 'labugr', 'join', 'npy_os.h'),
+            join('include', 'labugr', 'join', 'utils.h'),
+            join('include', 'labugr', 'join', 'ndarrayobject.h'),
+            join('include', 'labugr', 'join', 'npy_cpu.h'),
+            join('include', 'labugr', 'join', 'numpyconfig.h'),
+            join('include', 'labugr', 'join', 'ndarraytypes.h'),
+            join('include', 'labugr', 'join', 'npy_1_7_deprecated_api.h'),
             # add library sources as distuils does not consider libraries
             # dependencies
             ] + npysort_sources + npymath_sources
@@ -883,8 +883,8 @@ def configuration(parent_package='',top_path=None):
 
     umath_deps = [
             generate_umath_py,
-            join('include', 'numpy', 'npy_math.h'),
-            join('include', 'numpy', 'halffloat.h'),
+            join('include', 'labugr', 'join', 'npy_math.h'),
+            join('include', 'labugr', 'join', 'halffloat.h'),
             join('src', 'multiarray', 'common.h'),
             join('src', 'private', 'templ_common.h.src'),
             join('src', 'umath', 'simd.inc.src'),
@@ -951,5 +951,5 @@ def configuration(parent_package='',top_path=None):
     return config
 
 if __name__ == '__main__':
-    from numpy.distutils.core import setup
+    from labugr.np.distutils.core import setup
     setup(configuration=configuration)

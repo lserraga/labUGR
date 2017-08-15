@@ -4,8 +4,8 @@
 """
 from __future__ import division, absolute_import, print_function
 
-import numpy as np
-from numpy.testing import assert_, run_module_suite
+import labugr.np as np
+from labugr.np.testing import assert_, run_module_suite
 
 
 class TestRealScalars(object):

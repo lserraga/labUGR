@@ -5,8 +5,8 @@ import warnings
 import itertools
 import operator
 
-import numpy as np
-from numpy.testing import (
+import labugr.np as np
+from labugr.np.testing import (
     run_module_suite, assert_, assert_equal, assert_raises,
     assert_almost_equal, assert_allclose, assert_array_equal, IS_PYPY,
     suppress_warnings, dec, _gen_alignment_data,

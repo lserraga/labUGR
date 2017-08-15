@@ -3,8 +3,8 @@ from __future__ import division, absolute_import, print_function
 
 import sys
 
-from numpy.distutils.ccompiler import simple_version_match
-from numpy.distutils.fcompiler import FCompiler, dummy_fortran_file
+from labugr.np.distutils.ccompiler import simple_version_match
+from labugr.np.distutils.fcompiler import FCompiler, dummy_fortran_file
 
 compilers = ['IntelFCompiler', 'IntelVisualFCompiler',
              'IntelItaniumFCompiler', 'IntelItaniumVisualFCompiler',
@@ -215,7 +215,7 @@ class IntelEM64VisualFCompiler(IntelVisualFCompiler):
 if __name__ == '__main__':
     from distutils import log
     log.set_verbosity(2)
-    from numpy.distutils.fcompiler import new_fcompiler
+    from labugr.np.distutils.fcompiler import new_fcompiler
     compiler = new_fcompiler(compiler='intel')
     compiler.customize()
     print(compiler.get_version())

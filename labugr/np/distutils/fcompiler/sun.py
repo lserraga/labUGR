@@ -1,7 +1,7 @@
 from __future__ import division, absolute_import, print_function
 
-from numpy.distutils.ccompiler import simple_version_match
-from numpy.distutils.fcompiler import FCompiler
+from labugr.np.distutils.ccompiler import simple_version_match
+from labugr.np.distutils.fcompiler import FCompiler
 
 compilers = ['SunFCompiler']
 
@@ -49,7 +49,7 @@ class SunFCompiler(FCompiler):
 if __name__ == '__main__':
     from distutils import log
     log.set_verbosity(2)
-    from numpy.distutils.fcompiler import new_fcompiler
+    from labugr.np.distutils.fcompiler import new_fcompiler
     compiler = new_fcompiler(compiler='sun')
     compiler.customize()
     print(compiler.get_version())

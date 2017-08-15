@@ -9,7 +9,7 @@ from __future__ import division, absolute_import, print_function
 import re
 import sys
 
-from numpy.compat import basestring
+from labugr.np.compat import basestring
 from .multiarray import dtype, array, ndarray
 try:
     import ctypes
@@ -129,7 +129,7 @@ def _array_descr(descriptor):
     return result
 
 # Build a new array from the information in a pickle.
-# Note that the name numpy.core._internal._reconstruct is embedded in
+# Note that the name labugr.np.core._internal._reconstruct is embedded in
 # pickles of ndarrays made with NumPy before release 1.0
 # so don't remove the name here, or you'll
 # break backward compatibility.
@@ -212,7 +212,7 @@ def _getintp_ctype():
     if val is not None:
         return val
     if ctypes is None:
-        import numpy as np
+        import labugr.np as np
         val = dummy_ctype(np.intp)
     else:
         char = dtype('p').char

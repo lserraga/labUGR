@@ -4,7 +4,7 @@
 """
 from __future__ import division, absolute_import, print_function
 
-import numpy as np
+import labugr.np as np
 
 # Generic object that can be added, but doesn't do anything else
 class GenericObject(object):

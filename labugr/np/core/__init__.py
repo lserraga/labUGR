@@ -1,7 +1,7 @@
 from __future__ import division, absolute_import, print_function
 
 from .info import __doc__
-from numpy.version import version as __version__
+from labugr.np.version import version as __version__
 
 # disables OpenBLAS affinity setting of the main thread that limits
 # python threads or processes to one core
@@ -17,9 +17,9 @@ try:
 except ImportError as exc:
     msg = """
 Importing the multiarray numpy extension module failed.  Most
-likely you are trying to import a failed build of numpy.
+likely you are trying to import a failed build of labugr.np.
 If you're working with a numpy git repo, try `git clean -xdf` (removes all
-files not under version control).  Otherwise reinstall numpy.
+files not under version control).  Otherwise reinstall labugr.np.
 
 Original error was: %s
 """ % (exc,)
@@ -71,13 +71,13 @@ __all__ += shape_base.__all__
 __all__ += einsumfunc.__all__
 
 
-from numpy.testing import _numpy_tester
+from labugr.np.testing import _numpy_tester
 test = _numpy_tester().test
 bench = _numpy_tester().bench
 
 # Make it possible so that ufuncs can be pickled
 #  Here are the loading and unloading functions
-# The name numpy.core._ufunc_reconstruct must be
+# The name labugr.np.core._ufunc_reconstruct must be
 #   available for unpickling to work.
 def _ufunc_reconstruct(module, name):
     # The `fromlist` kwarg is required to ensure that `mod` points to the

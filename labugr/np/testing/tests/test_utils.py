@@ -5,8 +5,8 @@ import sys
 import os
 import itertools
 
-import numpy as np
-from numpy.testing import (
+import labugr.np as np
+from labugr.np.testing import (
     assert_equal, assert_array_equal, assert_almost_equal,
     assert_array_almost_equal, assert_array_less, build_err_msg,
     raises, assert_raises, assert_warns, assert_no_warnings,

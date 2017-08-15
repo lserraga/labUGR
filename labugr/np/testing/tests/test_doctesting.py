@@ -10,7 +10,7 @@ def check_random_directive():
     <BadExample object at 0x084D05AC>  #random: may vary on your system
     '''
 
-# check the implicit "import numpy as np"
+# check the implicit "import labugr.np as np"
 def check_implicit_np():
     '''
     >>> np.array([1,2,3])
@@ -51,6 +51,6 @@ def check_skip():
 if __name__ == '__main__':
     # Run tests outside numpy test rig
     import nose
-    from numpy.testing.noseclasses import NumpyDoctest
+    from labugr.np.testing.noseclasses import NumpyDoctest
     argv = ['', __file__, '--with-numpydoctest']
     nose.core.TestProgram(argv=argv, addplugins=[NumpyDoctest()])

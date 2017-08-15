@@ -41,10 +41,10 @@ def slow(t):
 
     Examples
     --------
-    The `numpy.testing` module includes ``import decorators as dec``.
+    The `labugr.np.testing` module includes ``import decorators as dec``.
     A test can be decorated as slow like this::
 
-      from numpy.testing import *
+      from labugr.np.testing import *
 
       @dec.slow
       def test_big(self):
@@ -76,7 +76,7 @@ def setastest(tf=True):
     --------
     `setastest` can be used in the following way::
 
-      from numpy.testing import dec
+      from labugr.np.testing import dec
 
       @dec.setastest(False)
       def func_with_test_in_name(arg1, arg2):

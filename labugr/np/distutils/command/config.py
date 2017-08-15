@@ -14,14 +14,14 @@ from distutils import log
 from distutils.file_util import copy_file
 from distutils.ccompiler import CompileError, LinkError
 import distutils
-from numpy.distutils.exec_command import exec_command
-from numpy.distutils.mingw32ccompiler import generate_manifest
-from numpy.distutils.command.autodist import (check_gcc_function_attribute,
+from labugr.np.distutils.exec_command import exec_command
+from labugr.np.distutils.mingw32ccompiler import generate_manifest
+from labugr.np.distutils.command.autodist import (check_gcc_function_attribute,
                                               check_gcc_variable_attribute,
                                               check_inline,
                                               check_restrict,
                                               check_compiler_gcc4)
-from numpy.distutils.compat import get_exception
+from labugr.np.distutils.compat import get_exception
 
 LANG_EXT['f77'] = '.f'
 LANG_EXT['f90'] = '.f90'
@@ -37,7 +37,7 @@ class config(old_config):
 
     def _check_compiler (self):
         old_config._check_compiler(self)
-        from numpy.distutils.fcompiler import FCompiler, new_fcompiler
+        from labugr.np.distutils.fcompiler import FCompiler, new_fcompiler
 
         if sys.platform == 'win32' and (self.compiler.compiler_type in
                                         ('msvc', 'intelw', 'intelemw')):

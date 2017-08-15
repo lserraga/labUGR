@@ -35,7 +35,7 @@ else:
     except ImportError:
         from dummy_thread import get_ident
 
-import numpy as np
+import labugr.np as np
 from . import numerictypes as _nt
 from .umath import maximum, minimum, absolute, not_equal, isnan, isinf
 from .multiarray import (array, format_longfloat, datetime_as_string,
@@ -104,13 +104,13 @@ def set_printoptions(precision=None, threshold=None, edgeitems=None,
 
             - 'bool'
             - 'int'
-            - 'timedelta' : a `numpy.timedelta64`
-            - 'datetime' : a `numpy.datetime64`
+            - 'timedelta' : a `labugr.np.timedelta64`
+            - 'datetime' : a `labugr.np.datetime64`
             - 'float'
             - 'longfloat' : 128-bit floats
             - 'complexfloat'
             - 'longcomplexfloat' : composed of two 128-bit floats
-            - 'numpystr' : types `numpy.string_` and `numpy.unicode_`
+            - 'numpystr' : types `labugr.np.string_` and `labugr.np.unicode_`
             - 'object' : `np.object_` arrays
             - 'str' : all other strings
 
@@ -447,13 +447,13 @@ def array2string(a, max_line_width=None, precision=None,
 
             - 'bool'
             - 'int'
-            - 'timedelta' : a `numpy.timedelta64`
-            - 'datetime' : a `numpy.datetime64`
+            - 'timedelta' : a `labugr.np.timedelta64`
+            - 'datetime' : a `labugr.np.datetime64`
             - 'float'
             - 'longfloat' : 128-bit floats
             - 'complexfloat'
             - 'longcomplexfloat' : composed of two 128-bit floats
-            - 'numpystr' : types `numpy.string_` and `numpy.unicode_`
+            - 'numpystr' : types `labugr.np.string_` and `labugr.np.unicode_`
             - 'str' : all other strings
 
         Other keys that can be used to set a group of types at once are::

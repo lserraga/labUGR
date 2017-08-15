@@ -5,8 +5,8 @@ from __future__ import division, absolute_import, print_function
 import os
 import sys
 
-from numpy.distutils.fcompiler import FCompiler
-from numpy.distutils.compat import get_exception
+from labugr.np.distutils.fcompiler import FCompiler
+from labugr.np.distutils.compat import get_exception
 from distutils.errors import DistutilsPlatformError
 
 compilers = ['CompaqFCompiler']
@@ -74,7 +74,7 @@ class CompaqVisualFCompiler(FCompiler):
     fc_exe = 'DF'
 
     if sys.platform=='win32':
-        from numpy.distutils.msvccompiler import MSVCCompiler
+        from labugr.np.distutils.msvccompiler import MSVCCompiler
 
         try:
             m = MSVCCompiler()
@@ -122,7 +122,7 @@ class CompaqVisualFCompiler(FCompiler):
 if __name__ == '__main__':
     from distutils import log
     log.set_verbosity(2)
-    from numpy.distutils.fcompiler import new_fcompiler
+    from labugr.np.distutils.fcompiler import new_fcompiler
     compiler = new_fcompiler(compiler='compaq')
     compiler.customize()
     print(compiler.get_version())

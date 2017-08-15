@@ -4,9 +4,9 @@ import os
 import re
 import sys
 
-from numpy.distutils.fcompiler import FCompiler
-from numpy.distutils.exec_command import exec_command, find_executable
-from numpy.distutils.misc_util import make_temp_file
+from labugr.np.distutils.fcompiler import FCompiler
+from labugr.np.distutils.exec_command import exec_command, find_executable
+from labugr.np.distutils.misc_util import make_temp_file
 from distutils import log
 
 compilers = ['IBMFCompiler']

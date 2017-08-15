@@ -9,8 +9,8 @@ from __future__ import division, absolute_import, print_function
 
 __all__ = ['MachAr']
 
-from numpy.core.fromnumeric import any
-from numpy.core.numeric import errstate
+from labugr.np.core.fromnumeric import any
+from labugr.np.core.numeric import errstate
 
 # Need to speed this up...especially for longfloat
 

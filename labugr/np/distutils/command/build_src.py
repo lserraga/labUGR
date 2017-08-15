@@ -16,13 +16,13 @@ from distutils.errors import DistutilsError, DistutilsSetupError
 
 # this import can't be done here, as it uses numpy stuff only available
 # after it's installed
-#import numpy.f2py
-from numpy.distutils import log
-from numpy.distutils.misc_util import (
+#import labugr.np.f2py
+from labugr.np.distutils import log
+from labugr.np.distutils.misc_util import (
     fortran_ext_match, appendpath, is_string, is_sequence, get_cmd
     )
-from numpy.distutils.from_template import process_file as process_f_file
-from numpy.distutils.conv_template import process_file as process_c_file
+from labugr.np.distutils.from_template import process_file as process_f_file
+from labugr.np.distutils.conv_template import process_file as process_c_file
 
 def subst_vars(target, source, d):
     """Substitute any occurrence of @foo@ by d['foo'] from source file into
@@ -171,7 +171,7 @@ class build_src(build_ext.build_ext):
         if not self.data_files:
             return
         log.info('building data_files sources')
-        from numpy.distutils.misc_util import get_data_files
+        from labugr.np.distutils.misc_util import get_data_files
         new_data_files = []
         for data in self.data_files:
             if isinstance(data, str):
@@ -539,8 +539,8 @@ class build_src(build_ext.build_ext):
             if (self.force or newer_group(depends, target_file, 'newer')) \
                    and not skip_f2py:
                 log.info("f2py: %s" % (source))
-                import numpy.f2py
-                numpy.f2py.run_main(f2py_options
+                import labugr.np.f2py
+                labugr.np.f2py.run_main(f2py_options
                                     + ['--build-dir', target_dir, source])
             else:
                 log.debug("  skipping '%s' f2py interface (up-to-date)" % (source))
@@ -558,8 +558,8 @@ class build_src(build_ext.build_ext):
                    and not skip_f2py:
                 log.info("f2py:> %s" % (target_file))
                 self.mkpath(target_dir)
-                import numpy.f2py
-                numpy.f2py.run_main(f2py_options + ['--lower',
+                import labugr.np.f2py
+                labugr.np.f2py.run_main(f2py_options + ['--lower',
                                                 '--build-dir', target_dir]+\
                                 ['-m', ext_name]+f_sources)
             else:
@@ -579,8 +579,8 @@ class build_src(build_ext.build_ext):
             extension.include_dirs.append(build_dir)
 
         if not skip_f2py:
-            import numpy.f2py
-            d = os.path.dirname(numpy.f2py.__file__)
+            import labugr.np.f2py
+            d = os.path.dirname(labugr.np.f2py.__file__)
             source_c = os.path.join(d, 'src', 'fortranobject.c')
             source_h = os.path.join(d, 'src', 'fortranobject.h')
             if newer(source_c, target_c) or newer(source_h, target_h):

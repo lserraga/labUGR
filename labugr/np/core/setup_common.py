@@ -6,7 +6,7 @@ import warnings
 import copy
 import binascii
 
-from numpy.distutils.misc_util import mingw32
+from labugr.np.distutils.misc_util import mingw32
 
 
 #-------------------

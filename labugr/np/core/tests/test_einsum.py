@@ -1,7 +1,7 @@
 from __future__ import division, absolute_import, print_function
 
-import numpy as np
-from numpy.testing import (
+import labugr.np as np
+from labugr.np.testing import (
     run_module_suite, assert_, assert_equal, assert_array_equal,
     assert_almost_equal, assert_raises, suppress_warnings
     )

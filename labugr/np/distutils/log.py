@@ -10,7 +10,7 @@ if sys.version_info[0] < 3:
     from .misc_util import (red_text, default_text, cyan_text, green_text,
             is_sequence, is_string)
 else:
-    from numpy.distutils.misc_util import (red_text, default_text, cyan_text,
+    from labugr.np.distutils.misc_util import (red_text, default_text, cyan_text,
             green_text, is_sequence, is_string)
 
 

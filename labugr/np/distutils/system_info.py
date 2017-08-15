@@ -145,12 +145,12 @@ import distutils.sysconfig
 from distutils import log
 from distutils.util import get_platform
 
-from numpy.distutils.exec_command import (
+from labugr.np.distutils.exec_command import (
     find_executable, exec_command, get_pythonexe)
-from numpy.distutils.misc_util import (is_sequence, is_string,
+from labugr.np.distutils.misc_util import (is_sequence, is_string,
                                        get_shared_lib_extension)
-from numpy.distutils.command.config import config as cmd_config
-from numpy.distutils.compat import get_exception
+from labugr.np.distutils.command.config import config as cmd_config
+from labugr.np.distutils.compat import get_exception
 import distutils.ccompiler
 import tempfile
 import shutil
@@ -442,7 +442,7 @@ class DJBFFTNotFoundError(NotFoundError):
 
 class NumericNotFoundError(NotFoundError):
     """
-    Numeric (http://www.numpy.org/) module not found.
+    Numeric (http://www.labugr.np.org/) module not found.
     Get it from above location, install it, and retry setup.py."""
 
 
@@ -562,7 +562,7 @@ class system_info(object):
 
     def get_info(self, notfound_action=0):
         """ Return a dictonary with items that are compatible
-            with numpy.distutils.setup keyword arguments.
+            with labugr.np.distutils.setup keyword arguments.
         """
         flag = 0
         if not self.has_info():
@@ -1997,7 +1997,7 @@ class numerix_info(system_info):
         which = None, None
         if os.getenv("NUMERIX"):
             which = os.getenv("NUMERIX"), "environment var"
-        # If all the above fail, default to numpy.
+        # If all the above fail, default to labugr.np.
         if which[0] is None:
             which = "numpy", "defaulted"
             try:
@@ -2030,7 +2030,7 @@ class numerix_info(system_info):
 class f2py_info(system_info):
     def calc_info(self):
         try:
-            import numpy.f2py as f2py
+            import labugr.np.f2py as f2py
         except ImportError:
             return
         f2py_dir = os.path.join(os.path.dirname(f2py.__file__), 'src')

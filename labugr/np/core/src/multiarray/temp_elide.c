@@ -37,7 +37,7 @@
  * This is handled by checking the call stack to verify that we have been
  * called directly from the cpython interpreter.
  * To achieve this we check that all functions in the callstack until the
- * cpython frame evaluation function are located in cpython or numpy.
+ * cpython frame evaluation function are located in cpython or labugr.np.
  * This is an expensive operation so temporaries are only avoided for rather
  * large arrays.
  *

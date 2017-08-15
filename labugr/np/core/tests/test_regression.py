@@ -11,14 +11,14 @@ from os import path
 from io import BytesIO
 from itertools import chain
 
-import numpy as np
-from numpy.testing import (
+import labugr.np as np
+from labugr.np.testing import (
         run_module_suite, assert_, assert_equal, IS_PYPY,
         assert_almost_equal, assert_array_equal, assert_array_almost_equal,
         assert_raises, assert_warns, dec, suppress_warnings,
         _assert_valid_refcount, HAS_REFCOUNT,
         )
-from numpy.compat import asbytes, asunicode, long
+from labugr.np.compat import asbytes, asunicode, long
 
 
 class TestRegression(object):
@@ -162,7 +162,7 @@ class TestRegression(object):
     @dec.knownfailureif((sys.version_info[0] >= 3) or
                         (sys.platform == "win32" and
                          platform.architecture()[0] == "64bit"),
-                        "numpy.intp('0xff', 16) not supported on Py3, "
+                        "labugr.np.intp('0xff', 16) not supported on Py3, "
                         "as it does not inherit from Python int")
     def test_intp(self):
         # Ticket #99
@@ -414,18 +414,18 @@ class TestRegression(object):
         test_data = [
             # (original, py2_pickle)
             (np.unicode_('\u6f2c'),
-             b"cnumpy.core.multiarray\nscalar\np0\n(cnumpy\ndtype\np1\n"
+             b"clabugr.np.core.multiarray\nscalar\np0\n(cnumpy\ndtype\np1\n"
              b"(S'U1'\np2\nI0\nI1\ntp3\nRp4\n(I3\nS'<'\np5\nNNNI4\nI4\n"
              b"I0\ntp6\nbS',o\\x00\\x00'\np7\ntp8\nRp9\n."),
 
             (np.array([9e123], dtype=np.float64),
-             b"cnumpy.core.multiarray\n_reconstruct\np0\n(cnumpy\nndarray\n"
+             b"clabugr.np.core.multiarray\n_reconstruct\np0\n(cnumpy\nndarray\n"
              b"p1\n(I0\ntp2\nS'b'\np3\ntp4\nRp5\n(I1\n(I1\ntp6\ncnumpy\ndtype\n"
              b"p7\n(S'f8'\np8\nI0\nI1\ntp9\nRp10\n(I3\nS'<'\np11\nNNNI-1\nI-1\n"
              b"I0\ntp12\nbI00\nS'O\\x81\\xb7Z\\xaa:\\xabY'\np13\ntp14\nb."),
 
             (np.array([(9e123,)], dtype=[('name', float)]),
-             b"cnumpy.core.multiarray\n_reconstruct\np0\n(cnumpy\nndarray\np1\n"
+             b"clabugr.np.core.multiarray\n_reconstruct\np0\n(cnumpy\nndarray\np1\n"
              b"(I0\ntp2\nS'b'\np3\ntp4\nRp5\n(I1\n(I1\ntp6\ncnumpy\ndtype\np7\n"
              b"(S'V8'\np8\nI0\nI1\ntp9\nRp10\n(I3\nS'|'\np11\nN(S'name'\np12\ntp13\n"
              b"(dp14\ng12\n(g7\n(S'f8'\np15\nI0\nI1\ntp16\nRp17\n(I3\nS'<'\np18\nNNNI-1\n"
@@ -1074,7 +1074,7 @@ class TestRegression(object):
     def test_compress_small_type(self):
         # Ticket #789, changeset 5217.
         # compress with out argument segfaulted if cannot cast safely
-        import numpy as np
+        import labugr.np as np
         a = np.array([[1, 2], [3, 4]])
         b = np.zeros((2, 1), dtype=np.single)
         try:
@@ -1799,7 +1799,7 @@ class TestRegression(object):
 
     def test_ticket_1770(self):
         "Should not segfault on python 3k"
-        import numpy as np
+        import labugr.np as np
         try:
             a = np.zeros((1,), dtype=[('f1', 'f')])
             a['f1'] = 1
@@ -1841,8 +1841,8 @@ class TestRegression(object):
         # Check that unpickling hacks in Py3 that support
         # encoding='latin1' work correctly.
 
-        # Python2 output for pickle.dumps(numpy.array([129], dtype='b'))
-        data = (b"cnumpy.core.multiarray\n_reconstruct\np0\n(cnumpy\nndarray\np1\n(I0\n"
+        # Python2 output for pickle.dumps(labugr.np.array([129], dtype='b'))
+        data = (b"clabugr.np.core.multiarray\n_reconstruct\np0\n(cnumpy\nndarray\np1\n(I0\n"
                 b"tp2\nS'b'\np3\ntp4\nRp5\n(I1\n(I1\ntp6\ncnumpy\ndtype\np7\n(S'i1'\np8\n"
                 b"I0\nI1\ntp9\nRp10\n(I3\nS'|'\np11\nNNNI-1\nI-1\nI0\ntp12\nbI00\nS'\\x81'\n"
                 b"p13\ntp14\nb.")
@@ -1861,19 +1861,19 @@ class TestRegression(object):
         datas = [
             # (original, python2_pickle, koi8r_validity)
             (np.unicode_('\u6bd2'),
-             (b"cnumpy.core.multiarray\nscalar\np0\n(cnumpy\ndtype\np1\n"
+             (b"clabugr.np.core.multiarray\nscalar\np0\n(cnumpy\ndtype\np1\n"
               b"(S'U1'\np2\nI0\nI1\ntp3\nRp4\n(I3\nS'<'\np5\nNNNI4\nI4\nI0\n"
               b"tp6\nbS'\\xd2k\\x00\\x00'\np7\ntp8\nRp9\n."),
              'invalid'),
 
             (np.float64(9e123),
-             (b"cnumpy.core.multiarray\nscalar\np0\n(cnumpy\ndtype\np1\n(S'f8'\n"
+             (b"clabugr.np.core.multiarray\nscalar\np0\n(cnumpy\ndtype\np1\n(S'f8'\n"
               b"p2\nI0\nI1\ntp3\nRp4\n(I3\nS'<'\np5\nNNNI-1\nI-1\nI0\ntp6\n"
               b"bS'O\\x81\\xb7Z\\xaa:\\xabY'\np7\ntp8\nRp9\n."),
              'invalid'),
 
             (np.bytes_(b'\x9c'),  # different 8-bit code point in KOI8-R vs latin1
-             (b"cnumpy.core.multiarray\nscalar\np0\n(cnumpy\ndtype\np1\n(S'S1'\np2\n"
+             (b"clabugr.np.core.multiarray\nscalar\np0\n(cnumpy\ndtype\np1\n(S'S1'\np2\n"
               b"I0\nI1\ntp3\nRp4\n(I3\nS'|'\np5\nNNNI1\nI1\nI0\ntp6\nbS'\\x9c'\np7\n"
               b"tp8\nRp9\n."),
              'different'),
@@ -2038,7 +2038,7 @@ class TestRegression(object):
         assert_(c.flags.f_contiguous)
 
     def test_fortran_order_buffer(self):
-        import numpy as np
+        import labugr.np as np
         a = np.array([['Hello', 'Foob']], dtype='U5', order='F')
         arr = np.ndarray(shape=[1, 2, 5], dtype='U1', buffer=a)
         arr2 = np.array([[[u'H', u'e', u'l', u'l', u'o'],

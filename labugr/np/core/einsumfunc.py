@@ -4,8 +4,8 @@ Implementation of optimized einsum.
 """
 from __future__ import division, absolute_import, print_function
 
-from numpy.core.multiarray import c_einsum
-from numpy.core.numeric import asarray, asanyarray, result_type, tensordot, dot
+from labugr.np.core.multiarray import c_einsum
+from labugr.np.core.numeric import asarray, asanyarray, result_type, tensordot, dot
 
 __all__ = ['einsum', 'einsum_path']
 

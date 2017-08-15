@@ -9,9 +9,9 @@ from __future__ import division, absolute_import, print_function
 
 import os
 
-from numpy.distutils.cpuinfo import cpu
-from numpy.distutils.fcompiler import FCompiler, dummy_fortran_file
-from numpy.distutils.misc_util import cyg2win32
+from labugr.np.distutils.cpuinfo import cpu
+from labugr.np.distutils.fcompiler import FCompiler, dummy_fortran_file
+from labugr.np.distutils.misc_util import cyg2win32
 
 compilers = ['AbsoftFCompiler']
 
@@ -154,7 +154,7 @@ class AbsoftFCompiler(FCompiler):
 if __name__ == '__main__':
     from distutils import log
     log.set_verbosity(2)
-    from numpy.distutils.fcompiler import new_fcompiler
+    from labugr.np.distutils.fcompiler import new_fcompiler
     compiler = new_fcompiler(compiler='absoft')
     compiler.customize()
     print(compiler.get_version())

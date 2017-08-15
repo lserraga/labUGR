@@ -1,11 +1,11 @@
 from __future__ import division, absolute_import, print_function
 
-from numpy.testing import assert_, run_module_suite
+from labugr.np.testing import assert_, run_module_suite
 
 import numbers
 
-import numpy as np
-from numpy.core.numerictypes import sctypes
+import labugr.np as np
+from labugr.np.core.numerictypes import sctypes
 
 class TestABC(object):
     def test_abstract(self):

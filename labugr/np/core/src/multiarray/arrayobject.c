@@ -551,9 +551,9 @@ array_might_be_written(PyArrayObject *obj)
 {
     const char *msg =
         "Numpy has detected that you (may be) writing to an array returned\n"
-        "by numpy.diagonal or by selecting multiple fields in a structured\n"
+        "by labugr.np.diagonal or by selecting multiple fields in a structured\n"
         "array. This code will likely break in a future numpy release --\n"
-        "see numpy.diagonal or arrays.indexing reference docs for details.\n"
+        "see labugr.np.diagonal or arrays.indexing reference docs for details.\n"
         "The quick fix is to make an explicit copy (e.g., do\n"
         "arr.diagonal().copy() or arr[['f0','f1']].copy()).";
     if (PyArray_FLAGS(obj) & NPY_ARRAY_WARN_ON_WRITE) {
@@ -1565,7 +1565,7 @@ NPY_NO_EXPORT PyTypeObject PyArray_Type = {
     PyObject_HEAD_INIT(NULL)
     0,                                          /* ob_size */
 #endif
-    "numpy.ndarray",                            /* tp_name */
+    "labugr.np.ndarray",                            /* tp_name */
     NPY_SIZEOF_PYARRAYOBJECT,                   /* tp_basicsize */
     0,                                          /* tp_itemsize */
     /* methods */

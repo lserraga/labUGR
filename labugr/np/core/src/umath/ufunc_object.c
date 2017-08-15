@@ -5284,7 +5284,7 @@ ufunc_get_doc(PyUFuncObject *ufunc)
     PyObject *doc;
 
     npy_cache_import(
-        "numpy.core._internal",
+        "labugr.np.core._internal",
         "_ufunc_doc_signature_formatter",
         &_sig_formatter);
 
@@ -5445,7 +5445,7 @@ NPY_NO_EXPORT PyTypeObject PyUFunc_Type = {
     PyObject_HEAD_INIT(NULL)
     0,                                          /* ob_size */
 #endif
-    "numpy.ufunc",                              /* tp_name */
+    "labugr.np.ufunc",                              /* tp_name */
     sizeof(PyUFuncObject),                      /* tp_basicsize */
     0,                                          /* tp_itemsize */
     /* methods */

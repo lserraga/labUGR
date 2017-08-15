@@ -4,8 +4,8 @@
 from __future__ import division, absolute_import, print_function
 
 from distutils.command.build_scripts import build_scripts as old_build_scripts
-from numpy.distutils import log
-from numpy.distutils.misc_util import is_string
+from labugr.np.distutils import log
+from labugr.np.distutils.misc_util import is_string
 
 class build_scripts(old_build_scripts):
 
@@ -47,5 +47,5 @@ class build_scripts(old_build_scripts):
         return old_build_scripts.run(self)
 
     def get_source_files(self):
-        from numpy.distutils.misc_util import get_script_files
+        from labugr.np.distutils.misc_util import get_script_files
         return get_script_files(self.scripts)

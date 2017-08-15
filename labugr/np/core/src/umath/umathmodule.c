@@ -201,7 +201,7 @@ ufunc_frompyfunc(PyObject *NPY_UNUSED(dummy), PyObject *args, PyObject *NPY_UNUS
     return (PyObject *)self;
 }
 
-/* docstring in numpy.add_newdocs.py */
+/* docstring in labugr.np.add_newdocs.py */
 static PyObject *
 add_newdoc_ufunc(PyObject *NPY_UNUSED(dummy), PyObject *args)
 {

@@ -671,7 +671,7 @@ NPY_NO_EXPORT PyTypeObject PyArrayFlags_Type = {
     PyObject_HEAD_INIT(NULL)
     0,                                          /* ob_size */
 #endif
-    "numpy.flagsobj",
+    "labugr.np.flagsobj",
     sizeof(PyArrayFlagsObject),
     0,                                          /* tp_itemsize */
     /* methods */

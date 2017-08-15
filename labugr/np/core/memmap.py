@@ -1,8 +1,8 @@
 from __future__ import division, absolute_import, print_function
 
-import numpy as np
+import labugr.np as np
 from .numeric import uint8, ndarray, dtype
-from numpy.compat import long, basestring, is_pathlib_path
+from labugr.np.compat import long, basestring, is_pathlib_path
 
 __all__ = ['memmap']
 
@@ -104,7 +104,7 @@ class memmap(ndarray):
     Notes
     -----
     The memmap object can be used anywhere an ndarray is accepted.
-    Given a memmap ``fp``, ``isinstance(fp, numpy.ndarray)`` returns
+    Given a memmap ``fp``, ``isinstance(fp, labugr.np.ndarray)`` returns
     ``True``.
     
     Memory-mapped files cannot be larger than 2GB on 32-bit systems.

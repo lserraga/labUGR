@@ -581,7 +581,7 @@ npyiter_convert_op_axes(PyObject *op_axes_in, npy_intp nop,
                     Py_DECREF(a);
                     return 0;
                 }
-                /* numpy.newaxis is None */
+                /* labugr.np.newaxis is None */
                 if (v == Py_None) {
                     op_axes[iop][idim] = -1;
                 }
@@ -2448,7 +2448,7 @@ NPY_NO_EXPORT PyTypeObject NpyIter_Type = {
     PyObject_HEAD_INIT(NULL)
     0,                                          /* ob_size */
 #endif
-    "numpy.nditer",                             /* tp_name */
+    "labugr.np.nditer",                             /* tp_name */
     sizeof(NewNpyArrayIterObject),              /* tp_basicsize */
     0,                                          /* tp_itemsize */
     /* methods */

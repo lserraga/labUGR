@@ -857,7 +857,7 @@ overflow_check:
   #if (NPY_SIZEOF_LONGLONG > NPY_SIZEOF_INTP)
     if ((long_value < NPY_MIN_INTP) || (long_value > NPY_MAX_INTP)) {
         PyErr_SetString(PyExc_OverflowError,
-                "Python int too large to convert to C numpy.intp");
+                "Python int too large to convert to C labugr.np.intp");
         return -1;
     }
   #endif
@@ -865,7 +865,7 @@ overflow_check:
   #if (NPY_SIZEOF_LONG > NPY_SIZEOF_INTP)
     if ((long_value < NPY_MIN_INTP) || (long_value > NPY_MAX_INTP)) {
         PyErr_SetString(PyExc_OverflowError,
-                "Python int too large to convert to C numpy.intp");
+                "Python int too large to convert to C labugr.np.intp");
         return -1;
     }
   #endif

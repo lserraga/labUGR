@@ -3,9 +3,9 @@ from __future__ import division, absolute_import, print_function
 import pickle
 
 import numpy
-import numpy as np
+import labugr.np as np
 import datetime
-from numpy.testing import (
+from labugr.np.testing import (
     run_module_suite, assert_, assert_equal, assert_raises,
     assert_warns, dec, suppress_warnings
 )
@@ -146,10 +146,10 @@ class TestDateTime(object):
         # Some basic strings and repr
         assert_equal(str(np.datetime64('NaT')), 'NaT')
         assert_equal(repr(np.datetime64('NaT')),
-                     "numpy.datetime64('NaT')")
+                     "labugr.np.datetime64('NaT')")
         assert_equal(str(np.datetime64('2011-02')), '2011-02')
         assert_equal(repr(np.datetime64('2011-02')),
-                     "numpy.datetime64('2011-02')")
+                     "labugr.np.datetime64('2011-02')")
 
         # None gets constructed as NaT
         assert_equal(np.datetime64(None), np.datetime64('NaT'))
@@ -264,12 +264,12 @@ class TestDateTime(object):
         # Some basic strings and repr
         assert_equal(str(np.timedelta64('NaT')), 'NaT')
         assert_equal(repr(np.timedelta64('NaT')),
-                     "numpy.timedelta64('NaT')")
+                     "labugr.np.timedelta64('NaT')")
         assert_equal(str(np.timedelta64(3, 's')), '3 seconds')
         assert_equal(repr(np.timedelta64(-3, 's')),
-                     "numpy.timedelta64(-3,'s')")
+                     "labugr.np.timedelta64(-3,'s')")
         assert_equal(repr(np.timedelta64(12)),
-                     "numpy.timedelta64(12)")
+                     "labugr.np.timedelta64(12)")
 
         # Construction from an integer produces generic units
         assert_equal(np.timedelta64(12).dtype, np.dtype('m8'))
@@ -642,11 +642,11 @@ class TestDateTime(object):
     def test_cast_overflow(self):
         # gh-4486
         def cast():
-            numpy.datetime64("1971-01-01 00:00:00.000000000000000").astype("<M8[D]")
+            labugr.np.datetime64("1971-01-01 00:00:00.000000000000000").astype("<M8[D]")
         assert_raises(OverflowError, cast)
 
         def cast2():
-            numpy.datetime64("2014").astype("<M8[fs]")
+            labugr.np.datetime64("2014").astype("<M8[fs]")
         assert_raises(OverflowError, cast2)
 
     def test_pyobject_roundtrip(self):

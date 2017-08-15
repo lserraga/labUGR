@@ -3,9 +3,9 @@ from __future__ import division, absolute_import, print_function
 import pickle
 import sys
 
-import numpy as np
-from numpy.core.test_rational import rational
-from numpy.testing import (
+import labugr.np as np
+from labugr.np.core.test_rational import rational
+from labugr.np.testing import (
     run_module_suite, assert_, assert_equal, assert_raises,
     dec
 )

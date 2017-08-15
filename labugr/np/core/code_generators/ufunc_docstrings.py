@@ -2,10 +2,10 @@
 Docstrings for generated ufuncs
 
 The syntax is designed to look like the function add_newdoc is being
-called from numpy.lib, but in this file  add_newdoc puts the docstrings
+called from labugr.np.lib, but in this file  add_newdoc puts the docstrings
 in a dictionary. This dictionary is used in
 numpy/core/code_generators/generate_umath.py to generate the docstrings
-for the ufuncs in numpy.core at the C level when the ufuncs are created
+for the ufuncs in labugr.np.core at the C level when the ufuncs are created
 at compile time.
 
 """
@@ -39,7 +39,7 @@ def add_newdoc(place, name, doc):
     docdict['.'.join((place, name))] = doc
 
 
-add_newdoc('numpy.core.umath', 'absolute',
+add_newdoc('labugr.np.core.umath', 'absolute',
     """
     Calculate the absolute value element-wise.
 
@@ -80,7 +80,7 @@ add_newdoc('numpy.core.umath', 'absolute',
 
     """)
 
-add_newdoc('numpy.core.umath', 'add',
+add_newdoc('labugr.np.core.umath', 'add',
     """
     Add arguments element-wise.
 
@@ -115,7 +115,7 @@ add_newdoc('numpy.core.umath', 'add',
 
     """)
 
-add_newdoc('numpy.core.umath', 'arccos',
+add_newdoc('labugr.np.core.umath', 'arccos',
     """
     Trigonometric inverse cosine, element-wise.
 
@@ -178,7 +178,7 @@ add_newdoc('numpy.core.umath', 'arccos',
 
     """)
 
-add_newdoc('numpy.core.umath', 'arccosh',
+add_newdoc('labugr.np.core.umath', 'arccosh',
     """
     Inverse hyperbolic cosine, element-wise.
 
@@ -228,7 +228,7 @@ add_newdoc('numpy.core.umath', 'arccosh',
 
     """)
 
-add_newdoc('numpy.core.umath', 'arcsin',
+add_newdoc('labugr.np.core.umath', 'arcsin',
     """
     Inverse sine, element-wise.
 
@@ -282,7 +282,7 @@ add_newdoc('numpy.core.umath', 'arcsin',
 
     """)
 
-add_newdoc('numpy.core.umath', 'arcsinh',
+add_newdoc('labugr.np.core.umath', 'arcsinh',
     """
     Inverse hyperbolic sine element-wise.
 
@@ -327,7 +327,7 @@ add_newdoc('numpy.core.umath', 'arcsinh',
 
     """)
 
-add_newdoc('numpy.core.umath', 'arctan',
+add_newdoc('labugr.np.core.umath', 'arctan',
     """
     Trigonometric inverse tangent, element-wise.
 
@@ -393,7 +393,7 @@ add_newdoc('numpy.core.umath', 'arctan',
 
     """)
 
-add_newdoc('numpy.core.umath', 'arctan2',
+add_newdoc('labugr.np.core.umath', 'arctan2',
     """
     Element-wise arc tangent of ``x1/x2`` choosing the quadrant correctly.
 
@@ -471,12 +471,12 @@ add_newdoc('numpy.core.umath', 'arctan2',
 
     """)
 
-add_newdoc('numpy.core.umath', '_arg',
+add_newdoc('labugr.np.core.umath', '_arg',
     """
     DO NOT USE, ONLY FOR TESTING
     """)
 
-add_newdoc('numpy.core.umath', 'arctanh',
+add_newdoc('labugr.np.core.umath', 'arctanh',
     """
     Inverse hyperbolic tangent element-wise.
 
@@ -525,7 +525,7 @@ add_newdoc('numpy.core.umath', 'arctanh',
 
     """)
 
-add_newdoc('numpy.core.umath', 'bitwise_and',
+add_newdoc('labugr.np.core.umath', 'bitwise_and',
     """
     Compute the bit-wise AND of two arrays element-wise.
 
@@ -577,7 +577,7 @@ add_newdoc('numpy.core.umath', 'bitwise_and',
 
     """)
 
-add_newdoc('numpy.core.umath', 'bitwise_or',
+add_newdoc('labugr.np.core.umath', 'bitwise_or',
     """
     Compute the bit-wise OR of two arrays element-wise.
 
@@ -634,7 +634,7 @@ add_newdoc('numpy.core.umath', 'bitwise_or',
 
     """)
 
-add_newdoc('numpy.core.umath', 'bitwise_xor',
+add_newdoc('labugr.np.core.umath', 'bitwise_xor',
     """
     Compute the bit-wise XOR of two arrays element-wise.
 
@@ -684,7 +684,7 @@ add_newdoc('numpy.core.umath', 'bitwise_xor',
 
     """)
 
-add_newdoc('numpy.core.umath', 'ceil',
+add_newdoc('labugr.np.core.umath', 'ceil',
     """
     Return the ceiling of the input, element-wise.
 
@@ -714,7 +714,7 @@ add_newdoc('numpy.core.umath', 'ceil',
 
     """)
 
-add_newdoc('numpy.core.umath', 'trunc',
+add_newdoc('labugr.np.core.umath', 'trunc',
     """
     Return the truncated value of the input, element-wise.
 
@@ -749,7 +749,7 @@ add_newdoc('numpy.core.umath', 'trunc',
 
     """)
 
-add_newdoc('numpy.core.umath', 'conjugate',
+add_newdoc('labugr.np.core.umath', 'conjugate',
     """
     Return the complex conjugate, element-wise.
 
@@ -779,7 +779,7 @@ add_newdoc('numpy.core.umath', 'conjugate',
 
     """)
 
-add_newdoc('numpy.core.umath', 'cos',
+add_newdoc('labugr.np.core.umath', 'cos',
     """
     Cosine element-wise.
 
@@ -822,7 +822,7 @@ add_newdoc('numpy.core.umath', 'cos',
 
     """)
 
-add_newdoc('numpy.core.umath', 'cosh',
+add_newdoc('labugr.np.core.umath', 'cosh',
     """
     Hyperbolic cosine, element-wise.
 
@@ -853,7 +853,7 @@ add_newdoc('numpy.core.umath', 'cosh',
 
     """)
 
-add_newdoc('numpy.core.umath', 'degrees',
+add_newdoc('labugr.np.core.umath', 'degrees',
     """
     Convert angles from radians to degrees.
 
@@ -889,7 +889,7 @@ add_newdoc('numpy.core.umath', 'degrees',
 
     """)
 
-add_newdoc('numpy.core.umath', 'rad2deg',
+add_newdoc('labugr.np.core.umath', 'rad2deg',
     """
     Convert angles from radians to degrees.
 
@@ -922,7 +922,7 @@ add_newdoc('numpy.core.umath', 'rad2deg',
 
     """)
 
-add_newdoc('numpy.core.umath', 'heaviside',
+add_newdoc('labugr.np.core.umath', 'heaviside',
     """
     Compute the Heaviside step function.
 
@@ -964,7 +964,7 @@ add_newdoc('numpy.core.umath', 'heaviside',
     array([ 0.,  1.,  1.])
     """)
 
-add_newdoc('numpy.core.umath', 'divide',
+add_newdoc('labugr.np.core.umath', 'divide',
     """
     Divide arguments element-wise.
 
@@ -1035,7 +1035,7 @@ add_newdoc('numpy.core.umath', 'divide',
 
     """)
 
-add_newdoc('numpy.core.umath', 'equal',
+add_newdoc('labugr.np.core.umath', 'equal',
     """
     Return (x1 == x2) element-wise.
 
@@ -1067,7 +1067,7 @@ add_newdoc('numpy.core.umath', 'equal',
 
     """)
 
-add_newdoc('numpy.core.umath', 'exp',
+add_newdoc('labugr.np.core.umath', 'exp',
     """
     Calculate the exponential of all elements in the input array.
 
@@ -1131,7 +1131,7 @@ add_newdoc('numpy.core.umath', 'exp',
 
     """)
 
-add_newdoc('numpy.core.umath', 'exp2',
+add_newdoc('labugr.np.core.umath', 'exp2',
     """
     Calculate `2**p` for all `p` in the input array.
 
@@ -1163,7 +1163,7 @@ add_newdoc('numpy.core.umath', 'exp2',
 
     """)
 
-add_newdoc('numpy.core.umath', 'expm1',
+add_newdoc('labugr.np.core.umath', 'expm1',
     """
     Calculate ``exp(x) - 1`` for all elements in the array.
 
@@ -1201,7 +1201,7 @@ add_newdoc('numpy.core.umath', 'expm1',
 
     """)
 
-add_newdoc('numpy.core.umath', 'fabs',
+add_newdoc('labugr.np.core.umath', 'fabs',
     """
     Compute the absolute values element-wise.
 
@@ -1234,7 +1234,7 @@ add_newdoc('numpy.core.umath', 'fabs',
 
     """)
 
-add_newdoc('numpy.core.umath', 'floor',
+add_newdoc('labugr.np.core.umath', 'floor',
     """
     Return the floor of the input, element-wise.
 
@@ -1270,7 +1270,7 @@ add_newdoc('numpy.core.umath', 'floor',
 
     """)
 
-add_newdoc('numpy.core.umath', 'floor_divide',
+add_newdoc('labugr.np.core.umath', 'floor_divide',
     """
     Return the largest integer smaller or equal to the division of the inputs.
     It is equivalent to the Python ``//`` operator and pairs with the
@@ -1308,7 +1308,7 @@ add_newdoc('numpy.core.umath', 'floor_divide',
 
     """)
 
-add_newdoc('numpy.core.umath', 'fmod',
+add_newdoc('labugr.np.core.umath', 'fmod',
     """
     Return the element-wise remainder of division.
 
@@ -1364,7 +1364,7 @@ add_newdoc('numpy.core.umath', 'fmod',
 
     """)
 
-add_newdoc('numpy.core.umath', 'greater',
+add_newdoc('labugr.np.core.umath', 'greater',
     """
     Return the truth value of (x1 > x2) element-wise.
 
@@ -1400,7 +1400,7 @@ add_newdoc('numpy.core.umath', 'greater',
 
     """)
 
-add_newdoc('numpy.core.umath', 'greater_equal',
+add_newdoc('labugr.np.core.umath', 'greater_equal',
     """
     Return the truth value of (x1 >= x2) element-wise.
 
@@ -1428,7 +1428,7 @@ add_newdoc('numpy.core.umath', 'greater_equal',
 
     """)
 
-add_newdoc('numpy.core.umath', 'hypot',
+add_newdoc('labugr.np.core.umath', 'hypot',
     """
     Given the "legs" of a right triangle, return its hypotenuse.
 
@@ -1464,7 +1464,7 @@ add_newdoc('numpy.core.umath', 'hypot',
 
     """)
 
-add_newdoc('numpy.core.umath', 'invert',
+add_newdoc('labugr.np.core.umath', 'invert',
     """
     Compute bit-wise inversion, or bit-wise NOT, element-wise.
 
@@ -1545,7 +1545,7 @@ add_newdoc('numpy.core.umath', 'invert',
 
     """)
 
-add_newdoc('numpy.core.umath', 'isfinite',
+add_newdoc('labugr.np.core.umath', 'isfinite',
     """
     Test element-wise for finiteness (not infinity or not Not a Number).
 
@@ -1610,7 +1610,7 @@ add_newdoc('numpy.core.umath', 'isfinite',
 
     """)
 
-add_newdoc('numpy.core.umath', 'isinf',
+add_newdoc('labugr.np.core.umath', 'isinf',
     """
     Test element-wise for positive or negative infinity.
 
@@ -1672,7 +1672,7 @@ add_newdoc('numpy.core.umath', 'isinf',
 
     """)
 
-add_newdoc('numpy.core.umath', 'isnan',
+add_newdoc('labugr.np.core.umath', 'isnan',
     """
     Test element-wise for NaN and return result as a boolean array.
 
@@ -1713,7 +1713,7 @@ add_newdoc('numpy.core.umath', 'isnan',
 
     """)
 
-add_newdoc('numpy.core.umath', 'isnat',
+add_newdoc('labugr.np.core.umath', 'isnat',
     """
     Test element-wise for NaT (not a time) and return result as a boolean array.
 
@@ -1749,7 +1749,7 @@ add_newdoc('numpy.core.umath', 'isnat',
 
     """)
 
-add_newdoc('numpy.core.umath', 'left_shift',
+add_newdoc('labugr.np.core.umath', 'left_shift',
     """
     Shift the bits of an integer to the left.
 
@@ -1790,7 +1790,7 @@ add_newdoc('numpy.core.umath', 'left_shift',
 
     """)
 
-add_newdoc('numpy.core.umath', 'less',
+add_newdoc('labugr.np.core.umath', 'less',
     """
     Return the truth value of (x1 < x2) element-wise.
 
@@ -1818,7 +1818,7 @@ add_newdoc('numpy.core.umath', 'less',
 
     """)
 
-add_newdoc('numpy.core.umath', 'less_equal',
+add_newdoc('labugr.np.core.umath', 'less_equal',
     """
     Return the truth value of (x1 =< x2) element-wise.
 
@@ -1846,7 +1846,7 @@ add_newdoc('numpy.core.umath', 'less_equal',
 
     """)
 
-add_newdoc('numpy.core.umath', 'log',
+add_newdoc('labugr.np.core.umath', 'log',
     """
     Natural logarithm, element-wise.
 
@@ -1897,7 +1897,7 @@ add_newdoc('numpy.core.umath', 'log',
 
     """)
 
-add_newdoc('numpy.core.umath', 'log10',
+add_newdoc('labugr.np.core.umath', 'log10',
     """
     Return the base 10 logarithm of the input array, element-wise.
 
@@ -1945,7 +1945,7 @@ add_newdoc('numpy.core.umath', 'log10',
 
     """)
 
-add_newdoc('numpy.core.umath', 'log2',
+add_newdoc('labugr.np.core.umath', 'log2',
     """
     Base-2 logarithm of `x`.
 
@@ -1993,7 +1993,7 @@ add_newdoc('numpy.core.umath', 'log2',
 
     """)
 
-add_newdoc('numpy.core.umath', 'logaddexp',
+add_newdoc('labugr.np.core.umath', 'logaddexp',
     """
     Logarithm of the sum of exponentiations of the inputs.
 
@@ -2034,7 +2034,7 @@ add_newdoc('numpy.core.umath', 'logaddexp',
 
     """)
 
-add_newdoc('numpy.core.umath', 'logaddexp2',
+add_newdoc('labugr.np.core.umath', 'logaddexp2',
     """
     Logarithm of the sum of exponentiations of the inputs in base-2.
 
@@ -2075,7 +2075,7 @@ add_newdoc('numpy.core.umath', 'logaddexp2',
 
     """)
 
-add_newdoc('numpy.core.umath', 'log1p',
+add_newdoc('labugr.np.core.umath', 'log1p',
     """
     Return the natural logarithm of one plus the input array, element-wise.
 
@@ -2129,7 +2129,7 @@ add_newdoc('numpy.core.umath', 'log1p',
 
     """)
 
-add_newdoc('numpy.core.umath', 'logical_and',
+add_newdoc('labugr.np.core.umath', 'logical_and',
     """
     Compute the truth value of x1 AND x2 element-wise.
 
@@ -2163,7 +2163,7 @@ add_newdoc('numpy.core.umath', 'logical_and',
 
     """)
 
-add_newdoc('numpy.core.umath', 'logical_not',
+add_newdoc('labugr.np.core.umath', 'logical_not',
     """
     Compute the truth value of NOT x element-wise.
 
@@ -2196,7 +2196,7 @@ add_newdoc('numpy.core.umath', 'logical_not',
 
     """)
 
-add_newdoc('numpy.core.umath', 'logical_or',
+add_newdoc('labugr.np.core.umath', 'logical_or',
     """
     Compute the truth value of x1 OR x2 element-wise.
 
@@ -2231,7 +2231,7 @@ add_newdoc('numpy.core.umath', 'logical_or',
 
     """)
 
-add_newdoc('numpy.core.umath', 'logical_xor',
+add_newdoc('labugr.np.core.umath', 'logical_xor',
     """
     Compute the truth value of x1 XOR x2, element-wise.
 
@@ -2272,7 +2272,7 @@ add_newdoc('numpy.core.umath', 'logical_xor',
 
     """)
 
-add_newdoc('numpy.core.umath', 'maximum',
+add_newdoc('labugr.np.core.umath', 'maximum',
     """
     Element-wise maximum of array elements.
 
@@ -2331,7 +2331,7 @@ add_newdoc('numpy.core.umath', 'maximum',
 
     """)
 
-add_newdoc('numpy.core.umath', 'minimum',
+add_newdoc('labugr.np.core.umath', 'minimum',
     """
     Element-wise minimum of array elements.
 
@@ -2390,7 +2390,7 @@ add_newdoc('numpy.core.umath', 'minimum',
 
     """)
 
-add_newdoc('numpy.core.umath', 'fmax',
+add_newdoc('labugr.np.core.umath', 'fmax',
     """
     Element-wise maximum of array elements.
 
@@ -2448,7 +2448,7 @@ add_newdoc('numpy.core.umath', 'fmax',
 
     """)
 
-add_newdoc('numpy.core.umath', 'fmin',
+add_newdoc('labugr.np.core.umath', 'fmin',
     """
     Element-wise minimum of array elements.
 
@@ -2506,7 +2506,7 @@ add_newdoc('numpy.core.umath', 'fmin',
 
     """)
 
-add_newdoc('numpy.core.umath', 'modf',
+add_newdoc('labugr.np.core.umath', 'modf',
     """
     Return the fractional and integral parts of an array, element-wise.
 
@@ -2544,7 +2544,7 @@ add_newdoc('numpy.core.umath', 'modf',
 
     """)
 
-add_newdoc('numpy.core.umath', 'multiply',
+add_newdoc('labugr.np.core.umath', 'multiply',
     """
     Multiply arguments element-wise.
 
@@ -2578,7 +2578,7 @@ add_newdoc('numpy.core.umath', 'multiply',
 
     """)
 
-add_newdoc('numpy.core.umath', 'negative',
+add_newdoc('labugr.np.core.umath', 'negative',
     """
     Numerical negative, element-wise.
 
@@ -2600,7 +2600,7 @@ add_newdoc('numpy.core.umath', 'negative',
 
     """)
 
-add_newdoc('numpy.core.umath', 'positive',
+add_newdoc('labugr.np.core.umath', 'positive',
     """
     Numerical positive, element-wise.
 
@@ -2623,7 +2623,7 @@ add_newdoc('numpy.core.umath', 'positive',
 
     """)
 
-add_newdoc('numpy.core.umath', 'not_equal',
+add_newdoc('labugr.np.core.umath', 'not_equal',
     """
     Return (x1 != x2) element-wise.
 
@@ -2654,9 +2654,9 @@ add_newdoc('numpy.core.umath', 'not_equal',
 
     """)
 
-add_newdoc('numpy.core.umath', '_ones_like',
+add_newdoc('labugr.np.core.umath', '_ones_like',
     """
-    This function used to be the numpy.ones_like, but now a specific
+    This function used to be the labugr.np.ones_like, but now a specific
     function for that has been written for consistency with the other
     *_like functions. It is only used internally in a limited fashion now.
 
@@ -2666,7 +2666,7 @@ add_newdoc('numpy.core.umath', '_ones_like',
 
     """)
 
-add_newdoc('numpy.core.umath', 'power',
+add_newdoc('labugr.np.core.umath', 'power',
     """
     First array elements raised to powers from second array, element-wise.
 
@@ -2719,7 +2719,7 @@ add_newdoc('numpy.core.umath', 'power',
 
     """)
 
-add_newdoc('numpy.core.umath', 'float_power',
+add_newdoc('labugr.np.core.umath', 'float_power',
     """
     First array elements raised to powers from second array, element-wise.
 
@@ -2777,7 +2777,7 @@ add_newdoc('numpy.core.umath', 'float_power',
 
     """)
 
-add_newdoc('numpy.core.umath', 'radians',
+add_newdoc('labugr.np.core.umath', 'radians',
     """
     Convert angles from degrees to radians.
 
@@ -2813,7 +2813,7 @@ add_newdoc('numpy.core.umath', 'radians',
 
     """)
 
-add_newdoc('numpy.core.umath', 'deg2rad',
+add_newdoc('labugr.np.core.umath', 'deg2rad',
     """
     Convert angles from degrees to radians.
 
@@ -2846,7 +2846,7 @@ add_newdoc('numpy.core.umath', 'deg2rad',
 
     """)
 
-add_newdoc('numpy.core.umath', 'reciprocal',
+add_newdoc('labugr.np.core.umath', 'reciprocal',
     """
     Return the reciprocal of the argument, element-wise.
 
@@ -2881,7 +2881,7 @@ add_newdoc('numpy.core.umath', 'reciprocal',
 
     """)
 
-add_newdoc('numpy.core.umath', 'remainder',
+add_newdoc('labugr.np.core.umath', 'remainder',
     """
     Return element-wise remainder of division.
 
@@ -2925,7 +2925,7 @@ add_newdoc('numpy.core.umath', 'remainder',
 
     """)
 
-add_newdoc('numpy.core.umath', 'divmod',
+add_newdoc('labugr.np.core.umath', 'divmod',
     """
     Return element-wise quotient and remainder simultaneously.
 
@@ -2964,7 +2964,7 @@ add_newdoc('numpy.core.umath', 'divmod',
 
     """)
 
-add_newdoc('numpy.core.umath', 'right_shift',
+add_newdoc('labugr.np.core.umath', 'right_shift',
     """
     Shift the bits of an integer to the right.
 
@@ -3005,7 +3005,7 @@ add_newdoc('numpy.core.umath', 'right_shift',
 
     """)
 
-add_newdoc('numpy.core.umath', 'rint',
+add_newdoc('labugr.np.core.umath', 'rint',
     """
     Round elements of the array to the nearest integer.
 
@@ -3032,7 +3032,7 @@ add_newdoc('numpy.core.umath', 'rint',
 
     """)
 
-add_newdoc('numpy.core.umath', 'sign',
+add_newdoc('labugr.np.core.umath', 'sign',
     """
     Returns an element-wise indication of the sign of a number.
 
@@ -3072,7 +3072,7 @@ add_newdoc('numpy.core.umath', 'sign',
 
     """)
 
-add_newdoc('numpy.core.umath', 'signbit',
+add_newdoc('labugr.np.core.umath', 'signbit',
     """
     Returns element-wise True where signbit is set (less than zero).
 
@@ -3096,7 +3096,7 @@ add_newdoc('numpy.core.umath', 'signbit',
 
     """)
 
-add_newdoc('numpy.core.umath', 'copysign',
+add_newdoc('labugr.np.core.umath', 'copysign',
     """
     Change the sign of x1 to that of x2, element-wise.
 
@@ -3133,7 +3133,7 @@ add_newdoc('numpy.core.umath', 'copysign',
 
     """)
 
-add_newdoc('numpy.core.umath', 'nextafter',
+add_newdoc('labugr.np.core.umath', 'nextafter',
     """
     Return the next floating-point value after x1 towards x2, element-wise.
 
@@ -3160,7 +3160,7 @@ add_newdoc('numpy.core.umath', 'nextafter',
 
     """)
 
-add_newdoc('numpy.core.umath', 'spacing',
+add_newdoc('labugr.np.core.umath', 'spacing',
     """
     Return the distance between x and the nearest adjacent number.
 
@@ -3191,7 +3191,7 @@ add_newdoc('numpy.core.umath', 'spacing',
 
     """)
 
-add_newdoc('numpy.core.umath', 'sin',
+add_newdoc('labugr.np.core.umath', 'sin',
     """
     Trigonometric sine, element-wise.
 
@@ -3248,7 +3248,7 @@ add_newdoc('numpy.core.umath', 'sin',
 
     """)
 
-add_newdoc('numpy.core.umath', 'sinh',
+add_newdoc('labugr.np.core.umath', 'sinh',
     """
     Hyperbolic sine, element-wise.
 
@@ -3299,7 +3299,7 @@ add_newdoc('numpy.core.umath', 'sinh',
 
     """)
 
-add_newdoc('numpy.core.umath', 'sqrt',
+add_newdoc('labugr.np.core.umath', 'sqrt',
     """
     Return the positive square-root of an array, element-wise.
 
@@ -3339,12 +3339,12 @@ add_newdoc('numpy.core.umath', 'sqrt',
     >>> np.sqrt([4, -1, -3+4J])
     array([ 2.+0.j,  0.+1.j,  1.+2.j])
 
-    >>> np.sqrt([4, -1, numpy.inf])
+    >>> np.sqrt([4, -1, labugr.np.inf])
     array([  2.,  NaN,  Inf])
 
     """)
 
-add_newdoc('numpy.core.umath', 'cbrt',
+add_newdoc('labugr.np.core.umath', 'cbrt',
     """
     Return the cube-root of an array, element-wise.
 
@@ -3371,7 +3371,7 @@ add_newdoc('numpy.core.umath', 'cbrt',
 
     """)
 
-add_newdoc('numpy.core.umath', 'square',
+add_newdoc('labugr.np.core.umath', 'square',
     """
     Return the element-wise square of the input.
 
@@ -3389,7 +3389,7 @@ add_newdoc('numpy.core.umath', 'square',
 
     See Also
     --------
-    numpy.linalg.matrix_power
+    labugr.np.linalg.matrix_power
     sqrt
     power
 
@@ -3400,7 +3400,7 @@ add_newdoc('numpy.core.umath', 'square',
 
     """)
 
-add_newdoc('numpy.core.umath', 'subtract',
+add_newdoc('labugr.np.core.umath', 'subtract',
     """
     Subtract arguments, element-wise.
 
@@ -3434,7 +3434,7 @@ add_newdoc('numpy.core.umath', 'subtract',
 
     """)
 
-add_newdoc('numpy.core.umath', 'tan',
+add_newdoc('labugr.np.core.umath', 'tan',
     """
     Compute tangent element-wise.
 
@@ -3481,7 +3481,7 @@ add_newdoc('numpy.core.umath', 'tan',
 
     """)
 
-add_newdoc('numpy.core.umath', 'tanh',
+add_newdoc('labugr.np.core.umath', 'tanh',
     """
     Compute hyperbolic tangent element-wise.
 
@@ -3531,7 +3531,7 @@ add_newdoc('numpy.core.umath', 'tanh',
 
     """)
 
-add_newdoc('numpy.core.umath', 'true_divide',
+add_newdoc('labugr.np.core.umath', 'true_divide',
     """
     Returns a true division of the inputs, element-wise.
 
@@ -3582,7 +3582,7 @@ add_newdoc('numpy.core.umath', 'true_divide',
 
     """)
 
-add_newdoc('numpy.core.umath', 'frexp',
+add_newdoc('labugr.np.core.umath', 'frexp',
     """
     Decompose the elements of x into mantissa and twos exponent.
 
@@ -3628,7 +3628,7 @@ add_newdoc('numpy.core.umath', 'frexp',
 
     """)
 
-add_newdoc('numpy.core.umath', 'ldexp',
+add_newdoc('labugr.np.core.umath', 'ldexp',
     """
     Returns x1 * 2**x2, element-wise.
 

@@ -722,7 +722,7 @@ _convert_from_commastring(PyObject *obj, int align)
     if (!PyBytes_Check(obj)) {
         return NULL;
     }
-    _numpy_internal = PyImport_ImportModule("numpy.core._internal");
+    _numpy_internal = PyImport_ImportModule("labugr.np.core._internal");
     if (_numpy_internal == NULL) {
         return NULL;
     }
@@ -999,7 +999,7 @@ _use_fields_dict(PyObject *obj, int align)
     PyObject *_numpy_internal;
     PyArray_Descr *res;
 
-    _numpy_internal = PyImport_ImportModule("numpy.core._internal");
+    _numpy_internal = PyImport_ImportModule("labugr.np.core._internal");
     if (_numpy_internal == NULL) {
         return NULL;
     }
@@ -1355,7 +1355,7 @@ PyArray_DescrConverter2(PyObject *obj, PyArray_Descr **at)
  * quite a flexible concept.
  *
  * This is the central code that converts Python objects to
- * Type-descriptor objects that are used throughout numpy.
+ * Type-descriptor objects that are used throughout labugr.np.
  *
  * Returns a new reference in *at, but the returned should not be
  * modified as it may be one of the canonical immutable objects or
@@ -1856,7 +1856,7 @@ arraydescr_protocol_typestr_get(PyArray_Descr *self)
 static PyObject *
 arraydescr_typename_get(PyArray_Descr *self)
 {
-    static const char np_prefix[] = "numpy.";
+    static const char np_prefix[] = "labugr.np.";
     const int np_prefix_len = sizeof(np_prefix) - 1;
     PyTypeObject *typeobj = self->typeobj;
     PyObject *res;
@@ -1880,7 +1880,7 @@ arraydescr_typename_get(PyArray_Descr *self)
          * NumPy type or subclass
          *
          * res is derived from typeobj->tp_name with the following rules:
-         * - if starts with "numpy.", that prefix is removed
+         * - if starts with "labugr.np.", that prefix is removed
          * - if ends with "_", that suffix is removed
          */
         len = strlen(typeobj->tp_name);
@@ -1993,7 +1993,7 @@ arraydescr_protocol_descr_get(PyArray_Descr *self)
         return res;
     }
 
-    _numpy_internal = PyImport_ImportModule("numpy.core._internal");
+    _numpy_internal = PyImport_ImportModule("labugr.np.core._internal");
     if (_numpy_internal == NULL) {
         return NULL;
     }
@@ -2409,7 +2409,7 @@ arraydescr_reduce(PyArray_Descr *self, PyObject *NPY_UNUSED(args))
     if (ret == NULL) {
         return NULL;
     }
-    mod = PyImport_ImportModule("numpy.core.multiarray");
+    mod = PyImport_ImportModule("labugr.np.core.multiarray");
     if (mod == NULL) {
         Py_DECREF(ret);
         return NULL;
@@ -2623,7 +2623,7 @@ arraydescr_setstate(PyArray_Descr *self, PyObject *args)
      */
     if (version < 0 || version > 4) {
         PyErr_Format(PyExc_ValueError,
-                     "can't handle version %d of numpy.dtype pickle",
+                     "can't handle version %d of labugr.np.dtype pickle",
                      version);
         return NULL;
     }
@@ -3858,7 +3858,7 @@ NPY_NO_EXPORT PyTypeObject PyArrayDescr_Type = {
     PyObject_HEAD_INIT(NULL)
     0,                                          /* ob_size */
 #endif
-    "numpy.dtype",                              /* tp_name */
+    "labugr.np.dtype",                              /* tp_name */
     sizeof(PyArray_Descr),                      /* tp_basicsize */
     0,                                          /* tp_itemsize */
     /* methods */

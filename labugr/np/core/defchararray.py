@@ -7,12 +7,12 @@ operations and methods.
    Numarray, it is not recommended for new development. Starting from numpy
    1.4, if one needs arrays of strings, it is recommended to use arrays of
    `dtype` `object_`, `string_` or `unicode_`, and use the free functions
-   in the `numpy.char` module for fast vectorized string operations.
+   in the `labugr.np.char` module for fast vectorized string operations.
 
 Some methods will only be available if the corresponding string method is
 available in your version of Python.
 
-The preferred alias for `defchararray` is `numpy.char`.
+The preferred alias for `defchararray` is `labugr.np.char`.
 
 """
 from __future__ import division, absolute_import, print_function
@@ -21,8 +21,8 @@ import sys
 from .numerictypes import string_, unicode_, integer, object_, bool_, character
 from .numeric import ndarray, compare_chararrays
 from .numeric import array as narray
-from numpy.core.multiarray import _vec_string
-from numpy.compat import asbytes, long
+from labugr.np.core.multiarray import _vec_string
+from labugr.np.compat import asbytes, long
 import numpy
 
 __all__ = [
@@ -57,7 +57,7 @@ def _use_unicode(*args):
     """
     for x in args:
         if (isinstance(x, _unicode) or
-                issubclass(numpy.asarray(x).dtype.type, unicode_)):
+                issubclass(labugr.np.asarray(x).dtype.type, unicode_)):
             return unicode_
     return string_
 
@@ -66,7 +66,7 @@ def _to_string_or_unicode_array(result):
     Helper function to cast a result back into a string or unicode array
     if an object array must be used as an intermediary.
     """
-    return numpy.asarray(result.tolist())
+    return labugr.np.asarray(result.tolist())
 
 def _clean_args(*args):
     """
@@ -99,7 +99,7 @@ def equal(x1, x2):
     """
     Return (x1 == x2) element-wise.
 
-    Unlike `numpy.equal`, this comparison is performed by first
+    Unlike `labugr.np.equal`, this comparison is performed by first
     stripping whitespace characters from the end of the string.  This
     behavior is provided for backward-compatibility with numarray.
 
@@ -123,7 +123,7 @@ def not_equal(x1, x2):
     """
     Return (x1 != x2) element-wise.
 
-    Unlike `numpy.not_equal`, this comparison is performed by first
+    Unlike `labugr.np.not_equal`, this comparison is performed by first
     stripping whitespace characters from the end of the string.  This
     behavior is provided for backward-compatibility with numarray.
 
@@ -147,7 +147,7 @@ def greater_equal(x1, x2):
     """
     Return (x1 >= x2) element-wise.
 
-    Unlike `numpy.greater_equal`, this comparison is performed by
+    Unlike `labugr.np.greater_equal`, this comparison is performed by
     first stripping whitespace characters from the end of the string.
     This behavior is provided for backward-compatibility with
     numarray.
@@ -172,7 +172,7 @@ def less_equal(x1, x2):
     """
     Return (x1 <= x2) element-wise.
 
-    Unlike `numpy.less_equal`, this comparison is performed by first
+    Unlike `labugr.np.less_equal`, this comparison is performed by first
     stripping whitespace characters from the end of the string.  This
     behavior is provided for backward-compatibility with numarray.
 
@@ -196,7 +196,7 @@ def greater(x1, x2):
     """
     Return (x1 > x2) element-wise.
 
-    Unlike `numpy.greater`, this comparison is performed by first
+    Unlike `labugr.np.greater`, this comparison is performed by first
     stripping whitespace characters from the end of the string.  This
     behavior is provided for backward-compatibility with numarray.
 
@@ -220,7 +220,7 @@ def less(x1, x2):
     """
     Return (x1 < x2) element-wise.
 
-    Unlike `numpy.greater`, this comparison is performed by first
+    Unlike `labugr.np.greater`, this comparison is performed by first
     stripping whitespace characters from the end of the string.  This
     behavior is provided for backward-compatibility with numarray.
 
@@ -279,8 +279,8 @@ def add(x1, x2):
         of the same shape as `x1` and `x2`.
 
     """
-    arr1 = numpy.asarray(x1)
-    arr2 = numpy.asarray(x2)
+    arr1 = labugr.np.asarray(x1)
+    arr2 = labugr.np.asarray(x2)
     out_size = _get_num_chars(arr1) + _get_num_chars(arr2)
     dtype = _use_unicode(arr1, arr2)
     return _vec_string(arr1, (dtype, out_size), '__add__', (arr2,))
@@ -305,8 +305,8 @@ def multiply(a, i):
         Output array of str or unicode, depending on input types
 
     """
-    a_arr = numpy.asarray(a)
-    i_arr = numpy.asarray(i)
+    a_arr = labugr.np.asarray(a)
+    i_arr = labugr.np.asarray(i)
     if not issubclass(i_arr.dtype.type, integer):
         raise ValueError("Can only multiply by integers")
     out_size = _get_num_chars(a_arr) * max(long(i_arr.max()), 0)
@@ -373,7 +373,7 @@ def capitalize(a):
         dtype='|S4')
 
     """
-    a_arr = numpy.asarray(a)
+    a_arr = labugr.np.asarray(a)
     return _vec_string(a_arr, a_arr.dtype, 'capitalize')
 
 
@@ -404,10 +404,10 @@ def center(a, width, fillchar=' '):
     str.center
 
     """
-    a_arr = numpy.asarray(a)
-    width_arr = numpy.asarray(width)
-    size = long(numpy.max(width_arr.flat))
-    if numpy.issubdtype(a_arr.dtype, numpy.string_):
+    a_arr = labugr.np.asarray(a)
+    width_arr = labugr.np.asarray(width)
+    size = long(labugr.np.max(width_arr.flat))
+    if labugr.np.issubdtype(a_arr.dtype, labugr.np.string_):
         fillchar = asbytes(fillchar)
     return _vec_string(
         a_arr, (a_arr.dtype.type, size), 'center', (width_arr, fillchar))
@@ -903,10 +903,10 @@ def ljust(a, width, fillchar=' '):
     str.ljust
 
     """
-    a_arr = numpy.asarray(a)
-    width_arr = numpy.asarray(width)
-    size = long(numpy.max(width_arr.flat))
-    if numpy.issubdtype(a_arr.dtype, numpy.string_):
+    a_arr = labugr.np.asarray(a)
+    width_arr = labugr.np.asarray(width)
+    size = long(labugr.np.max(width_arr.flat))
+    if labugr.np.issubdtype(a_arr.dtype, labugr.np.string_):
         fillchar = asbytes(fillchar)
     return _vec_string(
         a_arr, (a_arr.dtype.type, size), 'ljust', (width_arr, fillchar))
@@ -944,7 +944,7 @@ def lower(a):
           dtype='|S5')
 
     """
-    a_arr = numpy.asarray(a)
+    a_arr = labugr.np.asarray(a)
     return _vec_string(a_arr, a_arr.dtype, 'lower')
 
 
@@ -1001,7 +1001,7 @@ def lstrip(a, chars=None):
     True
 
     """
-    a_arr = numpy.asarray(a)
+    a_arr = labugr.np.asarray(a)
     return _vec_string(a_arr, a_arr.dtype, 'lstrip', (chars,))
 
 
@@ -1159,10 +1159,10 @@ def rjust(a, width, fillchar=' '):
     str.rjust
 
     """
-    a_arr = numpy.asarray(a)
-    width_arr = numpy.asarray(width)
-    size = long(numpy.max(width_arr.flat))
-    if numpy.issubdtype(a_arr.dtype, numpy.string_):
+    a_arr = labugr.np.asarray(a)
+    width_arr = labugr.np.asarray(width)
+    size = long(labugr.np.max(width_arr.flat))
+    if labugr.np.issubdtype(a_arr.dtype, labugr.np.string_):
         fillchar = asbytes(fillchar)
     return _vec_string(
         a_arr, (a_arr.dtype.type, size), 'rjust', (width_arr, fillchar))
@@ -1280,7 +1280,7 @@ def rstrip(a, chars=None):
         dtype='|S7')
 
     """
-    a_arr = numpy.asarray(a)
+    a_arr = labugr.np.asarray(a)
     return _vec_string(a_arr, a_arr.dtype, 'rstrip', (chars,))
 
 
@@ -1422,7 +1422,7 @@ def strip(a, chars=None):
         dtype='|S7')
 
     """
-    a_arr = numpy.asarray(a)
+    a_arr = labugr.np.asarray(a)
     return _vec_string(a_arr, a_arr.dtype, 'strip', _clean_args(chars))
 
 
@@ -1459,7 +1459,7 @@ def swapcase(a):
         dtype='|S5')
 
     """
-    a_arr = numpy.asarray(a)
+    a_arr = labugr.np.asarray(a)
     return _vec_string(a_arr, a_arr.dtype, 'swapcase')
 
 
@@ -1498,7 +1498,7 @@ def title(a):
         dtype='|S5')
 
     """
-    a_arr = numpy.asarray(a)
+    a_arr = labugr.np.asarray(a)
     return _vec_string(a_arr, a_arr.dtype, 'title')
 
 
@@ -1529,7 +1529,7 @@ def translate(a, table, deletechars=None):
     str.translate
 
     """
-    a_arr = numpy.asarray(a)
+    a_arr = labugr.np.asarray(a)
     if issubclass(a_arr.dtype.type, unicode_):
         return _vec_string(
             a_arr, a_arr.dtype, 'translate', (table,))
@@ -1570,7 +1570,7 @@ def upper(a):
         dtype='|S5')
 
     """
-    a_arr = numpy.asarray(a)
+    a_arr = labugr.np.asarray(a)
     return _vec_string(a_arr, a_arr.dtype, 'upper')
 
 
@@ -1597,9 +1597,9 @@ def zfill(a, width):
     str.zfill
 
     """
-    a_arr = numpy.asarray(a)
-    width_arr = numpy.asarray(width)
-    size = long(numpy.max(width_arr.flat))
+    a_arr = labugr.np.asarray(a)
+    width_arr = labugr.np.asarray(width)
+    size = long(labugr.np.max(width_arr.flat))
     return _vec_string(
         a_arr, (a_arr.dtype.type, size), 'zfill', (width_arr,))
 
@@ -1678,7 +1678,7 @@ class chararray(ndarray):
        Numarray, it is not recommended for new development. Starting from numpy
        1.4, if one needs arrays of strings, it is recommended to use arrays of
        `dtype` `object_`, `string_` or `unicode_`, and use the free functions
-       in the `numpy.char` module for fast vectorized string operations.
+       in the `labugr.np.char` module for fast vectorized string operations.
 
     Versus a regular NumPy array of type `str` or `unicode`, this
     class adds the following functionality:
@@ -1692,8 +1692,8 @@ class chararray(ndarray):
       3) vectorized string operations are provided as methods
          (e.g. `.endswith`) and infix operators (e.g. ``"+", "*", "%"``)
 
-    chararrays should be created using `numpy.char.array` or
-    `numpy.char.asarray`, rather than this constructor directly.
+    chararrays should be created using `labugr.np.char.array` or
+    `labugr.np.char.asarray`, rather than this constructor directly.
 
     This constructor creates the array, using `buffer` (with `offset`
     and `strides`) if it is not ``None``. If `buffer` is ``None``, then
@@ -1945,7 +1945,7 @@ class chararray(ndarray):
         --------
         add
         """
-        return asarray(add(numpy.asarray(other), self))
+        return asarray(add(labugr.np.asarray(other), self))
 
     def __mul__(self, i):
         """
@@ -1988,7 +1988,7 @@ class chararray(ndarray):
         """
         Return the indices that sort the array lexicographically.
 
-        For full documentation see `numpy.argsort`, for which this method is
+        For full documentation see `labugr.np.argsort`, for which this method is
         in fact merely a "thin wrapper."
 
         Examples
@@ -2483,7 +2483,7 @@ def array(obj, itemsize=None, copy=True, unicode=None, order=None):
        This class is provided for numarray backward-compatibility.
        New code (not concerned with numarray compatibility) should use
        arrays of type `string_` or `unicode_` and use the free functions
-       in :mod:`numpy.char <numpy.core.defchararray>` for fast
+       in :mod:`labugr.np.char <labugr.np.core.defchararray>` for fast
        vectorized string operations instead.
 
     Versus a regular NumPy array of type `str` or `unicode`, this
@@ -2571,7 +2571,7 @@ def array(obj, itemsize=None, copy=True, unicode=None, order=None):
                          buffer=obj, order=order)
 
     if isinstance(obj, (list, tuple)):
-        obj = numpy.asarray(obj)
+        obj = labugr.np.asarray(obj)
 
     if isinstance(obj, ndarray) and issubclass(obj.dtype.type, character):
         # If we just have a vanilla chararray, create a chararray
@@ -2599,7 +2599,7 @@ def array(obj, itemsize=None, copy=True, unicode=None, order=None):
             dtype = string_
 
         if order is not None:
-            obj = numpy.asarray(obj, order=order)
+            obj = labugr.np.asarray(obj, order=order)
         if (copy or
                 (itemsize != obj.itemsize) or
                 (not unicode and isinstance(obj, unicode_)) or

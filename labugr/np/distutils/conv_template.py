@@ -87,7 +87,7 @@ import os
 import sys
 import re
 
-from numpy.distutils.compat import get_exception
+from labugr.np.distutils.compat import get_exception
 
 # names for replacement that are already global.
 global_names = {}

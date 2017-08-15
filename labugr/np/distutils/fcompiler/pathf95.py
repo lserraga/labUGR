@@ -1,6 +1,6 @@
 from __future__ import division, absolute_import, print_function
 
-from numpy.distutils.fcompiler import FCompiler
+from labugr.np.distutils.fcompiler import FCompiler
 
 compilers = ['PathScaleFCompiler']
 
@@ -32,7 +32,7 @@ if __name__ == '__main__':
     from distutils import log
     log.set_verbosity(2)
     #compiler = PathScaleFCompiler()
-    from numpy.distutils.fcompiler import new_fcompiler
+    from labugr.np.distutils.fcompiler import new_fcompiler
     compiler = new_fcompiler(compiler='pathf95')
     compiler.customize()
     print(compiler.get_version())

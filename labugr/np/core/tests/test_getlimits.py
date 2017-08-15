@@ -3,13 +3,13 @@
 """
 from __future__ import division, absolute_import, print_function
 
-import numpy as np
-from numpy.core import finfo, iinfo
+import labugr.np as np
+from labugr.np.core import finfo, iinfo
 from numpy import half, single, double, longdouble
-from numpy.testing import (
+from labugr.np.testing import (
     run_module_suite, assert_equal, assert_, assert_raises
 )
-from numpy.core.getlimits import (_discovered_machar, _float16_ma, _float32_ma,
+from labugr.np.core.getlimits import (_discovered_machar, _float16_ma, _float32_ma,
                                   _float64_ma, _float128_ma, _float80_ma)
 
 ##################################################

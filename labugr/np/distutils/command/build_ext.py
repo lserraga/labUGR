@@ -13,14 +13,14 @@ from distutils.errors import DistutilsFileError, DistutilsSetupError,\
      DistutilsError
 from distutils.file_util import copy_file
 
-from numpy.distutils import log
-from numpy.distutils.exec_command import exec_command
-from numpy.distutils.system_info import combine_paths
-from numpy.distutils.misc_util import filter_sources, has_f_sources, \
+from labugr.np.distutils import log
+from labugr.np.distutils.exec_command import exec_command
+from labugr.np.distutils.system_info import combine_paths
+from labugr.np.distutils.misc_util import filter_sources, has_f_sources, \
      has_cxx_sources, get_ext_source_files, \
      get_numpy_include_dirs, is_sequence, get_build_architecture, \
      msvc_version
-from numpy.distutils.command.config_compiler import show_fortran_compilers
+from labugr.np.distutils.command.config_compiler import show_fortran_compilers
 
 try:
     set
@@ -107,7 +107,7 @@ class build_ext (old_build_ext):
         # explicitly specify the C libraries that they use.
 
         from distutils.ccompiler import new_compiler
-        from numpy.distutils.fcompiler import new_fcompiler
+        from labugr.np.distutils.fcompiler import new_fcompiler
 
         compiler_type = self.compiler
         # Initialize C compiler:

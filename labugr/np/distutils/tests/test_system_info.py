@@ -6,12 +6,12 @@ from tempfile import mkstemp, mkdtemp
 from subprocess import Popen, PIPE
 from distutils.errors import DistutilsError
 
-from numpy.distutils import ccompiler
-from numpy.testing import (
+from labugr.np.distutils import ccompiler
+from labugr.np.testing import (
     run_module_suite, assert_, assert_equal, dec
     )
-from numpy.distutils.system_info import system_info, ConfigParser
-from numpy.distutils.system_info import default_lib_dirs, default_include_dirs
+from labugr.np.distutils.system_info import system_info, ConfigParser
+from labugr.np.distutils.system_info import default_lib_dirs, default_include_dirs
 
 
 def get_class(name, notfound_action=1):

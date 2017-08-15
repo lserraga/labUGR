@@ -3,10 +3,10 @@ from __future__ import division, absolute_import, print_function
 import sys
 import warnings
 
-import numpy as np
+import labugr.np as np
 from numpy import array, arange, nditer, all
-from numpy.core.multiarray_tests import test_nditer_too_large
-from numpy.testing import (
+from labugr.np.core.multiarray_tests import test_nditer_too_large
+from labugr.np.testing import (
     run_module_suite, assert_, assert_equal, assert_array_equal,
     assert_raises, assert_warns, dec, HAS_REFCOUNT, suppress_warnings
     )

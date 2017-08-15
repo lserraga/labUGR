@@ -9,8 +9,8 @@ from __future__ import division, absolute_import, print_function
 import os
 import sys
 import warnings
-from numpy.compat import basestring
-import numpy as np
+from labugr.np.compat import basestring
+import labugr.np as np
 
 from .utils import import_nose, suppress_warnings
 
@@ -116,10 +116,10 @@ class NoseTester(object):
     """
     Nose test runner.
 
-    This class is made available as numpy.testing.Tester, and a test function
+    This class is made available as labugr.np.testing.Tester, and a test function
     is typically added to a package's __init__.py like so::
 
-      from numpy.testing import Tester
+      from labugr.np.testing import Tester
       test = Tester().test
 
     Calling this test function finds and runs all tests associated with the
@@ -157,9 +157,9 @@ class NoseTester(object):
     def __init__(self, package=None, raise_warnings="release", depth=0):
         # Back-compat: 'None' used to mean either "release" or "develop"
         # depending on whether this was a release or develop version of
-        # numpy. Those semantics were fine for testing numpy, but not so
+        # labugr.np. Those semantics were fine for testing numpy, but not so
         # helpful for downstream projects like scipy that use
-        # numpy.testing. (They want to set this based on whether *they* are a
+        # labugr.np.testing. (They want to set this based on whether *they* are a
         # release or develop version, not whether numpy is.) So we continue to
         # accept 'None' for back-compat, but it's now just an alias for the
         # default "release".
@@ -232,10 +232,10 @@ class NoseTester(object):
         nose = import_nose()
 
         import numpy
-        print("NumPy version %s" % numpy.__version__)
-        relaxed_strides = numpy.ones((10, 1), order="C").flags.f_contiguous
+        print("NumPy version %s" % labugr.np.__version__)
+        relaxed_strides = labugr.np.ones((10, 1), order="C").flags.f_contiguous
         print("NumPy relaxed strides checking option:", relaxed_strides)
-        npdir = os.path.dirname(numpy.__file__)
+        npdir = os.path.dirname(labugr.np.__file__)
         print("NumPy is installed in %s" % npdir)
 
         if 'scipy' in self.package_name:
@@ -369,14 +369,14 @@ class NoseTester(object):
         Notes
         -----
         Each NumPy module exposes `test` in its namespace to run all tests for it.
-        For example, to run all tests for numpy.lib:
+        For example, to run all tests for labugr.np.lib:
 
         >>> np.lib.test() #doctest: +SKIP
 
         Examples
         --------
         >>> result = np.lib.test() #doctest: +SKIP
-        Running unit tests for numpy.lib
+        Running unit tests for labugr.np.lib
         ...
         Ran 976 tests in 3.933s
 
@@ -428,8 +428,8 @@ class NoseTester(object):
                 warnings.filterwarnings('error', category=warningtype)
             # Filter out annoying import messages.
             sup.filter(message='Not importing directory')
-            sup.filter(message="numpy.dtype size changed")
-            sup.filter(message="numpy.ufunc size changed")
+            sup.filter(message="labugr.np.dtype size changed")
+            sup.filter(message="labugr.np.ufunc size changed")
             sup.filter(category=np.ModuleDeprecationWarning)
             # Filter out boolean '-' deprecation messages. This allows
             # older versions of scipy to test without a flood of messages.
@@ -510,7 +510,7 @@ class NoseTester(object):
         Examples
         --------
         >>> success = np.lib.bench() #doctest: +SKIP
-        Running benchmarks for numpy.lib
+        Running benchmarks for labugr.np.lib
         ...
         using 562341 items:
         unique:

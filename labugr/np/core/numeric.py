@@ -6,7 +6,7 @@ import operator
 import sys
 import warnings
 
-import numpy as np
+import labugr.np as np
 from . import multiarray
 from .multiarray import (
     _fastCopyAndTranspose as fastCopyAndTranspose, ALLOW_THREADS,
@@ -156,8 +156,8 @@ def ones(shape, dtype=None, order='C'):
     shape : int or sequence of ints
         Shape of the new array, e.g., ``(2, 3)`` or ``2``.
     dtype : data-type, optional
-        The desired data-type for the array, e.g., `numpy.int8`.  Default is
-        `numpy.float64`.
+        The desired data-type for the array, e.g., `labugr.np.int8`.  Default is
+        `labugr.np.float64`.
     order : {'C', 'F'}, optional
         Whether to store multidimensional data in C- or Fortran-contiguous
         (row- or column-wise) order in memory.
@@ -2533,7 +2533,7 @@ def isclose(a, b, rtol=1.e-5, atol=1.e-8, equal_nan=False):
 
     # Make sure y is an inexact type to avoid bad behavior on abs(MIN_INT).
     # This will cause casting of x later. Also, make sure to allow subclasses
-    # (e.g., for numpy.ma).
+    # (e.g., for labugr.np.ma).
     dt = multiarray.result_type(y, 1.)
     y = array(y, dtype=dt, copy=False, subok=True)
 

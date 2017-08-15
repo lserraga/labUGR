@@ -14,10 +14,10 @@ from distutils.errors import DistutilsExecError, DistutilsModuleError, \
 from distutils.sysconfig import customize_compiler
 from distutils.version import LooseVersion
 
-from numpy.distutils import log
-from numpy.distutils.compat import get_exception
-from numpy.distutils.exec_command import exec_command
-from numpy.distutils.misc_util import cyg2win32, is_sequence, mingw32, \
+from labugr.np.distutils import log
+from labugr.np.distutils.compat import get_exception
+from labugr.np.distutils.exec_command import exec_command
+from labugr.np.distutils.misc_util import cyg2win32, is_sequence, mingw32, \
                                       quote_args, get_num_build_jobs, \
                                       _commandline_dep_string
 
@@ -118,7 +118,7 @@ def CCompiler_spawn(self, cmd, display=None):
     cmd : str
         The command to execute.
     display : str or sequence of str, optional
-        The text to add to the log file kept by `numpy.distutils`.
+        The text to add to the log file kept by `labugr.np.distutils`.
         If not given, `display` is equal to `cmd`.
 
     Returns
@@ -257,7 +257,7 @@ def CCompiler_compile(self, sources, output_dir=None, macros=None,
     if sys.version_info[0] < 3:
         from .fcompiler import FCompiler, is_f_file, has_f90_header
     else:
-        from numpy.distutils.fcompiler import (FCompiler, is_f_file,
+        from labugr.np.distutils.fcompiler import (FCompiler, is_f_file,
                                                has_f90_header)
     if isinstance(self, FCompiler):
         display = []
@@ -698,7 +698,7 @@ def new_compiler (plat=None,
                   verbose=0,
                   dry_run=0,
                   force=0):
-    # Try first C compilers from numpy.distutils.
+    # Try first C compilers from labugr.np.distutils.
     if plat is None:
         plat = os.name
     try:
@@ -710,12 +710,12 @@ def new_compiler (plat=None,
         if compiler is not None:
             msg = msg + " with '%s' compiler" % compiler
         raise DistutilsPlatformError(msg)
-    module_name = "numpy.distutils." + module_name
+    module_name = "labugr.np.distutils." + module_name
     try:
         __import__ (module_name)
     except ImportError:
         msg = str(get_exception())
-        log.info('%s in numpy.distutils; trying from distutils',
+        log.info('%s in labugr.np.distutils; trying from distutils',
                  str(msg))
         module_name = module_name[6:]
         try:

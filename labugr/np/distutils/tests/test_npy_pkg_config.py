@@ -2,8 +2,8 @@ from __future__ import division, absolute_import, print_function
 
 import os
 
-from numpy.distutils.npy_pkg_config import read_config, parse_flags
-from numpy.testing import run_module_suite, temppath, assert_
+from labugr.np.distutils.npy_pkg_config import read_config, parse_flags
+from labugr.np.testing import run_module_suite, temppath, assert_
 
 simple = """\
 [meta]

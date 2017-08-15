@@ -31,7 +31,7 @@ get_non_default_array_ufunc(PyObject *obj)
 
     /* on first entry, import and cache ndarray and its __array_ufunc__ */
     if (ndarray == NULL) {
-        npy_cache_import("numpy.core.multiarray", "ndarray", &ndarray);
+        npy_cache_import("labugr.np.core.multiarray", "ndarray", &ndarray);
         ndarray_array_ufunc = PyObject_GetAttrString(ndarray,
                                                      "__array_ufunc__");
     }

@@ -7,10 +7,10 @@ Recopilación de funciones para el análisis de señales en python
 # Primero detectamos si estamos en el proceso de instalación de la 
 # librería. La herramienta que utilizamos para generar el paquete
 # crea la variable __LABUGR_SETUP__
-try:
-    __LABUGR_SETUP__
-except NameError:
-    __LABUGR_SETUP__ = False
+# try:
+#     __LABUGR_SETUP__
+# except NameError:
+#     __LABUGR_SETUP__ = False
 
 # # Si no estamos en el setup hay que comprobar que no se intenta 
 # # importar desde el directorio fuente

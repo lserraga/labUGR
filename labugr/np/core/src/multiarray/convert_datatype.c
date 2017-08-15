@@ -104,7 +104,7 @@ PyArray_GetCastFunc(PyArray_Descr *descr, int type_num)
             !PyTypeNum_ISBOOL(type_num)) {
         PyObject *cls = NULL, *obj = NULL;
         int ret;
-        obj = PyImport_ImportModule("numpy.core");
+        obj = PyImport_ImportModule("labugr.np.core");
 
         if (obj) {
             cls = PyObject_GetAttrString(obj, "ComplexWarning");

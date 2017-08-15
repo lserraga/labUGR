@@ -87,8 +87,8 @@ import sys
 import numbers
 import warnings
 
-from numpy.compat import bytes, long
-from numpy.core.multiarray import (
+from labugr.np.compat import bytes, long
+from labugr.np.core.multiarray import (
         typeinfo, ndarray, array, empty, dtype, datetime_data,
         datetime_as_string, busday_offset, busday_count, is_busday,
         busdaycalendar
@@ -143,7 +143,7 @@ def english_lower(s):
 
     Examples
     --------
-    >>> from numpy.core.numerictypes import english_lower
+    >>> from labugr.np.core.numerictypes import english_lower
     >>> english_lower('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_')
     'abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz0123456789_'
     >>> english_lower('')
@@ -170,7 +170,7 @@ def english_upper(s):
 
     Examples
     --------
-    >>> from numpy.core.numerictypes import english_upper
+    >>> from labugr.np.core.numerictypes import english_upper
     >>> english_upper('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_')
     'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_'
     >>> english_upper('')
@@ -196,7 +196,7 @@ def english_capitalize(s):
 
     Examples
     --------
-    >>> from numpy.core.numerictypes import english_capitalize
+    >>> from labugr.np.core.numerictypes import english_capitalize
     >>> english_capitalize('int8')
     'Int8'
     >>> english_capitalize('Int8')
@@ -503,19 +503,19 @@ def maximum_sctype(t):
     Examples
     --------
     >>> np.maximum_sctype(int)
-    <type 'numpy.int64'>
+    <type 'labugr.np.int64'>
     >>> np.maximum_sctype(np.uint8)
-    <type 'numpy.uint64'>
+    <type 'labugr.np.uint64'>
     >>> np.maximum_sctype(complex)
-    <type 'numpy.complex192'>
+    <type 'labugr.np.complex192'>
 
     >>> np.maximum_sctype(str)
-    <type 'numpy.string_'>
+    <type 'labugr.np.string_'>
 
     >>> np.maximum_sctype('i2')
-    <type 'numpy.int64'>
+    <type 'labugr.np.int64'>
     >>> np.maximum_sctype('f4')
-    <type 'numpy.float96'>
+    <type 'labugr.np.float96'>
 
     """
     g = obj2sctype(t)
@@ -598,16 +598,16 @@ def obj2sctype(rep, default=None):
     Examples
     --------
     >>> np.obj2sctype(np.int32)
-    <type 'numpy.int32'>
+    <type 'labugr.np.int32'>
     >>> np.obj2sctype(np.array([1., 2.]))
-    <type 'numpy.float64'>
+    <type 'labugr.np.float64'>
     >>> np.obj2sctype(np.array([1.j]))
-    <type 'numpy.complex128'>
+    <type 'labugr.np.complex128'>
 
     >>> np.obj2sctype(dict)
-    <type 'numpy.object_'>
+    <type 'labugr.np.object_'>
     >>> np.obj2sctype('string')
-    <type 'numpy.string_'>
+    <type 'labugr.np.string_'>
 
     >>> np.obj2sctype(1, default=list)
     <type 'list'>
@@ -712,7 +712,7 @@ def issubdtype(arg1, arg2):
     See Also
     --------
     issubsctype, issubclass_
-    numpy.core.numerictypes : Overview of numpy type hierarchy.
+    labugr.np.core.numerictypes : Overview of numpy type hierarchy.
 
     Examples
     --------

@@ -304,7 +304,7 @@ check_nonreorderable_axes(int ndim, npy_bool *axis_flags, const char *funcname)
  *                        elements that should be skipped during the
  *                        iteration loop.
  * funcname : The name of the reduction operation, for the purpose of
- *            better quality error messages. For example, "numpy.max"
+ *            better quality error messages. For example, "labugr.np.max"
  *            would be a good name for NumPy's max function.
  *
  * Returns a view which contains the remaining elements on which to do

@@ -5,10 +5,10 @@ rid of both MachAr and this test at some point.
 """
 from __future__ import division, absolute_import, print_function
 
-from numpy.core.machar import MachAr
-import numpy.core.numerictypes as ntypes
+from labugr.np.core.machar import MachAr
+import labugr.np.core.numerictypes as ntypes
 from numpy import errstate, array
-from numpy.testing import run_module_suite
+from labugr.np.testing import run_module_suite
 
 class TestMachAr(object):
     def _run_machar_highprec(self):

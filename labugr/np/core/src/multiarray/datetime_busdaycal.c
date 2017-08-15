@@ -413,7 +413,7 @@ busdaycalendar_init(NpyBusDayCalendar *self, PyObject *args, PyObject *kwds)
 
     if (self->busdays_in_weekmask == 0) {
         PyErr_SetString(PyExc_ValueError,
-                "Cannot construct a numpy.busdaycal with a weekmask of "
+                "Cannot construct a labugr.np.busdaycal with a weekmask of "
                 "all zeros");
         return -1;
     }
@@ -498,7 +498,7 @@ NPY_NO_EXPORT PyTypeObject NpyBusDayCalendar_Type = {
     PyObject_HEAD_INIT(NULL)
     0,                                          /* ob_size */
 #endif
-    "numpy.busdaycalendar",                     /* tp_name */
+    "labugr.np.busdaycalendar",                     /* tp_name */
     sizeof(NpyBusDayCalendar),                  /* tp_basicsize */
     0,                                          /* tp_itemsize */
     /* methods */

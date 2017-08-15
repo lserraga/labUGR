@@ -36,11 +36,11 @@ static void **PyUFunc_API=NULL;
 static NPY_INLINE int
 _import_umath(void)
 {
-  PyObject *numpy = PyImport_ImportModule("numpy.core.umath");
+  PyObject *numpy = PyImport_ImportModule("labugr.np.core.umath");
   PyObject *c_api = NULL;
 
   if (numpy == NULL) {
-      PyErr_SetString(PyExc_ImportError, "numpy.core.umath failed to import");
+      PyErr_SetString(PyExc_ImportError, "labugr.np.core.umath failed to import");
       return -1;
   }
   c_api = PyObject_GetAttrString(numpy, "_UFUNC_API");
@@ -85,7 +85,7 @@ _import_umath(void)
         if (_import_umath() < 0) {\
             PyErr_Print();\
             PyErr_SetString(PyExc_ImportError,\
-                    "numpy.core.umath failed to import");\
+                    "labugr.np.core.umath failed to import");\
             return NUMPY_IMPORT_UMATH_RETVAL;\
         }\
     } while(0)
@@ -96,7 +96,7 @@ _import_umath(void)
         if (_import_umath() < 0) {\
             PyErr_Print();\
             PyErr_SetString(PyExc_ImportError,\
-                    "numpy.core.umath failed to import");\
+                    "labugr.np.core.umath failed to import");\
             return ret;\
         }\
     } while(0)
@@ -117,7 +117,7 @@ _import_umath(void)
         if (_import_umath() < 0) {\
             PyErr_Print();\
             PyErr_SetString(PyExc_ImportError,\
-                    "numpy.core.umath failed to import");\
+                    "labugr.np.core.umath failed to import");\
         }\
     } while(0)
 

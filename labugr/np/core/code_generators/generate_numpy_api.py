@@ -46,11 +46,11 @@ static int
 _import_array(void)
 {
   int st;
-  PyObject *numpy = PyImport_ImportModule("numpy.core.multiarray");
+  PyObject *numpy = PyImport_ImportModule("labugr.np.core.multiarray");
   PyObject *c_api = NULL;
 
   if (numpy == NULL) {
-      PyErr_SetString(PyExc_ImportError, "numpy.core.multiarray failed to import");
+      PyErr_SetString(PyExc_ImportError, "labugr.np.core.multiarray failed to import");
       return -1;
   }
   c_api = PyObject_GetAttrString(numpy, "_ARRAY_API");
@@ -127,9 +127,9 @@ _import_array(void)
 #define NUMPY_IMPORT_ARRAY_RETVAL
 #endif
 
-#define import_array() {if (_import_array() < 0) {PyErr_Print(); PyErr_SetString(PyExc_ImportError, "numpy.core.multiarray failed to import"); return NUMPY_IMPORT_ARRAY_RETVAL; } }
+#define import_array() {if (_import_array() < 0) {PyErr_Print(); PyErr_SetString(PyExc_ImportError, "labugr.np.core.multiarray failed to import"); return NUMPY_IMPORT_ARRAY_RETVAL; } }
 
-#define import_array1(ret) {if (_import_array() < 0) {PyErr_Print(); PyErr_SetString(PyExc_ImportError, "numpy.core.multiarray failed to import"); return ret; } }
+#define import_array1(ret) {if (_import_array() < 0) {PyErr_Print(); PyErr_SetString(PyExc_ImportError, "labugr.np.core.multiarray failed to import"); return ret; } }
 
 #define import_array2(msg, ret) {if (_import_array() < 0) {PyErr_Print(); PyErr_SetString(PyExc_ImportError, msg); return ret; } }
 

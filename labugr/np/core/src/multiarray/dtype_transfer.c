@@ -705,7 +705,7 @@ get_nbo_cast_numeric_transfer_function(int aligned,
                     !PyTypeNum_ISBOOL(dst_type_num)) {
         PyObject *cls = NULL, *obj = NULL;
         int ret;
-        obj = PyImport_ImportModule("numpy.core");
+        obj = PyImport_ImportModule("labugr.np.core");
         if (obj) {
             cls = PyObject_GetAttrString(obj, "ComplexWarning");
             Py_DECREF(obj);

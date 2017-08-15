@@ -6,8 +6,8 @@ import pickle
 import warnings
 from os import path
 
-import numpy as np
-from numpy.testing import (
+import labugr.np as np
+from labugr.np.testing import (
     run_module_suite, assert_, assert_equal, assert_array_equal,
     assert_array_almost_equal, assert_raises, assert_warns
     )
@@ -108,9 +108,9 @@ class TestFromrecords(object):
         recarr = a.view(np.recarray)
         recordview = a.view(np.dtype((np.record, a.dtype)))
 
-        recordarr_r = eval("numpy." + repr(recordarr), {'numpy': np})
-        recarr_r = eval("numpy." + repr(recarr), {'numpy': np})
-        recordview_r = eval("numpy." + repr(recordview), {'numpy': np})
+        recordarr_r = eval("labugr.np." + repr(recordarr), {'numpy': np})
+        recarr_r = eval("labugr.np." + repr(recarr), {'numpy': np})
+        recordview_r = eval("labugr.np." + repr(recordview), {'numpy': np})
 
         assert_equal(type(recordarr_r), np.recarray)
         assert_equal(recordarr_r.dtype.type, np.record)
@@ -198,7 +198,7 @@ class TestFromrecords(object):
 
         # check that the 'np.record' part of the dtype isn't shown
         a = np.rec.array(np.ones(3, dtype='i4,i4'))
-        assert_equal(repr(a).find('numpy.record'), -1)
+        assert_equal(repr(a).find('labugr.np.record'), -1)
         a = np.rec.array(np.ones(3, dtype='i4'))
         assert_(repr(a).find('dtype=int32') != -1)
 

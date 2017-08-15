@@ -2,9 +2,9 @@ from __future__ import division, absolute_import, print_function
 
 import platform
 
-import numpy as np
+import labugr.np as np
 from numpy import uint16, float16, float32, float64
-from numpy.testing import run_module_suite, assert_, assert_equal, dec
+from labugr.np.testing import run_module_suite, assert_, assert_equal, dec
 
 
 def assert_raises_fpe(strmatch, callable, *args, **kwargs):

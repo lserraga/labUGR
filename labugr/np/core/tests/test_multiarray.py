@@ -20,15 +20,15 @@ else:
 from decimal import Decimal
 
 
-import numpy as np
-from numpy.compat import strchar, unicode
+import labugr.np as np
+from labugr.np.compat import strchar, unicode
 from test_print import in_foreign_locale
-from numpy.core.multiarray_tests import (
+from labugr.np.core.multiarray_tests import (
     test_neighborhood_iterator, test_neighborhood_iterator_oob,
     test_pydatamem_seteventhook_start, test_pydatamem_seteventhook_end,
     test_inplace_increment, get_buffer_info, test_as_c_array,
     )
-from numpy.testing import (
+from labugr.np.testing import (
     run_module_suite, assert_, assert_raises, assert_warns,
     assert_equal, assert_almost_equal, assert_array_equal, assert_raises_regex,
     assert_array_almost_equal, assert_allclose, IS_PYPY, HAS_REFCOUNT,
@@ -182,7 +182,7 @@ class TestAttributes(object):
             assert_equal(isinstance(numpy_int, int), True)
 
             # ... and fast-path checks on C-API level should also work
-            from numpy.core.multiarray_tests import test_int_subclass
+            from labugr.np.core.multiarray_tests import test_int_subclass
             assert_equal(test_int_subclass(numpy_int), True)
 
     def test_stridesattr(self):
@@ -384,7 +384,7 @@ class TestAssignment(object):
 
     def test_unicode_assignment(self):
         # gh-5049
-        from numpy.core.numeric import set_string_function
+        from labugr.np.core.numeric import set_string_function
 
         @contextmanager
         def inject_str(s):
@@ -3119,7 +3119,7 @@ class TestTemporaryElide(object):
         # def incref_elide(a):
         #    d = input.copy() # refcount 1
         #    return d, d + d # PyNumber_Add without increasing refcount
-        from numpy.core.multiarray_tests import incref_elide
+        from labugr.np.core.multiarray_tests import incref_elide
         d = np.ones(100000)
         orig, res = incref_elide(d)
         d + d
@@ -3134,7 +3134,7 @@ class TestTemporaryElide(object):
         #
         # def incref_elide_l(d):
         #    return l[4] + l[4] # PyNumber_Add without increasing refcount
-        from numpy.core.multiarray_tests import incref_elide_l
+        from labugr.np.core.multiarray_tests import incref_elide_l
         # padding with 1 makes sure the object on the stack is not overwriten
         l = [1, 1, 1, 1, np.ones(100000)]
         res = incref_elide_l(l)
@@ -3204,7 +3204,7 @@ class TestTemporaryElide(object):
 
 class TestCAPI(object):
     def test_IsPythonScalar(self):
-        from numpy.core.multiarray_tests import IsPythonScalar
+        from labugr.np.core.multiarray_tests import IsPythonScalar
         assert_(IsPythonScalar(b'foobar'))
         assert_(IsPythonScalar(1))
         assert_(IsPythonScalar(2**80))
@@ -3244,44 +3244,44 @@ class TestPickling(object):
     # version 0 pickles, using protocol=2 to pickle
     # version 0 doesn't have a version field
     def test_version0_int8(self):
-        s = b'\x80\x02cnumpy.core._internal\n_reconstruct\nq\x01cnumpy\nndarray\nq\x02K\x00\x85U\x01b\x87Rq\x03(K\x04\x85cnumpy\ndtype\nq\x04U\x02i1K\x00K\x01\x87Rq\x05(U\x01|NNJ\xff\xff\xff\xffJ\xff\xff\xff\xfftb\x89U\x04\x01\x02\x03\x04tb.'
+        s = b'\x80\x02clabugr.np.core._internal\n_reconstruct\nq\x01cnumpy\nndarray\nq\x02K\x00\x85U\x01b\x87Rq\x03(K\x04\x85cnumpy\ndtype\nq\x04U\x02i1K\x00K\x01\x87Rq\x05(U\x01|NNJ\xff\xff\xff\xffJ\xff\xff\xff\xfftb\x89U\x04\x01\x02\x03\x04tb.'
         a = np.array([1, 2, 3, 4], dtype=np.int8)
         p = self._loads(s)
         assert_equal(a, p)
 
     def test_version0_float32(self):
-        s = b'\x80\x02cnumpy.core._internal\n_reconstruct\nq\x01cnumpy\nndarray\nq\x02K\x00\x85U\x01b\x87Rq\x03(K\x04\x85cnumpy\ndtype\nq\x04U\x02f4K\x00K\x01\x87Rq\x05(U\x01<NNJ\xff\xff\xff\xffJ\xff\xff\xff\xfftb\x89U\x10\x00\x00\x80?\x00\x00\x00@\x00\x00@@\x00\x00\x80@tb.'
+        s = b'\x80\x02clabugr.np.core._internal\n_reconstruct\nq\x01cnumpy\nndarray\nq\x02K\x00\x85U\x01b\x87Rq\x03(K\x04\x85cnumpy\ndtype\nq\x04U\x02f4K\x00K\x01\x87Rq\x05(U\x01<NNJ\xff\xff\xff\xffJ\xff\xff\xff\xfftb\x89U\x10\x00\x00\x80?\x00\x00\x00@\x00\x00@@\x00\x00\x80@tb.'
         a = np.array([1.0, 2.0, 3.0, 4.0], dtype=np.float32)
         p = self._loads(s)
         assert_equal(a, p)
 
     def test_version0_object(self):
-        s = b'\x80\x02cnumpy.core._internal\n_reconstruct\nq\x01cnumpy\nndarray\nq\x02K\x00\x85U\x01b\x87Rq\x03(K\x02\x85cnumpy\ndtype\nq\x04U\x02O8K\x00K\x01\x87Rq\x05(U\x01|NNJ\xff\xff\xff\xffJ\xff\xff\xff\xfftb\x89]q\x06(}q\x07U\x01aK\x01s}q\x08U\x01bK\x02setb.'
+        s = b'\x80\x02clabugr.np.core._internal\n_reconstruct\nq\x01cnumpy\nndarray\nq\x02K\x00\x85U\x01b\x87Rq\x03(K\x02\x85cnumpy\ndtype\nq\x04U\x02O8K\x00K\x01\x87Rq\x05(U\x01|NNJ\xff\xff\xff\xffJ\xff\xff\xff\xfftb\x89]q\x06(}q\x07U\x01aK\x01s}q\x08U\x01bK\x02setb.'
         a = np.array([{'a': 1}, {'b': 2}])
         p = self._loads(s)
         assert_equal(a, p)
 
     # version 1 pickles, using protocol=2 to pickle
     def test_version1_int8(self):
-        s = b'\x80\x02cnumpy.core._internal\n_reconstruct\nq\x01cnumpy\nndarray\nq\x02K\x00\x85U\x01b\x87Rq\x03(K\x01K\x04\x85cnumpy\ndtype\nq\x04U\x02i1K\x00K\x01\x87Rq\x05(K\x01U\x01|NNJ\xff\xff\xff\xffJ\xff\xff\xff\xfftb\x89U\x04\x01\x02\x03\x04tb.'
+        s = b'\x80\x02clabugr.np.core._internal\n_reconstruct\nq\x01cnumpy\nndarray\nq\x02K\x00\x85U\x01b\x87Rq\x03(K\x01K\x04\x85cnumpy\ndtype\nq\x04U\x02i1K\x00K\x01\x87Rq\x05(K\x01U\x01|NNJ\xff\xff\xff\xffJ\xff\xff\xff\xfftb\x89U\x04\x01\x02\x03\x04tb.'
         a = np.array([1, 2, 3, 4], dtype=np.int8)
         p = self._loads(s)
         assert_equal(a, p)
 
     def test_version1_float32(self):
-        s = b'\x80\x02cnumpy.core._internal\n_reconstruct\nq\x01cnumpy\nndarray\nq\x02K\x00\x85U\x01b\x87Rq\x03(K\x01K\x04\x85cnumpy\ndtype\nq\x04U\x02f4K\x00K\x01\x87Rq\x05(K\x01U\x01<NNJ\xff\xff\xff\xffJ\xff\xff\xff\xfftb\x89U\x10\x00\x00\x80?\x00\x00\x00@\x00\x00@@\x00\x00\x80@tb.'
+        s = b'\x80\x02clabugr.np.core._internal\n_reconstruct\nq\x01cnumpy\nndarray\nq\x02K\x00\x85U\x01b\x87Rq\x03(K\x01K\x04\x85cnumpy\ndtype\nq\x04U\x02f4K\x00K\x01\x87Rq\x05(K\x01U\x01<NNJ\xff\xff\xff\xffJ\xff\xff\xff\xfftb\x89U\x10\x00\x00\x80?\x00\x00\x00@\x00\x00@@\x00\x00\x80@tb.'
         a = np.array([1.0, 2.0, 3.0, 4.0], dtype=np.float32)
         p = self._loads(s)
         assert_equal(a, p)
 
     def test_version1_object(self):
-        s = b'\x80\x02cnumpy.core._internal\n_reconstruct\nq\x01cnumpy\nndarray\nq\x02K\x00\x85U\x01b\x87Rq\x03(K\x01K\x02\x85cnumpy\ndtype\nq\x04U\x02O8K\x00K\x01\x87Rq\x05(K\x01U\x01|NNJ\xff\xff\xff\xffJ\xff\xff\xff\xfftb\x89]q\x06(}q\x07U\x01aK\x01s}q\x08U\x01bK\x02setb.'
+        s = b'\x80\x02clabugr.np.core._internal\n_reconstruct\nq\x01cnumpy\nndarray\nq\x02K\x00\x85U\x01b\x87Rq\x03(K\x01K\x02\x85cnumpy\ndtype\nq\x04U\x02O8K\x00K\x01\x87Rq\x05(K\x01U\x01|NNJ\xff\xff\xff\xffJ\xff\xff\xff\xfftb\x89]q\x06(}q\x07U\x01aK\x01s}q\x08U\x01bK\x02setb.'
         a = np.array([{'a': 1}, {'b': 2}])
         p = self._loads(s)
         assert_equal(a, p)
 
     def test_subarray_int_shape(self):
-        s = b"cnumpy.core.multiarray\n_reconstruct\np0\n(cnumpy\nndarray\np1\n(I0\ntp2\nS'b'\np3\ntp4\nRp5\n(I1\n(I1\ntp6\ncnumpy\ndtype\np7\n(S'V6'\np8\nI0\nI1\ntp9\nRp10\n(I3\nS'|'\np11\nN(S'a'\np12\ng3\ntp13\n(dp14\ng12\n(g7\n(S'V4'\np15\nI0\nI1\ntp16\nRp17\n(I3\nS'|'\np18\n(g7\n(S'i1'\np19\nI0\nI1\ntp20\nRp21\n(I3\nS'|'\np22\nNNNI-1\nI-1\nI0\ntp23\nb(I2\nI2\ntp24\ntp25\nNNI4\nI1\nI0\ntp26\nbI0\ntp27\nsg3\n(g7\n(S'V2'\np28\nI0\nI1\ntp29\nRp30\n(I3\nS'|'\np31\n(g21\nI2\ntp32\nNNI2\nI1\nI0\ntp33\nbI4\ntp34\nsI6\nI1\nI0\ntp35\nbI00\nS'\\x01\\x01\\x01\\x01\\x01\\x02'\np36\ntp37\nb."
+        s = b"clabugr.np.core.multiarray\n_reconstruct\np0\n(cnumpy\nndarray\np1\n(I0\ntp2\nS'b'\np3\ntp4\nRp5\n(I1\n(I1\ntp6\ncnumpy\ndtype\np7\n(S'V6'\np8\nI0\nI1\ntp9\nRp10\n(I3\nS'|'\np11\nN(S'a'\np12\ng3\ntp13\n(dp14\ng12\n(g7\n(S'V4'\np15\nI0\nI1\ntp16\nRp17\n(I3\nS'|'\np18\n(g7\n(S'i1'\np19\nI0\nI1\ntp20\nRp21\n(I3\nS'|'\np22\nNNNI-1\nI-1\nI0\ntp23\nb(I2\nI2\ntp24\ntp25\nNNI4\nI1\nI0\ntp26\nbI0\ntp27\nsg3\n(g7\n(S'V2'\np28\nI0\nI1\ntp29\nRp30\n(I3\nS'|'\np31\n(g21\nI2\ntp32\nNNI2\nI1\nI0\ntp33\nbI4\ntp34\nsI6\nI1\nI0\ntp35\nbI00\nS'\\x01\\x01\\x01\\x01\\x01\\x02'\np36\ntp37\nb."
         a = np.array([(1, (1, 2))], dtype=[('a', 'i1', (2, 2)), ('b', 'i1', 2)])
         p = self._loads(s)
         assert_equal(a, p)
@@ -3481,7 +3481,7 @@ class TestArgmax(object):
         assert_equal(d.argmax(), 5942)
 
     def test_np_vs_ndarray(self):
-        # make sure both ndarray.argmax and numpy.argmax support out/axis args
+        # make sure both ndarray.argmax and labugr.np.argmax support out/axis args
         a = np.random.normal(size=(2,3))
 
         # check positional args
@@ -3629,7 +3629,7 @@ class TestArgmin(object):
         assert_equal(d.argmin(), 6001)
 
     def test_np_vs_ndarray(self):
-        # make sure both ndarray.argmin and numpy.argmin support out/axis args
+        # make sure both ndarray.argmin and labugr.np.argmin support out/axis args
         a = np.random.normal(size=(2, 3))
 
         # check positional args
@@ -5008,7 +5008,7 @@ class TestDot(object):
         assert_equal(zeros[1].array, zeros_test[1].array)
 
     def test_dot_2args(self):
-        from numpy.core.multiarray import dot
+        from labugr.np.core.multiarray import dot
 
         a = np.array([[1, 2], [3, 4]], dtype=float)
         b = np.array([[1, 0], [1, 1]], dtype=float)
@@ -5018,7 +5018,7 @@ class TestDot(object):
         assert_allclose(c, d)
 
     def test_dot_3args(self):
-        from numpy.core.multiarray import dot
+        from labugr.np.core.multiarray import dot
 
         np.random.seed(22)
         f = np.random.random_sample((1024, 16))
@@ -5040,7 +5040,7 @@ class TestDot(object):
         assert_array_equal(r2, r)
 
     def test_dot_3args_errors(self):
-        from numpy.core.multiarray import dot
+        from labugr.np.core.multiarray import dot
 
         np.random.seed(22)
         f = np.random.random_sample((1024, 16))
@@ -5152,7 +5152,7 @@ class TestDot(object):
 
 
 class MatmulCommon(object):
-    """Common tests for '@' operator and numpy.matmul.
+    """Common tests for '@' operator and labugr.np.matmul.
 
     Do not derive from TestCase to avoid nose running it.
 
@@ -5912,7 +5912,7 @@ class TestMinScalarType(object):
         assert_equal(wanted, dt)
 
 
-from numpy.core._internal import _dtype_from_pep3118
+from labugr.np.core._internal import _dtype_from_pep3118
 
 
 class TestPEP3118Dtype(object):
@@ -6889,7 +6889,7 @@ class TestCTypes(object):
         assert_equal(tuple(test_arr.ctypes.shape), (2, 3))
 
     def test_ctypes_is_not_available(self):
-        from numpy.core import _internal
+        from labugr.np.core import _internal
         _internal.ctypes = None
         try:
             test_arr = np.array([[1, 2, 3], [4, 5, 6]])

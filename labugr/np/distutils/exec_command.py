@@ -57,8 +57,8 @@ import os
 import sys
 import subprocess
 
-from numpy.distutils.misc_util import is_sequence, make_temp_file
-from numpy.distutils import log
+from labugr.np.distutils.misc_util import is_sequence, make_temp_file
+from labugr.np.distutils import log
 
 def temp_file_name():
     fo, name = make_temp_file()

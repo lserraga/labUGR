@@ -27,7 +27,7 @@ else:
 import warnings
 import platform
 
-from numpy.distutils.compat import get_exception
+from labugr.np.distutils.compat import get_exception
 
 def getoutput(cmd, successful_status=(0,), stacklevel=1):
     try:

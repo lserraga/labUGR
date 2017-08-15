@@ -17,7 +17,7 @@ try:
     # Normally numpy is installed if the above import works, but an interrupted
     # in-place build could also have left a __config__.py.  In that case the
     # next import may still fail, so keep it inside the try block.
-    from numpy.testing.nosetester import _numpy_tester
+    from labugr.np.testing.nosetester import _numpy_tester
     test = _numpy_tester().test
 except ImportError:
     pass

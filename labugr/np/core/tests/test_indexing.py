@@ -5,10 +5,10 @@ import warnings
 import functools
 import operator
 
-import numpy as np
-from numpy.core.multiarray_tests import array_indexing
+import labugr.np as np
+from labugr.np.core.multiarray_tests import array_indexing
 from itertools import product
-from numpy.testing import (
+from labugr.np.testing import (
     run_module_suite, assert_, assert_equal, assert_raises,
     assert_array_equal, assert_warns, HAS_REFCOUNT
 )
@@ -799,7 +799,7 @@ class TestMultiIndexingAutomated(object):
                 ndim += 1
                 continue
             if not isinstance(indx, np.ndarray):
-                # This could be open for changes in numpy.
+                # This could be open for changes in labugr.np.
                 # numpy should maybe raise an error if casting to intp
                 # is not safe. It rejects np.array([1., 2.]) but not
                 # [1., 2.] as index (same for ie. np.take).

@@ -4025,7 +4025,7 @@ array_shares_memory_impl(PyObject *args, PyObject *kwds, Py_ssize_t default_max_
     }
     else if (result == MEM_OVERLAP_TOO_HARD) {
         if (raise_exceptions) {
-            npy_cache_import("numpy.core._internal", "TooHardError",
+            npy_cache_import("labugr.np.core._internal", "TooHardError",
                              &too_hard_cls);
             if (too_hard_cls) {
                 PyErr_SetString(too_hard_cls, "Exceeded max_work");
@@ -4339,7 +4339,7 @@ setup_scalartypes(PyObject *NPY_UNUSED(dict))
 
 /*
  * In Py3K, int is no longer a fixed-width integer type, so don't
- * inherit numpy.int_ from it.
+ * inherit labugr.np.int_ from it.
  */
 #if defined(NPY_PY3K)
 #define INHERIT_INT(child, parent2)                                     \

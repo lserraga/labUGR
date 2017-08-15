@@ -1,7 +1,7 @@
 from __future__ import division, absolute_import, print_function
 
 import sys
-from numpy.distutils.fcompiler import FCompiler
+from labugr.np.distutils.fcompiler import FCompiler
 
 compilers = ['NAGFCompiler']
 
@@ -39,7 +39,7 @@ class NAGFCompiler(FCompiler):
 if __name__ == '__main__':
     from distutils import log
     log.set_verbosity(2)
-    from numpy.distutils.fcompiler import new_fcompiler
+    from labugr.np.distutils.fcompiler import new_fcompiler
     compiler = new_fcompiler(compiler='nag')
     compiler.customize()
     print(compiler.get_version())

@@ -2,9 +2,9 @@ from __future__ import division, absolute_import, print_function
 
 import sys
 
-import numpy as np
-from numpy.core.multiarray import _vec_string
-from numpy.testing import (
+import labugr.np as np
+from labugr.np.core.multiarray import _vec_string
+from labugr.np.testing import (
     run_module_suite, assert_, assert_equal, assert_array_equal, assert_raises,
     suppress_warnings,
 )

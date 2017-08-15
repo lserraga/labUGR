@@ -3,14 +3,14 @@ from __future__ import division, absolute_import, print_function
 import sys
 import itertools
 
-import numpy as np
-from numpy.testing import (run_module_suite, assert_, assert_raises, assert_equal,
+import labugr.np as np
+from labugr.np.testing import (run_module_suite, assert_, assert_raises, assert_equal,
                            assert_array_equal, assert_allclose, dec)
 
-from numpy.core.multiarray_tests import solve_diophantine, internal_overlap
-from numpy.core import umath_tests
-from numpy.lib.stride_tricks import as_strided
-from numpy.compat import long
+from labugr.np.core.multiarray_tests import solve_diophantine, internal_overlap
+from labugr.np.core import umath_tests
+from labugr.np.lib.stride_tricks import as_strided
+from labugr.np.compat import long
 
 if sys.version_info[0] >= 3:
     xrange = range
@@ -590,7 +590,7 @@ def test_non_ndarray_inputs():
 
 def view_element_first_byte(x):
     """Construct an array viewing the first byte of each element of `x`"""
-    from numpy.lib.stride_tricks import DummyArray
+    from labugr.np.lib.stride_tricks import DummyArray
     interface = dict(x.__array_interface__)
     interface['typestr'] = '|b1'
     interface['descr'] = [('', '|b1')]

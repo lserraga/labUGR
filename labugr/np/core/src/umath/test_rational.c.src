@@ -119,7 +119,7 @@ typedef struct {
     /* numerator */
     npy_int32 n;
     /*
-     * denominator minus one: numpy.zeros() uses memset(0) for non-object
+     * denominator minus one: labugr.np.zeros() uses memset(0) for non-object
      * types, so need to ensure that rational(0) has all zero bytes
      */
     npy_int32 dmm;

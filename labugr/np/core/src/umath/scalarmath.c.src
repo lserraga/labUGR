@@ -1367,7 +1367,7 @@ emit_complexwarning(void)
     static PyObject *cls = NULL;
     if (cls == NULL) {
         PyObject *mod;
-        mod = PyImport_ImportModule("numpy.core");
+        mod = PyImport_ImportModule("labugr.np.core");
         assert(mod != NULL);
         cls = PyObject_GetAttrString(mod, "ComplexWarning");
         assert(cls != NULL);

@@ -2,10 +2,10 @@ from __future__ import division, absolute_import, print_function
 
 from os.path import join, sep, dirname
 
-from numpy.distutils.misc_util import (
+from labugr.np.distutils.misc_util import (
     appendpath, minrelpath, gpaths, get_shared_lib_extension, get_info
 )
-from numpy.testing import (
+from labugr.np.testing import (
     run_module_suite, assert_, assert_equal
 )
 

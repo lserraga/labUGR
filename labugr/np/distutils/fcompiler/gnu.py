@@ -8,10 +8,10 @@ import platform
 import tempfile
 from subprocess import Popen, PIPE, STDOUT
 
-from numpy.distutils.fcompiler import FCompiler
-from numpy.distutils.exec_command import exec_command
-from numpy.distutils.misc_util import msvc_runtime_library
-from numpy.distutils.compat import get_exception
+from labugr.np.distutils.fcompiler import FCompiler
+from labugr.np.distutils.exec_command import exec_command
+from labugr.np.distutils.misc_util import msvc_runtime_library
+from labugr.np.distutils.compat import get_exception
 
 compilers = ['GnuFCompiler', 'Gnu95FCompiler']
 

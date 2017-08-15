@@ -6,10 +6,10 @@ import warnings
 import fnmatch
 import itertools
 
-import numpy.core.umath as ncu
-from numpy.core import umath_tests as ncu_tests
-import numpy as np
-from numpy.testing import (
+import labugr.np.core.umath as ncu
+from labugr.np.core import umath_tests as ncu_tests
+import labugr.np as np
+from labugr.np.testing import (
     run_module_suite, assert_, assert_equal, assert_raises,
     assert_raises_regex, assert_array_equal, assert_almost_equal,
     assert_array_almost_equal, dec, assert_allclose, assert_no_warnings,

@@ -22,4 +22,4 @@
 #define SAVESPACEBIT 0
 
 #undef import_array
-#define import_array() { if (_import_array() < 0) {PyErr_Print(); PyErr_SetString(PyExc_ImportError, "numpy.core.multiarray failed to import"); } }
+#define import_array() { if (_import_array() < 0) {PyErr_Print(); PyErr_SetString(PyExc_ImportError, "labugr.np.core.multiarray failed to import"); } }

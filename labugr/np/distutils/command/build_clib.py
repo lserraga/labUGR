@@ -9,9 +9,9 @@ from distutils.command.build_clib import build_clib as old_build_clib
 from distutils.errors import DistutilsSetupError, DistutilsError, \
      DistutilsFileError
 
-from numpy.distutils import log
+from labugr.np.distutils import log
 from distutils.dep_util import newer_group
-from numpy.distutils.misc_util import filter_sources, has_f_sources,\
+from labugr.np.distutils.misc_util import filter_sources, has_f_sources,\
      has_cxx_sources, all_strings, get_lib_source_files, is_sequence, \
      get_numpy_include_dirs
 
@@ -92,7 +92,7 @@ class build_clib(old_build_clib):
         self.compiler.show_customization()
 
         if self.have_f_sources():
-            from numpy.distutils.fcompiler import new_fcompiler
+            from labugr.np.distutils.fcompiler import new_fcompiler
             self._f_compiler = new_fcompiler(compiler=self.fcompiler,
                                                verbose=self.verbose,
                                                dry_run=self.dry_run,
@@ -171,7 +171,7 @@ class build_clib(old_build_clib):
             log.info('using additional config_fc from setup script '\
                      'for fortran compiler: %s' \
                      % (config_fc,))
-            from numpy.distutils.fcompiler import new_fcompiler
+            from labugr.np.distutils.fcompiler import new_fcompiler
             fcompiler = new_fcompiler(compiler=fcompiler.compiler_type,
                                       verbose=self.verbose,
                                       dry_run=self.dry_run,

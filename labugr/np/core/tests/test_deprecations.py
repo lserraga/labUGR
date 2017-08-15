@@ -10,8 +10,8 @@ import sys
 import operator
 import warnings
 
-import numpy as np
-from numpy.testing import (
+import labugr.np as np
+from labugr.np.testing import (
     run_module_suite, assert_raises, assert_warns, assert_no_warnings,
     assert_array_equal, assert_, dec)
 
@@ -429,7 +429,7 @@ class TestNonNumericConjugate(_DeprecationTestCase):
 class TestNPY_CHAR(_DeprecationTestCase):
     # 2017-05-03, 1.13.0
     def test_npy_char_deprecation(self):
-        from numpy.core.multiarray_tests import npy_char_deprecation
+        from labugr.np.core.multiarray_tests import npy_char_deprecation
         self.assert_deprecated(npy_char_deprecation)
         assert_(npy_char_deprecation() == 'S1')
 

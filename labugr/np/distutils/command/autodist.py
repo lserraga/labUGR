@@ -4,7 +4,7 @@
 from __future__ import division, absolute_import, print_function
 
 
-# We put them here since they could be easily reused outside numpy.distutils
+# We put them here since they could be easily reused outside labugr.np.distutils
 
 def check_inline(cmd):
     """Return the inline identifier (may be empty)."""

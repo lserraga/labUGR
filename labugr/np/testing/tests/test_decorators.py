@@ -6,7 +6,7 @@ from __future__ import division, absolute_import, print_function
 
 import warnings
 
-from numpy.testing import (dec, assert_, assert_raises, run_module_suite,
+from labugr.np.testing import (dec, assert_, assert_raises, run_module_suite,
                            SkipTest, KnownFailureException)
 
 

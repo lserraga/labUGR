@@ -41,7 +41,7 @@ import os
 
 from . import numeric as sb
 from . import numerictypes as nt
-from numpy.compat import isfileobj, bytes, long
+from labugr.np.compat import isfileobj, bytes, long
 
 # All of the functions allow formats to be a dtype
 __all__ = ['record', 'recarray', 'format_parser']
@@ -217,7 +217,7 @@ class record(nt.void):
     """
 
     # manually set name and module so that this class's type shows up
-    # as numpy.record when printed
+    # as labugr.np.record when printed
     __name__ = 'record'
     __module__ = 'numpy'
 
@@ -402,7 +402,7 @@ class recarray(ndarray):
     """
 
     # manually set name and module so that this class's type shows
-    # up as "numpy.recarray" when printed
+    # up as "labugr.np.recarray" when printed
     __name__ = 'recarray'
     __module__ = 'numpy'
 
@@ -450,7 +450,7 @@ class recarray(ndarray):
         # PyArray_GetField) the type of obj is inherited. Next, if obj.dtype is
         # non-structured, convert it to an ndarray. Then if obj is structured
         # with void type convert it to the same dtype.type (eg to preserve
-        # numpy.record type if present), since nested structured fields do not
+        # labugr.np.record type if present), since nested structured fields do not
         # inherit type. Don't do this for non-void structures though.
         if obj.dtype.fields:
             if issubclass(obj.dtype.type, nt.void):
@@ -517,10 +517,10 @@ class recarray(ndarray):
         repr_dtype = self.dtype
         if (self.dtype.type is record
                 or (not issubclass(self.dtype.type, nt.void))):
-            # If this is a full record array (has numpy.record dtype),
+            # If this is a full record array (has labugr.np.record dtype),
             # or if it has a scalar (non-void) dtype with no records,
             # represent it using the rec.array function. Since rec.array
-            # converts dtype to a numpy.record for us, convert back
+            # converts dtype to a labugr.np.record for us, convert back
             # to non-record before printing
             if repr_dtype.type is record:
                 repr_dtype = sb.dtype((nt.void, repr_dtype))
@@ -531,7 +531,7 @@ class recarray(ndarray):
             # This should only happen if the user is playing
             # strange games with dtypes.
             prefix = "array("
-            fmt = 'array(%s, %sdtype=%s).view(numpy.recarray)'
+            fmt = 'array(%s, %sdtype=%s).view(labugr.np.recarray)'
 
         # get data/shape string. logic taken from numeric.array_repr
         if self.size > 0 or self.shape == (0,):

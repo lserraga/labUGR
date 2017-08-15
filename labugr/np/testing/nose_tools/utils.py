@@ -15,9 +15,9 @@ import contextlib
 from tempfile import mkdtemp, mkstemp
 from unittest.case import SkipTest
 
-from numpy.core import(
+from labugr.np.core import(
      float32, empty, arange, array_repr, ndarray, isnat, array)
-from numpy.lib.utils import deprecate
+from labugr.np.lib.utils import deprecate
 
 if sys.version_info[0] >= 3:
     from io import StringIO
@@ -104,7 +104,7 @@ def gisnan(x):
     exception is always raised.
 
     This should be removed once this problem is solved at the Ufunc level."""
-    from numpy.core import isnan
+    from labugr.np.core import isnan
     st = isnan(x)
     if isinstance(st, type(NotImplemented)):
         raise TypeError("isnan not supported for this type")
@@ -122,7 +122,7 @@ def gisfinite(x):
     exception is always raised.
 
     This should be removed once this problem is solved at the Ufunc level."""
-    from numpy.core import isfinite, errstate
+    from labugr.np.core import isfinite, errstate
     with errstate(invalid='ignore'):
         st = isfinite(x)
         if isinstance(st, type(NotImplemented)):
@@ -141,7 +141,7 @@ def gisinf(x):
     exception is always raised.
 
     This should be removed once this problem is solved at the Ufunc level."""
-    from numpy.core import isinf, errstate
+    from labugr.np.core import isinf, errstate
     with errstate(invalid='ignore'):
         st = isinf(x)
         if isinstance(st, type(NotImplemented)):
@@ -149,15 +149,15 @@ def gisinf(x):
     return st
 
 
-@deprecate(message="numpy.testing.rand is deprecated in numpy 1.11. "
-                   "Use numpy.random.rand instead.")
+@deprecate(message="labugr.np.testing.rand is deprecated in numpy 1.11. "
+                   "Use labugr.np.random.rand instead.")
 def rand(*args):
     """Returns an array of random numbers with the given shape.
 
     This only uses the standard library, so it is useful for testing purposes.
     """
     import random
-    from numpy.core import zeros, float64
+    from labugr.np.core import zeros, float64
     results = zeros(args, float64)
     f = results.flat
     for i in range(len(f)):
@@ -338,8 +338,8 @@ def assert_equal(actual, desired, err_msg='', verbose=True):
         for k in range(len(desired)):
             assert_equal(actual[k], desired[k], 'item=%r\n%s' % (k, err_msg), verbose)
         return
-    from numpy.core import ndarray, isscalar, signbit
-    from numpy.lib import iscomplexobj, real, imag
+    from labugr.np.core import ndarray, isscalar, signbit
+    from labugr.np.lib import iscomplexobj, real, imag
     if isinstance(actual, ndarray) or isinstance(desired, ndarray):
         return assert_array_equal(actual, desired, err_msg, verbose)
     msg = build_err_msg([actual, desired], err_msg, verbose=verbose)
@@ -503,7 +503,7 @@ def assert_almost_equal(actual,desired,decimal=7,err_msg='',verbose=True):
 
     Examples
     --------
-    >>> import numpy.testing as npt
+    >>> import labugr.np.testing as npt
     >>> npt.assert_almost_equal(2.3333333333333, 2.33333334)
     >>> npt.assert_almost_equal(2.3333333333333, 2.33333334, decimal=10)
     ...
@@ -524,8 +524,8 @@ def assert_almost_equal(actual,desired,decimal=7,err_msg='',verbose=True):
 
     """
     __tracebackhide__ = True  # Hide traceback for py.test
-    from numpy.core import ndarray
-    from numpy.lib import iscomplexobj, real, imag
+    from labugr.np.core import ndarray
+    from labugr.np.lib import iscomplexobj, real, imag
 
     # Handle complex numbers: separate into real/imag to handle
     # nan/inf/negative zero correctly
@@ -638,7 +638,7 @@ def assert_approx_equal(actual,desired,significant=7,err_msg='',verbose=True):
 
     """
     __tracebackhide__ = True  # Hide traceback for py.test
-    import numpy as np
+    import labugr.np as np
 
     (actual, desired) = map(float, (actual, desired))
     if desired == actual:
@@ -682,7 +682,7 @@ def assert_array_compare(comparison, x, y, err_msg='', verbose=True,
                          header='', precision=6, equal_nan=True,
                          equal_inf=True):
     __tracebackhide__ = True  # Hide traceback for py.test
-    from numpy.core import array, isnan, isinf, any, inf
+    from labugr.np.core import array, isnan, isinf, any, inf
     x = array(x, copy=False, subok=True)
     y = array(y, copy=False, subok=True)
 
@@ -928,9 +928,9 @@ def assert_array_almost_equal(x, y, decimal=6, err_msg='', verbose=True):
 
     """
     __tracebackhide__ = True  # Hide traceback for py.test
-    from numpy.core import around, number, float_, result_type, array
-    from numpy.core.numerictypes import issubdtype
-    from numpy.core.fromnumeric import any as npany
+    from labugr.np.core import around, number, float_, result_type, array
+    from labugr.np.core.numerictypes import issubdtype
+    from labugr.np.core.fromnumeric import any as npany
 
     def compare(x, y):
         try:
@@ -1128,11 +1128,11 @@ def rundocs(filename=None, raise_on_error=True):
     -----
     The doctests can be run by the user/developer by adding the ``doctests``
     argument to the ``test()`` call. For example, to run all tests (including
-    doctests) for `numpy.lib`:
+    doctests) for `labugr.np.lib`:
 
     >>> np.lib.test(doctests=True) #doctest: +SKIP
     """
-    from numpy.compat import npy_load_module
+    from labugr.np.compat import npy_load_module
     import doctest
     if filename is None:
         f = sys._getframe(1)
@@ -1175,7 +1175,7 @@ def assert_raises(*args, **kwargs):
 
     Alternatively, `assert_raises` can be used as a context manager:
 
-    >>> from numpy.testing import assert_raises
+    >>> from labugr.np.testing import assert_raises
     >>> with assert_raises(ZeroDivisionError):
     ...     1 / 0
 
@@ -1325,7 +1325,7 @@ def _assert_valid_refcount(op):
     """
     if not HAS_REFCOUNT:
         return True
-    import numpy as np
+    import labugr.np as np
 
     b = np.arange(100*100).reshape(100, 100)
     c = b
@@ -1384,7 +1384,7 @@ def assert_allclose(actual, desired, rtol=1e-7, atol=0, equal_nan=True,
 
     """
     __tracebackhide__ = True  # Hide traceback for py.test
-    import numpy as np
+    import labugr.np as np
 
     def compare(x, y):
         return np.core.numeric.isclose(x, y, rtol=rtol, atol=atol,
@@ -1446,7 +1446,7 @@ def assert_array_almost_equal_nulp(x, y, nulp=1):
 
     """
     __tracebackhide__ = True  # Hide traceback for py.test
-    import numpy as np
+    import labugr.np as np
     ax = np.abs(x)
     ay = np.abs(y)
     ref = nulp * np.spacing(np.where(ax > ay, ax, ay))
@@ -1496,7 +1496,7 @@ def assert_array_max_ulp(a, b, maxulp=1, dtype=None):
 
     """
     __tracebackhide__ = True  # Hide traceback for py.test
-    import numpy as np
+    import labugr.np as np
     ret = nulp_diff(a, b, dtype)
     if not np.all(ret <= maxulp):
         raise AssertionError("Arrays are not almost equal up to %g ULP" %
@@ -1530,7 +1530,7 @@ def nulp_diff(x, y, dtype=None):
     >>> nulp_diff(1, 1 + np.finfo(x.dtype).eps)
     1.0
     """
-    import numpy as np
+    import labugr.np as np
     if dtype:
         x = np.array(x, dtype=dtype)
         y = np.array(y, dtype=dtype)
@@ -1576,7 +1576,7 @@ def _integer_repr(x, vdt, comp):
 def integer_repr(x):
     """Return the signed-magnitude interpretation of the binary representation of
     x."""
-    import numpy as np
+    import labugr.np as np
     if x.dtype == np.float32:
         return _integer_repr(x, np.int32, np.int32(-2**31))
     elif x.dtype == np.float64:

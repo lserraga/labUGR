@@ -5,11 +5,11 @@ import itertools
 import contextlib
 import operator
 
-import numpy as np
-import numpy.core.multiarray_tests as mt
-from numpy.compat import long
+import labugr.np as np
+import labugr.np.core.multiarray_tests as mt
+from labugr.np.compat import long
 
-from numpy.testing import assert_raises, assert_equal, dec
+from labugr.np.testing import assert_raises, assert_equal, dec
 
 
 INT64_MAX = np.iinfo(np.int64).max

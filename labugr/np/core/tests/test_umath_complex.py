@@ -3,9 +3,9 @@ from __future__ import division, absolute_import, print_function
 import sys
 import platform
 
-import numpy as np
-import numpy.core.umath as ncu
-from numpy.testing import (
+import labugr.np as np
+import labugr.np.core.umath as ncu
+from labugr.np.testing import (
     run_module_suite, assert_raises, assert_equal, assert_array_equal,
     assert_almost_equal, dec
 )

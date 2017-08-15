@@ -1,14 +1,14 @@
 from __future__ import division, absolute_import, print_function
 
 import warnings
-import numpy as np
-from numpy.core import (array, arange, atleast_1d, atleast_2d, atleast_3d,
+import labugr.np as np
+from labugr.np.core import (array, arange, atleast_1d, atleast_2d, atleast_3d,
                         block, vstack, hstack, newaxis, concatenate, stack)
-from numpy.testing import (assert_, assert_raises,
+from labugr.np.testing import (assert_, assert_raises,
                            assert_array_equal, assert_equal, run_module_suite,
                            assert_raises_regex, assert_almost_equal)
 
-from numpy.compat import long
+from labugr.np.compat import long
 
 class TestAtleast1d(object):
     def test_0D_array(self):

@@ -2,7 +2,7 @@ from __future__ import division, absolute_import, print_function
 
 from numpy import (logspace, linspace, geomspace, dtype, array, sctypes,
                    arange, isnan, ndarray, sqrt, nextafter)
-from numpy.testing import (
+from labugr.np.testing import (
     run_module_suite, assert_, assert_equal, assert_raises,
     assert_array_equal, assert_allclose, suppress_warnings
 )

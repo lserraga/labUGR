@@ -15,12 +15,12 @@ import subprocess
 import re
 
 # Overwrite certain distutils.ccompiler functions:
-import numpy.distutils.ccompiler
+import labugr.np.distutils.ccompiler
 
 if sys.version_info[0] < 3:
     from . import log
 else:
-    from numpy.distutils import log
+    from labugr.np.distutils import log
 # NT stuff
 # 1. Make sure libpython<version>.a exists for gcc.  If not, build it.
 # 2. Force windows to use gcc (we're struggling with MSVC and g77 support)
@@ -29,12 +29,12 @@ else:
 
 import distutils.cygwinccompiler
 from distutils.version import StrictVersion
-from numpy.distutils.ccompiler import gen_preprocess_options, gen_lib_options
+from labugr.np.distutils.ccompiler import gen_preprocess_options, gen_lib_options
 from distutils.unixccompiler import UnixCCompiler
 from distutils.msvccompiler import get_build_version as get_build_msvc_version
 from distutils.errors import (DistutilsExecError, CompileError,
                               UnknownFileError)
-from numpy.distutils.misc_util import (msvc_runtime_library,
+from labugr.np.distutils.misc_util import (msvc_runtime_library,
                                        msvc_runtime_version,
                                        msvc_runtime_major,
                                        get_build_architecture)
@@ -502,7 +502,7 @@ def _build_import_library_x86():
             return
     log.info('Building import library (ARCH=x86): "%s"', out_file)
 
-    from numpy.distutils import lib2def
+    from labugr.np.distutils import lib2def
 
     def_name = "python%d%d.def" % tuple(sys.version_info[:2])
     def_file = os.path.join(sys.prefix, 'libs', def_name)

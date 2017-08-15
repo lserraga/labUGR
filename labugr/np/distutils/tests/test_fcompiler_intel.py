@@ -1,7 +1,7 @@
 from __future__ import division, absolute_import, print_function
 
-import numpy.distutils.fcompiler
-from numpy.testing import run_module_suite, assert_
+import labugr.np.distutils.fcompiler
+from labugr.np.testing import run_module_suite, assert_
 
 
 intel_32bit_version_strings = [
@@ -18,7 +18,7 @@ intel_64bit_version_strings = [
 
 class TestIntelFCompilerVersions(object):
     def test_32bit_version(self):
-        fc = numpy.distutils.fcompiler.new_fcompiler(compiler='intel')
+        fc = labugr.np.distutils.fcompiler.new_fcompiler(compiler='intel')
         for vs, version in intel_32bit_version_strings:
             v = fc.version_match(vs)
             assert_(v == version)
@@ -26,7 +26,7 @@ class TestIntelFCompilerVersions(object):
 
 class TestIntelEM64TFCompilerVersions(object):
     def test_64bit_version(self):
-        fc = numpy.distutils.fcompiler.new_fcompiler(compiler='intelem')
+        fc = labugr.np.distutils.fcompiler.new_fcompiler(compiler='intelem')
         for vs, version in intel_64bit_version_strings:
             v = fc.version_match(vs)
             assert_(v == version)

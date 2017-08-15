@@ -8,10 +8,10 @@ import mmap
 
 from numpy import (
     memmap, sum, average, product, ndarray, isscalar, add, subtract, multiply)
-from numpy.compat import Path
+from labugr.np.compat import Path
 
 from numpy import arange, allclose, asarray
-from numpy.testing import (
+from labugr.np.testing import (
     run_module_suite, assert_, assert_equal, assert_array_equal,
     dec, suppress_warnings
 )

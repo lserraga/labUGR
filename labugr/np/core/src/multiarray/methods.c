@@ -55,7 +55,7 @@ get_forwarding_ndarray_method(const char *name)
     PyObject *module_methods, *callable;
 
     /* Get a reference to the function we're calling */
-    module_methods = PyImport_ImportModule("numpy.core._methods");
+    module_methods = PyImport_ImportModule("labugr.np.core._methods");
     if (module_methods == NULL) {
         return NULL;
     }
@@ -64,7 +64,7 @@ get_forwarding_ndarray_method(const char *name)
         Py_DECREF(module_methods);
         PyErr_Format(PyExc_RuntimeError,
                 "NumPy internal error: could not find function "
-                "numpy.core._methods.%s", name);
+                "labugr.np.core._methods.%s", name);
     }
     else {
         Py_INCREF(callable);
@@ -75,7 +75,7 @@ get_forwarding_ndarray_method(const char *name)
 
 /*
  * Forwards an ndarray method to a the Python function
- * numpy.core._methods.<name>(...)
+ * labugr.np.core._methods.<name>(...)
  */
 static PyObject *
 forward_ndarray_method(PyArrayObject *self, PyObject *args, PyObject *kwds,
@@ -105,7 +105,7 @@ forward_ndarray_method(PyArrayObject *self, PyObject *args, PyObject *kwds,
 }
 
 /*
- * Forwards an ndarray method to the function numpy.core._methods.<name>(...),
+ * Forwards an ndarray method to the function labugr.np.core._methods.<name>(...),
  * caching the callable in a local static variable. Note that the
  * initialization is not thread-safe, but relies on the CPython GIL to
  * be correct.
@@ -365,7 +365,7 @@ PyArray_GetField(PyArrayObject *self, PyArray_Descr *typed, int offset)
 
     /* check that we are not reinterpreting memory containing Objects. */
     if (_may_have_objects(PyArray_DESCR(self)) || _may_have_objects(typed)) {
-        npy_cache_import("numpy.core._internal", "_getfield_is_safe",
+        npy_cache_import("labugr.np.core._internal", "_getfield_is_safe",
                          &checkfunc);
         if (checkfunc == NULL) {
             return NULL;
@@ -1189,7 +1189,7 @@ array_sort(PyArrayObject *self, PyObject *args, PyObject *kwds)
                             "order when the array has no fields.");
             return NULL;
         }
-        _numpy_internal = PyImport_ImportModule("numpy.core._internal");
+        _numpy_internal = PyImport_ImportModule("labugr.np.core._internal");
         if (_numpy_internal == NULL) {
             return NULL;
         }
@@ -1250,7 +1250,7 @@ array_partition(PyArrayObject *self, PyObject *args, PyObject *kwds)
                             "order when the array has no fields.");
             return NULL;
         }
-        _numpy_internal = PyImport_ImportModule("numpy.core._internal");
+        _numpy_internal = PyImport_ImportModule("labugr.np.core._internal");
         if (_numpy_internal == NULL) {
             return NULL;
         }
@@ -1311,7 +1311,7 @@ array_argsort(PyArrayObject *self, PyObject *args, PyObject *kwds)
                             "order when the array has no fields.");
             return NULL;
         }
-        _numpy_internal = PyImport_ImportModule("numpy.core._internal");
+        _numpy_internal = PyImport_ImportModule("labugr.np.core._internal");
         if (_numpy_internal == NULL) {
             return NULL;
         }
@@ -1365,7 +1365,7 @@ array_argpartition(PyArrayObject *self, PyObject *args, PyObject *kwds)
                             "order when the array has no fields.");
             return NULL;
         }
-        _numpy_internal = PyImport_ImportModule("numpy.core._internal");
+        _numpy_internal = PyImport_ImportModule("labugr.np.core._internal");
         if (_numpy_internal == NULL) {
             return NULL;
         }
@@ -1599,7 +1599,7 @@ array_reduce(PyArrayObject *self, PyObject *NPY_UNUSED(args))
     if (ret == NULL) {
         return NULL;
     }
-    mod = PyImport_ImportModule("numpy.core.multiarray");
+    mod = PyImport_ImportModule("labugr.np.core.multiarray");
     if (mod == NULL) {
         Py_DECREF(ret);
         return NULL;
@@ -1699,7 +1699,7 @@ array_setstate(PyArrayObject *self, PyObject *args)
        We've only got one right now. */
     if (version != 1 && version != 0) {
         PyErr_Format(PyExc_ValueError,
-                     "can't handle version %d of numpy.ndarray pickle",
+                     "can't handle version %d of labugr.np.ndarray pickle",
                      version);
         return NULL;
     }

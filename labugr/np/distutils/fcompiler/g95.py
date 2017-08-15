@@ -1,7 +1,7 @@
 # http://g95.sourceforge.net/
 from __future__ import division, absolute_import, print_function
 
-from numpy.distutils.fcompiler import FCompiler
+from labugr.np.distutils.fcompiler import FCompiler
 
 compilers = ['G95FCompiler']
 

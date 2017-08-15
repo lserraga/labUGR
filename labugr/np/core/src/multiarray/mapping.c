@@ -683,7 +683,7 @@ prepare_index(PyArrayObject *self, PyObject *index,
             /* The input was not an array, so give a general error message */
             PyErr_SetString(PyExc_IndexError,
                     "only integers, slices (`:`), ellipsis (`...`), "
-                    "numpy.newaxis (`None`) and integer or boolean "
+                    "labugr.np.newaxis (`None`) and integer or boolean "
                     "arrays are valid indices");
         }
         Py_DECREF(arr);
@@ -1549,7 +1549,7 @@ _get_field_view(PyArrayObject *arr, PyObject *ind, PyArrayObject **view)
          * Return copy for now (future plan to return the view above). All the
          * following code in this block can then be replaced by "return 0;"
          */
-        npy_cache_import("numpy.core._internal", "_copy_fields", &copyfunc);
+        npy_cache_import("labugr.np.core._internal", "_copy_fields", &copyfunc);
         if (copyfunc == NULL) {
             Py_DECREF(*view);
             *view = NULL;
@@ -3431,7 +3431,7 @@ NPY_NO_EXPORT PyTypeObject PyArrayMapIter_Type = {
     PyObject_HEAD_INIT(NULL)
     0,                                          /* ob_size */
 #endif
-    "numpy.mapiter",                            /* tp_name */
+    "labugr.np.mapiter",                            /* tp_name */
     sizeof(PyArrayMapIterObject),               /* tp_basicsize */
     0,                                          /* tp_itemsize */
     /* methods */

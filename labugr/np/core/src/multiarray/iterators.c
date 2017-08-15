@@ -1208,7 +1208,7 @@ NPY_NO_EXPORT PyTypeObject PyArrayIter_Type = {
     PyObject_HEAD_INIT(NULL)
     0,                                          /* ob_size */
 #endif
-    "numpy.flatiter",                           /* tp_name */
+    "labugr.np.flatiter",                           /* tp_name */
     sizeof(PyArrayIterObject),                  /* tp_basicsize */
     0,                                          /* tp_itemsize */
     /* methods */
@@ -1727,7 +1727,7 @@ NPY_NO_EXPORT PyTypeObject PyArrayMultiIter_Type = {
     PyObject_HEAD_INIT(NULL)
     0,                                          /* ob_size */
 #endif
-    "numpy.broadcast",                          /* tp_name */
+    "labugr.np.broadcast",                          /* tp_name */
     sizeof(PyArrayMultiIterObject),             /* tp_basicsize */
     0,                                          /* tp_itemsize */
     /* methods */
@@ -2056,7 +2056,7 @@ NPY_NO_EXPORT PyTypeObject PyArrayNeighborhoodIter_Type = {
     PyObject_HEAD_INIT(NULL)
     0,                                          /* ob_size */
 #endif
-    "numpy.neigh_internal_iter",                /* tp_name*/
+    "labugr.np.neigh_internal_iter",                /* tp_name*/
     sizeof(PyArrayNeighborhoodIterObject),      /* tp_basicsize*/
     0,                                          /* tp_itemsize*/
     (destructor)neighiter_dealloc,              /* tp_dealloc*/
