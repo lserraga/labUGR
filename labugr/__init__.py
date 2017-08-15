@@ -30,7 +30,7 @@ from .doc.ayuda import ayuda
 import numpy as np
 import matplotlib as plt
 
-from numpy import arange, pi
+from numpy import arange, pi, e
 
 #Creacion de arrays
 from numpy import (
@@ -43,18 +43,23 @@ from numpy import (
 
 #Propiedades del array
 from numpy import (
-	shape, ndim, size, dtype, real, imag, diag, tril ,triu)
+	shape, ndim, size, dtype, real, imag, conj, diag, tril ,triu)
 
 #Funciones trigonométricas (son igual que las de math pero se pueden utilizar en arrays)
 from numpy import (
 	sin, cos, tan, arcsin, arccos, arctan, hypot, sinh, cosh,
-	tanh, arcsinh, arccosh, arctanh, deg2rad, rad2deg)
+	tanh, arcsinh, arccosh, sinc, arctanh, deg2rad, rad2deg)
 
 #Manipulación de arrays
 from numpy import (
     reshape, transpose, concatenate, stack, delete, insert,
     unique, roll)
-import numpy.array_split as split
+from numpy import array_split as split
+
+#Funciones matemáticas (abs() y pow() estan incluido)
+from numpy import(
+    floor, ceil, exp, log, sqrt, sum, gradient, cross)
+from numpy import around as round 
 
 
 #Algebra lineal
@@ -62,13 +67,15 @@ import numpy.array_split as split
 
 #See masked arrays, y allclose para eliminar e-12
 
-#Funciones matemáticas (abs() y pow() estan incluido)
-from math import (
-    floor, ceil, gcd, isfinite, isinf, isnan, exp, e, log,
-    sqrt, )
 
-#sdjvnd
+
+#Iteracion
 from numpy import nditer
+
+#Funciones lógicas. All y any substituyen a las built_in para 
+#que sean compatibles con numpy arrays (use allclose to compare allrays)
+from numpy import (
+    all, any, logical_and, logical_or, allclose, isclose,)
 
 from . import fftpack
 
