@@ -18,6 +18,8 @@ sudo rm labugr/fftpack/convolvemodule.c
 
 sudo rm labugr/fftpack/_fftpackmodule.c
 
+sudo rm MANIFEST
+
 directorio=$(pwd)
 
 cd -P /usr/local/lib/python3.5/dist-packages

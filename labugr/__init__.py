@@ -28,7 +28,7 @@ from .signal import *
 from .doc.ayuda import ayuda
 
 import numpy as np
-import matplotlib as plt
+#import matplotlib as plt
 
 from numpy import arange, pi, e
 
