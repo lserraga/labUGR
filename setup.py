@@ -3,7 +3,14 @@ from os import path
 if sys.version_info[:2] < (2, 7) or (3, 0) <= sys.version_info[:2] < (3, 4):
     raise RuntimeError("Python version 2.7 or >= 3.4 required.")
 
+if sys.version_info[0] >= 3:
+    import builtins
+else:
+    import __builtin__ as builtins
+
 here = path.abspath(path.dirname(__file__))
+
+builtins.__LABUGR_SETUP__ = True
 
 # Get the long description from the README file
 with open(path.join(here, 'README.txt')) as f:
@@ -109,7 +116,7 @@ with open(path.join(here, 'README.txt')) as f:
 # )
 
 def configuration(parent_package='', top_path=None):
-    from numpy.distutils.misc_util import Configuration
+    from labugr.distutils.misc_util import Configuration
     config = Configuration(None, parent_package, top_path)
     config.set_options(ignore_setup_xxx_py=True,
                        assume_default_configuration=True,
@@ -157,7 +164,7 @@ def setup_package():
         python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*'
     )
 
-    from numpy.distutils.core import setup
+    from labugr.distutils.core import setup
     metadata['configuration'] = configuration
 
     setup(**metadata)
