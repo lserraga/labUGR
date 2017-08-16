@@ -15,6 +15,7 @@ labugr.egg-info
 __config__.py
 #Imformación de la librería
 *.so
+.directory
 # Archivos c generados en fftpack 
 dct.c
 dst.c

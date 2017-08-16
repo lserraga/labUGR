@@ -1,12 +1,21 @@
 import sys
-from os import path
+import os
+import subprocess
 if sys.version_info[:2] < (2, 7) or (3, 0) <= sys.version_info[:2] < (3, 4):
     raise RuntimeError("Python version 2.7 or >= 3.4 required.")
 
-here = path.abspath(path.dirname(__file__))
+if sys.version_info[0] < 3:
+    import __builtin__ as builtins
+else:
+    import builtins
+
+#Para poder determinar si estamos instalando labUGR
+builtins.__LABUGR_SETUP__ = True
+
+here = os.path.abspath(os.path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(here, 'README.txt')) as f:
+with open(os.path.join(here, 'README.txt')) as f:
     long_description = f.read()
 
 
@@ -119,6 +128,15 @@ def configuration(parent_package='', top_path=None):
 
     return config
 
+def generate_cython():
+    cwd = os.path.abspath(os.path.dirname(__file__))
+    print("Cythonizing sources")
+    p = subprocess.call([sys.executable,
+                         os.path.join(cwd, 'cythonize.py'),
+                         'labugr'],
+                        cwd=cwd)
+    if p != 0:
+        raise RuntimeError("Running cythonize failed!")
 
 
 def setup_package():
@@ -150,14 +168,17 @@ def setup_package():
         scripts=['scripts/remove_build.sh'],
         description="Laboratorio de señales UGR",
         long_description=long_description,
-        setup_requires=build_requires,
         install_requires=build_requires,
         packages=packages,
-        include_package_data=True,
-        python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*'
+        
+        python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*',
     )
 
     from numpy.distutils.core import setup
+    # cwd = os.path.abspath(os.path.dirname(__file__))
+    # if not os.path.exists(os.path.join(cwd, 'PKG-INFO')):
+    #     # Generate Cython sources, unless building from source release
+    #     generate_cython()
     metadata['configuration'] = configuration
 
     setup(**metadata)
