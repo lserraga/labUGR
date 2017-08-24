@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+
+  linux32:
+    container_name: linux32
+    build:
+          context: ./
+          dockerfile: ./docker/linux32/dockerfile
+    command: bash labugr/scripts/wheel.sh
+
+  linux64:
+    container_name: linux64
+    build: 
+          context: ./
+          dockerfile: ./docker/linux64/dockerfile
+    command: bash labugr/scripts/wheel.sh
+
