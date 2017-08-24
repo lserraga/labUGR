@@ -160,7 +160,7 @@ def setup_package():
     
     metadata = dict(
         name='labugr',
-        version='0.1.0.8',
+        version='0.1.1',
         author='Luis Serra Garcia',
         author_email='lsgarcia@correo.ugr.es',
         url='http://github.com/lserraga/labUGR',
