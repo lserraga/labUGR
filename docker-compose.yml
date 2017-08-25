@@ -1,14 +1,21 @@
+# Docker compose para la creación de manylinux wheels en linux 32 
+# bits y 64 bits
 version: '3'
 
 services:
-
+  #Creando el container para linux 32 bits
   linux32:
     container_name: linux32
+    #Epecificamos donde se encuentran los archivos para el container
     build:
+          #Context nos permite acceder a los archivos de la libreria
+          #desde la dockerfile (sino estos estarían fuera de contexto)
           context: ./
           dockerfile: ./docker/linux32/dockerfile
+    #Script para la creación de las wheels
     command: bash labugr/scripts/wheel.sh
 
+  #Mismo proceso para linux 64 bits
   linux64:
     container_name: linux64
     build: 
