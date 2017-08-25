@@ -53,7 +53,7 @@ from numpy import (
 #Manipulación de arrays
 from numpy import (
     reshape, transpose, concatenate, stack, delete, insert,
-    unique, roll)
+    unique, roll, sort, where)
 from numpy import array_split as split
 
 #Funciones matemáticas (abs() y pow() estan incluido)
@@ -68,7 +68,9 @@ from numpy import around as round
 
 #See masked arrays, y allclose para eliminar e-12
 
-
+#Random
+from numpy.random import (
+    rand, randn, randint)
 
 #Iteracion
 from numpy import nditer
