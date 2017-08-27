@@ -10,7 +10,7 @@ def configuration(parent_package='',top_path=None):
     config = Configuration('integrate', parent_package, top_path)
 
     # Get a local copy of lapack_opt_info
-    lapack_opt = dict(get_info('lapack_opt',notfound_action=2))
+    lapack_opt = dict(get_info('lapack_opt', notfound_action=2))
     # Pop off the libraries list so it can be combined with
     # additional required libraries Usually openblas
     lapack_libs = lapack_opt.pop('libraries', [])
@@ -27,7 +27,6 @@ def configuration(parent_package='',top_path=None):
     # # Extensions
     # # quadpack:
     include_dirs = [join(os.path.dirname(__file__), '.', '_lib', 'src')]
-    # include_dirs = [join(os.path.dirname(__file__), '..', '_lib', 'src')]
     if 'include_dirs' in lapack_opt:
         lapack_opt = dict(lapack_opt)
         include_dirs.extend(lapack_opt.pop('include_dirs'))
