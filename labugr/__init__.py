@@ -82,12 +82,14 @@ from numpy import (
 
 from . import fftpack
 
+from . import integrate
+
 from labugr.testing.utils import PytestTester
 test = PytestTester(__name__)
 del PytestTester
 
 excluidos = ['respuestaF', 'signal', 'spectral', 'testing', 'windows',
-            'doc','waveforms','dependencias']
+            'doc','waveforms','dependencias', 'doc']
 
 __all__ = [s for s in dir() if not ((s in excluidos)or s.startswith('_'))]
 
