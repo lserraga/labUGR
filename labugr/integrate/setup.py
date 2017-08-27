@@ -45,7 +45,7 @@ def configuration(parent_package='',top_path=None):
     #                      sources=quadpack_test_src)
     config.add_data_dir('tests')
 
-    #config.add_subpackage('_lib')
+    config.add_subpackage('_lib')
 
     return config
 
