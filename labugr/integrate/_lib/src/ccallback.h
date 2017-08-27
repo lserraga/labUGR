@@ -299,7 +299,7 @@ static int ccallback_prepare(ccallback_t *callback, ccallback_signature_t *signa
     if (lowlevelcallable_type == NULL) {
         PyObject *module;
 
-        module = PyImport_ImportModule("scipy._lib._ccallback");
+        module = PyImport_ImportModule("labugr.integrate._lib._ccallback");
         if (module == NULL) {
             goto error;
         }

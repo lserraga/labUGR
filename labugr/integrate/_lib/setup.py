@@ -7,7 +7,6 @@ def configuration(parent_package='',top_path=None):
     from numpy.distutils.misc_util import Configuration
 
     config = Configuration('_lib', parent_package, top_path)
-    config.add_data_files('tests/*.py')
 
     include_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), 'src'))
     depends = [os.path.join(include_dir, 'ccallback.h')]
@@ -16,15 +15,7 @@ def configuration(parent_package='',top_path=None):
                          sources=["_ccallback_c.c"],
                          depends=depends,
                          include_dirs=[include_dir])
-
-    config.add_extension("_test_ccallback",
-                         sources=["src/_test_ccallback.c"],
-                         depends=depends,
-                         include_dirs=[include_dir])
-
-    config.add_extension("_fpumode",
-                         sources=["_fpumode.c"])
-
+    
     return config
 
 

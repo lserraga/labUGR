@@ -177,10 +177,10 @@ def setup_package():
     )
 
     from numpy.distutils.core import setup
-    # cwd = os.path.abspath(os.path.dirname(__file__))
-    # if not os.path.exists(os.path.join(cwd, 'PKG-INFO')):
-    #     # Generate Cython sources, unless building from source release
-    #     generate_cython()
+    cwd = os.path.abspath(os.path.dirname(__file__))
+    if not os.path.exists(os.path.join(cwd, 'PKG-INFO')):
+        # Generate Cython sources, unless building from source release
+        generate_cython()
     metadata['configuration'] = configuration
 
     setup(**metadata)
