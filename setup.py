@@ -160,17 +160,20 @@ def setup_package():
     
     metadata = dict(
         name='labugr',
-        version='0.1.1',
+        version='0.1.1.1',
         author='Luis Serra Garcia',
         author_email='lsgarcia@correo.ugr.es',
         url='http://github.com/lserraga/labUGR',
         package_data={'':['README.txt']},
         scripts=['scripts/remove_build.sh'],
         description="Laboratorio de señales UGR",
+        license='',
+        keywords='signal analysis',
         long_description=long_description,
         install_requires=build_requires,
         packages=packages,
-        python_requires='>=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*',
+        platforms = ["Windows", "Linux"],
+        python_requires='!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*',
     )
 
     from numpy.distutils.core import setup
