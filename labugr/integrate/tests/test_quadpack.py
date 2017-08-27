@@ -16,7 +16,7 @@ import ctypes
 import ctypes.util
 from .._lib._ccallback_c import sine_ctypes
 
-import _test_multivariate as clib_test
+import labugr.integrate._test_multivariate as clib_test
 
 
 def assert_quad(value_and_err, tabled_value, errTol=1.5e-8):

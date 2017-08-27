@@ -18,7 +18,7 @@ def configuration(parent_package='',top_path=None):
     mach_src = [join('mach','*.f')]
     quadpack_src = [join('quadpack', '*.f')]
 
-    # quadpack_test_src = [join('tests','_test_multivariate.c')]
+    quadpack_test_src = [join('tests','_test_multivariate.c')]
 
     config.add_library('mach', sources=mach_src,
                        config_fc={'noopt':(__file__,1)})
@@ -32,17 +32,17 @@ def configuration(parent_package='',top_path=None):
         lapack_opt = dict(lapack_opt)
         include_dirs.extend(lapack_opt.pop('include_dirs'))
 
+
     config.add_extension('_quadpack',
                          sources=['_quadpackmodule.c'],
-                         #libraries=['quadpack', 'mach'],
                          libraries=['quadpack', 'mach'] + lapack_libs,
                          depends=(['__quadpack.h']
                                   + quadpack_src + mach_src),
                          include_dirs=include_dirs,
                           **lapack_opt)
 
-    # config.add_extension('_test_multivariate',
-    #                      sources=quadpack_test_src)
+    config.add_extension('_test_multivariate',
+                          sources=quadpack_test_src)
     config.add_data_dir('tests')
 
     config.add_subpackage('_lib')
