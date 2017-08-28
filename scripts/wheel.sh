@@ -6,7 +6,8 @@ pythonV='cp34-cp34m cp35-cp35m cp36-cp36m'
 yum install -y atlas-devel
 
 #Para cada version de python instalamos numpy y creamos una wheel
-for version in $pythonV; do
+for version in $pythonV
+do
 	ENV=opt/python/$version/bin
 	"${ENV}/pip" install numpy cython
 	"${ENV}/pip" wheel labugr/ -w wheelhouse/
@@ -15,7 +16,8 @@ done
 #Para cada wheel creada utilizamos auditwheel para comprobar que esta
 #cumple con los estandares de manylinux y establecer las etiquetas 
 #adecuadas para que pip pueda utilizar la wheel
-for whl in wheelhouse/*.whl; do
+for whl in wheelhouse/*.whl
+do
 	auditwheel repair $whl -w wheelhouseOK/
 done
 
