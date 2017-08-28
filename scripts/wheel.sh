@@ -2,6 +2,12 @@
 pythonV='cp34-cp34m cp35-cp35m cp36-cp36m'
 #pythonV='cp35-cp35m'
 
+#Comprobamos que las credenciales estan en pipyPass.txt
+if [ ! -f /labugr/scripts/pipyPass.txt ]; then
+    echo "Credenciales para PiPy no se encuentran en scripts/pipyPass.txt"
+    exit
+fi
+
 #Instalamos la libreria atlas para la compilacion de labugr
 yum install -y atlas-devel
 
@@ -22,7 +28,7 @@ do
 done
 
 #Cargamos la contraseña de pipy desde un archivo txt
-TWINE_PASSWORD=$(<pipyPass.txt)
+TWINE_PASSWORD=$(</labugr/scripts/pipyPass.txt)
 #Instalamos twine y subimos las wheels creadas a pipy
 "${ENV}/pip" install twine
 "${ENV}/twine" upload wheelhouseOK/*.whl -u lserraga -p "${TWINE_PASSWORD}"
