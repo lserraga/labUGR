@@ -13,14 +13,20 @@ dist
 labugr.egg-info
 # Archivo generado cuando instalamos version developer
 __config__.py
-#Imformación de la librería
+# Imformación de la librería
 *.so
 .directory
+#MANIFEST generado por distutils
+MANIFEST
 # Archivos c generados en fftpack 
 dct.c
 dst.c
 convolvemodule.c
 _fftpackmodule.c
+# Archivos c generados en integrate (cython)
+_ccallback_c.c
+# Archivo cache generado por cython
+cythonize.dat 
 
 # Archivos Cache #
 ##################
