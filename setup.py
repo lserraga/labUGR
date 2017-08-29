@@ -66,7 +66,7 @@ def generate_cython():
     cwd = os.path.abspath(os.path.dirname(__file__))
     print("Cythonizing sources")
     p = subprocess.call([sys.executable,
-                         os.path.join(cwd, 'cythonize.py'),
+                         os.path.join(cwd, 'scripts', 'cythonize.py'),
                          'labugr'],
                         cwd=cwd)
     if p != 0:
