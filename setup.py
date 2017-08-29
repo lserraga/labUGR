@@ -1,9 +1,13 @@
 import sys
 import os
 import subprocess
-if sys.version_info[:2] < (2, 7) or (3, 0) <= sys.version_info[:2] < (3, 4):
-    raise RuntimeError("Python version 2.7 or >= 3.4 required.")
+from platform import architecture
 
+#Comprobamos que la version de python es la correcta
+if sys.version_info[:2] < (2, 7) or (3, 0) <= sys.version_info[:2] < (3, 4):
+    raise RuntimeError("Requerido python 2.7, 3.4, 3.5 o 3.6")
+
+#Compatibilidad con 2.7
 if sys.version_info[0] < 3:
     import __builtin__ as builtins
 else:
@@ -12,22 +16,37 @@ else:
 #Para poder determinar si estamos instalando labUGR
 builtins.__LABUGR_SETUP__ = True
 
-here = os.path.abspath(os.path.dirname(__file__))
+#Directorio de trabajo
+directorio = os.path.abspath(os.path.dirname(__file__))
 
-# Get the long description from the README file
-with open(os.path.join(here, 'README.txt')) as f:
+#Descripcion completa del paquete
+with open(os.path.join(directorio, 'README.txt')) as f:
     long_description = f.read()
 
 
+#Funcion para determinar si python es 32 o 64 bits
+def get_bitness():
+    bits, _ = architecture()
+    return '32' if bits == '32bit' else '64' if bits == '64bit' else None
+
+#Directorio atlas necesario para compilar desde el código fuente en windows
 atlas_compil = """[atlas]
-include_dirs = c:\\Users\\LuikS\\Desktop\\labugr\\atlas-builds\\atlas-3.10.1-sse2-32\\include
-library_dirs = c:\\Users\\LuikS\\Desktop\\labugr\\atlas-builds\\atlas-3.10.1-sse2-32\\lib
+include_dirs = {dir}\\atlas-builds\\{version}\\include
+library_dirs = {dir}\\atlas-builds\\{version}\\lib
 atlas_libs = numpy-atlas
 lapack_libs = numpy-atlas
 """
-# Solo queremos utilizar site.cfg cuando estamos en windows
-with open(os.path.join(here,'site.cfg'),'w') as f:
+
+#Con site.cfg podemos especificar compiladores
+with open(os.path.join(directorio,'site.cfg'),'w') as f:
+    #Solo queremos utilizar site.cfg cuando estamos en windows
     if os.name == 'nt':
+        if (get_bitness()==32):
+            atlas_compil=atlas_compil.format(version="atlas-3.10.1-sse2-32",
+                                             dir=directorio)
+        else:
+            atlas_compil=atlas_compil.format(version="atlas-3.11.38-sse2-64",
+                                             dir=directorio)
         f.write(atlas_compil)
 
 
@@ -56,26 +75,18 @@ def generate_cython():
 
 def setup_package():
 
-    # Figure out whether to add ``*_requires = ['numpy']``.
-    # We don't want to do that unconditionally, because we risk updating
-    # an installed numpy which fails too often.  Just if it's not installed, we
-    # may give it a try.  See gh-3379.
     try:
         import numpy
-    except ImportError:  # We do not have numpy installed
-        build_requires = ['numpy>=1.8.2']
+    except ImportError:
+        install_requires = ['numpy>=1.8.2']
     else:
-        # If we're building a wheel, assume there already exist numpy wheels
-        # for this platform, so it is safe to add numpy to build requirements.
-        # See gh-5184.
-        build_requires = (['numpy>=1.8.2'] if 'bdist_wheel' in sys.argv[1:]
-                          else [])
+        install_requires = []
 
     packages = ['labugr.testing']
     
     metadata = dict(
         name='labugr',
-        version='0.1.2',
+        version='0.1.2.1',
         author='Luis Serra Garcia',
         author_email='lsgarcia@correo.ugr.es',
         url='http://github.com/lserraga/labUGR',
@@ -85,7 +96,7 @@ def setup_package():
         license='',
         keywords='signal analysis',
         long_description=long_description,
-        install_requires=build_requires,
+        install_requires=install_requires,
         packages=packages,
         platforms = ["Windows", "Linux"],
         python_requires='!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*',

@@ -1,1 +1,0 @@
-/cygdrive/d/code/atlas/atlas-3.10.1-build-64-sse2-full-explicit/Make.inc
