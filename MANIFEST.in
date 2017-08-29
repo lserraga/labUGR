@@ -1,1 +1,3 @@
 recursive-include labugr/fftpack *.info *.src *.pyf bscript
+
+recursive-include labugr/integrate/_lib/src *
