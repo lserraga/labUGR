@@ -98,7 +98,15 @@ def setup_package():
         long_description=long_description,
         install_requires=install_requires,
         packages=packages,
-        platforms = ["Windows", "Linux"],
+        platforms = ["Windows", "Linux", "MacOS"],
+        # Dependencias extra. Cython para la instalación desde código 
+        # fuente y pytest-nose para testing 
+        # $ pip install .[test]
+        # $ pip install labugr[test]
+        extras_require={
+            'dev': ['cython'],
+            'test': ['pytest', 'nose'],
+        },
         python_requires='!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*',
     )
 
