@@ -2,6 +2,7 @@ from .filters import *
 from .spectral import *
 from .waveforms import *
 from .import windows as ventana
+from .conv_corr import *
 
 from labugr.testing.utils import PytestTester
 test = PytestTester(__name__)

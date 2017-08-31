@@ -1,5 +1,8 @@
 from __future__ import division, print_function, absolute_import
 
+numpy_nodepr_api = dict(define_macros=[("NPY_NO_DEPRECATED_API",
+                                            "NPY_1_9_API_VERSION")])
+
 def configuration(parent_package='', top_path=None):
     from numpy.distutils.misc_util import Configuration
 
@@ -9,6 +12,14 @@ def configuration(parent_package='', top_path=None):
     							 # package, hay que anadirlo como 
     							 # directorio de datos
     config.add_subpackage('tools')
+
+    config.add_extension('sigtools',
+                         sources=['src/sigtoolsmodule.c', 'src/firfilter.c',
+                                  'src/medianfilter.c', 'src/lfilter.c.src',
+                                  'src/correlate_nd.c.src'],
+                         depends=['src/sigtools.h'],
+                         include_dirs=['.'],
+                         **numpy_nodepr_api)
     return config
 
 

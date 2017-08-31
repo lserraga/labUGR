@@ -23,6 +23,12 @@ sudo rm labugr/fftpack/_fftpackmodule.c
 
 sudo rm labugr/integrate/_lib/_ccallbac_c.c
 
+sudo rm labugr/integrate/_lib/_ccallbac_c.c
+
+sudo rm labugr/signal/src/lfilter.c
+
+sudo rm labugr/signal/src/correlate_nd.c
+
 #Archivo generado por distutils
 sudo rm MANIFEST
 

@@ -25,6 +25,9 @@ convolvemodule.c
 _fftpackmodule.c
 # Archivos c generados en integrate (cython)
 _ccallback_c.c
+# Archivos c generados en signal
+lfilter.c
+correlate_nd.c
 # Archivo cache generado por cython
 cythonize.dat 
 
