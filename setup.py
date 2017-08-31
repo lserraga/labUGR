@@ -48,8 +48,7 @@ with open(os.path.join(directorio,'site.cfg'),'w') as f:
             atlas_compil=atlas_compil.format(version="atlas-3.11.38-sse2-64",
                                              dir=directorio)
         f.write(atlas_compil)
-
-
+    #Si no es windows, cuando with cierra el archivo, este se queda en blanco
 
 def configuration(parent_package='', top_path=None):
     from numpy.distutils.misc_util import Configuration

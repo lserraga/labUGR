@@ -45,3 +45,7 @@ cythonize.dat
 # Credenciales pipy #
 #####################
 pipyPass.txt
+
+# Localizacion atlas #
+######################
+site.cfg

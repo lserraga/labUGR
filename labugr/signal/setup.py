@@ -18,7 +18,7 @@ def configuration(parent_package='', top_path=None):
                                   'src/medianfilter.c', 'src/lfilter.c.src',
                                   'src/correlate_nd.c.src'],
                          depends=['src/sigtools.h'],
-                         include_dirs=['.'],
+                         include_dirs=['src/'],
                          **numpy_nodepr_api)
     return config
 
