@@ -35,6 +35,9 @@ sudo rm MANIFEST
 #Archivo generado por cythonyze
 sudo rm cythonize.dat
 
+#Archivo generado por cythonyze
+sudo rm site.cfg
+
 #Eliminado los links en la distribucion de python
 directorio=$(pwd)
 

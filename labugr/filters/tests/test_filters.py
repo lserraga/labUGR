@@ -11,7 +11,7 @@ from numpy.testing import (assert_array_almost_equal,
 import pytest
 from pytest import raises as assert_raises
 
-from labugr.signal import (freqs, freqz)
+from labugr.filters import (freqs, freqz)
 
 class TestFreqs(object):
 

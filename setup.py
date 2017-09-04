@@ -80,8 +80,6 @@ def setup_package():
         install_requires = ['numpy>=1.8.2']
     else:
         install_requires = []
-
-    packages = ['labugr.testing']
     
     metadata = dict(
         name='labugr',
@@ -96,7 +94,7 @@ def setup_package():
         keywords='signal analysis',
         long_description=long_description,
         install_requires=install_requires,
-        packages=packages,
+        #packages=packages,
         platforms = ["Windows", "Linux", "MacOS"],
         # Dependencias extra. Cython para la instalación desde código 
         # fuente y pytest-nose para testing 
