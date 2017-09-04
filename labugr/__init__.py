@@ -84,9 +84,7 @@ from . import fftpack
 
 from . import integrate
 
-from labugr.testing.utils import PytestTester
-test = PytestTester(__name__)
-del PytestTester
+from .testing import test_all
 
 excluidos = ['respuestaF', 'signal', 'spectral', 'testing', 'windows',
             'doc','waveforms','dependencias', 'doc']
