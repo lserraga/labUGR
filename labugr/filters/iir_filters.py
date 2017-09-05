@@ -1,11 +1,103 @@
 from __future__ import division, print_function, absolute_import
 
 import numpy
-from numpy import asarray, tan, sqrt
+from numpy import (atleast_1d, poly, polyval, roots, real, asarray,
+                   resize, pi, absolute, logspace, r_, sqrt, tan, log10,
+                   arctan, arcsinh, sin, exp, cosh, arccosh, ceil, conjugate,
+                   zeros, sinh, append, concatenate, prod, ones, array,
+                   mintypecode)
 
+__all__ = ['iirfilter']
 
 def iirfilter(N, Wn, rp=None, rs=None, btype='band', analog=False,
               ftype='butter', output='ba'):
+
+    """
+    IIR digital and analog filter design given order and critical points.
+
+    Design an Nth-order digital or analog filter and return the filter
+    coefficients.
+
+    Parameters
+    ----------
+    N : int
+        The order of the filter.
+    Wn : array_like
+        A scalar or length-2 sequence giving the critical frequencies.
+        For digital filters, `Wn` is normalized from 0 to 1, where 1 is the
+        Nyquist frequency, pi radians/sample.  (`Wn` is thus in
+        half-cycles / sample.)
+        For analog filters, `Wn` is an angular frequency (e.g. rad/s).
+    rp : float, optional
+        For Chebyshev and elliptic filters, provides the maximum ripple
+        in the passband. (dB)
+    rs : float, optional
+        For Chebyshev and elliptic filters, provides the minimum attenuation
+        in the stop band. (dB)
+    btype : {'bandpass', 'lowpass', 'highpass', 'bandstop'}, optional
+        The type of filter.  Default is 'bandpass'.
+    analog : bool, optional
+        When True, return an analog filter, otherwise a digital filter is
+        returned.
+    ftype : str, optional
+        The type of IIR filter to design:
+
+            - Butterworth   : 'butter'
+            - Chebyshev I   : 'cheby1'
+            - Chebyshev II  : 'cheby2'
+            - Cauer/elliptic: 'ellip'
+            - Bessel/Thomson: 'bessel'
+
+    output : {'ba', 'zpk', 'sos'}, optional
+        Type of output:  numerator/denominator ('ba') or pole-zero ('zpk').
+        Default is 'ba'.
+
+    Returns
+    -------
+    b, a : ndarray, ndarray
+        Numerator (`b`) and denominator (`a`) polynomials of the IIR filter.
+        Only returned if ``output='ba'``.
+    z, p, k : ndarray, ndarray, float
+        Zeros, poles, and system gain of the IIR filter transfer
+        function.  Only returned if ``output='zpk'``.
+    sos : ndarray
+        Second-order sections representation of the IIR filter.
+        Only returned if ``output=='sos'``.
+
+    See Also
+    --------
+    butter : Filter design using order and critical points
+    cheby1, cheby2, ellip, bessel
+    buttord : Find order and critical points from passband and stopband spec
+    cheb1ord, cheb2ord, ellipord
+    iirdesign : General filter design using passband and stopband spec
+
+    Notes
+    -----
+    The ``'sos'`` output parameter was added in 0.16.0.
+
+    Examples
+    --------
+    Generate a 17th-order Chebyshev II bandpass filter and plot the frequency
+    response:
+
+    >>> from scipy import signal
+    >>> import matplotlib.pyplot as plt
+
+    >>> b, a = signal.iirfilter(17, [50, 200], rs=60, btype='band',
+    ...                         analog=True, ftype='cheby2')
+    >>> w, h = signal.freqs(b, a, 1000)
+    >>> fig = plt.figure()
+    >>> ax = fig.add_subplot(111)
+    >>> ax.semilogx(w, 20 * np.log10(abs(h)))
+    >>> ax.set_title('Chebyshev Type II bandpass frequency response')
+    >>> ax.set_xlabel('Frequency [radians / second]')
+    >>> ax.set_ylabel('Amplitude [dB]')
+    >>> ax.axis((10, 1000, -100, 10))
+    >>> ax.grid(which='both', axis='both')
+    >>> plt.show()
+
+    """
     
     ftype, btype, output = [x.lower() for x in (ftype, btype, output)]
     Wn = asarray(Wn)
@@ -19,7 +111,7 @@ def iirfilter(N, Wn, rp=None, rs=None, btype='band', analog=False,
     except KeyError:
         raise ValueError("'%s' is not a valid basic IIR filter." % ftype)
 
-    if output not in ['ba', 'zpk', 'sos']:
+    if output not in ['ba', 'zpk']:
         raise ValueError("'%s' is not a valid output form." % output)
 
     if rp is not None and rp < 0:
@@ -93,96 +185,8 @@ def iirfilter(N, Wn, rp=None, rs=None, btype='band', analog=False,
         return z, p, k
     elif output == 'ba':
         return zpk2tf(z, p, k)
-    elif output == 'sos':
-        return zpk2sos(z, p, k)
 
 
-    """
-    IIR digital and analog filter design given order and critical points.
-
-    Design an Nth-order digital or analog filter and return the filter
-    coefficients.
-
-    Parameters
-    ----------
-    N : int
-        The order of the filter.
-    Wn : array_like
-        A scalar or length-2 sequence giving the critical frequencies.
-        For digital filters, `Wn` is normalized from 0 to 1, where 1 is the
-        Nyquist frequency, pi radians/sample.  (`Wn` is thus in
-        half-cycles / sample.)
-        For analog filters, `Wn` is an angular frequency (e.g. rad/s).
-    rp : float, optional
-        For Chebyshev and elliptic filters, provides the maximum ripple
-        in the passband. (dB)
-    rs : float, optional
-        For Chebyshev and elliptic filters, provides the minimum attenuation
-        in the stop band. (dB)
-    btype : {'bandpass', 'lowpass', 'highpass', 'bandstop'}, optional
-        The type of filter.  Default is 'bandpass'.
-    analog : bool, optional
-        When True, return an analog filter, otherwise a digital filter is
-        returned.
-    ftype : str, optional
-        The type of IIR filter to design:
-
-            - Butterworth   : 'butter'
-            - Chebyshev I   : 'cheby1'
-            - Chebyshev II  : 'cheby2'
-            - Cauer/elliptic: 'ellip'
-            - Bessel/Thomson: 'bessel'
-
-    output : {'ba', 'zpk', 'sos'}, optional
-        Type of output:  numerator/denominator ('ba'), pole-zero ('zpk'), or
-        second-order sections ('sos'). Default is 'ba'.
-
-    Returns
-    -------
-    b, a : ndarray, ndarray
-        Numerator (`b`) and denominator (`a`) polynomials of the IIR filter.
-        Only returned if ``output='ba'``.
-    z, p, k : ndarray, ndarray, float
-        Zeros, poles, and system gain of the IIR filter transfer
-        function.  Only returned if ``output='zpk'``.
-    sos : ndarray
-        Second-order sections representation of the IIR filter.
-        Only returned if ``output=='sos'``.
-
-    See Also
-    --------
-    butter : Filter design using order and critical points
-    cheby1, cheby2, ellip, bessel
-    buttord : Find order and critical points from passband and stopband spec
-    cheb1ord, cheb2ord, ellipord
-    iirdesign : General filter design using passband and stopband spec
-
-    Notes
-    -----
-    The ``'sos'`` output parameter was added in 0.16.0.
-
-    Examples
-    --------
-    Generate a 17th-order Chebyshev II bandpass filter and plot the frequency
-    response:
-
-    >>> from scipy import signal
-    >>> import matplotlib.pyplot as plt
-
-    >>> b, a = signal.iirfilter(17, [50, 200], rs=60, btype='band',
-    ...                         analog=True, ftype='cheby2')
-    >>> w, h = signal.freqs(b, a, 1000)
-    >>> fig = plt.figure()
-    >>> ax = fig.add_subplot(111)
-    >>> ax.semilogx(w, 20 * np.log10(abs(h)))
-    >>> ax.set_title('Chebyshev Type II bandpass frequency response')
-    >>> ax.set_xlabel('Frequency [radians / second]')
-    >>> ax.set_ylabel('Amplitude [dB]')
-    >>> ax.axis((10, 1000, -100, 10))
-    >>> ax.grid(which='both', axis='both')
-    >>> plt.show()
-
-    """
 def _zpkbilinear(z, p, k, fs):
     """
     Return a digital filter from an analog one using a bilinear transform.
@@ -231,7 +235,6 @@ def _zpkbilinear(z, p, k, fs):
     k_z = k * real(prod(fs2 - z) / prod(fs2 - p))
 
     return z_z, p_z, k_z
-
 
 def _zpklp2lp(z, p, k, wo=1.0):
     r"""
@@ -284,7 +287,6 @@ def _zpklp2lp(z, p, k, wo=1.0):
     k_lp = k * wo**degree
 
     return z_lp, p_lp, k_lp
-
 
 def _zpklp2hp(z, p, k, wo=1.0):
     r"""
@@ -343,7 +345,6 @@ def _zpklp2hp(z, p, k, wo=1.0):
     k_hp = k * real(prod(-z) / prod(-p))
 
     return z_hp, p_hp, k_hp
-
 
 def _zpklp2bp(z, p, k, wo=1.0, bw=1.0):
     r"""
@@ -416,7 +417,6 @@ def _zpklp2bp(z, p, k, wo=1.0, bw=1.0):
 
     return z_bp, p_bp, k_bp
 
-
 def _zpklp2bs(z, p, k, wo=1.0, bw=1.0):
     r"""
     Transform a lowpass filter prototype to a bandstop filter.
@@ -488,6 +488,18 @@ def _zpklp2bs(z, p, k, wo=1.0, bw=1.0):
     k_bs = k * real(prod(-z) / prod(-p))
 
     return z_bs, p_bs, k_bs
+
+def _relative_degree(z, p):
+    """
+    Return relative degree of transfer function from zeros and poles
+    """
+    degree = len(p) - len(z)
+    if degree < 0:
+        raise ValueError("Improper transfer function. "
+                         "Must have at least as many poles as zeros.")
+    else:
+        return degree
+
 
 
 band_dict = {'band': 'bandpass',

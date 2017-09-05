@@ -8,7 +8,7 @@ from pytest import raises as assert_raises
 
 from labugr.filters.fir_filters import firwin, firwin2, firls, kaiserord, \
         kaiser_beta, kaiser_atten
-from labugr.filters import freqz
+from labugr.filters.spectral import freqz
 
 def test_kaiser_beta():
     b = kaiser_beta(58.7)
