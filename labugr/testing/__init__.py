@@ -7,15 +7,15 @@ __all__=['test_all']
 def test_all():
 	#Submódulos sin tests
 	no_tests = ['dependencias', 'doc', 'testing']
-
 	passed = True
+	print("\n******** Iniciando tests para labugr ********\n")
 
 	#Iterar a través de ls submódulos de labugr
 	for importer, submodule, ispkg in pkgutil.iter_modules(labugr.__path__):
 		#Determinamos si el submódulo es correcto
 		if (ispkg and not submodule in no_tests):
 
-			print("\nCorriendo tests para el submodulódulo {}".format(submodule))
+			print("Corriendo tests para el submodulódulo {}".format(submodule))
 			#Lo importamos
 			module = import_module ("labugr.{}".format(submodule))
 

@@ -11,7 +11,7 @@ from numpy.testing import (assert_array_almost_equal,
 import pytest
 from pytest import raises as assert_raises
 
-from labugr.filters import (freqs, freqz)
+from labugr.filters import (freqs, freqz, freqs_zpk, freqz_zpk)
 
 class TestFreqs(object):
 
@@ -50,6 +50,46 @@ class TestFreqs(object):
                       plot=lambda w, h: 1 / 0)
         freqs([1.0], [1.0], worN=8, plot=plot)
 
+class TestFreqs_zpk(object):
+
+    def test_basic(self):
+        _, h = freqs_zpk([1.0], [1.0], [1.0], worN=8)
+        assert_array_almost_equal(h, np.ones(8))
+
+    def test_output(self):
+        # 1st order low-pass filter: H(s) = 1 / (s + 1)
+        w = [0.1, 1, 10, 100]
+        z = []
+        p = [-1]
+        k = 1
+        w, H = freqs_zpk(z, p, k, worN=w)
+        s = w * 1j
+        expected = 1 / (s + 1)
+        assert_array_almost_equal(H.real, expected.real)
+        assert_array_almost_equal(H.imag, expected.imag)
+
+    def test_freq_range(self):
+        # Test that freqresp() finds a reasonable frequency range.
+        # 1st order low-pass filter: H(s) = 1 / (s + 1)
+        # Expected range is from 0.01 to 10.
+        z = []
+        p = [-1]
+        k = 1
+        n = 10
+        expected_w = np.logspace(-2, 1, n)
+        w, H = freqs_zpk(z, p, k, worN=n)
+        assert_array_almost_equal(w, expected_w)
+
+    # def test_vs_freqs(self):
+    #     b, a = cheby1(4, 5, 100, analog=True, output='ba')
+    #     z, p, k = cheby1(4, 5, 100, analog=True, output='zpk')
+
+    #     w1, h1 = freqs(b, a)
+    #     w2, h2 = freqs_zpk(z, p, k)
+    #     assert_allclose(w1, w2)
+    #     assert_allclose(h1, h2, rtol=1e-6)
+
+
 
 class TestFreqz(object):
 
@@ -82,3 +122,33 @@ class TestFreqz(object):
                       plot=lambda w, h: 1 / 0)
         freqz([1.0], worN=8, plot=plot)
 
+
+class TestFreqz_zpk(object):
+
+    def test_ticket1441(self):
+        """Regression test for ticket 1441."""
+        # Because freqz previously used arange instead of linspace,
+        # when N was large, it would return one more point than
+        # requested.
+        N = 100000
+        w, h = freqz_zpk([0.5], [0.5], 1.0, worN=N)
+        assert_equal(w.shape, (N,))
+
+    def test_basic(self):
+        w, h = freqz_zpk([0.5], [0.5], 1.0, worN=8)
+        assert_array_almost_equal(w, np.pi * np.arange(8.0) / 8)
+        assert_array_almost_equal(h, np.ones(8))
+
+    def test_basic_whole(self):
+        w, h = freqz_zpk([0.5], [0.5], 1.0, worN=8, whole=True)
+        assert_array_almost_equal(w, 2 * np.pi * np.arange(8.0) / 8)
+        assert_array_almost_equal(h, np.ones(8))
+
+    # def test_vs_freqz(self):
+    #     b, a = cheby1(4, 5, 0.5, analog=False, output='ba')
+    #     z, p, k = cheby1(4, 5, 0.5, analog=False, output='zpk')
+
+    #     w1, h1 = freqz(b, a)
+    #     w2, h2 = freqz_zpk(z, p, k)
+    #     assert_allclose(w1, w2)
+    #     assert_allclose(h1, h2, rtol=1e-6)
