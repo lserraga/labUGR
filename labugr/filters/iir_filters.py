@@ -6,10 +6,11 @@ from numpy import (atleast_1d, poly, polyval, roots, real, asarray,
                    arctan, arcsinh, sin, exp, cosh, arccosh, ceil, conjugate,
                    zeros, sinh, append, concatenate, prod, ones, array,
                    mintypecode)
-
 from .filters import *
-from .helpers import fminbound
-from mpmath import ellipk
+from .helpers import fminbound, fmin, newton
+from mpmath import ellipk, ellipfun, besselk
+import numpy as np
+
 
 __all__ = ['iirfilter', 'cheb1ord', 'cheb2ord', 'buttord']
 
@@ -286,8 +287,6 @@ def cheb2ap(N, rs):
 
     k = (numpy.prod(-p, axis=0) / numpy.prod(-z, axis=0)).real
     return z, p, k
-
-
 
 def _zpkbilinear(z, p, k, fs):
     """
