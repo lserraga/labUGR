@@ -9,9 +9,9 @@ def configuration(parent_package='', top_path=None):
     config.add_data_dir('tests') # Como tests no es considerado como un
                                  # package, hay que anadirlo como 
                                  # directorio de datos
-    config.add_subpackage('tools')
+    # config.add_subpackage('tools')
     
-    config.add_data_files('*.pxd')
+    # config.add_data_files('*.pxd')
 
     return config
 

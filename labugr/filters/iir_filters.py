@@ -7,6 +7,8 @@ from numpy import (atleast_1d, poly, polyval, roots, real, asarray,
                    zeros, sinh, append, concatenate, prod, ones, array,
                    mintypecode)
 
+from .filters import *
+
 __all__ = ['iirfilter']
 
 def iirfilter(N, Wn, rp=None, rs=None, btype='band', analog=False,
@@ -123,8 +125,8 @@ def iirfilter(N, Wn, rp=None, rs=None, btype='band', analog=False,
     # Get analog lowpass prototype
     if typefunc == buttap:
         z, p, k = typefunc(N)
-    elif typefunc == besselap:
-        z, p, k = typefunc(N, norm=bessel_norms[ftype])
+    # elif typefunc == besselap:
+    #     z, p, k = typefunc(N, norm=bessel_norms[ftype])
     elif typefunc == cheb1ap:
         if rp is None:
             raise ValueError("passband ripple (rp) must be provided to "
@@ -135,11 +137,11 @@ def iirfilter(N, Wn, rp=None, rs=None, btype='band', analog=False,
             raise ValueError("stopband attenuation (rs) must be provided to "
                              "design an Chebyshev II filter.")
         z, p, k = typefunc(N, rs)
-    elif typefunc == ellipap:
-        if rs is None or rp is None:
-            raise ValueError("Both rp and rs must be provided to design an "
-                             "elliptic filter.")
-        z, p, k = typefunc(N, rp, rs)
+    # elif typefunc == ellipap:
+    #     if rs is None or rp is None:
+    #         raise ValueError("Both rp and rs must be provided to design an "
+    #                          "elliptic filter.")
+    #     z, p, k = typefunc(N, rp, rs)
     else:
         raise NotImplementedError("'%s' not implemented in iirfilter." % ftype)
 
@@ -185,6 +187,104 @@ def iirfilter(N, Wn, rp=None, rs=None, btype='band', analog=False,
         return z, p, k
     elif output == 'ba':
         return zpk2tf(z, p, k)
+
+def buttap(N):
+    """Return (z,p,k) for analog prototype of Nth-order Butterworth filter.
+
+    The filter will have an angular (e.g. rad/s) cutoff frequency of 1.
+
+    See Also
+    --------
+    butter : Filter design function using this prototype
+
+    """
+    if abs(int(N)) != N:
+        raise ValueError("Filter order must be a nonnegative integer")
+    z = numpy.array([])
+    m = numpy.arange(-N+1, N, 2)
+    # Middle value is 0 to ensure an exactly real pole
+    p = -numpy.exp(1j * pi * m / (2 * N))
+    k = 1
+    return z, p, k
+
+def cheb1ap(N, rp):
+    """
+    Return (z,p,k) for Nth-order Chebyshev type I analog lowpass filter.
+
+    The returned filter prototype has `rp` decibels of ripple in the passband.
+
+    The filter's angular (e.g. rad/s) cutoff frequency is normalized to 1,
+    defined as the point at which the gain first drops below ``-rp``.
+
+    See Also
+    --------
+    cheby1 : Filter design function using this prototype
+
+    """
+    if abs(int(N)) != N:
+        raise ValueError("Filter order must be a nonnegative integer")
+    elif N == 0:
+        # Avoid divide-by-zero error
+        # Even order filters have DC gain of -rp dB
+        return numpy.array([]), numpy.array([]), 10**(-rp/20)
+    z = numpy.array([])
+
+    # Ripple factor (epsilon)
+    eps = numpy.sqrt(10 ** (0.1 * rp) - 1.0)
+    mu = 1.0 / N * arcsinh(1 / eps)
+
+    # Arrange poles in an ellipse on the left half of the S-plane
+    m = numpy.arange(-N+1, N, 2)
+    theta = pi * m / (2*N)
+    p = -sinh(mu + 1j*theta)
+
+    k = numpy.prod(-p, axis=0).real
+    if N % 2 == 0:
+        k = k / sqrt((1 + eps * eps))
+
+    return z, p, k
+
+def cheb2ap(N, rs):
+    """
+    Return (z,p,k) for Nth-order Chebyshev type I analog lowpass filter.
+
+    The returned filter prototype has `rs` decibels of ripple in the stopband.
+
+    The filter's angular (e.g. rad/s) cutoff frequency is normalized to 1,
+    defined as the point at which the gain first reaches ``-rs``.
+
+    See Also
+    --------
+    cheby2 : Filter design function using this prototype
+
+    """
+    if abs(int(N)) != N:
+        raise ValueError("Filter order must be a nonnegative integer")
+    elif N == 0:
+        # Avoid divide-by-zero warning
+        return numpy.array([]), numpy.array([]), 1
+
+    # Ripple factor (epsilon)
+    de = 1.0 / sqrt(10 ** (0.1 * rs) - 1)
+    mu = arcsinh(1.0 / de) / N
+
+    if N % 2:
+        m = numpy.concatenate((numpy.arange(-N+1, 0, 2),
+                               numpy.arange(2, N, 2)))
+    else:
+        m = numpy.arange(-N+1, N, 2)
+
+    z = -conjugate(1j / sin(m * pi / (2.0 * N)))
+
+    # Poles around the unit circle like Butterworth
+    p = -exp(1j * pi * numpy.arange(-N+1, N, 2) / (2 * N))
+    # Warp into Chebyshev II
+    p = sinh(mu) * p.real + 1j * cosh(mu) * p.imag
+    p = 1.0 / p
+
+    k = (numpy.prod(-p, axis=0) / numpy.prod(-z, axis=0)).real
+    return z, p, k
+
 
 
 def _zpkbilinear(z, p, k, fs):
@@ -523,23 +623,44 @@ band_dict = {'band': 'bandpass',
              'hp': 'highpass',
              }
 
-filter_dict = {'butter': [buttap, buttord],
-               'butterworth': [buttap, buttord],
+filter_dict = {'butter': [buttap],
+               'butterworth': [buttap],
 
-               'cauer': [ellipap, ellipord],
-               'elliptic': [ellipap, ellipord],
-               'ellip': [ellipap, ellipord],
+               # 'cauer': [ellipap, ellipord],
+               # 'elliptic': [ellipap, ellipord],
+               # 'ellip': [ellipap, ellipord],
 
-               'bessel': [besselap],
-               'bessel_phase': [besselap],
-               'bessel_delay': [besselap],
-               'bessel_mag': [besselap],
+               # 'bessel': [besselap],
+               # 'bessel_phase': [besselap],
+               # 'bessel_delay': [besselap],
+               # 'bessel_mag': [besselap],
 
-               'cheby1': [cheb1ap, cheb1ord],
-               'chebyshev1': [cheb1ap, cheb1ord],
-               'chebyshevi': [cheb1ap, cheb1ord],
+               'cheby1': [cheb1ap],
+               'chebyshev1': [cheb1ap],
+               'chebyshevi': [cheb1ap],
 
-               'cheby2': [cheb2ap, cheb2ord],
-               'chebyshev2': [cheb2ap, cheb2ord],
-               'chebyshevii': [cheb2ap, cheb2ord],
+               'cheby2': [cheb2ap],
+               'chebyshev2': [cheb2ap],
+               'chebyshevii': [cheb2ap],
                }
+
+# filter_dict = {'butter': [buttap, buttord],
+#                'butterworth': [buttap, buttord],
+
+#                # 'cauer': [ellipap, ellipord],
+#                # 'elliptic': [ellipap, ellipord],
+#                # 'ellip': [ellipap, ellipord],
+
+#                # 'bessel': [besselap],
+#                # 'bessel_phase': [besselap],
+#                # 'bessel_delay': [besselap],
+#                # 'bessel_mag': [besselap],
+
+#                'cheby1': [cheb1ap, cheb1ord],
+#                'chebyshev1': [cheb1ap, cheb1ord],
+#                'chebyshevi': [cheb1ap, cheb1ord],
+
+#                'cheby2': [cheb2ap, cheb2ord],
+#                'chebyshev2': [cheb2ap, cheb2ord],
+#                'chebyshevii': [cheb2ap, cheb2ord],
+#                }
