@@ -10,6 +10,8 @@ def configuration(parent_package='', top_path=None):
                                  # package, hay que anadirlo como 
                                  # directorio de datos
     config.add_subpackage('tools')
+    
+    config.add_data_files('*.pxd')
 
     return config
 
