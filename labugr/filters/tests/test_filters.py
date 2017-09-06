@@ -14,7 +14,8 @@ import pytest
 from pytest import raises as assert_raises
 
 from labugr.filters.filters import (normalize, tf2zpk, zpk2tf,
-                      BadCoefficients, lfilter)
+                      BadCoefficients, lfilter, lfilter_zi, filtfilt,
+                      _filtfilt_gust)
 from labugr.filters.iir_filters import butter
 from decimal import Decimal
 
@@ -548,3 +549,118 @@ def test_lfilter_bad_object():
     assert_raises(TypeError, lfilter, [1.0], [1.0], [1.0, None, 2.0])
     assert_raises(TypeError, lfilter, [1.0], [None], [1.0, 2.0, 3.0])
     assert_raises(TypeError, lfilter, [None], [1.0], [1.0, 2.0, 3.0])
+
+
+
+class TestLFilterZI(object):
+
+    def test_basic(self):
+        a = np.array([1.0, -1.0, 0.5])
+        b = np.array([1.0, 0.0, 2.0])
+        zi_expected = np.array([5.0, -1.0])
+        zi = lfilter_zi(b, a)
+        assert_array_almost_equal(zi, zi_expected)
+
+    def test_scale_invariance(self):
+        # Regression test.  There was a bug in which b was not correctly
+        # rescaled when a[0] was nonzero.
+        b = np.array([2, 8, 5])
+        a = np.array([1, 1, 8])
+        zi1 = lfilter_zi(b, a)
+        zi2 = lfilter_zi(2*b, 2*a)
+        assert_allclose(zi2, zi1, rtol=1e-12)
+
+class TestFiltFilt(object):
+    filtfilt_kind = 'tf'
+
+    def filtfilt(self, zpk, x, axis=-1, padtype='odd', padlen=None,
+                 method='pad', irlen=None):
+        if self.filtfilt_kind == 'tf':
+            b, a = zpk2tf(*zpk)
+            return filtfilt(b, a, x, axis, padtype, padlen, method, irlen)
+        elif self.filtfilt_kind == 'sos':
+            sos = zpk2sos(*zpk)
+            return sosfiltfilt(sos, x, axis, padtype, padlen)
+
+    def test_basic(self):
+        zpk = tf2zpk([1, 2, 3], [1, 2, 3])
+        out = self.filtfilt(zpk, np.arange(12))
+        assert_allclose(out, np.arange(12), atol=1e-11)
+
+    def test_sine(self):
+        rate = 2000
+        t = np.linspace(0, 1.0, rate + 1)
+        # A signal with low frequency and a high frequency.
+        xlow = np.sin(5 * 2 * np.pi * t)
+        xhigh = np.sin(250 * 2 * np.pi * t)
+        x = xlow + xhigh
+
+        zpk = butter(8, 0.125, output='zpk')
+        # r is the magnitude of the largest pole.
+        r = np.abs(zpk[1]).max()
+        eps = 1e-5
+        # n estimates the number of steps for the
+        # transient to decay by a factor of eps.
+        n = int(np.ceil(np.log(eps) / np.log(r)))
+
+        # High order lowpass filter...
+        y = self.filtfilt(zpk, x, padlen=n)
+        # Result should be just xlow.
+        err = np.abs(y - xlow).max()
+        assert_(err < 1e-4)
+
+        # A 2D case.
+        x2d = np.vstack([xlow, xlow + xhigh])
+        y2d = self.filtfilt(zpk, x2d, padlen=n, axis=1)
+        assert_equal(y2d.shape, x2d.shape)
+        err = np.abs(y2d - xlow).max()
+        assert_(err < 1e-4)
+
+        # Use the previous result to check the use of the axis keyword.
+        # (Regression test for ticket #1620)
+        y2dt = self.filtfilt(zpk, x2d.T, padlen=n, axis=0)
+        assert_equal(y2d, y2dt.T)
+
+    def test_axis(self):
+        # Test the 'axis' keyword on a 3D array.
+        x = np.arange(10.0 * 11.0 * 12.0).reshape(10, 11, 12)
+        zpk = butter(3, 0.125, output='zpk')
+        y0 = self.filtfilt(zpk, x, padlen=0, axis=0)
+        y1 = self.filtfilt(zpk, np.swapaxes(x, 0, 1), padlen=0, axis=1)
+        assert_array_equal(y0, np.swapaxes(y1, 0, 1))
+        y2 = self.filtfilt(zpk, np.swapaxes(x, 0, 2), padlen=0, axis=2)
+        assert_array_equal(y0, np.swapaxes(y2, 0, 2))
+
+    def test_acoeff(self):
+        if self.filtfilt_kind != 'tf':
+            return  # only necessary for TF
+        # test for 'a' coefficient as single number
+        out = filtfilt([.5, .5], 1, np.arange(10))
+        assert_allclose(out, np.arange(10), rtol=1e-14, atol=1e-14)
+
+    def test_gust_simple(self):
+        if self.filtfilt_kind != 'tf':
+            pytest.skip('gust only implemented for TF systems')
+        # The input array has length 2.  The exact solution for this case
+        # was computed "by hand".
+        x = np.array([1.0, 2.0])
+        b = np.array([0.5])
+        a = np.array([1.0, -0.5])
+        y, z1, z2 = _filtfilt_gust(b, a, x)
+        assert_allclose([z1[0], z2[0]],
+                        [0.3*x[0] + 0.2*x[1], 0.2*x[0] + 0.3*x[1]])
+        assert_allclose(y, [z1[0] + 0.25*z2[0] + 0.25*x[0] + 0.125*x[1],
+                            0.25*z1[0] + z2[0] + 0.125*x[0] + 0.25*x[1]])
+
+    def test_gust_scalars(self):
+        if self.filtfilt_kind != 'tf':
+            pytest.skip('gust only implemented for TF systems')
+        # The filter coefficients are both scalars, so the filter simply
+        # multiplies its input by b/a.  When it is used in filtfilt, the
+        # factor is (b/a)**2.
+        x = np.arange(12)
+        b = 3.0
+        a = 2.0
+        y = filtfilt(b, a, x, method="gust")
+        expected = (b/a)**2 * x
+        assert_allclose(y, expected)
