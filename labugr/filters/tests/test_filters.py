@@ -13,8 +13,7 @@ import pytest
 from pytest import raises as assert_raises
 
 from labugr.filters.filters import (normalize, tf2zpk, zpk2tf,
-                      BadCoefficients, buttap, besselap, cheb1ap,
-                      cheb1ap, ellipap)
+                      BadCoefficients)
 
 class TestTf2zpk(object):
 

@@ -215,3 +215,52 @@ def zpk2tf(z, p, k):
 
     return b, a
 
+
+class BadCoefficients(UserWarning):
+    """Warning about badly conditioned filter coefficients"""
+    pass
+
+def _align_nums(nums):
+    """Aligns the shapes of multiple numerators.
+
+    Given an array of numerator coefficient arrays [[a_1, a_2,...,
+    a_n],..., [b_1, b_2,..., b_m]], this function pads shorter numerator
+    arrays with zero's so that all numerators have the same length. Such
+    alignment is necessary for functions like 'tf2ss', which needs the
+    alignment when dealing with SIMO transfer functions.
+
+    Parameters
+    ----------
+    nums: array_like
+        Numerator or list of numerators. Not necessarily with same length.
+
+    Returns
+    -------
+    nums: array
+        The numerator. If `nums` input was a list of numerators then a 2d
+        array with padded zeros for shorter numerators is returned. Otherwise
+        returns ``np.asarray(nums)``.
+    """
+    try:
+        # The statement can throw a ValueError if one
+        # of the numerators is a single digit and another
+        # is array-like e.g. if nums = [5, [1, 2, 3]]
+        nums = asarray(nums)
+
+        if not np.issubdtype(nums.dtype, np.number):
+            raise ValueError("dtype of numerator is non-numeric")
+
+        return nums
+
+    except ValueError:
+        nums = [np.atleast_1d(num) for num in nums]
+        max_width = max(num.size for num in nums)
+
+        # pre-allocate
+        aligned_nums = np.zeros((len(nums), max_width))
+
+        # Create numerators with padded zeros
+        for index, num in enumerate(nums):
+            aligned_nums[index, -num.size:] = num
+
+        return aligned_nums
