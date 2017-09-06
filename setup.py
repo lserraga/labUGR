@@ -77,9 +77,9 @@ def setup_package():
     try:
         import numpy
     except ImportError:
-        install_requires = ['numpy>=1.8.2']
+        install_requires = ['numpy>=1.8.2','mpmath']
     else:
-        install_requires = []
+        install_requires = ['mpmath']
     
     metadata = dict(
         name='labugr',
