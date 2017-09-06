@@ -8,7 +8,7 @@ from numpy import (atleast_1d, eye, mgrid, argmin, zeros, shape, squeeze,
 import numpy as np
 import warnings
 
-__all__ = ['newton', 'fmin', 'fbound']
+__all__ = ['newton', 'fmin', 'fbound', 'fminbound']
 
 
 # Newton-Raphson method
@@ -799,3 +799,9 @@ def _endprint(x, flag, fval, maxfun, xtol, disp):
             print("\nMaximum number of function evaluations exceeded --- "
                   "increase maxfun argument.\n")
     return
+
+def is_array_scalar(x):
+    """Test whether `x` is either a scalar or an array scalar.
+
+    """
+    return np.size(x) == 1

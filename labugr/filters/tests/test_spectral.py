@@ -80,16 +80,6 @@ class TestFreqs_zpk(object):
         w, H = freqs_zpk(z, p, k, worN=n)
         assert_array_almost_equal(w, expected_w)
 
-    # def test_vs_freqs(self):
-    #     b, a = cheby1(4, 5, 100, analog=True, output='ba')
-    #     z, p, k = cheby1(4, 5, 100, analog=True, output='zpk')
-
-    #     w1, h1 = freqs(b, a)
-    #     w2, h2 = freqs_zpk(z, p, k)
-    #     assert_allclose(w1, w2)
-    #     assert_allclose(h1, h2, rtol=1e-6)
-
-
 
 class TestFreqz(object):
 
@@ -143,12 +133,3 @@ class TestFreqz_zpk(object):
         w, h = freqz_zpk([0.5], [0.5], 1.0, worN=8, whole=True)
         assert_array_almost_equal(w, 2 * np.pi * np.arange(8.0) / 8)
         assert_array_almost_equal(h, np.ones(8))
-
-    # def test_vs_freqz(self):
-    #     b, a = cheby1(4, 5, 0.5, analog=False, output='ba')
-    #     z, p, k = cheby1(4, 5, 0.5, analog=False, output='zpk')
-
-    #     w1, h1 = freqz(b, a)
-    #     w2, h2 = freqz_zpk(z, p, k)
-    #     assert_allclose(w1, w2)
-    #     assert_allclose(h1, h2, rtol=1e-6)
