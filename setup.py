@@ -41,7 +41,7 @@ lapack_libs = numpy-atlas
 with open(os.path.join(directorio,'site.cfg'),'w') as f:
     #Solo queremos utilizar site.cfg cuando estamos en windows
     if os.name == 'nt':
-        if (get_bitness()==32):
+        if (get_bitness()=='32'):
             atlas_compil=atlas_compil.format(version="atlas-3.10.1-sse2-32",
                                              dir=directorio)
         else:
