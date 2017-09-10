@@ -86,6 +86,7 @@ from . import integrate
 
 from .testing import test_all
 
+
 excluidos = ['respuestaF', 'signal', 'spectral', 'testing', 'windows',
             'doc','waveforms','dependencias', 'doc']
 
