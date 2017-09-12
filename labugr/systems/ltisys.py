@@ -5,9 +5,10 @@ import warnings
 # np.linalg.qr fails on some tests with LinAlgError: zgeqrf returns -7
 # use scipy's qr until this is solved
 
-from scipy.linalg import qr as s_qr
-from scipy import interpolate, linalg
-from scipy.interpolate import interp1d
+from np.linalg import qr as s_qr
+#from scipy import linalg
+from numpy import linalg
+#from scipy.interpolate import interp1d
 from scipy._lib.six import xrange
 from labugr.filters.filters import (tf2zpk, zpk2tf, normalize)
 from labugr.filters.spectral import (freqs, freqz, freqs_zpk, freqz_zpk)

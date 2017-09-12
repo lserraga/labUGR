@@ -7,13 +7,14 @@ import math
 import numpy as np
 
 import scipy.special
-from scipy.linalg.basic import solve, solve_triangular
-from scipy.sparse.base import isspmatrix
+from numpy.linalg import solve
+#from scipy.linalg.basic import solve, solve_triangular
+from .base import isspmatrix #
 from scipy.sparse.linalg import spsolve
 
 import scipy.sparse
 import scipy.sparse.linalg
-from scipy.sparse.linalg.interface import LinearOperator
+from .interface import LinearOperator #
 
 
 UPPER_TRIANGULAR = 'upper_triangular'
@@ -54,7 +55,7 @@ def _onenorm_matrix_power_nnm(A, p):
 def _onenorm(A):
     # A compatibility function which should eventually disappear.
     # This is copypasted from expm_action.
-    if scipy.sparse.isspmatrix(A):
+    if isspmatrix(A):
         return max(abs(A).sum(axis=0).flat)
     else:
         return np.linalg.norm(A, 1)
@@ -63,7 +64,7 @@ def _onenorm(A):
 def _ident_like(A):
     # A compatibility function which should eventually disappear.
     # This is copypasted from expm_action.
-    if scipy.sparse.isspmatrix(A):
+    if isspmatrix(A):
         return scipy.sparse.construct.eye(A.shape[0], A.shape[1],
                 dtype=A.dtype, format=A.format)
     else:
@@ -643,7 +644,7 @@ def _solve_P_Q(U, V, structure=None):
     elif structure is None:
         return solve(Q, P)
     elif structure == UPPER_TRIANGULAR:
-        return solve_triangular(Q, P)
+        return solve(Q, P)
     else:
         raise ValueError('unsupported matrix structure: ' + str(structure))
 
