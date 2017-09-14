@@ -6,15 +6,16 @@ import math
 
 import numpy as np
 
-import scipy.special
 from numpy.linalg import solve
 #from scipy.linalg.basic import solve, solve_triangular
 from .base import isspmatrix #
-from scipy.sparse.linalg import spsolve
+from .forspsolve import spsolve #
 
-import scipy.sparse
-import scipy.sparse.linalg
+from .construct import eye#
+from .extract import tril#
+from ._onenormest import onenormest#
 from .interface import LinearOperator #
+from ._comb import _comb_int
 
 
 UPPER_TRIANGULAR = 'upper_triangular'
@@ -65,7 +66,7 @@ def _ident_like(A):
     # A compatibility function which should eventually disappear.
     # This is copypasted from expm_action.
     if isspmatrix(A):
-        return scipy.sparse.construct.eye(A.shape[0], A.shape[1],
+        return eye(A.shape[0], A.shape[1],
                 dtype=A.dtype, format=A.format)
     else:
         return np.eye(A.shape[0], A.shape[1], dtype=A.dtype)
@@ -74,7 +75,7 @@ def _ident_like(A):
 def _is_upper_triangular(A):
     # This function could possibly be of wider interest.
     if isspmatrix(A):
-        lower_part = scipy.sparse.tril(A, -1)
+        lower_part = tril(A, -1)
         # Check structural upper triangularity,
         # then coincidental upper triangularity if needed.
         return lower_part.nnz == 0 or lower_part.count_nonzero() == 0
@@ -244,7 +245,7 @@ def _onenormest_matrix_power(A, p,
         that is relatively large in norm compared to the input.
 
     """
-    return scipy.sparse.linalg.onenormest(
+    return onenormest(
             MatrixPowerOperator(A, p, structure=structure))
 
 
@@ -286,7 +287,7 @@ def _onenormest_product(operator_seq,
         that is relatively large in norm compared to the input.
 
     """
-    return scipy.sparse.linalg.onenormest(
+    return onenormest(
             ProductOperator(*operator_seq, structure=structure))
 
 
@@ -777,7 +778,7 @@ def _ell(A, m):
 
     # The c_i are explained in (2.2) and (2.6) of the 2005 expm paper.
     # They are coefficients of terms of a generating function series expansion.
-    choose_2p_p = scipy.special.comb(2*p, p, exact=True)
+    choose_2p_p = _comb_int(2*p, p)
     abs_c_recip = float(choose_2p_p * math.factorial(2*p + 1))
 
     # This is explained after Eq. (1.2) of the 2009 expm paper.

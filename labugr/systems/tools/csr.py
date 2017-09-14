@@ -8,7 +8,7 @@ __all__ = ['csr_matrix', 'isspmatrix_csr']
 
 
 import numpy as np
-from scipy._lib.six import xrange
+from labugr.integrate._lib.six import xrange
 
 from .base import spmatrix
 
