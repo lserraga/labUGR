@@ -41,6 +41,7 @@ cythonize.dat
 *.pyd
 # resultado de pytests
 .cache
+.DS_Store
 
 # Credenciales pipy #
 #####################

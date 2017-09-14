@@ -4,8 +4,9 @@ from warnings import warn
 
 import numpy as np
 from numpy import asarray, empty, ravel, nonzero
-from scipy.sparse import (isspmatrix_csc, isspmatrix_csr, isspmatrix,
-                          SparseEfficiencyWarning, csc_matrix)
+from .base import isspmatrix, SparseEfficiencyWarning
+from .csc import isspmatrix_csc, csc_matrix
+from .csr import isspmatrix_csr
 
 from . import _superlu
 
