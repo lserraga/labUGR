@@ -110,9 +110,9 @@ def _smart_matrix_product(A, B, alpha=None, structure=None):
     if len(B.shape) != 2:
         raise ValueError('expected B to be a rectangular matrix')
     f = None
-    if structure == UPPER_TRIANGULAR:
-        if not isspmatrix(A) and not isspmatrix(B):
-            f, = scipy.linalg.get_blas_funcs(('trmm',), (A, B))
+    # if structure == UPPER_TRIANGULAR:
+    #     if not isspmatrix(A) and not isspmatrix(B):
+    #         f, = scipy.linalg.get_blas_funcs(('trmm',), (A, B))
     if f is not None:
         if alpha is None:
             alpha = 1.
