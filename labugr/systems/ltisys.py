@@ -8,7 +8,7 @@ import warnings
 from numpy.linalg import qr as s_qr
 #from scipy import linalg
 from numpy import linalg
-#from scipy.interpolate import interp1d
+from .tools.helpers2 import interp1d
 from labugr.integrate._lib.six import xrange
 from labugr.filters.filters import (tf2zpk, zpk2tf, normalize)
 from labugr.filters.spectral import (freqs, freqz, freqs_zpk, freqz_zpk)
@@ -22,7 +22,7 @@ from numpy import (real, atleast_1d, atleast_2d, squeeze, asarray, zeros,
 import copy
 
 __all__ = ['lti', 'dlti', 'TransferFunction', 'ZerosPolesGain', 'StateSpace',
-           'lsim', 'impulse', 'step', 'bode', 'freqresp', 'place_poles',
+           'lsim', 'dlsim', 'impulse', 'step', 'bode', 'freqresp', 'place_poles',
            'dlsim', 'dstep', 'dimpulse',
            'dfreqresp', 'dbode']
 
@@ -2864,7 +2864,7 @@ def dlsim(system, u, t=None, x0=None):
         u_dt = u
     else:
         if len(u.shape) == 1:
-            u = u[:, np.newaxis]
+            u = u[:, np.newaxis] 
 
         u_dt_interp = interp1d(t, u.transpose(), copy=False, bounds_error=True)
         u_dt = u_dt_interp(tout).transpose()
