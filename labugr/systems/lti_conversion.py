@@ -9,7 +9,7 @@ import numpy as np
 from numpy import (r_, eye, atleast_2d, poly, dot,
                    asarray, product, zeros, array, outer)
 from numpy import linalg
-
+from .tools.helpers import expm
 from labugr.filters.filters import tf2zpk, zpk2tf, normalize
 
 
@@ -448,7 +448,7 @@ def cont2discrete(system, dt, method="zoh", alpha=None):
                               np.zeros((b.shape[1], b.shape[1]))))
 
         em = np.vstack((em_upper, em_lower))
-        ms = linalg.expm(dt * em)
+        ms = expm(dt * em)
 
         # Dispose of the lower rows
         ms = ms[:a.shape[0], :]
