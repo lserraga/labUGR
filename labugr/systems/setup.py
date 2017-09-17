@@ -4,15 +4,7 @@ def configuration(parent_package='', top_path=None):
     from numpy.distutils.misc_util import Configuration
 
     config = Configuration('systems', parent_package, top_path)
-
-    # fitpack_src = [join('fitpack', '*.f')]
-    # config.add_library('fitpack', sources=fitpack_src)
-    # config.add_extension('dfitpack',
-    #                  sources=['src/fitpack.pyf'],
-    #                  libraries=['fitpack'],
-    #                  depends=fitpack_src,
-    #                  )
-
+    
     config.add_data_dir('tests') 
     config.add_subpackage('tools')
 
