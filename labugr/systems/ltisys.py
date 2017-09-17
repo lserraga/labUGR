@@ -5,15 +5,16 @@ import warnings
 # np.linalg.qr fails on some tests with LinAlgError: zgeqrf returns -7
 # use scipy's qr until this is solved
 
-from scipy.linalg import qr as s_qr
-from scipy import interpolate, linalg
-from scipy.interpolate import interp1d
-from scipy._lib.six import xrange
+from numpy.linalg import qr as s_qr
+#from scipy import linalg
+from numpy import linalg
+from .tools.helpers2 import interp1d
+from labugr.integrate._lib.six import xrange
 from labugr.filters.filters import (tf2zpk, zpk2tf, normalize)
 from labugr.filters.spectral import (freqs, freqz, freqs_zpk, freqz_zpk)
 from .lti_conversion import (tf2ss, abcd_normalize, ss2tf, zpk2ss, ss2zpk,
                              cont2discrete)
-
+from .tools.helpers import expm
 import numpy
 import numpy as np
 from numpy import (real, atleast_1d, atleast_2d, squeeze, asarray, zeros,
@@ -21,7 +22,7 @@ from numpy import (real, atleast_1d, atleast_2d, squeeze, asarray, zeros,
 import copy
 
 __all__ = ['lti', 'dlti', 'TransferFunction', 'ZerosPolesGain', 'StateSpace',
-           'lsim', 'impulse', 'step', 'bode', 'freqresp', 'place_poles',
+           'lsim', 'dlsim', 'impulse', 'step', 'bode', 'freqresp', 'place_poles',
            'dlsim', 'dstep', 'dimpulse',
            'dfreqresp', 'dbode']
 
@@ -1645,7 +1646,7 @@ def lsim(system, U, T, X0=None, interp=True):
         xout[0] = X0
     elif T[0] > 0:
         # step forward to initial time, with zero input
-        xout[0] = dot(X0, linalg.expm(transpose(A) * T[0]))
+        xout[0] = dot(X0, expm(transpose(A) * T[0]))
     else:
         raise ValueError("Initial time must be nonnegative")
 
@@ -1668,7 +1669,7 @@ def lsim(system, U, T, X0=None, interp=True):
     if no_input:
         # Zero input: just use matrix exponential
         # take transpose because state is a row vector
-        expAT_dt = linalg.expm(transpose(A) * dt)
+        expAT_dt = expm(transpose(A) * dt)
         for i in xrange(1, n_steps):
             xout[i] = dot(xout[i-1], expAT_dt)
         yout = squeeze(dot(xout, transpose(C)))
@@ -1698,7 +1699,7 @@ def lsim(system, U, T, X0=None, interp=True):
         M = np.vstack([np.hstack([A * dt, B * dt]),
                        np.zeros((n_inputs, n_states + n_inputs))])
         # transpose everything because the state and input are row vectors
-        expMT = linalg.expm(transpose(M))
+        expMT = expm(transpose(M))
         Ad = expMT[:n_states, :n_states]
         Bd = expMT[n_states:, :n_states]
         for i in xrange(1, n_steps):
@@ -1719,7 +1720,7 @@ def lsim(system, U, T, X0=None, interp=True):
                        np.hstack([np.zeros((n_inputs, n_states + n_inputs)),
                                   np.identity(n_inputs)]),
                        np.zeros((n_inputs, n_states + 2 * n_inputs))])
-        expMT = linalg.expm(transpose(M))
+        expMT = expm(transpose(M))
         Ad = expMT[:n_states, :n_states]
         Bd1 = expMT[n_states+n_inputs:, :n_states]
         Bd0 = expMT[n_states:n_states + n_inputs, :n_states] - Bd1
@@ -1753,7 +1754,7 @@ def _default_response_times(A, n):
     # Create a reasonable time interval.
     # TODO: This could use some more work.
     # For example, what is expected when the system is unstable?
-    vals = linalg.eigvals(A)
+    vals = np.linalg.eigvals(A)
     r = min(abs(real(vals)))
     if r == 0.0:
         r = 1.0
@@ -2863,7 +2864,7 @@ def dlsim(system, u, t=None, x0=None):
         u_dt = u
     else:
         if len(u.shape) == 1:
-            u = u[:, np.newaxis]
+            u = u[:, np.newaxis] 
 
         u_dt_interp = interp1d(t, u.transpose(), copy=False, bounds_error=True)
         u_dt = u_dt_interp(tout).transpose()

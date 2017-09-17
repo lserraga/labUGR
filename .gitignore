@@ -30,6 +30,12 @@ lfilter.c
 correlate_nd.c
 # Archivo cache generado por cython
 cythonize.dat 
+# Archivos c generados en systems 
+_comb.c
+_csparsetools.c
+dst.c
+convolvemodule.c
+_fftpackmodule.c
 
 # Archivos Cache #
 ##################
@@ -41,6 +47,9 @@ cythonize.dat
 *.pyd
 # resultado de pytests
 .cache
+# generados en systems
+.DS_Store
+
 
 # Credenciales pipy #
 #####################

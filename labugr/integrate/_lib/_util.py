@@ -225,8 +225,8 @@ def _asarray_validated(a, check_finite=True,
 
     """
     if not sparse_ok:
-        import scipy.sparse
-        if scipy.sparse.issparse(a):
+        from labugr.systems.tools.base import issparse
+        if issparse(a):
             msg = ('Sparse matrices are not supported by this function. '
                    'Perhaps one of the scipy.sparse.linalg functions '
                    'would work instead.')
