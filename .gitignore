@@ -39,7 +39,7 @@ _fftpackmodule.c
 # Archivos c generados en generate_sparsetools.py
 bsr_impl.h
 csc_impl.h
-crs_impl.h
+csr_impl.h
 other_impl.h
 sparsetools_impl.h
 
