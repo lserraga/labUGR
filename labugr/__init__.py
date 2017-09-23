@@ -28,7 +28,7 @@ from .signal import *
 from .doc.ayuda import ayuda
 
 import numpy as np
-#import matplotlib as plt
+import matplotlib.pyplot as plt
 
 from numpy import arange, pi, e
 
@@ -62,6 +62,15 @@ from numpy import(
     minimum)
 from numpy import around as round 
 
+#Funciones para graficar
+from matplotlib.pyplot import (
+    axis, title, grid, xlabel, ylabel, xscale, yscale, xlim, ylim, xticks,
+    yticks)
+from matplotlib.pyplot import (
+    plot, subplot, figure, bar, barh, stem, step, subplot, show, close,
+    ion, ioff)
+    
+## see spectral
 
 #Algebra lineal
 #from numpy.linalg import 

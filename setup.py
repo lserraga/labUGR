@@ -74,7 +74,7 @@ def generate_cython():
 
 def setup_package():
 
-    install_requires = ['numpy>=1.8.2','mpmath', 'pyaudio']
+    install_requires = ['numpy>=1.8.2','mpmath', 'pyaudio', 'matplotlib']
     
     metadata = dict(
         name='labugr',
