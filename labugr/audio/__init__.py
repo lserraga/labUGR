@@ -2,7 +2,7 @@ from .wavfile import write, read as readWav
 from .decoder import decode
 import os
 
-__all__ = ['write', 'read', 'decode', 'test', 'play']
+__all__ = ['write', 'read', 'decode', 'test']
 
 def read(filename):
 	"""
@@ -92,6 +92,26 @@ def play(filename):
 	if temporary:
 		os.remove(filename)
 
+def test_portaudio():
+	"""
+	Checks whether Portaudio, the cross-platform audio I/O library, is
+	installed in the system.
+
+	Returns
+    -------
+    result : bool
+        True if the library is installed, false otherwise.
+	"""
+	result = True
+	try:
+		import _portaudio
+	except:
+		result = False
+
+	return result
+
+if test_portaudio():
+	__all__.append('play')
 
 from labugr.testing.utils import PytestTester
 test = PytestTester(__name__)
