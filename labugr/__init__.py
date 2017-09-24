@@ -100,8 +100,9 @@ from .filters import *
 from .audio import *
 
 
-excluidos = ['respuestaF', 'signal', 'spectral', 'testing', 'windows',
-            'doc','waveforms','dependencias', 'doc', 'excluidos', ]
+excluded = ['signal', 'testing', 'doc','dependencies', 'systems',
+'signal', 'fftpack', 'audio', 'filters', 'integrate' ,'excluded',
+'test']
 
-__all__ = [s for s in dir() if not ((s in excluidos)or s.startswith('_'))]
+__all__ = [s for s in dir() if not ((s in excluded)or s.startswith('_'))]
 

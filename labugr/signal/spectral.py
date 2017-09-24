@@ -11,7 +11,7 @@ from .windows import get_window
 from .tools._arraytools import const_ext, even_ext, odd_ext, zero_ext
 import warnings
 
-from labugr.dependencias.six import string_types
+from labugr.dependencies.six import string_types
 
 __all__ = ['periodogram', 'spectrogram', 'csd', 'coherence', 'stft', 'istft']
 

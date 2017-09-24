@@ -16,7 +16,7 @@ def test_all():
 		non-critical errors.
 	"""
 	#Submódulos sin tests
-	no_tests = ['dependencias', 'doc', 'testing']
+	no_tests = ['dependencies', 'doc', 'testing']
 	passed = True
 	print("\n******** Iniciando tests para labugr ********\n")
 
