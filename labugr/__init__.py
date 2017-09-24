@@ -24,9 +24,6 @@ if not __LABUGR_SETUP__:
         raise ImportError(msg)
 
 
-from .signal import *
-from .doc.ayuda import ayuda
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -93,13 +90,18 @@ from .fftpack import (
     fft, ifft, fftn, ifftn, dct, idct, dst, idst, diff, hilbert,
     ihilbert)
 
-from . import integrate
 
+from .signal import *
+from .doc.ayuda import ayuda
+from .integrate import *
 from .testing import test_all
+from .systems import *
+from .filters import *
+from .audio import *
 
 
 excluidos = ['respuestaF', 'signal', 'spectral', 'testing', 'windows',
-            'doc','waveforms','dependencias', 'doc']
+            'doc','waveforms','dependencias', 'doc', 'excluidos', ]
 
 __all__ = [s for s in dir() if not ((s in excluidos)or s.startswith('_'))]
 
