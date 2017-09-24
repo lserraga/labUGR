@@ -89,7 +89,9 @@ from numpy import nditer
 from numpy import (
     all, any, logical_and, logical_or, allclose, isclose,)
 
-from . import fftpack
+from .fftpack import (
+    fft, ifft, fftn, ifftn, dct, idct, dst, idst, diff, hilbert,
+    ihilbert)
 
 from . import integrate
 
