@@ -1,0 +1,173 @@
+Trace líneas y / o marcadores al
+: class: `~ matplotlib.axes.Axes`. * args * es una longitud variable
+argumento, permitiendo múltiples * x *, * y * pares con un
+cadena de formato opcional. Por ejemplo, cada uno de los siguientes
+legal::
+
+    trazar (x, y) # trazar x e y usando el estilo y el color por defecto de la línea
+    trama (x, y, 'bo') # traza xyy usando marcadores de círculo azul
+    gráfico (y) # gráfico y usando x como matriz de índice 0..N-1
+    parcela (y, 'r +') # idem, pero con puntos positivos rojos
+
+Si * x * y / o * y * es bidimensional, las columnas correspondientes
+será trazado.
+
+Si se utiliza con datos etiquetados, asegúrese de que la especificación de color no es
+como un elemento en los datos, ya que de lo contrario el último caso
+`` trama ("v", "r", data = {"v": ..., "r": ...) ``
+puede interpretarse como el primer caso que haría `` plot (v, r) ``
+utilizando el estilo de línea predeterminado y el color.
+
+Si no se usa con datos marcados (es decir, sin un argumento de datos),
+se puede especificar un número arbitrario de grupos * x *, * y *, * fmt *, como en ::
+
+    a.plot (x1, y1, 'g ^', x2, y2, 'g-')
+
+Valor de retorno es una lista de líneas que se agregaron.
+
+Por defecto, a cada línea se le asigna un estilo diferente especificado por un
+'ciclo de estilo'. Para cambiar este comportamiento, puede
+axes.prop_cycle rcParam.
+
+Se aceptan los siguientes caracteres de cadena de formato para controlar
+el estilo de línea o marcador:
+
+================= ======== ===================================================================
+descripción del personaje
+================= ======== ===================================================================
+estilo de línea continua `` '-'``
+estilo de línea discontinua
+estilo de línea de trazo-punto
+estilo de línea punteada
+marcador de puntos
+marcador de píxeles
+marcador de círculo "o'``
+marcador de triangle_down de `'' v'``
+marcador triangle_up
+marcador `` '`` triangle_left
+marcador triangle_right
+Marcador ``'````` tri_down
+Marcador de tri_up '`' 2'``
+Marcador tri_left
+Marcador tri_right
+marcador cuadrado
+marcador penta pentágono
+marcador de estrella
+marcador hexágono1
+`` 'H'`` hexágono2 marcador
+marcador
+marcador x
+Marcador de diamante
+marcador `` `` `` `thin_diamond
+marcador vline
+marcador hline
+================= ======== ===================================================================
+
+
+Las siguientes abreviaturas de color son compatibles:
+
+=========
+color de carácter
+=========
+azul
+verde
+rojo
+cyan
+magenta
+amarillo
+k negro
+blanco
+=========
+
+Además, puede especificar colores en muchas
+maravillosas formas, incluyendo nombres completos (`` 'green'``), hex
+strings (`` '# 008000'``), tuplas RGB o RGBA (`` (0,1,0,1) ``) o
+intensidades de escala de grises como una cadena (`` `0.8'``). De estos, el
+se pueden utilizar las especificaciones de cadenas en lugar de un grupo `` fmt``,
+pero las formas de tupla sólo se pueden utilizar como `` kwargs``.
+
+Los estilos y colores de líneas se combinan en una cadena de formato único, como en
+`` `` bo'`` para los círculos azules.
+
+Los * kwargs * se pueden usar para establecer propiedades de línea (cualquier propiedad que tenga
+un método `` set_ * ``). Puede utilizarlo para establecer una etiqueta de línea (para
+leyendas), linewidth, anitialising, color de la cara del marcador, etc.
+ejemplo::
+
+    trama ([1,2,3], [1,2,3], 'go-', etiqueta = 'línea 1', linewidth = 2)
+    parcela ([1,2,3], [1,4,9], 'rs', etiqueta = 'línea 2')
+    eje ([0, 4, 0, 10])
+    leyenda()
+
+Si realiza varias líneas con un comando de trazado, los kwargs
+se aplican a todas esas líneas, por ejemplo:
+
+    parcela (x1, y1, x2, y2, antialiased = falso)
+
+Ninguna línea será antialiased.
+
+No es necesario utilizar cadenas de formato, que son
+abreviaturas Todas las propiedades de línea pueden ser controladas
+por argumentos de palabra clave. Por ejemplo, puede configurar el color,
+marcador, linestyle y markercolor con:
+
+    trama (x, y, color = 'verde', linestyle = 'traceado', marcador = 'o'
+         markerfacecolor = 'azul', markersize = 12).
+
+Vea: class: `~ matplotlib.lines.Line2D` para más detalles.
+
+Los kwargs son: class: `~ matplotlib.lines.Line2D` propiedades:
+
+  agg_filter: desconocido
+  alpha: float (0,0 transparente a través de 1,0 opaco)
+  animado: [Verdadero | Falso]
+  antialiaso o aa: [Verdadero | Falso]
+  ejes: una: clase: `` instancia matplotlib.axes.Axes`
+  clip_box: a: class: Instancia `matplotlib.transforms.Bbox`
+  clip_on: [Verdadero | Falso]
+  clip_path: [(: class: `~ matplotlib.path.Path`,: class:` ~ matplotlib.transforms.Transform`) | : class: `~ matplotlib.patches.Patch` | Ninguna ]
+  color o c: cualquier color matplotlib
+  contiene: una función llamable
+  dash_capstyle: ['culo' | 'redondo' | 'saliente']
+  dash_joinstyle: ['miter' | 'redondo' | 'bisel']
+  guiones: secuencia de encendido / apagado de tinta en puntos
+  drawstyle: ['default' | 'pasos' | 'pasos-pre' | 'pasos-mediados' | 'steps-post']
+  figura: a: clase: instancia `matplotlib.figure.Figure`
+  fillstyle: ['completo' | 'izquierda' | 'derecho' | 'fondo' | 'top' | 'ninguna']
+  gid: una cadena de id
+  label: cadena o cualquier cosa que se pueda imprimir con la conversión '% s'.
+  linestyle o ls: ['sólido' | 'salpicado', 'dashdot', 'punteado' | (offset, on-off-dash-seq) | Unesdoc.unesco.org unesdoc.unesco.org Unesdoc.unesco.org unesdoc.unesco.org Unesdoc.unesco.org unesdoc.unesco.org Unesdoc.unesco.org unesdoc.unesco.org `` 'None'`` | Unesdoc.unesco.org unesdoc.unesco.org Unesdoc.unesco.org unesdoc.unesco.org
+  linewidth o lw: valor del flotador en puntos
+  marker:: mod: `Un estilo de marcador válido <matplotlib.markers>`
+  markeredgecolor o mec: cualquier color matplotlib
+  markeredgewidth o mew: valor del flotador en puntos
+  markerfacecolor o mfc: cualquier color matplotlib
+  markerfacecoloralt o mfcalt: cualquier color matplotlib
+  markersize o ms: float
+  markevery: [Ninguno | int | longitud-2 tupla de int | rebanada | lista / matriz de int | float | longitud-2 tupla de flotador]
+  path_effects: desconocido
+  selector: float distancia en puntos o callable función de selección `` fn (artista, evento) ``
+  pickradius: float distancia en puntos
+  rasterizado: [Verdadero | Falso | Ninguna]
+  sketch_params: desconocido
+  snap: desconocido
+  solid_capstyle: ['culo' | 'redondo' | 'saliente']
+  solid_joinstyle: ['miter' | 'redondo' | 'bisel']
+  transform: a: ​​class: `matplotlib.transforms.Transform` instancia
+  url: una cadena url
+  visible: [Verdadero | Falso]
+  xdata: matriz 1D
+  ydata: arreglo 1D
+  zorder: cualquier número
+
+kwargs * scalex * y * scaley *, si se definen, se pasan a
+: meth: `` matplotlib.axes.Axes.autoscale_view` para determinar
+si los ejes * x * y * y * son autoscaled; el valor predeterminado es
+*Cierto*.
+
+.. Nota::
+    Además de los argumentos descritos anteriormente, esta función puede
+    ** data ** argumento de palabra clave. Si se presenta un argumento de tipo ** data **,
+    los siguientes argumentos se sustituyen por ** data [<arg>] **:
+
+    * Todos los argumentos con los siguientes nombres: 'x', 'y'.

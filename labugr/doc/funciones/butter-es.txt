@@ -1,0 +1,66 @@
+Butterworth diseño de filtro digital y analógico.
+
+    Diseñe un filtro de Butterworth digital o analógico de Nésimo orden y devuelva
+    los coeficientes de filtro.
+
+    Parámetros
+    ----------
+    N: int
+        El orden del filtro.
+    Wn: array_like
+        Una secuencia escalar o longitud-2 que da las frecuencias críticas.
+        Para un filtro Butterworth, este es el punto en el que la ganancia
+        cae a 1 / sqrt (2) la de la banda de paso (el "punto -3 dB").
+        Para los filtros digitales, `Wn` se normaliza de 0 a 1, donde 1 es el
+        Frecuencia de Nyquist, pi radianes / muestra. («Wn» está así en
+        semiciclos / muestra).
+        Para los filtros analógicos, `Wn` es una frecuencia angular (por ejemplo rad / s).
+    btype: {'lowpass', 'highpass', 'bandpass', 'bandstop'}, opcional
+        El tipo de filtro. El valor predeterminado es 'lowpass'.
+    analógico: bool, opcional
+        Cuando True, devuelva un filtro analógico, de lo contrario, se
+        devuelto
+    salida: {'ba', 'zpk', 'sos'}, opcional
+        Tipo de salida: numerador / denominador ('ba'), polo-cero ('zpk'), o
+        secciones de segundo orden ('sos'). El valor predeterminado es 'ba'.
+
+    Devoluciones
+    -------
+    b, a: ndarray, ndarray
+        Numerador (`b`) y denominador (` a`) polinomios del filtro IIR.
+        Sólo devuelto si `` output = 'ba'``.
+    z, p, k: ndarray, ndarray, float
+        Zeros, polos y ganancia del sistema de la transferencia del filtro IIR
+        función. Sólo devuelto si `` output = 'zpk'``.
+    sos: ndarray
+        Representación de secciones de segundo orden del filtro IIR.
+        Sólo devuelto si `` output == 'sos'``.
+
+    Ver también
+    --------
+    buttord, buttap
+
+    Notas
+    -----
+    El filtro de Butterworth tiene una respuesta de frecuencia
+    banda de paso
+
+    El parámetro de salida `` 'sos'`` se añadió en 0.16.0.
+
+    Ejemplos
+    --------
+    Trace la respuesta de frecuencia del filtro, mostrando los puntos críticos:
+
+    >>> de la señal de importación de scipy
+    >>> import matplotlib.pyplot como plt
+
+    >>> b, a = signal.butter (4, 100, 'low', analógico = True)
+    >>> w, h = señal.frecuencias (b, a)
+    >>> plt.semilogx (w, 20 * np.log10 (abs (h)))
+    >>> plt.title ('Respuesta de frecuencia del filtro Butterworth')
+    >>> plt.xlabel ('Frecuencia [radianes / segundo]')
+    >>> plt.ylabel ('Amplitud [dB]')
+    >>> plt.margins (0, 0.1)
+    >>> plt.grid (which = 'both', axis = 'both')
+    >>> plt.axvline (100, color = 'verde') # frecuencia de corte
+    >>> plt.show ()

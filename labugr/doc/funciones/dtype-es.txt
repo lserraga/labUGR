@@ -1,0 +1,80 @@
+dtype (obj, align = False, copy = False)
+
+    Cree un objeto de tipo de datos.
+
+    Un array numpy es homogéneo, y contiene elementos descritos por un
+    dtype objeto. Un objeto dtype puede ser construido a partir de diferentes
+    combinaciones de tipos numéricos fundamentales.
+
+    Parámetros
+    ----------
+    obj
+        Objeto a convertir en un objeto de tipo de datos.
+    align: bool, opcional
+        Agregue relleno a los campos para que coincida con lo que un compilador C generaría
+        para una C-struct similar. Puede ser `` True`` sólo si `obj` es un diccionario
+        o una cadena separada por comas. Si se está creando un tipo de estructura,
+        esto también establece una bandera de alineación pegajosa `` isalignedstruct``.
+    copia: bool, opcional
+        Realice una copia nueva del objeto de tipo de datos. Si `` False``, el resultado
+        puede ser una referencia a un objeto de tipo de datos incorporado.
+
+    Ver también
+    --------
+    tipo_resultado
+
+    Ejemplos
+    --------
+    Uso del tipo escalar-matriz:
+
+    >>> np.dtype (np.int16)
+    dtype ('int16')
+
+    Tipo estructurado, un nombre de campo 'f1', que contiene int16:
+
+    >>> np.dtype ([('f1', np.int16)])
+    dtype ([('f1', '<i2')])
+
+    Tipo estructurado, un campo denominado 'f1', que contiene por sí mismo una estructura
+    escriba con un campo:
+
+    >>> np.dtype ([('f1', [('f1', np.int16)])])
+    dtype ([('f1', [('f1', '<i2')])])
+
+    Tipo estructurado, dos campos: el primer campo contiene un int sin signo, el
+    segundo un int32:
+
+    >>> np.dtype ([('f1', np.uint), ('f2', np.int32)])
+    dtype ([('f1', '<u4'), ('f2', '<i4')])
+
+    Uso de cadenas de tipo de protocolo de matriz:
+
+    >>> np.dtype ([('a', 'f8'), ('b', 'S10')])
+    dtype ([('a', '<f8'), ('b', '| S10')])
+
+    Uso de formatos de campo separados por comas. La forma es (2,3):
+
+    >>> np.dtype ("i4, (2,3) f8")
+    dtype ([('f0', '<i4'), ('f1', '<f8', (2, 3))]
+
+    Usando tuplas. `` int`` es un tipo fijo, 3 la forma del campo. void
+    es un tipo flexible, aquí del tamaño 10:
+
+    >>> np.dtype ([('(' hola ', (np.int, 3)), (' mundo ', np.void, 10)])
+    dtype ([('(' hola ',' <i4 ', 3), (' mundo ',' | V10 ')])
+
+    Subdivide `` int16`` en 2 `` int8``, denominados xey. 0 y 1 son
+    los desplazamientos en bytes:
+
+    >>> np.dtype ((np.int16, {'x' :( np.int8,0), 'y' :( np.int8,1)}))
+    dtype (('<i2', [('x', '| i1'), ('y', '| i1')]))
+
+    Uso de diccionarios. Dos campos denominados 'género' y 'edad':
+
+    >>> np.dtype ({'nombres': ['género', 'edad'], 'formatos': ['S1', np.uint8]})
+    dtype ([('género', '| S1')], ('edad', '| u1')])
+
+    Offsets en bytes, aquí 0 y 25:
+
+    >>> np.dtype ({'apellido' :( 'S25', 0), 'edad' :( np.uint8,25)})
+    dtype ([('(' apellido ',' | S25 ')], (' edad ',' | u1 ')])

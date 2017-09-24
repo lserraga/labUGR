@@ -1,0 +1,47 @@
+Función de transferencia a la representación del espacio del estado.
+
+    Parámetros
+    ----------
+    num, den: array_like
+        Secuencias que representan los coeficientes del numerador y
+        denominador, en orden de grado descendente. los
+        denominador debe ser por lo menos tan largo como el numerador.
+
+    Devoluciones
+    -------
+    A, B, C, D: ndarray
+        Representación espacial de estados del sistema, en controlador canónico
+        formar.
+
+    Ejemplos
+    --------
+    Convertir la función de transferencia:
+
+    .. matemáticas :: H (s) = \ frac {s ^ 2 + 3s + 3} {s ^ 2 + 2s + 1}
+
+    >>> num = [1, 3, 3]
+    >>> den = [1, 2, 1]
+
+    a la representación del espacio de estados:
+
+    matemáticas
+
+        \ dot {\ textbf {x}} (t) =
+        \ begin {bmatrix} -2 & -1 \\ 1 & 0 \ end {bmatrix} \ textbf {x} (t) +
+        \ begin {bmatrix} 1 \\ 0 \ end {bmatrix} \ textbf {u} (t) \\
+
+        \ textbf {y} (t) = \ begin {bmatrix} 1 & 2 \ end {bmatrix} \ textbf {x} (t) +
+        \ begin {bmatrix} 1 \ end {bmatrix} \ textbf {u} (t)
+
+    >>> de scipy.signal import tf2ss
+    >>> A, B, C, D = tf2ss (num, den)
+    Un
+    array ([[- 2., -1.],
+           [1., 0.]])
+    >>> B
+    array ([[1.],
+           [0.]])
+    >>> C
+    array ([[1., 2.]])
+    D
+    array ([[1.]])

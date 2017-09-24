@@ -1,0 +1,40 @@
+Devuelve una copia de la matriz del objeto dado.
+
+    Parámetros
+    ----------
+    a: array_like
+        Datos de entrada.
+    orden: {'C', 'F', 'A', 'K'}, opcional
+        Controla el diseño de memoria de la copia. 'C' significa C-orden,
+        'F' significa F-orden, 'A' significa 'F' si 'a' es Fortran contiguo,
+        'C' en caso contrario. 'K' significa que coincide con el diseño de `a`
+        como sea posible. (Tenga en cuenta que esta función y: meth: `ndarray.copy` son muy
+        similar, pero tienen diferentes valores por defecto para su orden =
+        argumentos
+
+    Devoluciones
+    -------
+    arr: ndarray
+        Array interpretación de `a`.
+
+    Notas
+    -----
+    Esto es equivalente a:
+
+    >>> np.array (a, copy = True) #doctest: + SKIP
+
+    Ejemplos
+    --------
+    Cree una matriz x, con una referencia yy una copia z:
+
+    >>> x = np.array ([1, 2, 3])
+    >>> y = x
+    >>> z = np.copy (x)
+
+    Tenga en cuenta que, cuando modificamos x, y cambia, pero no z:
+
+    >>> x [0] = 10
+    >>> x [0] == y [0]
+    Cierto
+    >>> x [0] == z [0]
+    Falso

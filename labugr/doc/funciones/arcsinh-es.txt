@@ -1,0 +1,52 @@
+arcsinh (x, /, out = Ninguno, *, donde = True, casting = 'same_kind', order = 'K', dtype = Ninguno, subok = True [, signature, extobj]
+
+SenoSeno hiperbólico inverso, elemento-sabio.
+
+Parámetros
+----------
+x: array_like
+    Array de entrada.
+out: ndarray, None, o tuple de ndarray y None, opcional
+    Una ubicación en la que se almacena el resultado. Si se proporciona, debe tener
+    una forma a la que se transmiten las entradas. Si no se proporciona o «Ninguno»,
+    se devuelve una matriz recién asignada. Una tupla (posible sólo como
+    argumento de palabra clave) debe tener una longitud igual al número de salidas.
+donde: array_like, opcional
+    Los valores de True indican para calcular la ufunc en esa posición, los valores
+    de Falso indican para dejar el valor en la salida solo.
+kwargs
+    Para otros argumentos con solo palabras clave, consulte el
+    : ref: `ufunc docs <ufuncs.kwargs>`.
+
+Devoluciones
+-------
+salir: ndarray
+    Array de la misma forma que `x '.
+
+Notas
+-----
+`arcsinh` es una función multivalor: para cada` x` hay infinitamente
+muchos números «z» tales que «sinh (z) = x». La convención es devolver el
+`z 'cuya parte imaginaria está en` [-pi / 2, pi / 2] `.
+
+Para los tipos de datos de entrada de valor real, `arcsinh` siempre devuelve la salida real.
+Para cada valor que no puede ser expresado como un número real o infinito,
+devuelve `` nan`` y establece el indicador de error de punto flotante `inválido`.
+
+Para la entrada de valor complejo, `arccos` es una función analítica compleja que
+tiene cortes de rama `[1j, infj]` y `[-1j, -infj]` y es continua de
+la derecha en la primera y desde la izquierda en la segunda.
+
+El seno hiperbólico inverso también se conoce como `asinh` o` `sinh ^ -1``.
+
+Referencias
+----------
+[1] M. Abramowitz y I.A. Stegun, "Manual de Funciones Matemáticas",
+       10ª edición, 1964, págs. 86. http://www.math.sfu.ca/~cbm/aands/
+[2] Wikipedia, "Función hiperbólica inversa",
+       http://en.wikipedia.org/wiki/Arcsinh
+
+Ejemplos
+--------
+>>> np.arcsinh (np.array ([np.e, 10.0]))
+matriz ([1.72538256, 2.99822295])

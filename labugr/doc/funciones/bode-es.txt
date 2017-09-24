@@ -1,0 +1,52 @@
+Calcular los datos de magnitud y fase de Bode de un sistema de tiempo continuo.
+
+    Parámetros
+    ----------
+    system: una instancia de la clase LTI o una tupla que describe el sistema.
+        Lo siguiente da el número de elementos en la tupla y
+        la interpretación:
+
+            * 1 (instancia de lti)
+            * 2 (num, den)
+            * 3 (ceros, polos, ganancia)
+            * 4 (A, B, C, D)
+
+    w: array_like, opcional
+        Conjunto de frecuencias (en rad / s). Los datos de magnitud y fase se calculan
+        para cada valor en esta matriz. Si no se le da un conjunto razonable será
+        calculado.
+    n: int, opcional
+        Número de puntos de frecuencia a calcular si `w` no se da. El `n`
+        las frecuencias se espacian logaritmicamente en un intervalo elegido para
+        incluyen la influencia de los polos y ceros del sistema.
+
+    Devoluciones
+    -------
+    w: 1D ndarray
+        Matriz de frecuencia [rad / s]
+    mag: 1D ndarray
+        Magnitud array [dB]
+    fase: 1D ndarray
+        Fase de matriz [deg]
+
+    Notas
+    -----
+    Si (num, den) es pasado para `` system``, los coeficientes tanto para el
+    numerador y denominador debe ser especificado en exponente descendente
+    (por ejemplo, `` s ^ 2 + 3s + 5`` se representaría como `` [1, 3, 5] ``).
+
+    .. versionadded :: 0.11.0
+
+    Ejemplos
+    --------
+    >>> de la señal de importación de scipy
+    >>> import matplotlib.pyplot como plt
+
+    >>> sys = signal.TransferFunction ([1], [1, 1])
+    >>> w, mag, phase = signal.bode (sys)
+
+    >>> plt.figure ()
+    >>> plt.semilogx (w, mag) # Gráfico de magnitud de Bode
+    >>> plt.figure ()
+    >>> plt.semilogx (w, fase) # Diagrama de fase Bode
+    >>> plt.show ()

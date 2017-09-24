@@ -1,0 +1,63 @@
+Clase de base del sistema de invariabilidad lineal en tiempo continuo.
+
+    Parámetros
+    ----------
+    * system: argumentos
+        La clase `lti` puede ser instanciada con argumentos de 2, 3 o 4.
+        A continuación se indica el número de argumentos y la
+        subclase de tiempo continuo que se crea:
+
+            * 2: `TransferFunction`: (numerador, denominador)
+            * 3: `ZerosPolesGain`: (ceros, polos, ganancia)
+            * 4: `StateSpace`: (A, B, C, D)
+
+        Cada argumento puede ser una matriz o una secuencia.
+
+    Ver también
+    --------
+    ZerosPolesGain, StateSpace, TransferFunction, dlti
+
+    Notas
+    -----
+    Las instancias `lti` no existen directamente. En su lugar, `lti` crea una instancia
+    de una de sus subclases: `StateSpace`,` TransferFunction` o
+    `ZerosPolesGain`.
+
+    Si (numerador, denominador) se pasa para `` * sistema '', los coeficientes para
+    tanto el numerador como el denominador deben ser especificados en descendencia
+    ej., `` s ^ 2 + 3s + 5`` se representaría como `` [1, 3,
+    5] ``).
+
+    Cambiar el valor de las propiedades que no son parte directa de la
+    representación del sistema (como los 'ceros' de un sistema `StateSpace`) es
+    muy ineficiente y puede dar lugar a inexactitudes numéricas. Es mejor
+    convertir primero a la representación del sistema específico. Por ejemplo, llame al
+    `` sys = sys.to_zpk () `` antes de acceder / cambiar los ceros, polos o ganancia.
+
+    Ejemplos
+    --------
+    >>> de la señal de importación de scipy
+
+    >>> signal.lti (1, 2, 3, 4)
+    StateSpaceContinuous (
+    array ([[1]]),
+    array ([[2]]),
+    array ([[3]]),
+    array ([[4]]),
+    dt: Ninguno
+    )
+
+    >>> signal.lti ([1, 2], [3, 4], 5)
+    ZerosPolesGainContinuous (
+    matriz ([1, 2]),
+    matriz ([3, 4]),
+    5,
+    dt: Ninguno
+    )
+
+    >>> signal.lti ([3, 4], [1, 2])
+    TransferFunctionContinuous (
+    matriz ([3., 4.]),
+    matriz ([1., 2.]),
+    dt: Ninguno
+    )

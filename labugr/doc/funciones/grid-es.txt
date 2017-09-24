@@ -1,0 +1,62 @@
+Activar o desactivar las cuadrículas de los ejes.
+
+Activar o desactivar las cuadrículas de los ejes; * b * es un booleano. (Para MATLAB
+compatibilidad, * b * también puede ser una cadena, 'on' o 'off'.)
+
+Si * b * es * Ninguno * y `` len (kwargs) == 0``, cambia el estado de la cuadrícula. Si
+* kwargs * se suministran, se asume que usted quiere una rejilla y * b *
+se establece así en * True *.
+
+* que * puede ser 'principal' (predeterminado), 'menor' o 'ambos' para controlar
+ya sean afectadas las rejillas principales, las cuadrículas menores o ambas.
+
+* axis * puede ser 'both' (predeterminado), 'x' o 'y' para controlar qué
+conjunto de líneas de cuadrícula.
+
+* kwargs * se utilizan para establecer las propiedades de la línea de cuadrícula, por ejemplo, ::
+
+   ax.grid (color = 'r', linestyle = '-', linewidth = 2)
+
+Válido: class: `~ matplotlib.lines.Line2D` kwargs son
+
+  agg_filter: desconocido
+  alpha: float (0,0 transparente a través de 1,0 opaco)
+  animado: [Verdadero | Falso]
+  antialiaso o aa: [Verdadero | Falso]
+  ejes: una: clase: `` instancia matplotlib.axes.Axes`
+  clip_box: a: class: Instancia `matplotlib.transforms.Bbox`
+  clip_on: [Verdadero | Falso]
+  clip_path: [(: class: `~ matplotlib.path.Path`,: class:` ~ matplotlib.transforms.Transform`) | : class: `~ matplotlib.patches.Patch` | Ninguna ]
+  color o c: cualquier color matplotlib
+  contiene: una función llamable
+  dash_capstyle: ['culo' | 'redondo' | 'saliente']
+  dash_joinstyle: ['miter' | 'redondo' | 'bisel']
+  guiones: secuencia de encendido / apagado de tinta en puntos
+  drawstyle: ['default' | 'pasos' | 'pasos-pre' | 'pasos-mediados' | 'steps-post']
+  figura: a: clase: instancia `matplotlib.figure.Figure`
+  fillstyle: ['completo' | 'izquierda' | 'derecho' | 'fondo' | 'top' | 'ninguna']
+  gid: una cadena de id
+  label: cadena o cualquier cosa que se pueda imprimir con la conversión '% s'.
+  linestyle o ls: ['sólido' | 'salpicado', 'dashdot', 'punteado' | (offset, on-off-dash-seq) | Unesdoc.unesco.org unesdoc.unesco.org Unesdoc.unesco.org unesdoc.unesco.org Unesdoc.unesco.org unesdoc.unesco.org Unesdoc.unesco.org unesdoc.unesco.org `` 'None'`` | Unesdoc.unesco.org unesdoc.unesco.org Unesdoc.unesco.org unesdoc.unesco.org
+  linewidth o lw: valor del flotador en puntos
+  marker:: mod: `Un estilo de marcador válido <matplotlib.markers>`
+  markeredgecolor o mec: cualquier color matplotlib
+  markeredgewidth o mew: valor del flotador en puntos
+  markerfacecolor o mfc: cualquier color matplotlib
+  markerfacecoloralt o mfcalt: cualquier color matplotlib
+  markersize o ms: float
+  markevery: [Ninguno | int | longitud-2 tupla de int | rebanada | lista / matriz de int | float | longitud-2 tupla de flotador]
+  path_effects: desconocido
+  selector: float distancia en puntos o callable función de selección `` fn (artista, evento) ``
+  pickradius: float distancia en puntos
+  rasterizado: [Verdadero | Falso | Ninguna]
+  sketch_params: desconocido
+  snap: desconocido
+  solid_capstyle: ['culo' | 'redondo' | 'saliente']
+  solid_joinstyle: ['miter' | 'redondo' | 'bisel']
+  transform: a: ​​class: `matplotlib.transforms.Transform` instancia
+  url: una cadena url
+  visible: [Verdadero | Falso]
+  xdata: matriz 1D
+  ydata: arreglo 1D
+  zorder: cualquier número

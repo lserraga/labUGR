@@ -1,0 +1,71 @@
+exp (x, /, out = Ninguno, *, donde = True, casting = 'same_kind', order = 'K', dtype = Ninguno, subok = True [, signature, extobj]
+
+CalcCalcular el exponencial de todos los elementos de la matriz de entrada.
+
+Parámetros
+----------
+x: array_like
+    Valores de entrada.
+out: ndarray, None, o tuple de ndarray y None, opcional
+    Una ubicación en la que se almacena el resultado. Si se proporciona, debe tener
+    una forma a la que se transmiten las entradas. Si no se proporciona o «Ninguno»,
+    se devuelve una matriz recién asignada. Una tupla (posible sólo como
+    argumento de palabra clave) debe tener una longitud igual al número de salidas.
+donde: array_like, opcional
+    Los valores de True indican para calcular la ufunc en esa posición, los valores
+    de Falso indican para dejar el valor en la salida solo.
+kwargs
+    Para otros argumentos con solo palabras clave, consulte el
+    : ref: `ufunc docs <ufuncs.kwargs>`.
+
+Devoluciones
+-------
+salir: ndarray
+    Array de salida, exponencial exponencial de elementos de `x`.
+
+Ver también
+--------
+expm1: Calcula `` exp (x) - 1`` para todos los elementos de la matriz.
+exp2: Calcula `` 2 ** x`` para todos los elementos de la matriz.
+
+Notas
+-----
+El número irracional `` e`` también se conoce como el número de Euler. Es
+aproximadamente 2,718281, y es la base del logaritmo natural,
+`` ln`` (esto significa que, si: math: `x = \ ln y = \ log_e y`,
+entonces: math: `e ^ x = y`. Para una entrada real, `` exp (x) `` siempre es positivo.
+
+Para argumentos complejos, `` x = a + ib``, podemos escribir
+: matemáticas: `e ^ x = e ^ a e ^ {ib}`. El primer término,: math: `e ^ a`, ya está
+(es el verdadero argumento, descrito anteriormente). El segundo término,
+: math: `e ^ {ib}`, es: math: `\ cos b + i \ sin b`, una función con
+magnitud 1 y una fase periódica.
+
+Referencias
+----------
+.. [1] Wikipedia, "Función exponencial",
+       http://en.wikipedia.org/wiki/Exponential_function
+[2] M. Abramovitz y I. A. Stegun, "Manual de Funciones Matemáticas
+       con fórmulas, gráficos y tablas matemáticas ", Dover, 1964, página 69,
+       http://www.math.sfu.ca/~cbm/aands/page_69.htm
+
+Ejemplos
+--------
+Trace la magnitud y la fase de `` exp (x) `` en el plano complejo:
+
+>>> import matplotlib.pyplot como plt
+
+>>> x = np.linspace (-2 * np.pi, 2 * np.pi, 100)
+>>> xx = x + 1j * x [:, np.newaxis] # a + ib sobre el plano complejo
+>>> out = np.exp (xx)
+
+>>> plt.subplot (121)
+>>> plt.imshow (np.abs (fuera),
+... extensión = [- 2 * np.pi, 2 * np.pi, -2 * np.pi, 2 * np.pi], cmap = 'gray')
+>>> plt.title ('Magnitud de exp (x)')
+
+>>> plt.subplot (122)
+>>> plt.imshow (np.angle (hacia fuera),
+... extensión = [- 2 * np.pi, 2 * np.pi, -2 * np.pi, 2 * np.pi], cmap = 'hsv')
+>>> plt.title ('Fase (ángulo) de exp (x)')
+>>> plt.show ()

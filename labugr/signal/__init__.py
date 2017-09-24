@@ -5,7 +5,8 @@ from . import windows
 from .conv_corr import correlate, convolve
 from .windows import get_window
 
-excluded = ['excluded', 'conv_corr', 'spectral', 'waveforms', 'tools']
+excluded = ['excluded', 'conv_corr', 'spectral', 'waveforms', 'tools',
+'sigtools']
 
 __all__ = [s for s in dir() if not ((s in excluded)or s.startswith('_'))]
 

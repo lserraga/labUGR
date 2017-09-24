@@ -102,7 +102,7 @@ from .audio import *
 
 excluded = ['signal', 'testing', 'doc','dependencies', 'systems',
 'signal', 'fftpack', 'audio', 'filters', 'integrate' ,'excluded',
-'test']
+'test', 'show_config']
 
 __all__ = [s for s in dir() if not ((s in excluded)or s.startswith('_'))]
 

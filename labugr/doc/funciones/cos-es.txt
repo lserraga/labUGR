@@ -1,0 +1,50 @@
+cos (x, /, out = Ninguno, *, donde = True, casting = 'same_kind', order = 'K', dtype = Ninguno, subok = True [, signature, extobj]
+
+CoseCoseno element-wise.
+
+Parámetros
+----------
+x: array_like
+    Array de entrada en radianes.
+out: ndarray, None, o tuple de ndarray y None, opcional
+    Una ubicación en la que se almacena el resultado. Si se proporciona, debe tener
+    una forma a la que se transmiten las entradas. Si no se proporciona o «Ninguno»,
+    se devuelve una matriz recién asignada. Una tupla (posible sólo como
+    argumento de palabra clave) debe tener una longitud igual al número de salidas.
+donde: array_like, opcional
+    Los valores de True indican para calcular la ufunc en esa posición, los valores
+    de Falso indican para dejar el valor en la salida solo.
+kwargs
+    Para otros argumentos con solo palabras clave, consulte el
+    : ref: `ufunc docs <ufuncs.kwargs>`.
+
+Devoluciones
+-------
+y: ndarray
+    Los correspondientes valores de coseno.
+
+Notas
+-----
+Si `out` se proporciona, la función escribe el resultado en ella,
+y devuelve una referencia a `out`. (Ver Ejemplos)
+
+Referencias
+----------
+M. Abramowitz y I. A. Stegun, Manual de Funciones Matemáticas.
+Nueva York, NY: Dover, 1972.
+
+Ejemplos
+--------
+>>> np.cos (np.array ([0, np.pi / 2, np.pi]))
+matriz ([1.00000000e + 00, 6.12303177e-17, -1.00000000e + 00])
+>>>
+>>> # Ejemplo de proporcionar el parámetro de salida opcional
+>>> out2 = np.cos ([0.1], out1)
+>>> out2 es out1
+Cierto
+>>>
+>>> # Ejemplo de ValueError debido a la provisión de forma errónea `out`
+>>> np.cos (np.zeros ((3,3)), np.zeros ((2,2)))
+Rastreo (llamadas recientes más última):
+  Archivo "<stdin>", línea 1, en <módulo>
+ValueError: forma de matriz de devolución no válida

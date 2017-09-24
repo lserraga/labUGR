@@ -1,0 +1,65 @@
+Convierta la entrada en una matriz.
+
+    Parámetros
+    ----------
+    a: array_like
+        Datos de entrada, en cualquier forma que se puede convertir en una matriz. Esta
+        incluye listas, listas de tuplas, tuplas, tuplas de tuplas, tuplas
+        de listas y ndarrays.
+    dtype: tipo de datos, opcional
+        De forma predeterminada, se deduce el tipo de datos de los datos de entrada.
+    orden: {'C', 'F'}, opcional
+        Si se usan las líneas principales (estilo C) o
+        columna-principal (estilo Fortran) representación de la memoria.
+        El valor predeterminado es 'C'.
+
+    Devoluciones
+    -------
+    salir: ndarray
+        Array interpretación de `a`. No se realiza ninguna copia si la entrada
+        es ya un ndarray con dtype y orden a juego. Si `a` es un
+        subclase de ndarray, se devuelve una clase base ndarray.
+
+    Ver también
+    --------
+    asanyarray: Función similar que pasa a través de subclases.
+    ascontiguousarray: Convierte la entrada en una matriz contigua.
+    asfarray: Convertir la entrada en un ndarray de punto flotante.
+    asfortranarray: Convertir la entrada en un ndarray con column-major
+                     orden de memoria.
+    asarray_chkfinite: Función similar que comprueba la entrada de NaNs e Infs.
+    fromiter: Crea una matriz a partir de un iterador.
+    fromfunction: Construye una matriz ejecutando una función en la cuadrícula
+                   posiciones.
+
+    Ejemplos
+    --------
+    Convierta una lista en una matriz:
+
+    >>> a = [1, 2]
+    >>> np.asarray (a)
+    matriz ([1, 2])
+
+    Las matrices existentes no se copian:
+
+    >>> a = np.array ([1, 2])
+    >>> np.asarray (a) es un
+    Cierto
+
+    Si se establece `dtype`, la matriz se copiará sólo si dtype no coincide:
+
+    >>> a = np.array ([1, 2], dtype = np.float32)
+    >>> np.asarray (a, dtype = np.float32) es un
+    Cierto
+    >>> np.asarray (a, dtype = np.float64) es un
+    Falso
+
+    Contrariamente a `asanyarray`, las subclases ndarray no se pasan a través de:
+
+    >>> issubclass (np.matrix, np.ndarray)
+    Cierto
+    >>> a = np.matrix ([[1, 2]])
+    >>> np.asarray (a) es un
+    Falso
+    >>> np.asanyarray (a) es un
+    Cierto

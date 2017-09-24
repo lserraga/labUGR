@@ -1,0 +1,18 @@
+Triángulo superior de una matriz.
+
+    Devuelve una copia de una matriz con los elementos debajo de la `k`-ésima diagonal
+    cero
+
+    Consulte la documentación de `tril` para obtener más detalles.
+
+    Ver también
+    --------
+    tril: triángulo inferior de una matriz
+
+    Ejemplos
+    --------
+    >>> np.triu ([[1,2,3], [4,5,6], [7,8,9], [10,11,12]], -1)
+    matriz ([[1, 2, 3],
+           [4, 5, 6],
+           [0, 8, 9],
+           [0, 0, 12]])

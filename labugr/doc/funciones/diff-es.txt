@@ -1,0 +1,25 @@
+Devuelve k-ésima derivada (o integral) de una secuencia periódica x.
+
+    Si x_j e y_j son coeficientes de Fourier de funciones periódicas x
+    yy, respectivamente, entonces:
+
+      y_j = pow (sqrt (-1) * j * 2 * pi / periodo, orden) * x_j
+      y_0 = 0 si el orden no es 0.
+
+    Parámetros
+    ----------
+    x: array_like
+        Array de entrada.
+    order: int, opcional
+        El orden de diferenciación. La orden predeterminada es 1. Si el pedido es
+        negativo, la integración se lleva a cabo bajo el supuesto
+        que "x_0 == 0".
+    período: float, opcional
+        El período supuesto de la secuencia. El valor predeterminado es `` 2 * pi``.
+
+    Notas
+    -----
+    Si `` sum (x, axis = 0) = 0`` entonces `` dif (dif (x, k), -k) == x``
+    precisión numérica).
+
+    Para orden impar e incluso `` len (x) ``, el modo Nyquist se toma cero.

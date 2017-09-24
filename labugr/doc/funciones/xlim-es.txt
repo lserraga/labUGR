@@ -1,0 +1,17 @@
+Obtener o establecer los límites * x * de los ejes actuales.
+
+    ::
+
+      xmin, xmax = xlim () # devuelve el xlim actual
+      xlim ((xmin, xmax)) # establece el xlim en xmin, xmax
+      xlim (xmin, xmax) # establece el xlim en xmin, xmax
+
+    Si no especifica args, puede pasar xmin y xmax como
+    kwargs, por ejemplo:
+
+      xlim (xmax = 3) # ajustar el máximo dejando min sin cambios
+      xlim (xmin = 1) # ajustar el min dejando max sin cambios
+
+    Al establecer límites, se desactiva la escala automática para el eje x.
+
+    Los nuevos límites de eje se devuelven como una tupla de longitud 2.

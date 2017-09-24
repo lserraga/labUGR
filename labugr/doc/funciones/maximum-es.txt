@@ -1,0 +1,66 @@
+= = k, dtype = Ninguno, subok = True [, signature, extobj]) (máximo, x1, x2, /,
+
+ElemElemento máximo de elementos de matriz.
+
+Comparar dos matrices y devuelve una nueva matriz que contiene el elemento-wise
+máximos Si uno de los elementos que se comparan es un NaN, entonces
+se devuelve el elemento. Si ambos elementos son NaNs entonces el primero es
+devuelto Esta última distinción es importante para los NaN complejos, que
+se definen como al menos una de las partes real o imaginaria que es un NaN.
+El efecto neto es que los NaN se propagan.
+
+Parámetros
+----------
+x1, x2: array_like
+    Las matrices que contienen los elementos a comparar. Ellos deben tener
+    la misma forma, o formas que se pueden transmitir a una sola forma.
+out: ndarray, None, o tuple de ndarray y None, opcional
+    Una ubicación en la que se almacena el resultado. Si se proporciona, debe tener
+    una forma a la que se transmiten las entradas. Si no se proporciona o «Ninguno»,
+    se devuelve una matriz recién asignada. Una tupla (posible sólo como
+    argumento de palabra clave) debe tener una longitud igual al número de salidas.
+donde: array_like, opcional
+    Los valores de True indican para calcular la ufunc en esa posición, los valores
+    de Falso indican para dejar el valor en la salida solo.
+kwargs
+    Para otros argumentos con solo palabras clave, consulte el
+    : ref: `ufunc docs <ufuncs.kwargs>`.
+
+Devoluciones
+-------
+y: ndarray o escalar
+    El máximo de `x1` y` x2`, en función de los elementos. Devuelve escalar si
+    tanto `x1` como` x2` son escalares.
+
+Ver también
+--------
+mínimo:
+    Elemento mínimo de dos arrays, propaga NaNs.
+fmax:
+    Elemento máximo de dos arrays, ignora NaNs.
+amax
+    El valor máximo de una matriz a lo largo de un eje dado, propaga NaNs.
+nanmax:
+    El valor máximo de una matriz a lo largo de un eje dado, ignora NaNs.
+
+fmin, amin, nanmin
+
+Notas
+-----
+El máximo es equivalente a `` np.where (x1> = x2, x1, x2) `` cuando
+ni x1 ni x2 son nanos, pero es más rápido y hace lo propio
+radiodifusión.
+
+Ejemplos
+--------
+>>> np.maximum ([2, 3, 4], [1, 5, 2])
+matriz ([2, 5, 4])
+
+>>> np.maximum (np.eye (2), [0.5, 2]) # radiodifusión
+array ([[1., 2.],
+       [0.5, 2.]])
+
+np.maximum ([np.nan, 0, np.nan], [0, np.nan, np.nan])
+matriz ([NaN, NaN, NaN])
+>>> np.maximum (np.Inf, 1)
+inf

@@ -1,0 +1,76 @@
+Compruebe si un elemento de matriz a lo largo de un eje dado se evalúa como True.
+
+    Devuelve un solo booleano a menos que `axis` no sea` `None``
+
+    Parámetros
+    ----------
+    a: array_like
+        Matriz de entrada o objeto que se puede convertir en una matriz.
+    eje: Ninguno o int o tupla de ints, opcional
+        Eje o ejes a lo largo de los cuales se realiza una reducción lógica de OR.
+        El valor por defecto (`axis` =` None`) es realizar un OR lógico sobre todos
+        las dimensiones de la matriz de entrada. «eje» puede ser negativo,
+        cuyo caso cuenta desde el último hasta el primer eje.
+
+        .. versionadded :: 1.7.0
+
+        Si se trata de una tupla de ints, se realiza una reducción en múltiples
+        ejes, en lugar de un solo eje o todos los ejes como antes.
+    out: ndarray, opcional
+        Matriz de salida alternativa en la que colocar el resultado. Debe tener
+        la misma forma que la producción esperada y su tipo se conserva
+        (por ejemplo, si es de tipo float, entonces lo seguirá siendo, devolviendo
+        1.0 para True y 0.0 para False, independientemente del tipo de `a`).
+        Consulte `doc.ufuncs` (Sección" Argumentos de salida ") para obtener más detalles.
+
+    keepdims: bool, opcional
+        Si se establece en True, los ejes que se reducen quedan a la izquierda
+        en el resultado como dimensiones con el tamaño uno. Con esta opción,
+        el resultado se transmitirá correctamente contra la matriz de entrada.
+
+        Si se pasa el valor predeterminado, entonces `keepdims` no será
+        pasado al método «any» de las subclases de
+        `ndarray`, sin embargo cualquier valor no predeterminado será. Si el
+        el método `sum` de las subclases no implementa` keepdims` ninguna
+        se generarán excepciones.
+
+    Devoluciones
+    -------
+    cualquiera: bool o ndarray
+        Se devuelve un nuevo boolean o `ndarray` a menos que` out` sea especificado,
+        en cuyo caso se devuelve una referencia a `out`.
+
+    Ver también
+    --------
+    ndarray.any: método equivalente
+
+    all: prueba si todos los elementos a lo largo de un eje dado se evalúan a True.
+
+    Notas
+    -----
+    No es un número (NaN), el infinito positivo y el infinito negativo evalúan
+    a `True` porque no son iguales a cero.
+
+    Ejemplos
+    --------
+    >>> np.any ([[True, False], [True, True]])
+    Cierto
+
+    >>> np.any ([[True, False], [False, False]], axis = 0)
+    array ([True, False], dtype = bool)
+
+    >>> np.any ([- 1, 0, 5])
+    Cierto
+
+    >>> np.any (np.nan)
+    Cierto
+
+    >>> o = np.array ([False])
+    >>> z = np.any ([- 1, 4, 5], out = o)
+    zo
+    (array [[True], dtype = bool), array ([True], dtype = bool)
+    >>> # Compruebe ahora que z es una referencia a o
+    z es o
+    Cierto
+    >>> id (z), id (o) # identidad de z y o # doctest: + SKIP
+    (191614240, 191614240)

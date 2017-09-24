@@ -1,0 +1,48 @@
+randn (d0, d1, ..., dn)
+
+        Devuelva una muestra (o muestras) de la distribución "normal estándar".
+
+        Si se proporcionan argumentos positivos, int_like o int-convertible,
+        `randn` genera una matriz de forma` `(d0, d1, ..., dn)` `, llena
+        con flotadores aleatorios muestreados de un "normal" univariado (Gaussian)
+        distribución de la media 0 y la varianza 1 (si alguna de las: math: `d_i` son
+        flotantes, primero se convierten a enteros por truncamiento). Un solo
+        flotante aleatoriamente muestreado de la distribución se devuelve si no
+        argumento.
+
+        Esta es una función de conveniencia. Si desea una interfaz que tenga una
+        tupla como el primer argumento, use `numpy.random.standard_normal`.
+
+        Parámetros
+        ----------
+        d0, d1, ..., dn: int, opcional
+            Las dimensiones de la matriz devuelta, deberían ser todas positivas.
+            Si no se da ningún argumento, se devuelve un solo flotador de Python.
+
+        Devoluciones
+        -------
+        Z: ndarray o flotador
+            Un array `` (d0, d1, ..., dn) `` en forma de muestras de punto flotante de
+            la distribución normal estándar, o un solo flotante si
+            no se suministraron parámetros.
+
+        Ver también
+        --------
+        random.standard_normal: Similar, pero toma una tupla como su argumento.
+
+        Notas
+        -----
+        Para muestras aleatorias de: math: `N (\ mu, \ sigma ^ 2)`, utilice:
+
+        `` sigma * np.random.randn (...) + mu``
+
+        Ejemplos
+        --------
+        >>> np.random.randn ()
+        2.1923875335537315 #random
+
+        Serie de dos por cuatro de muestras de N (3, 6.25):
+
+        >>> 2.5 * np.random.randn (2, 4) + 3
+        matriz ([[4,49401501, 4,00950034, -1,81814867, 7,29718677], # aleatorio
+               [0.39924804, 4.68456316, 4.99394529, 4.84057254]]) #random

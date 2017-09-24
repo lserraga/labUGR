@@ -1,0 +1,148 @@
+Aplique un filtro digital hacia delante y hacia atrás a una señal.
+
+    Esta función aplica un filtro digital lineal dos veces, una vez
+    una vez hacia atrás. El filtro combinado tiene fase cero y una orden de filtro
+    el doble que el original.
+
+    La función proporciona opciones para manejar los bordes de la señal.
+
+    Parámetros
+    ----------
+    b: (N,) array_like
+        El vector del coeficiente del numerador del filtro.
+    a: (N,) array_like
+        El vector del coeficiente denominador del filtro. Si `` a [0] ``
+        no es 1, entonces tanto `a` como` b` son normalizados por `` a [0] ``.
+    x: array_like
+        La matriz de datos a filtrar.
+    eje: int, opcional
+        El eje de `x 'al que se aplica el filtro.
+        El valor predeterminado es -1.
+    padtype: str o Ninguno, opcional
+        Debe ser 'impar', 'uniforme', 'constante' o Ninguno. Esto determina la
+        tipo de extensión a utilizar para la señal acolchada a la que el filtro
+        Está aplicado. Si `padtype` es Ninguno, no se usa relleno. El valor por defecto
+        es impar'.
+    padlen: int o None, opcional
+        El número de elementos por los cuales extender "x" en ambos extremos de
+        antes de aplicar el filtro. Este valor debe ser menor que
+        `` x.shape [axis] - 1``. `` padlen = 0`` no implica ningún relleno.
+        El valor predeterminado es `` 3 * max (len (a), len (b)) ``.
+    método: str, opcional
+        Determina el método para manejar los bordes de la señal, ya sea
+        "almohadilla" o "ráfaga". Cuando `method` es" pad ", la señal se rellena; el
+        tipo de relleno está determinado por «padtype» y «padlen», y «irlen»
+        se ignora. Cuando `method` es" racha ", el método de Gustafsson se utiliza,
+        y `padtype` y` padlen` se ignoran.
+    irlen: int o Ninguno, opcional
+        Cuando `method` es" racha ",` irlen` especifica la longitud de la
+        respuesta de impulso del filtro. Si `irlen` es Ninguno, ninguna parte
+        de la respuesta al impulso se ignora. Para una señal larga, especificando
+        `irlen` puede mejorar significativamente el rendimiento del filtro.
+
+    Devoluciones
+    -------
+    y: ndarray
+        La salida filtrada con la misma forma que 'x'.
+
+    Ver también
+    --------
+    sosfiltfilt, lfilter_zi, lfilter, lfiltic, savgol_filter, sosfilt
+
+    Notas
+    -----
+    Cuando `method` es" pad ", la función memoriza los datos a lo largo del eje dado
+    en una de tres maneras: impar, par o constante. Las extensiones impares e incluso
+    tienen la simetría correspondiente sobre el punto final de los datos. los
+    extensión constante extiende los datos con los valores en los puntos finales. En
+    tanto los pasos hacia delante como hacia atrás, la condición inicial del
+    filtro se encuentra usando `lfilter_zi` y escalándolo por el punto final de
+    los datos ampliados.
+
+    Cuando `method` es" racha ", se utiliza el método de Gustafsson [1] _. Inicial
+    se eligen las condiciones para las pasadas hacia adelante y hacia atrás de modo que
+    El filtro de retroceso hacia delante da el mismo resultado que el retroceso hacia adelante
+    filtrar.
+
+    La opción de usar el método de Gustaffson fue agregada en la versión 0.16.0 de scipy.
+
+    Referencias
+    ----------
+    [1] F. Gustaffson, "Determinación de los estados iniciales en el forward-backward
+           filtración ", Transactions on Signal Processing, Vol. 46, páginas 988-992,
+           1996.
+
+    Ejemplos
+    --------
+    Los ejemplos utilizarán varias funciones de `scipy.signal`.
+
+    >>> de la señal de importación de scipy
+    >>> import matplotlib.pyplot como plt
+
+    Primero creamos una señal de un segundo que es la suma de dos seno puro
+    ondas, con frecuencias de 5 Hz y 250 Hz, muestreadas a 2000 Hz.
+
+    >>> t = np.linspace (0, 1.0, 2001)
+    >>> xlow = np.sin (2 * np.pi * 5 * t)
+    >>> xhigh = np.sin (2 * np.pi * 250 * t)
+    >>> x = xlow + xhigh
+
+    Ahora cree un filtro Butterworth de paso bajo con un corte de 0.125 veces
+    la tasa de Nyquist, o 125 Hz, y aplicarlo a `` x`` con `filtfilt`.
+    El resultado debe ser aproximadamente `` xlow``, sin desplazamiento de fase.
+
+    >>> b, a = señal.butter (8, 0.125)
+    >>> y = signal.filtfilt (b, a, x, padlen = 150)
+    >>> np.abs (y - xlow) .max ()
+    9.1086182074789912e-06
+
+    Obtenemos un resultado bastante limpio para este ejemplo artificial porque
+    la extensión impar es exacta, y con el relleno moderadamente largo,
+    los transitorios del filtro se han disipado en el momento en que los datos reales
+    es alcanzado. En general, los efectos transitorios en los bordes son
+    inevitable.
+
+    El siguiente ejemplo muestra la opción `` method = "gust" ``.
+
+    En primer lugar, crear un filtro.
+
+    >>> b, a = señal.ellip (4, 0,01, 120, 0,125)# Filtro para aplicar.
+    >>> np.random.seed (123456)
+
+    `sig` es una señal de entrada aleatoria para ser filtrada.
+
+    >>> n = 60
+    >>> sig = np.random.randn (n) ** 3 + 3 * np.random.randn (n) .cumsum ()
+
+    Aplicar `filtfilt` a` sig`, una vez usando el método Gustafsson, y
+    una vez que utilice relleno, y trazar los resultados para la comparación.
+
+    >>> fgust = signal.filtfilt (b, a, sig, method = "racha")
+    >>> fpad = signal.filtfilt (b, a, sig, padlen = 50)
+    >>> plt.plot (sig, 'k-', label = 'input')
+    >>> plt.plot (fgust, 'b-', linewidth = 4, label = 'gust')
+    >>> plt.plot (fpad, 'c-', linewidth = 1.5, etiqueta = 'pad')
+    >>> plt.legend (loc = 'mejor')
+    >>> plt.show ()
+
+    El argumento `irlen` puede utilizarse para mejorar el rendimiento
+    del método de Gustafsson.
+
+    Estime la longitud de respuesta de impulso del filtro.
+
+    >>> z, p, k = signal.tf2zpk (b, a)
+    >>> eps = 1e-9
+    >>> r = np.max (np.abs (p))
+    >>> approx_impulse_len = int (np.ceil (np.log (eps) / np.log (r)))
+    >>> approx_impulse_len
+    137
+
+    Aplique el filtro a una señal más larga, con y sin el `irlen`
+    argumento. La diferencia entre y1 y y2 es pequeña. Por mucho
+    señales, el uso de `irlen` da una mejora significativa del rendimiento.
+
+    >>> x = np.random.randn (5000)
+    >>> y1 = signal.filtfilt (b, a, x, method = 'gust')
+    >>> y2 = señal.filtfilt (b, a, x, método = 'racha', irlen = approx_impulse_len)
+    >>> print (np.max (np.abs (y1 - y2)))
+    1.80056858312e-10

@@ -1,0 +1,58 @@
+Retorno cero, polo, ganancia (z, p, k) representación de un numerador,
+    denominador de un filtro lineal.
+
+    Parámetros
+    ----------
+    b: array_like
+        Coeficientes polinomiales del numerador.
+    a: array_like
+        Coeficientes polinomiales del denominador.
+
+    Devoluciones
+    -------
+    z: ndarray
+        Zeros de la función de transferencia.
+    p: ndarray
+        Postes de la función de transferencia.
+    k: float
+        Ganancia del sistema.
+
+    Notas
+    -----
+    Si algunos valores de `b` están demasiado cerca de 0, se eliminan. En ese caso,
+    se emite un aviso de BadCoefficients.
+
+    Las matrices `b` y` a` se interpretan como coeficientes para las variables positivas,
+    potencia descendente de la variable de función de transferencia. Así que las entradas
+    : math: `b = [b_0, b_1, ..., b_M]` y: math: `a = [a_0, a_1, ..., a_N]`
+    puede representar un filtro analógico de la forma:
+
+    matemáticas
+
+        H (s) = \ frac
+        {b_0 s ^ M + b_1 s ^ {(M-1)} + \ cdots + b_M}
+        {a_0 s ^ N + a_1 s ^ {(N-1)} + \ cdots + a_N}
+
+    o un filtro de tiempo discreto de la forma:
+
+    matemáticas
+
+        H (z) = \ frac
+        {b_0 z ^ M + b_1 z ^ {(M-1)} + \ cdots + b_M}
+        {a_0 z ^ N + a_1 z ^ {(N-1)} + \ cdots + a_N}
+
+    Esta forma de "poder positivo" se encuentra más comúnmente en los controles
+    Ingenieria. Si `M` y` N` son iguales (lo cual es cierto para todos los filtros
+    generado por la transformación bilineal), entonces esto pasa a ser equivalente
+    a la forma de tiempo discreto de "poderes negativos" preferida en DSP:
+
+    matemáticas
+
+        H (z) = \ frac
+        {b_0 + b_1 z ^ {- 1} + \ cdots + b_M z ^ {- M}}
+        {a_0 + a_1 z ^ {- 1} + \ cdots + a_N z ^ {- N}}
+
+    Aunque esto es cierto para los filtros comunes, recuerde que esto no es cierto
+    en el caso general. Si `M` y` N` no son iguales, el tiempo discreto
+    los coeficientes de la función de transferencia deben convertirse primero en
+    poderes "antes de encontrar los polos y ceros.

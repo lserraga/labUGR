@@ -1,0 +1,171 @@
+Devuelve el gradiente de una matriz N-dimensional.
+
+    El gradiente se calcula utilizando diferencias centrales precisas de segundo orden
+    en los puntos interiores y de una sola cara de primer o segundo orden
+    (hacia delante o hacia atrás) en los límites.
+    El gradiente devuelto por lo tanto tiene la misma forma que la matriz de entrada.
+
+    Parámetros
+    ----------
+    f: array_like
+        Una matriz N-dimensional que contiene muestras de una función escalar.
+    varargs: lista de escalar o array, opcional
+        Espaciado entre valores f. Espaciado unitario por defecto para todas las dimensiones.
+        El espaciado se puede especificar usando:
+
+        1. escalar único para especificar una distancia de muestra para todas las dimensiones.
+        2. N escalares para especificar una distancia de muestra constante para cada dimensión.
+           "dx", "dy", "dz", ...
+        3. N arrays para especificar las coordenadas de los valores a lo largo de cada
+           dimensión de F. La longitud de la matriz debe coincidir con el tamaño de
+           la dimensión correspondiente
+        4. Cualquier combinación de N escalares / arrays con el significado de 2. y 3.
+
+        Si `axis` es dado, el número de varargs debe ser igual al número de ejes.
+        Valor predeterminado: 1.
+
+    edge_order: {1, 2}, opcional
+        El gradiente se calcula usando diferencias exactas de orden N
+        en los límites. Valor predeterminado: 1.
+
+        .. versionadded :: 1.9.1
+
+    eje: Ninguno o int o tupla de ints, opcional
+        El gradiente se calcula únicamente a lo largo del eje o ejes dados
+        El valor predeterminado (eje = Ninguno) es calcular el gradiente para todos los ejes
+        de la matriz de entrada. eje puede ser negativo, en cuyo caso cuenta desde
+        el último al primer eje.
+
+        .. versionadded :: 1.11.0
+
+    Devoluciones
+    -------
+    gradient: ndarray o lista de ndarray
+        Un conjunto de ndarrays (o un único ndarray si sólo hay una dimensión)
+        correspondiente a las derivadas de f con respecto a cada dimensión.
+        Cada derivado tiene la misma forma que f.
+
+    Ejemplos
+    --------
+    >>> f = np.array ([1, 2, 4, 7, 11, 16], dtype = np.float)
+    >>> np.gradient (f)
+    matriz ([1., 1.5, 2.5, 3.5, 4.5, 5.])
+    >>> np.gradient (f, 2)
+    matriz ([0,5, 0,75, 1,25, 1,75, 2,25, 2,5])
+
+    El espaciado también se puede especificar con una matriz que representa las coordenadas
+    de los valores F a lo largo de las dimensiones.
+    Por ejemplo, un espaciamiento uniforme:
+
+    >>> x = np.arange (f.size)
+    >>> np.gradient (f, x)
+    matriz ([1., 1.5, 2.5, 3.5, 4.5, 5.])
+
+    O una no uniforme:
+
+    >>> x = np.array ([0., 1., 1.5, 3.5, 4., 6.], dtype = np.float)
+    >>> np.gradient (f, x)
+    matriz ([1., 3., 3.5, 6.7, 6.9, 2.5])
+
+    Para las matrices bidimensionales, el retorno será dos matrices ordenadas por
+    eje. En este ejemplo, la primera matriz representa el gradiente en
+    filas y el segundo en dirección columnas:
+
+    >>> np.gradient (np.array ([[1, 2, 6], [3, 4, 5]], dtype = np.float))
+    [array ([[2., 2., -1.],
+            [2., 2., -1.]]), Matriz ([[1., 2.5, 4.],
+            [1., 1., 1.]])]
+
+    En este ejemplo también se especifica el espaciado:
+    uniforme para el eje = 0 y no uniforme para el eje = 1
+
+    >>> dx = 2.
+    >>> y = [1., 1.5, 3.5]
+    >>> np.gradient (np.array ([1, 2, 6], [3, 4, 5]], dtype = np.float), dx, y)
+    [array ([[1., 1., -0.5],
+            [1., 1., -0.5]]), matriz ([[2., 2., 2.],
+            [2., 1.7, 0.5]])]
+
+    Es posible especificar cómo se tratan los límites con `edge_order`
+
+    >>> x = np.array ([0, 1, 2, 3, 4])
+    >>> f = x ** 2
+    >>> np.gradient (f, edge_order = 1)
+    matriz ([1., 2., 4., 6., 7.])
+    >>> np.gradient (f, edge_order = 2)
+    matriz ([- 0., 2., 4., 6., 8.])
+
+    La palabra clave `axis` puede usarse para especificar un subconjunto de ejes de los cuales
+    el gradiente se calcula
+
+    >>> np.gradient (np.array [1, 2, 6], [3, 4, 5]], dtype = np.float), eje = 0)
+    array ([[2., 2., -1.],
+           [2., 2., -1.]])
+
+    Notas
+    -----
+    Suponiendo que: math: `f \ in C ^ {3}` (es decir,: math: `f` tiene al menos 3 continuos
+    derivados) y sea: math: `h _ {*}` un stepsize no homogéneo, el
+    espaciado los coeficientes de diferencia finita se calculan minimizando
+    el error de consistencia: math: `\ eta_ {i}`:
+
+    matemáticas
+
+        \ eta_ {i} = f_ {i} ^ {\ left (1 \ right)} -
+                    \ left [\ alpha f \ left (x_ {i} \ right) +
+                            \ beta f \ left (x_ {i} + h_ {d} \ right) +
+                            \ gamma f \ left (x_ {i} -h_ {s} \ right)
+                    \derecho]
+
+    En sustitución de: math: `f (x_ {i} +h_ {d}) `y: math:` f (x_ {i} - h_ {s}) `
+    con su expansión de la serie Taylor, esto se traduce en la resolución
+    el siguiente sistema lineal:
+
+    matemáticas
+
+        \izquierda\{
+            \ begin {array} {r}
+                \ alpha + \ beta + \ gamma = 0 \\
+                - \ beta h_ {d} + \ gamma h_ {s} = 1 \\
+                \ beta h_ {d} ^ {2} + \ gamma h_ {s} ^ {2} = 0
+            \ end {array}
+        \derecho.
+
+    La aproximación resultante de: math: `f_ {i} ^ {(1)}` es la siguiente:
+
+    matemáticas
+
+        \ hat f_ {i} ^ {(1)} =
+            \ frac {
+                h_ {s} ^ {2} f \ izquierda (x_ {i} + h_ {d} \ derecha)
+                + \ left (h_ {d} ^ {2} - h_ {s} ^ {2} \ derecha) f \ left (x_ {i} \ right)
+                - h_ {d} ^ {2} f \ izquierda (x_ {i} -h_ {s} \ derecha)}
+                {h_ {s} h_ {d} \ izquierda (h_ {d} + h_ {s} \ derecha)}
+            + \ mathcal {O} \ left (\ frac {h_ {d} h_ {s} ^ {2}
+                                h_ {s} h_ {d} ^ {2}} {h_ {d}
+                                + h_ {s}} \ right)
+
+    Vale la pena señalar que si: math: `h_ {s} = h_ {d}`
+    (es decir, los datos están espaciados uniformemente)
+    encontramos la aproximación estándar de segundo orden:
+
+    matemáticas
+
+        \ hat f_ {i} ^ {(1)} =
+            \ frac {f \ left (x_ {i + 1} \ derecha) - f \ left (x_ {i-1} \ right)} {2h}
+            + \ mathcal {O} \ left (h ^ {2} \ right)
+
+    Con un procedimiento similar, las aproximaciones hacia delante y hacia atrás
+    se pueden derivar fronteras.
+
+    Referencias
+    ----------
+    .. [1] Quarteroni A., Sacco R., Saleri F. (2007) Matemáticas numéricas
+            (Textos en Matemáticas Aplicadas). Nueva York: Springer.
+    .. [2] Durran D. R. (1999) Métodos Numéricos para Ecuaciones de Onda
+            en Dinámica de Fluidos Geofísicos. Nueva York: Springer.
+    [3] Fornberg B. (1988) Generación de fórmulas de diferencia finita en
+            Cuadrículas espaciadas arbitrariamente,
+            Matemáticas de Computación 51, no. 184: 699 - 706.
+            `PDF <http://www.ams.org/journals/mcom/1988-51-184/
+            S0025-5718-1988-0935077-0 / S0025-5718-1988-0935077-0.pdf> `_.

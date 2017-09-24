@@ -1,0 +1,104 @@
+Devuelve una copia ordenada de una matriz.
+
+    Parámetros
+    ----------
+    a: array_like
+        Array para ordenar.
+    eje: int o Ninguno, opcional
+        Eje a lo largo del cual ordenar. Si no, la matriz se aplasta antes
+        clasificación. El valor predeterminado es -1, que se ordena a lo largo del último eje.
+    tipo: {'quicksort', 'mergesort', 'heapsort'}, opcional
+        Algoritmo de clasificación. El valor predeterminado es 'quicksort'.
+    order: str o lista de str, opcional
+        Cuando `a` es una matriz con campos definidos, este argumento especifica
+        que campos para comparar primero, segundo, etc. Un solo campo puede
+        ser especificado como una cadena, y no todos los campos deben ser especificados,
+        pero todavía se utilizarán campos no especificados, en el orden en que
+        vienen en el dtype, para romper lazos.
+
+    Devoluciones
+    -------
+    array_array: ndarray
+        Array del mismo tipo y forma que `a`.
+
+    Ver también
+    --------
+    ndarray.sort: Método para ordenar una matriz en el lugar.
+    argsort: Clasificación indirecta.
+    lexsort: Clasificación indirecta estable en varias claves.
+    searchsorted: Encuentra elementos en una matriz ordenada.
+    partición: Clasificación parcial.
+
+    Notas
+    -----
+    Los diversos algoritmos de clasificación se caracterizan por su velocidad media,
+    el rendimiento del peor caso, el tamaño del espacio de trabajo y si son estables. UN
+    el tipo estable mantiene elementos con la misma clave en el mismo pariente
+    orden. Los tres algoritmos disponibles tienen los siguientes
+    propiedades:
+
+    ======= ======= ======= ================================================================================
+       tipo velocidad peor caso espacio de trabajo estable
+    ======= ======= ======= ================================================================================
+    'quicksort' 1 O (n ^ 2) 0 no
+    'mergesort' 2 O (n * log (n)) ~ n / 2 sí
+    'heapsort' 3 O (n * log (n)) 0 no
+    ======= ======= ======= ================================================================================
+
+    Todos los algoritmos de ordenación hacen copias temporales de los datos cuando
+    ordenando a lo largo de cualquier pero el último eje. En consecuencia, la clasificación
+    el último eje es más rápido y utiliza menos espacio que la clasificación a lo largo
+    cualquier otro eje.
+
+    El orden para los números complejos es lexicográfico. Si tanto el real
+    y las partes imaginarias son non-nan entonces el orden es determinado por el
+    partes reales, salvo cuando sean iguales, en cuyo caso la orden es
+    determinado por las partes imaginarias.
+
+    Anterior a numpy 1.4.0 ordenar arrays reales y complejos que contienen nan
+    valores condujeron a un comportamiento indefinido. En versiones numpy> = 1.4.0 nan
+    los valores se ordenan hasta el final. El orden extendido es:
+
+      * Real: [R, nan]
+      * Complejo: [R + Rj, R + nanj, nan + Rj, nan + nanj]
+
+    donde R es un valor real no nan. Valores complejos con la misma nan
+    las ubicaciones se clasifican de acuerdo con la parte no nan si existe.
+    Los valores no-nan se clasifican como antes.
+
+    .. versionadded :: 1.12.0
+
+    quicksort se ha cambiado a un introsort que cambiará
+    heapsort cuando no hace suficiente progreso. Esto hace que
+    peor caso O (n * log (n)).
+
+    Ejemplos
+    --------
+    >>> a = np.array ([[1,4], [3,1]])
+    >>> np.sort (a) # ordenar a lo largo del último eje
+    array ([[1, 4],
+           [1, 3]])
+    >>> np.sort (a, axis = None) # ordenar el array plano
+    matriz ([1, 1, 3, 4])
+    >>> np.sort (a, axis = 0) # ordenar a lo largo del primer eje
+    matriz ([[1, 1],
+           [3, 4]])
+
+    Utilice la palabra clave `order` para especificar un campo para usar al clasificar un
+    matriz estructurada:
+
+    >>> dtype = [('nombre', 'S10'), ('height', float), ('edad', int)]
+    >>> values ​​= [('Arthur', 1,8, 41), ('Lancelot', 1,9, 38),
+    ... («Galahad», 1.7, 38)]
+    >>> a = np.array (valores, dtype = dtype) # crear un array estructurado
+    >>> np.sort (a, order = 'height') # doctest: + SKIP
+    array ([('(' Galahad ', 1,7, 38), (' Arthur ', 1,8, 41),
+           (Lancelot, 1.8999999999999999, 38)],
+          dtype = [('nombre', '| S10'), ('height', '<f8'), ('edad', '<i4')])
+
+    Ordenar por edad, luego por altura si las edades son iguales:
+
+    >>> np.sort (a, order = ['age', 'height']) # doctest: + SKIP
+    matriz ([('(' Galahad ', 1,7, 38), (' Lancelot ', 1,8999999999999999, 38),
+           ('Arturo', 1,8, 41)],
+          dtype = [('nombre', '| S10'), ('height', '<f8'), ('edad', '<i4')])

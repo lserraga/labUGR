@@ -1,0 +1,70 @@
+fromfile (archivo, dtype = float, count = -1, sep = '')
+
+    Construya una matriz a partir de datos en un archivo de texto o binario.
+
+    Una forma altamente eficiente de leer datos binarios con un tipo de datos conocido,
+    así como analizar archivos de texto simplemente formateados. Los datos escritos
+    `tofile` se puede leer con esta función.
+
+    Parámetros
+    ----------
+    archivo: archivo o str
+        Abrir objeto de archivo o nombre de archivo.
+    dtype: tipo de datos
+        Tipo de datos de la matriz devuelta.
+        Para los archivos binarios, se utiliza para determinar el tamaño y el orden de los bytes
+        de los elementos del archivo.
+    count: int
+        Número de elementos a leer. `` -1`` significa todos los artículos (es decir, el
+        archivo).
+    sep: str
+        Separador entre los elementos si el archivo es un archivo de texto.
+        Separador vacío ("") significa que el archivo debe ser tratado como binario.
+        Espacios ("") en el separador coinciden con cero o más caracteres de espacio en blanco.
+        Un separador que consista sólo en espacios debe coincidir con al menos un
+        espacio en blanco
+
+    Ver también
+    --------
+    cargar guardar
+    ndarray.tofile
+    loadtxt: forma más flexible de cargar datos desde un archivo de texto.
+
+    Notas
+    -----
+    No confíe en la combinación de `tofile` y` fromfile` para
+    almacenamiento de datos, ya que los archivos binarios generados no son plataforma
+    independiente. En particular, ninguna información de tipo byte-order o data-type es
+    salvado. Los datos pueden almacenarse en el formato `` .npy`` independiente de la plataforma
+    usando `save` y` load` en su lugar.
+
+    Ejemplos
+    --------
+    Construir un ndarray:
+
+    >>> dt = np.dtype ([('tiempo', [('min', int), ('sec', int)]),
+    ... ('temp', float)])
+    >>> x = np.zeros ((1,), dtype = dt)
+    >>> x ['tiempo'] ['min'] = 10; x ['temp'] = 98,25
+    x
+    matriz ([((10, 0), 98,25)],
+          dtype = [('tiempo', [('min', '<i4'), ('sec', '<i4')]), ('temp', '<f8')]
+
+    Guardar los datos sin procesar en el disco:
+
+    >>> importación
+    >>> fname = os.tmpnam ()
+    >>> x.tofile (fname)
+
+    Leer los datos sin procesar desde el disco:
+
+    >>> np.fromfile (fname, dtype = dt)
+    matriz ([((10, 0), 98,25)],
+          dtype = [('tiempo', [('min', '<i4'), ('sec', '<i4')]), ('temp', '<f8')]
+
+    La forma recomendada de almacenar y cargar datos:
+
+    >>> np.save (fname, x)
+    >>> np.load (fname + '.npy')
+    matriz ([((10, 0), 98,25)],
+          dtype = [('tiempo', [('min', '<i4'), ('sec', '<i4')]), ('temp', '<f8')]

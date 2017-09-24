@@ -1,0 +1,51 @@
+Simula la salida de un sistema lineal de tiempo discreto.
+
+    Parámetros
+    ----------
+    system: tuple de array_like o instancia de `dlti`
+        Una tupla que describe el sistema.
+        Lo siguiente da el número de elementos en la tupla y
+        la interpretación:
+
+            * 1: (instancia de `dlti`)
+            * 3: (num, den, dt)
+            * 4: (ceros, polos, ganancia, dt)
+            * 5: (A, B, C, D, dt)
+
+    u: array_like
+        Una matriz de entrada que describe la entrada en cada momento `t '(la interpolación es
+        asumido entre tiempos dados). Si hay varias entradas, entonces cada
+        columna del rango-2 matriz representa una entrada.
+    t: array_like, opcional
+        Los pasos de tiempo en los que se define la entrada. Si `t 'se da, se
+        debe ser la misma longitud que 'u', y el valor final en `t 'determina
+        el número de pasos devueltos en la salida.
+    x0: array_like, opcional
+        Las condiciones iniciales en el vector de estado (cero por defecto).
+
+    Devoluciones
+    -------
+    tout ndarray
+        Valores de tiempo para la salida, como una matriz 1-D.
+    yout: ndarray
+        Respuesta del sistema, como una matriz 1-D.
+    xout: ndarray, opcional
+        Tiempo-evolución del estado-vector. Sólo se genera si la entrada es
+        Sistema `StateSpace`.
+
+    Ver también
+    --------
+    lsim, dstep, dimpulse, cont2discrete
+
+    Ejemplos
+    --------
+    Una función simple de transferencia del integrador con un paso discreto del tiempo de 1.0
+    podría ser implementado como:
+
+    >>> de la señal de importación de scipy
+    >>> tf = ([1,0,], [1,0, -1,0], 1,0)
+    >>> t_in = [0.0, 1.0, 2.0, 3.0]
+    >>> u = np.asarray ([0.0, 0.0, 1.0, 1.0])
+    >>> t_out, y = signal.dlsim (tf, u, t = t_in)
+    y
+    matriz ([[0., 0., 0., 1.]])

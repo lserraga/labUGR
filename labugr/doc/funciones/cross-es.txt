@@ -1,0 +1,109 @@
+Devuelve el producto cruzado de dos (arreglos de) vectores.
+
+    El producto cruzado de `a` y` b` en: math: `R ^ 3` es un vector perpendicular
+    tanto a `a` como` b`. Si `a` y` b` son matrices de vectores, los vectores
+    se definen por el último eje de `a` y` b` por defecto, y estos ejes
+    puede tener las dimensiones 2 o 3. Cuando la dimensión de «a» o «b» es
+    2, se supone que el tercer componente del vector de entrada es cero y el
+    producto cruzado calculado en consecuencia. En los casos en que ambos vectores de entrada
+    tienen la dimensión 2, se devuelve el componente z del producto cruzado.
+
+    Parámetros
+    ----------
+    a: array_like
+        Componentes del primer vector (es).
+    b: array_like
+        Componentes del segundo vector (es).
+    axisa: int, opcional
+        Eje de 'a' que define el vector (es). De forma predeterminada, el último eje.
+    axisb: int, opcional
+        Eje de "b" que define el vector (es). De forma predeterminada, el último eje.
+    axisc: int, opcional
+        Eje de "c" que contiene el vector o los productos cruzados. Se ignora si
+        ambos vectores de entrada tienen dimensión 2, ya que el retorno es escalar.
+        De forma predeterminada, el último eje.
+    eje: int, opcional
+        Si se define, el eje de `a`,` b` y `c` que define el (los) vector (es)
+        y producto (s) cruzado (s). Anula `axisa`,` axisb` y `axisc`.
+
+    Devoluciones
+    -------
+    c: ndarray
+        Vector de producto (s) cruzado (s).
+
+    Levanta
+    ------
+    ValorError
+        Cuando la dimensión del vector o de los vectores en a y / o b no
+        igual a 2 o 3.
+
+    Ver también
+    --------
+    interior: producto interior
+    Exterior: Producto exterior.
+    ix_: Construye matrices de índices.
+
+    Notas
+    -----
+    .. versionadded :: 1.9.0
+
+    Soporta la transmisión completa de los insumos.
+
+    Ejemplos
+    --------
+    Vector de producto cruzado.
+
+    >>> x = [1, 2, 3]
+    >>> y = [4, 5, 6]
+    >>> np.cross (x, y)
+    matriz ([- 3, 6, -3])
+
+    Un vector con dimensión 2.
+
+    >>> x = [1, 2]
+    >>> y = [4, 5, 6]
+    >>> np.cross (x, y)
+    matriz ([12, -6, -3])
+
+    Equivalentemente:
+
+    >>> x = [1, 2, 0]
+    >>> y = [4, 5, 6]
+    >>> np.cross (x, y)
+    matriz ([12, -6, -3])
+
+    Ambos vectores con dimensión 2.
+
+    >>> x = [1,2]
+    >>> y = [4,5]
+    >>> np.cross (x, y)
+    -3
+
+    Vectores múltiples productos cruzados. Observe que la dirección de la cruz
+    El vector de producto se define por la «regla de la mano derecha».
+
+    >>> x = np.array ([[1,2,3], [4,5,6]])
+    >>> y = np.array ([[4,5,6], [1,2,3]])
+    >>> np.cross (x, y)
+    matriz ([[3, 6, -3],
+           [3, -6, 3]])
+
+    La orientación de `c` se puede cambiar usando la palabra clave` axisc`.
+
+    >>> np.cross (x, y, axisc = 0)
+    matriz ([[- 3, 3],
+           [6, -6],
+           [3, 3]])
+
+    Cambie la definición de vector de `x` y` y` usando `axisa` y` axisb`.
+
+    >>> x = np.array ([[1,2,3], [4,5,6], [7, 8, 9]])
+    >>> y = np.array ([[7, 8, 9], [4,5,6], [1,2,3]])
+    >>> np.cross (x, y)
+    matriz ([[- 6, 12, -6],
+           [0, 0, 0],
+           [6, -12, 6]])
+    >>> np.cross (x, y, axisa = 0, axisb = 0)
+    matriz ([[- 24, 48, -24],
+           [-30, 60, -30],
+           [-36, 72, -36]])

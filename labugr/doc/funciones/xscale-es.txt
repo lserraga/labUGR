@@ -1,0 +1,65 @@
+Establezca la escala del eje * x *.
+
+firma de llamada
+
+  xscale (escala, ** kwargs)
+
+Las escalas disponibles son: 'lineal' | 'log' | 'logit' | 'symlog'
+
+Se pueden aceptar diferentes palabras clave, dependiendo de la escala:
+
+    'lineal'
+
+        
+
+
+    'Iniciar sesión'
+
+        * basex * / * basey *:
+           La base del logaritmo
+        
+        * nonposx * / * nonposy *: ['máscara' | clip
+          los valores no positivos en * x * o * y * pueden ser enmascarados como
+          inválido o recortado a un número positivo muy pequeño
+        
+        * subsx * / * subsy *:
+           Donde colocar los subtiles entre cada garrapata principal.
+           Debe ser una secuencia de enteros. Por ejemplo, en un log10
+           escala: `` [2, 3, 4, 5, 6, 7, 8, 9] ``
+        
+           colocará 8 garrapatas menores espaciadas logarítmicamente entre
+           cada garrapata principal.
+
+
+    'logit'
+
+        * nonpos *: ['máscara' | clip
+          valores más allá] 0, 1 [puede ser enmascarado como no válido, o recortado a un número
+          muy cerca de 0 o 1
+
+
+    'symlog'
+
+        * basex * / * basey *:
+           La base del logaritmo
+        
+        * linthreshx * / * linthreshy *:
+          El rango (- * x *, * x *) dentro del cual el gráfico es lineal (a
+          evitar que la trama vaya al infinito alrededor de cero).
+        
+        * subsx * / * subsy *:
+           Donde colocar los subtiles entre cada garrapata principal.
+           Debe ser una secuencia de enteros. Por ejemplo, en un log10
+           escala: `` [2, 3, 4, 5, 6, 7, 8, 9] ``
+        
+           colocará 8 garrapatas menores espaciadas logarítmicamente entre
+           cada garrapata principal.
+        
+        * linscalex * / * linscaley *:
+           Esto permite que el rango lineal (- * linthresh * to * linthresh *)
+           para ser estirado en relación con el rango logarítmico. Sus
+           valor es el número de décadas que se utilizará para cada
+           lineal. Por ejemplo, cuando * linscale * == 1.0 (el
+           por defecto), el espacio utilizado para el positivo y el negativo
+           mitad del rango lineal será igual a una década en el
+           el rango logarítmico.

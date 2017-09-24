@@ -1,0 +1,229 @@
+Objeto iterador multidimensional eficiente para iterar sobre matrices.
+    Para empezar a utilizar este objeto, consulte el
+    : ref: `guía introductoria a la iteración de array <arrays.nditer>`.
+
+    Parámetros
+    ----------
+    op: ndarray o secuencia de array_like
+        La matriz (s) para iterar más.
+    flags: secuencia de str, opcional
+        Indicadores para controlar el comportamiento del iterador.
+
+          * "buffered" permite el almacenamiento en búfer cuando es necesario.
+          * "c_index" hace que se rastree un índice de orden C.
+          * "f_index" hace que se rastree un índice de orden Fortran.
+          * "multi_index" hace que un multi-índice, o una tupla de índices
+            con una dimensión por iteración, para ser rastreados.
+          * "common_dtype" hace que todos los operandos se conviertan en
+            un tipo de datos común, con copia o almacenamiento en memoria intermedia según sea necesario.
+          * "copy_if_overlap" hace que el iterador determine si se lee
+            operandos tienen solapamiento con los operandos de escritura, y
+            copias según sea necesario para evitar solapamientos. Falso positivos (innecesario)
+            copiar) son posibles en algunos casos.
+          * "delay_bufalloc" retrasa la asignación de los búferes hasta
+            se realiza una llamada de reinicio (). Permite asignar operandos para
+            se inicializan antes de que sus valores se copien en los búferes.
+          * "external_loop" hace que los `valores 'dados sean
+            arrays unidimensionales con valores múltiples en lugar de
+            arrays de dimensión cero.
+          * "grow_inner" permite que los tamaños del array `value` sean hechos
+            mayor que el tamaño del búfer cuando tanto "buffered" como
+            "external_loop" se utiliza.
+          * "rango" permite que el iterador se limite a un sub-rango
+            de los valores de iterindex.
+          * "refs_ok" permite la iteración de tipos de referencia, como
+            arrays de objetos.
+          * "reduce_ok" permite la iteración de los operandos "readwrite"
+            que se emiten, también conocidos como operandos de reducción.
+          * "zerosize_ok" permite que `itersize` sea cero.
+    op_flags: lista de lista de str, opcional
+        Esta es una lista de banderas para cada operando. Como mínimo, uno de
+        "readonly", "readwrite", o "writeonly" debe ser especificado.
+
+          * "readonly" indica que sólo se leerá el operando.
+          * "readwrite" indica que el operando se leerá y escribirá en.
+          * "writeonly" indica que el operando solo se escribirá en.
+          * "no_broadcast" impide que el operando se transmita.
+          * "contig" obliga a que los datos del operando sean contiguos.
+          * "alineado" obliga a alinear los datos del operando.
+          * "nbo" obliga a que los datos del operando estén en orden de bytes nativos.
+          * "copia" permite una copia temporal de sólo lectura si es necesario.
+          * "updateifcopy" permite una copia temporal de lectura-escritura si es necesario.
+          * "asignar" hace que la matriz sea asignada si es Ninguna
+            en el parámetro `op`.
+          * "no_subtype" impide que un operando de "asignación" utilice un subtipo.
+          * "arraymask" indica que este operando es la máscara a utilizar
+            para seleccionar elementos al escribir en operandos con el
+            'writemasked' conjunto de la bandera. El iterador no hace cumplir esto,
+            pero al escribir desde un búfer de nuevo a la matriz, sólo
+            copia los elementos indicados por esta máscara.
+          * 'writemasked' indica que sólo los elementos donde el
+            'arraymask' operando es True se escribirá en.
+          * "overlap_assume_elementwise" se puede usar para marcar operandos que son
+            se accede sólo en la orden de iteración, para permitir que los
+            copiar cuando "copy_if_overlap" está presente.
+    op_dtypes: dtype o tupla de dtype (s), opcional
+        Los tipos de datos requeridos de los operandos. Si copiar o almacenar en búfer
+        está habilitado, los datos se convertirán a / desde sus tipos originales.
+    orden: {'C', 'F', 'A', 'K'}, opcional
+        Controla el orden de iteración. 'C' significa orden C, 'F' significa
+        Orden Fortran, 'A' significa orden 'F' si todos los arrays son Fortran
+        contiguo, 'C' en caso contrario, y 'K' significa lo más cercano al
+        ordenar que los elementos de la matriz aparezcan en la memoria como sea posible. Esto también
+        afecta al orden de memoria de elementos de los operandos "asignados",
+        se asignan para ser compatibles con el orden de iteración.
+        El valor predeterminado es 'K'.
+    casting: {'no', 'equiv', 'seguro', 'same_kind', 'unsafe'}, opcional
+        Controlars qué tipo de transmisión de datos puede ocurrir al realizar una copia
+        o tampón. No se recomienda establecer esto como "inseguro"
+        ya que puede afectar negativamente a las acumulaciones.
+
+          * 'no' significa que los tipos de datos no deben ser emitidos en absoluto.
+          * 'equiv' significa que sólo se permiten los cambios de bytes.
+          * 'seguro' significa que sólo se permiten moldes que pueden conservar valores.
+          * 'same_kind' significa sólo casts o moldes seguros dentro de un tipo,
+            como float64 a float32, se permiten.
+          * 'inseguro' significa que cualquier conversión de datos se puede hacer.
+    op_axes: lista de lista de entradas, opcional
+        Si se proporciona, es una lista de ints o Ninguno para cada operandos.
+        La lista de ejes para un operando es un mapeo de las dimensiones
+        del iterador a las dimensiones del operando. Un valor de
+        -1 para las entradas, haciendo que esta dimensión sea
+        tratado como "newaxis".
+    forma de iter: tupla de ints, opcional
+        La forma deseada del iterador. Esto permite "asignar" operandos
+        con una dimensión asignada por op_axes que no corresponde a una dimensión
+        de un operando diferente para obtener un valor no igual a 1 para ese
+        dimensión.
+    buffersize: int, opcional
+        Cuando se habilita el almacenamiento en búfer, controla el tamaño de la
+        tampones Establezca en 0 el valor predeterminado.
+
+    Atributos
+    ----------
+    dtypes: tupla de dtype (s)
+        Los tipos de datos de los valores proporcionados en `value`. Esto podría ser
+        diferente de los tipos de datos de operando si está habilitado el almacenamiento en búfer.
+    terminado: bool
+        Si la iteración sobre los operandos está terminada o no.
+    has_delayed_bufalloc: bool
+        Si es True, el iterador se creó con el indicador "delay_bufalloc"
+        y no se ha llamado a ninguna función reset ().
+    has_index: bool
+        Si es True, el iterador se creó con el "c_index" o
+        el indicador "f_index" y la propiedad `index` se pueden utilizar para
+        recuperarlo.
+    has_multi_index: bool
+        Si es True, el iterador se creó con el indicador "multi_index"
+        y la propiedad `multi_index` puede utilizarse para recuperarla.
+    índice
+        Cuando se utilizó el indicador "c_index" o "f_index", esta propiedad
+        proporciona acceso al índice. Aumenta un valor de error si se accede
+        y `has_index` es False.
+    iterationneedsapi: bool
+        Si la iteración requiere acceso a la API de Python, por ejemplo
+        si uno de los operandos es una matriz de objetos.
+    iterindex: int
+        Un índice que coincide con el orden de iteración.
+    itersize: int
+        Tamaño del iterador.
+    itviews
+        Vista (s) estructurada (s) de los `operandos 'en la memoria,
+        y el patrón de acceso iterador optimizado.
+    multiindex
+        Cuando se utilizó el indicador "multi_index", esta propiedad
+        proporciona acceso al índice. Aumenta un valor de error si se accede
+        y `has_multi_index` es False.
+    ndim: int
+        La dimensión del iterador.
+    nop: int
+        El número de operandos iteradores.
+    operandos: tupla de operando (s)
+        La (s) matriz (es) a ser repetida (s).
+    forma: tupla de ints
+        Forme la tupla, la forma del iterador.
+    valor
+        Valor de los 'operandos' en la iteración actual. Normalmente, este es un
+        tupla de escalares de array, pero si se usa la bandera "external_loop"
+        es una tupla de arreglos unidimensionales.
+
+    Notas
+    -----
+    `nditer` reemplaza` flatiter`. La implementación del iterador detrás
+    `nditer` también está expuesto por el NumPy C API.
+
+    La exposición de Python proporciona dos interfaces de iteración, una que sigue
+    el protocolo iterador de Python, y otro que refleja el estilo C
+    hacer-mientras patrón. El enfoque nativo de Python es mejor en la mayoría de los casos, pero
+    si necesita las coordenadas o índice del iterador, utilice el patrón de estilo C.
+
+    Ejemplos
+    --------
+    Aquí es cómo podemos escribir una función `` iter_add``, usando el
+    Protocolo de iteración de Python ::
+
+        def iter_add_py (x, y, out = Ninguno):
+            addop = np.add
+            it = np.nditer ([x, y, out], [],
+                        ['readonly'], ['readonly'], ['writeonly', 'allocate']])
+            para (a, b, c) en ella:
+                addop (a, b, out = c)
+            return it.operands [2]
+
+    Aquí es la misma función, pero siguiendo el patrón de estilo C ::
+
+        def iter_add (x, y, out = Ninguno):
+            addop = np.add
+
+            it = np.nditer ([x, y, out], [],
+                        ['readonly'], ['readonly'], ['writeonly', 'allocalizar']])
+
+            mientras que it.finished:
+                addop (it [0], it [1], out = it [2])
+                it.iternext ()
+
+            return it.operands [2]
+
+    Aquí hay un ejemplo de función del producto externo ::
+
+        def outer_it (x, y, out = Ninguno):
+            mulop = np.multiply
+
+            it = np.nditer ([x, y, out], ['external_loop'],
+                    ['readonly'], ['readonly'], ['writeonly', 'allocate']],
+                    op_axes = [rango (x.ndim) + [- 1] * y.ndim,
+                             [-1] * x.ndim + rango (y.ndim),
+                             Ninguna])
+
+            para (a, b, c) en ella:
+                mulop (a, b, out = c)
+
+            return it.operands [2]
+
+        >>> a = np.arange (2) +1
+        >>> b = np.arange (3) +1
+        >>> exterior_it (a, b)
+        matriz ([[1, 2, 3],
+               [2, 4, 6]])
+
+    Aquí está una función de ejemplo que funciona como un "lambda" ufunc ::
+
+        def luf (lamdaexpr, * args, ** kwargs):
+            "luf (lambdaexpr, op1, ..., opn, out = Ninguno, order = 'K', casting = 'safe', buffersize = 0)
+            nargs = len (args)
+            op = (kwargs.get ('out', None),) + args
+            it = np.nditer (op, ['buffered', 'external_loop'],
+                    [['writeonly', 'asignar', 'no_broadcast']] +
+                                    [['readonly', 'nbo', 'aligned']] * nargs,
+                    order = kwargs.get ('orden', 'K'),
+                    casting = kwargs.get ('casting', 'seguro'),
+                    buffersize = kwargs.get ('buffersize', 0))
+            mientras que it.finished:
+                it [0] = lamdaexpr (* it [1:])
+                it.iternext ()
+            return it.operands [0]
+
+        >>> a = np.arange (5)
+        >>> b = np.ones (5)
+        >>> luf (lambda i, j: i * i + j / 2, a, b)
+        matriz ([0,5, 1,5, 4,5, 9,5, 16,5])

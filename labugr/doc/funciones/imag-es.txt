@@ -1,0 +1,28 @@
+Devuelve la parte imaginaria del argumento complejo.
+
+    Parámetros
+    ----------
+    val: array_like
+        Array de entrada.
+
+    Devoluciones
+    -------
+    out: ndarray o escalar
+        El componente imaginario del argumento complejo. Si `val` es real,
+        el tipo de `val` se utiliza para la salida. Si `val` tiene complejos
+        elementos, el tipo devuelto es float.
+
+    Ver también
+    --------
+    real, angle, real_if_close
+
+    Ejemplos
+    --------
+    >>> a = np.array ([1 + 2j, 3 + 4j, 5 ​​+ 6j])
+    una imagen
+    array ([2., 4., 6.])
+    >>> a.imag = np.array ([8, 10, 12])
+    un
+    array ([1. + 8.j, 3. + 10.j, 5. + 12.j])
+    >>> np.imag (1 + 1j)
+    1.0

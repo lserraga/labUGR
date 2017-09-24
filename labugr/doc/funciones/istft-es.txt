@@ -1,0 +1,153 @@
+Realizar la transformada de Fourier de tiempo corto inverso (iSTFT).
+
+    Parámetros
+    ----------
+    Zxx: array_like
+        STFT de la señal a reconstruir. Si una matriz puramente real
+        se pasa, se emitirá a un tipo de datos complejos.
+    fs: float, opcional
+        Frecuencia de muestreo de la serie temporal. El valor predeterminado es 1,0.
+    window: str o tuple o array_like, opcional
+        Ventana deseada para usar. Si `window` es una cadena o tupla, es
+        pasó a `get_window` para generar los valores de la ventana, que son
+        DFT-incluso por defecto. Vea `get_window` para una lista de ventanas y
+        parámetros requeridos. Si `window` es array_like, se utilizará
+        directamente como la ventana y su longitud debe ser nperseg. Predeterminados
+        a una ventana de Hann. Debe coincidir con la ventana utilizada para generar el
+        STFT para la inversión fiel.
+    nperseg: int, opcional
+        Número de puntos de datos correspondientes a cada segmento STFT. Esta
+        debe especificarse si el número de puntos de datos por
+        segmento es impar, o si la STFT se rellenó a través de `` nfft>
+        nperseg Si `None`, el valor depende de la forma de
+        `Zxx` y` input_onesided`. Si `input_onesided` es True,
+        `` nperseg = 2 * (Zxx.shape [freq_axis] - 1) ``. De otra manera,
+        `` nperseg = Zxx.shape [freq_axis] ``. El valor predeterminado es `Ninguno '.
+    noverlap: int, opcional
+        Número de puntos a superponer entre segmentos. Si `Ninguno`, la mitad
+        de la longitud del segmento. El valor predeterminado es `Ninguno '. Cuando se especifica, la
+        COLA debe cumplirse (ver Notas más adelante) y debe coincidir
+        el parámetro utilizado para generar la STFT. El valor predeterminado es `Ninguno '.
+    nfft: int, opcional
+        Número de puntos FFT correspondientes a cada segmento STFT. Esta
+        parámetro debe ser especificado si la STFT se rellenó a través de `` nfft>
+        nperseg Si `None`, los valores por defecto son los mismos que para
+        `nperseg`, detallado anteriormente, con una excepción: if
+        `input_onesided` es True y
+        `` nperseg == 2 * Zxx.shape [freq_axis] - 1``, ​​`nfft` asume también
+        ese valor. Este caso permite la inversión adecuada de una
+        STFT de longitud impar sin relleno usando `` nfft = None``. Por defecto
+        `Ninguno`.
+    input_onesided: bool, opcional
+        Si `True`, interpretar el array de entrada como FFTs unilaterales, tales como
+        como es devuelto por `stft` con` `return_onesided = True`` y
+        `numpy.fft.rfft`. Si `Falso`, interpreta la entrada como a
+        FFT de dos caras. El valor predeterminado es `True`.
+    límite: bool, opcional
+        Especifica si la señal de entrada se extendió en su
+        fronteras mediante el suministro de un argumento no-`None` `` boundary`` a
+        stft El valor predeterminado es `True`.
+    time_axis: int, opcional
+        Donde se localizan los segmentos de tiempo del STFT; el valor predeterminado es
+        el último eje (es decir, "eje = -1").
+    freq_axis: int, opcional
+        Donde se encuentra el eje de frecuencia del STFT; el valor predeterminado es
+        el penúltimo eje (es decir, "eje = -2").
+
+    Devoluciones
+    -------
+    t: ndarray
+        Array de los tiempos de los datos de salida.
+    x: ndarray
+        iSTFT de `Zxx`.
+
+    Ver también
+    --------
+    stft: Transformada de Fourier de corta duración
+    check_COLA: Compruebe si la restricción Constant OverLap Add (COLA)
+                se cumple
+
+    Notas
+    -----
+    Con el fin de permitir la inversión de una STFT a través de la STFT inversa con
+    `istft`, la ventana de señalización debe obedecer la restricción de" Constant
+    OverLap Add "(COLA), lo que garantiza que cada punto de los datos de entrada
+    está igualmente ponderada, evitando así el aliasing y permitiendo
+    reconstrucción. Ya sea una opción de `ventana`,` nperseg`, y
+    `noverlap` satisfacer esta restricción se puede probar con
+    `check_COLA`, utilizando` `nperseg = Zxx.shape [freq_axis]` `.
+
+    Una STFT que ha sido modificada (mediante enmascaramiento o de otra
+    garantizado para corresponder a una señal exactamente realizable. Esta
+    función implementa el iSTFT a través de la esimación de mínimos cuadrados
+    algoritmo detallado en [2] _, que produce una señal que minimiza
+    el error cuadrático medio entre la STFT de la señal devuelta y
+    la STFT modificada.
+
+    .. versionadded :: 0.19.0
+
+    Referencias
+    ----------
+    [1] Oppenheim, Alan V., Ronald W. Schafer, John R. Buck
+           "Procesamiento de Señal de Tiempo Discreto", Prentice Hall, 1999.
+    [2] Daniel W. Griffin, Jae S. Limdt "Estimación de la señal de
+           Transformada de Fourier corta modificada ", IEEE 1984,
+           10.1109 / TASSP.1984.1164317
+
+    Ejemplos
+    --------
+    >>> de scipy iseñal de mport
+    >>> import matplotlib.pyplot como plt
+
+    Generar una señal de prueba, una onda senoidal de 2 Vrms a 50Hz dañada por
+    0,001 V ** 2 / Hz de ruido blanco muestreado a 1024 Hz.
+
+    >>> fs = 1024
+    >>> N = 10 * fs
+    >>> nperseg = 512
+    >>> amp = 2 * np.sqrt (2)
+    >>> noise_power = 0.001 * fs / 2
+    >>> time = np.arange (N) / float (fs)
+    >>> carrier = amp * np.sin (2 * np.pi * 50 * time)
+    >>> noise = np.random.normal (scale = np.sqrt (noise_power),
+    ... size = time.shape)
+    >>> x = portador + ruido
+
+    Calcular la STFT, y trazar su magnitud
+
+    >>> f, t, Zxx = señal.stft (x, fs = fs, nperseg = nperseg)
+    >>> plt.figure ()
+    >>> plt.pcolormesh (t, f, np.abs (Zxx), vmin = 0, vmax = amp)
+    >>> plt.ylim ([f [1], f [-1]])
+    >>> plt.title ('STFT Magnitude')
+    >>> plt.ylabel ('Frecuencia [Hz]')
+    >>> plt.xlabel ('Tiempo [sec]')
+    >>> plt.yscale ('registro')
+    >>> plt.show ()
+
+    Cero los componentes que son 10% o menos de la magnitud de la portadora,
+    luego convertir de nuevo a una serie de tiempo a través de STFT inversa
+
+    >>> Zxx = np.where (np.abs (Zxx)> = amp / 10, Zxx, 0)
+    >>> _, xrec = signal.istft (Zxx, fs)
+
+    Compare la señal limpia con las señales portadoras originales y verdaderas.
+
+    >>> plt.figure ()
+    >>> plt.plot (tiempo, x, tiempo, xrec, tiempo, portador)
+    >>> plt.xlim ([2, 2.1])
+    >>> plt.xlabel ('Tiempo [sec]')
+    >>> plt.ylabel ('Señal')
+    >>> plt.legend (['Carrier + Noise', 'Filtrado vía STFT', 'True Carrier'])
+    >>> plt.show ()
+
+    Tenga en cuenta que la señal limpia no comienza tan abruptamente como el original,
+    ya que algunos de los coeficientes de los transitorios también se eliminaron:
+
+    >>> plt.figure ()
+    >>> plt.plot (tiempo, x, tiempo, xrec, tiempo, portador)
+    >>> plt.xlim ([0, 0.1])
+    >>> plt.xlabel ('Tiempo [sec]')
+    >>> plt.ylabel ('Señal')
+    >>> plt.legend (['Carrier + Noise', 'Filtrado vía STFT', 'True Carrier'])
+    >>> plt.show ()

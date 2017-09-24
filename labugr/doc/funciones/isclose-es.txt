@@ -1,0 +1,56 @@
+Devuelve una matriz booleana donde dos matrices son iguales a los elementos iguales dentro de un
+    tolerancia.
+
+    Los valores de tolerancia son positivos, típicamente números muy pequeños. los
+    diferencia relativa (`rtol` * abs (` b`)) y la diferencia absoluta
+    `atol` se suman para comparar con la diferencia absoluta
+    entre `a` y` b`.
+
+    Parámetros
+    ----------
+    a, b: array_like
+        Arrays de entrada para comparar.
+    rtol: float
+        El parámetro de tolerancia relativa (ver Notas).
+    atol: float
+        El parámetro de tolerancia absoluta (ver Notas).
+    igualdad: bool
+        Si comparar NaN como igual. Si es cierto, NaN en `a` será
+        considerado igual a NaN en `b` en la matriz de salida.
+
+    Devoluciones
+    -------
+    y: array_like
+        Devuelve una matriz booleana de donde `a` y` b` son iguales dentro de la
+        tolerancia dada. Si `a` y` b` son escalares, devuelve una
+        valor booleano.
+
+    Ver también
+    --------
+    todo cerca
+
+    Notas
+    -----
+    .. versionadded :: 1.7.0
+
+    Para valores finitos, isclose usa la siguiente ecuación para probar si
+    dos valores de punto flotante son equivalentes.
+
+     absoluto (`a` - `b`) <= (` atol` + `rtol` * absoluto (` b`))
+
+    La ecuación anterior no es simétrica en `a` y` b`, por lo que
+    `isclose (a, b)` puede ser diferente de `isclose (b, a)` en
+    algunos casos raros.
+
+    Ejemplos
+    --------
+    >>> np.isclose ([1e10.1e-7], [1.00001e10.1e-8])
+    array ([True, False])
+    >>> np.isclose ([1e10.1e-8], [1.00001e10.1e-9])
+    array ([True, True])
+    >>> np.isclose ([1e10.1e-8], [1.0001e10.1e-9])
+    matriz ([Falso, Verdadero])
+    >>> np.isclose ([1.0, np.nan], [1.0, np.nan])
+    array ([True, False])
+    >>> np.isclose ([1.0, np.nan], [1.0, np.nan], equal_nan = True)
+    array ([True, True])

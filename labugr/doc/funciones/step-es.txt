@@ -1,0 +1,37 @@
+Paso de respuesta del sistema de tiempo continuo.
+
+    Parámetros
+    ----------
+    system: una instancia de la clase LTI o una tupla de array_like
+        describiendo el sistema.
+        Lo siguiente da el número de elementos en la tupla y
+        la interpretación:
+
+            * 1 (instancia de lti)
+            * 2 (num, den)
+            * 3 (ceros, polos, ganancia)
+            * 4 (A, B, C, D)
+
+    X0: array_like, opcional
+        Vector de estado inicial (el valor predeterminado es cero).
+    T: array_like, opcional
+        Puntos de tiempo (calculados si no se dan).
+    N: int, opcional
+        Número de puntos de tiempo para calcular si no se da `T '.
+
+    Devoluciones
+    -------
+    T: 1D ndarray
+        Puntos de tiempo de salida.
+    yout: 1D ndarray
+        Paso de respuesta del sistema.
+
+    Ver también
+    --------
+    scipy.signal.step2
+
+    Notas
+    -----
+    Si (num, den) es pasado para `` system``, los coeficientes tanto para el
+    numerador y denominador debe ser especificado en exponente descendente
+    (por ejemplo, `` s ^ 2 + 3s + 5`` se representaría como `` [1, 3, 5] ``).

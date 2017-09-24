@@ -1,0 +1,34 @@
+Respuesta de impulso del sistema de tiempo continuo.
+
+    Parámetros
+    ----------
+    system: una instancia de la clase LTI o una tupla de array_like
+        describiendo el sistema.
+        Lo siguiente da el número de elementos en la tupla y
+        la interpretación:
+
+            * 1 (instancia de lti)
+            * 2 (num, den)
+            * 3 (ceros, polos, ganancia)
+            * 4 (A, B, C, D)
+
+    X0: array_like, opcional
+        Vector de estado inicial. El valor predeterminado es cero.
+    T: array_like, opcional
+        Puntos de tiempo. Se calcula si no se da.
+    N: int, opcional
+        El número de puntos de tiempo para calcular (si no se da `T ').
+
+    Devoluciones
+    -------
+    T: ndarray
+        Una matriz 1-D de puntos de tiempo.
+    yout: ndarray
+        Una matriz 1-D que contiene la respuesta al impulso del sistema (excepto
+        singularidades en cero).
+
+    Notas
+    -----
+    Si (num, den) es pasado para `` system``, los coeficientes tanto para el
+    numerador y denominador debe ser especificado en exponente descendente
+    (por ejemplo, `` s ^ 2 + 3s + 5`` se representaría como `` [1, 3, 5] ``).

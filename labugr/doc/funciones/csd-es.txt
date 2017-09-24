@@ -1,0 +1,114 @@
+Estimación de la densidad espectral de potencia cruzada, Pxy, usando
+    método.
+
+    Parámetros
+    ----------
+    x: array_like
+        Series temporales de valores de medición
+    y: array_like
+        Series temporales de valores de medición
+    fs: float, opcional
+        Frecuencia de muestreo de las series de tiempo `x` y` y`. Predeterminados
+        a 1,0.
+    window: str o tuple o array_like, opcional
+        Ventana deseada para usar. Si `window` es una cadena o tupla, es
+        pasó a `get_window` para generar los valores de la ventana, que son
+        DFT-incluso por defecto. Vea `get_window` para una lista de ventanas y
+        parámetros requeridos. Si `window` es array_like, se utilizará
+        directamente como la ventana y su longitud debe ser nperseg. Predeterminados
+        a una ventana de Hann.
+    nperseg: int, opcional
+        Longitud de cada segmento. El valor predeterminado es Ninguno, pero si la ventana es str o
+        tupla, se establece en 256, y si window es array_like, se establece en el
+        longitud de la ventana.
+    noverlap: int, opcional
+        Número de puntos a superponer entre segmentos. Si `Ninguno`,
+        `` noverlap = nperseg // 2``. El valor predeterminado es `Ninguno '.
+    nfft: int, opcional
+        Longitud de la FFT utilizada, si se desea una FFT con relleno cero. Si
+        `None`, la longitud FFT es` nperseg`. El valor predeterminado es `Ninguno '.
+    detrend: str o función o `Falso`, opcional
+        Especifica cómo detrendir cada segmento. Si `detrend` es un
+        string, se pasa como el argumento `type` al` detrend`
+        función. Si es una función, toma un segmento y devuelve un
+        segmento detrendido. Si `detrend` es` False`, no hay detrending
+        hecho. El valor predeterminado es 'constante'.
+    return_onesided: bool, opcional
+        Si `True`, devuelve un espectro unilateral para datos reales. Si
+        `False` devuelve un espectro de dos caras. Tenga en cuenta que para complejos
+        datos, siempre se devuelve un espectro de dos caras.
+    escala: {'densidad', 'espectro'}, opcional
+        Selecciona entre calcular la densidad espectral cruzada ('densidad')
+        donde `Pxy` tiene unidades de V ** 2 / Hz y calcular el espectro cruzado
+        («espectro») donde «Pxy» tiene unidades de V ** 2, si «x» y «y» son
+        medido en V y `fs` se mide en Hz. El valor predeterminado es 'densidad'
+    eje: int, opcional
+        Eje a lo largo del cual se calcula la CSD para ambas entradas; el
+        el valor predeterminado está sobre el último eje (es decir, "eje = -1").
+
+    Devoluciones
+    -------
+    f: ndarray
+        Conjunto de frecuencias de muestreo.
+    Pxy: ndarray
+        Densidad espectral cruzada o espectro de potencia cruzada de x, y.
+
+    Ver también
+    --------
+    periodograma: Periodograma simple, opcionalmente modificado
+    lombscargle: Periódromo Lomb-Scargle para datos desigualmente muestreados
+    welch: Densidad espectral de potencia según el método de Welch. [Equivalente a
+           csd (x, x)]
+    coherencia: Magnitud cuadrada coherencia por el método de Welch.
+
+    Notas
+    --------
+    Por convención, Pxy se calcula con el conjugado FFT de X
+    multiplicado por la FFT de Y.
+
+    Si la serie de entrada difiere en longitud, la serie más corta será
+    cero-rellenado para emparejar.
+
+    Una cantidad adecuada de superposición dependerá de la elección de la ventana
+    y en sus requisitos. Para la ventana Hann predeterminada, una superposición de
+    50% es una compensación razonable entre la estimación exacta del
+    potencia de la señal, mientras que no sobre contar ninguno de los datos. Más estrecho
+    las ventanas pueden requerir una superposición mayor.
+
+    .. versionadded :: 0.16.0
+
+    Referencias
+    ----------
+    [1] P. Welch, "El uso de la transformada rápida de Fourier para la
+           Estimación de los espectros de potencia: Un método basado en el promedio del tiempo
+           sobre periodograms cortos, modificados ", IEEE Trans. Audio
+           Electroacoust. vol. 15, págs. 70 - 73, 1967.
+    [2] Rabiner, Lawrence R., y B. Gold. "Teoría y Aplicación de
+           Digital Signal Processing "Prentice-Hall, págs. 414-419, 1975
+
+    Ejemplos
+    --------
+    >>> de la señal de importación de scipy
+    >>> import matplotlib.pyplot como plt
+
+    Genere dos señales de prueba con algunas características comunes.
+
+    >>> fs = 10e3
+    >>> N = 1e5
+    >>> amp = 20
+    >>> freq = 1234.0
+    >>> noise_power = 0.001 * fs / 2
+    >>> time = np.arange (N) / fs
+    >>> b, a = signal.butter (2, 0.25, 'low')
+    >>> x = np.random.normal (escala = np.sqrt (noise_power), size = time.shape)
+    >>> y = signal.lfilter (b, a, x)
+    >>> x + = amp * np.sin (2 * np.pi * freq * time)
+    >>> y + = np.random.normal (escala = 0.1 * np.sqrt (noise_power), size = time.shape)
+
+    Calcule y traza la magnitud de la densidad espectral cruzada.
+
+    >>> f, Pxy = señal.csd (x, y, fs, nperseg = 1024)
+    >>> plt.semilogy (f, np.abs (Pxy))
+    >>> plt.xlabel ('frecuencia [Hz]')
+    >>> plt.ylabel ('CSD [V ** 2 / Hz]')
+    >>> plt.show ()

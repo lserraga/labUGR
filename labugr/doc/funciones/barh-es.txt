@@ -1,0 +1,117 @@
+Haga una trama de barra horizontal.
+
+Hacer un gráfico de barra horizontal con rectángulos acotados por:
+
+  `left`,` left` + `width`,` bottom`, `bottom` +` height`
+        (bordes izquierdo, derecho, inferior y superior)
+
+`bottom`,` width`, `height` y` left` pueden ser escalares
+o secuencias
+
+Parámetros
+----------
+parte inferior: escalar o similar a una matriz
+    la (s) coordenada (s) y de las barras
+
+ancho: escalar o array-like
+    la (s) anchura (s) de las barras
+
+altura: secuencia de escalares, opcional, predeterminado: 0.8
+    las alturas de las barras
+
+left: secuencia de escalares
+    las coordenadas x de los lados izquierdos de las barras
+
+Devoluciones
+-------
+`matplotlib.patches.Rectangle` instancias.
+
+Otros parámetros
+----------------
+color: escalar o array-like, opcional
+    los colores de las barras
+
+edgecolor: escalar o array-like, opcional
+    los colores de los bordes de la barra
+
+linewidth: escalar o array-like, opcional, predeterminado: None
+    anchura del borde (s) de la barra. Si no, utilice predeterminado
+    ancho de línea; Si 0, no dibuje los bordes.
+
+tick_label: string o array-like, opcional, por defecto: None
+    las etiquetas de las garras de las barras
+
+xerr: escalar o array-like, opcional, predeterminado: None
+    si no ninguno, se utilizará para generar barras de error en el gráfico de barras
+
+yerr: escalar o array-like, opcional, predeterminado: None
+    si no ninguno, se utilizará para generar barras de error en el gráfico de barras
+
+ecolor: escalar o array-like, opcional, predeterminado: None
+    especifica el color de la (s) barra (s) de error
+
+capsize: escalar, opcional
+   determina la longitud en puntos de las tapas de la barra de error
+   predeterminado: Ninguno, que tomará el valor de la
+   `` errorbar.capsize``: data: `rcParam <matplotlib.rcParams>`.
+
+error_kw:
+    diccionario de kwargs que se pasará al método errorbar. ecolor y
+    `capsize` se puede especificar aquí en lugar de kwargs independientes.
+
+align: {'center', 'edge'}, opcional
+    Si 'borde', alinea barras por sus bordes izquierdos (para vertical
+    barras) y por sus bordes inferiores (para barras horizontales). Si
+    'center', interprete el argumento `bottom` como el
+    coordenadas de los centros de las barras. Para alinear el
+    las barras de alineación en el borde superior pasan una "altura" negativa.
+
+log: booleano, opcional, predeterminado: Falso
+    Si es true, establece el eje para que sea escala de registro
+
+Notas
+-----
+Los argumentos opcionales `color`,` edgecolor`, `linewidth`,
+`xerr` y` yerr` pueden ser escalares o secuencias de
+longitud igual al número de barras. Esto le permite usar
+barra como la base para gráficos de barras apilados, o parcelas de candelero.
+Detalle: `xerr` y` yerr` se pasan directamente a
+: meth: `errorbar`, así que también pueden tener forma 2xN para
+especificación independiente de errores inferiores y superiores.
+
+Otros kwargs opcionales:
+
+  agg_filter: desconocido
+  alpha: float o Ninguno
+  animado: [Verdadero | Falso]
+  antialiaso o aa: [Verdadero | False] o Ninguno por defecto
+  ejes: una: clase: `` instancia matplotlib.axes.Axes`
+  capstyle: ['culo' | 'redondo' | 'saliente']
+  clip_box: a: class: Instancia `matplotlib.transforms.Bbox`
+  clip_on: [Verdadero | Falso]
+  clip_path: [(: class: `~ matplotlib.path.Path`,: class:` ~ matplotlib.transforms.Transform`) | : class: `~ matplotlib.patches.Patch` | Ninguna ]
+  color: especificaciones de color matplotlib
+  contiene: una función llamable
+  edgecolor o ec: especificación de color mpl, None, 'none' o 'auto'
+  facecolor o fc: especificación de color mpl, o Ninguno por defecto o "ninguno" para ningún color
+  figura: a: clase: instancia `matplotlib.figure.Figure`
+  fill: [Verdadero | Falso]
+  gid: una cadena de id
+  escotilla: ['/' | '\\' | Un | '-' | '+' | 'x' | o 'O' | '.' | '*']
+  joinstyle: ['miter' | 'redondo' | 'bisel']
+  label: cadena o cualquier cosa que se pueda imprimir con la conversión '% s'.
+  linestyle o ls: ['sólido' | 'salpicado', 'dashdot', 'punteado' | (offset, on-off-dash-seq) | Unesdoc.unesco.org unesdoc.unesco.org Unesdoc.unesco.org unesdoc.unesco.org Unesdoc.unesco.org unesdoc.unesco.org Unesdoc.unesco.org unesdoc.unesco.org `` 'None'`` | Unesdoc.unesco.org unesdoc.unesco.org Unesdoc.unesco.org unesdoc.unesco.org
+  linewidth o lw: float o Ninguno por defecto
+  path_effects: desconocido
+  selector: [Ninguno | float | boolean | callable]
+  rasterizado: [Verdadero | Falso | Ninguna]
+  sketch_params: desconocido
+  snap: desconocido
+  transform:: clase: `` instancia matplotlib.transforms.Transform`
+  url: una cadena url
+  visible: [Verdadero | Falso]
+  zorder: cualquier número
+
+Ver también
+--------
+bar: Trazar un gráfico de barras verticales.

@@ -1,0 +1,50 @@
+Extraer una diagonal o construir una matriz diagonal.
+
+    Consulte la documentación más detallada de `` numpy.diagonal`` si utiliza esta
+    función para extraer una diagonal y desea escribir en la matriz resultante;
+    si devuelve una copia o una vista depende de qué versión de numpy usted
+    están usando.
+
+    Parámetros
+    ----------
+    v: array_like
+        Si `v` es una matriz 2-D, devuelva una copia de su` k`-ésima diagonal.
+        Si `v` es una matriz 1-D, devuelve una matriz 2-D con` v` en el `k`-th
+        diagonal.
+    k: int, opcional
+        Diagonal en cuestión. El valor predeterminado es 0. Use `k> 0` para las diagonales
+        por encima de la diagonal principal, y `k <0 'para las diagonales debajo de la diagonal principal
+        diagonal.
+
+    Devoluciones
+    -------
+    salir: ndarray
+        La matriz diagonal o diagonal construida.
+
+    Ver también
+    --------
+    diagonal: Devuelve las diagonales especificadas.
+    diagflat: Cree una matriz 2-D con la entrada aplanada como una diagonal.
+    rastro: suma a lo largo de las diagonales.
+    triu: Triángulo superior de una matriz.
+    tril: Triángulo inferior de una matriz.
+
+    Ejemplos
+    --------
+    >>> x = np.arange (9) .reshape ((3,3))
+    x
+    array ([[0, 1, 2],
+           [3, 4, 5],
+           [6, 7, 8]])
+
+    >>> np.diag (x)
+    matriz ([0, 4, 8])
+    >>> np.diag (x, k = 1)
+    matriz ([1, 5])
+    >>> np.diag (x, k = -1)
+    matriz ([3, 7])
+
+    >>> np.diag (np.diag (x))
+    array ([[0, 0, 0],
+           [0, 4, 0],
+           [0, 0, 8]])

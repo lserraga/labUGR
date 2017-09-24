@@ -1,0 +1,14 @@
+Devuelva la frecuencia de muestreo (en muestras / seg) y los datos de un archivo de audio.
+    Si el archivo de audio no está en el formato wav, primero lo decodifica y
+    luego usa read from wavfile para leerlo.
+
+    Parámetros
+    ----------
+    filename: string
+
+    Devoluciones
+    -------
+    rate: int
+        Frecuencia de muestreo del archivo de audio.
+    data: numpy array
+        Datos leídos del archivo de audio.

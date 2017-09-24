@@ -1,0 +1,13 @@
+Muestra en la documentación en español de una función.
+
+Carga la documentación del directorio doc / funciones.
+
+Parámetros
+    ----------
+    función: cadena o función
+    El nombre de la función como cuerda o como objeto en si
+
+    Ejemplos
+    --------
+    >>> ayuda (arange)
+    >>> ayuda ('arange')

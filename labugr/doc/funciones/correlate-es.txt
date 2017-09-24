@@ -1,0 +1,96 @@
+Correlación cruzada de dos matrices N-dimensionales.
+
+    Cross-correlate `in1` y` in2`, con el tamaño de salida determinado por el
+    `mode` argumento.
+
+    Parámetros
+    ----------
+    in1: array_like
+        Primera entrada.
+    in2: array_like
+        Segunda entrada. Debe tener el mismo número de dimensiones que 'in1`.
+    modo: str {'completo', 'válido', 'mismo'}, opcional
+        Una cadena que indica el tamaño de la salida:
+
+        lleno
+           La salida es la correlación cruzada lineal discreta completa
+           de las entradas. (Defecto)
+        `` válido``
+           La salida consiste sólo en aquellos elementos que no
+           se basan en el relleno cero. En el modo 'válido', `in1` o` in2`
+           debe ser al menos tan grande como el otro en cada dimensión.
+        igual
+           La salida es del mismo tamaño que `in1`, centrada
+           con respecto a la producción "completa".
+    método: str {'auto', 'directo', 'fft'}, opcional
+        Cadena que indica qué método usar para calcular la correlación.
+
+        directo
+           La correlación se determina directamente a partir de sumas, la definición de
+           correlación.
+        fft
+           La Transformada Rápida de Fourier se utiliza para realizar la correlación más
+           rápidamente (sólo disponible para matrices numéricas.)
+        auto
+           Elige automáticamente el método directo o Fourier basado en una estimación
+           de los cuales es más rápido (predeterminado). Consulte Notas `convolve` para obtener más detalles.
+
+           .. versionadded :: 0.19.0
+
+    Devoluciones
+    -------
+    correlate: array
+        Una matriz N-dimensional que contiene un subconjunto de la línea lineal discreta
+        correlación cruzada de `in1` con'in2`.
+
+    Ver también
+    --------
+    choose_conv_method: contiene más documentación sobre `method`.
+
+    Notas
+    -----
+    La correlación z de dos matrices d-dimensionales xey se define como:
+
+        z [..., k, ...] = sum [..., i_l, ...] x [..., i_l, ...] ...])
+
+    De esta manera, si xyy son arrays 1-D y `` z = correlate (x, y, 'full') `` entonces
+
+    matemáticas
+
+          z [k] = (x * y) (k - N + 1)
+               = \ sum_ {l = 0} ^ {|| x || -1} x_l y_ {l-k + N-1} ^ {*}
+
+    para: math: `k = 0, 1, ..., || x || + || y || - 2 '
+
+    donde: math: `|| x ||` es la longitud de `` x``,: math: `N = \ max (|| x ||, || y ||)`,
+    y: math: `y_m` es 0 cuando m está fuera del rango de y.
+
+    `` method = 'fft'`` sólo funciona para arrays numéricos ya que se basa en
+    `fftconvolve`. En ciertos casos (es decir, arreglos de objetos o cuando
+    redondear números enteros puede perder precisión), `` method = 'direct'`` siempre se utiliza.
+
+    Ejemplos
+    --------
+    Implementar un filtro adaptado utilizando correlación cruzada, para recuperar una señal
+    que ha pasado por un canal ruidoso.
+
+    >>> de la señal de importación de scipy
+    >>> sig = np.repeat ([0., 1., 1., 0., 1., 0., 0., 1.], 128)
+    >>> sig_noise = sig + np.random.randn (len (sig))
+    >>> corr = signal.correlate (sig_noise, np.ones (128), mode = 'same') / 128
+
+    >>> import matplotlib.pyplot como plt
+    >>> reloj = np.arange (64, len (sig), 128)
+    >>> fig, (ax_orig, ax_noise, ax_corr) = plt.subplots (3, 1, sharex = True)
+    >>> ax_orig.plot (sig)
+    >>> ax_orig.plot (reloj, sig [reloj], 'ro')
+    >>> ax_orig.set_title ('Señal original')
+    >>> ax_noise.plot (sig_noise)
+    >>> ax_noise.set_title ('Señal con ruido')
+    >>> ax_corr.plot (corr)
+    >>> ax_corr.plot (reloj, corr [reloj], 'ro')
+    >>> ax_corr.axhline (0.5, ls = ':')
+    >>> ax_corr.set_title ('Correlación cruzada con pulso rectangular')
+    >>> ax_orig.margins (0, 0.1)
+    >>> fig.tight_layout ()
+    >>> fig.show ()

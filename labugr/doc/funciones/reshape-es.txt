@@ -1,0 +1,91 @@
+Proporciona una nueva forma a una matriz sin cambiar sus datos.
+
+    Parámetros
+    ----------
+    a: array_like
+        Array para ser remodelado.
+    newshape: int o tupla de ints
+        La nueva forma debe ser compatible con la forma original. Si
+        un entero, entonces el resultado será una matriz 1-D de esa longitud.
+        Una dimensión de forma puede ser -1. En este caso, el valor es
+        inferido de la longitud de la matriz y las dimensiones restantes.
+    orden: {'C', 'F', 'A'}, opcional
+        Lea los elementos de `a` utilizando este orden de índice y coloque
+        elementos en la matriz reformada utilizando este orden de índice. 'DO'
+        significa leer / escribir los elementos usando orden de índice C-like,
+        con el último índice del eje cambiando más rápidamente, de nuevo a la primera
+        índice del eje que cambia más lento. 'F' significa leer / escribir el
+        elementos que usan Fortran-como el orden del índice, con el primer índice
+        cambiando más rápido, y el último índice cambiando más lento. Tenga en cuenta que
+        las opciones 'C' y 'F' no tienen en cuenta la disposición de memoria de
+        la matriz subyacente, y sólo se refieren al orden de la indexación.
+        'A' significa leer / escribir los elementos en el índice Fortran-like
+        orden si `a` es Fortran * contiguo * en memoria, C-como orden
+        de otra manera.
+
+    Devoluciones
+    -------
+    reshaped_array: ndarray
+        Este será un nuevo objeto de vista si es posible; de lo contrario
+        ser una copia Tenga en cuenta que no hay garantía de la * disposición de memoria * (C- o
+        Fortran- contiguo) de la matriz devuelta.
+
+    Ver también
+    --------
+    ndarray.reshape: Método equivalente.
+
+    Notas
+    -----
+    No siempre es posible cambiar la forma de una matriz sin
+    copiando los datos. Si desea que se eleve un error si se copian los datos,
+    debe asignar la nueva forma al atributo shape de la matriz ::
+
+     >>> a = np.zeros ((10, 2))
+     # Una transposición hace la matriz no contigua
+     bússola
+     # Tomar una vista hace posible modificar la forma sin modificar
+     # el objeto inicial.
+     >>> c = b.view ()
+     >>> c.shape = (20)
+     AttributeError: forma incompatible para un arreglo no contiguo
+
+    La palabra `order` da el índice ordenando tanto para * fetching * los valores
+    desde `a`, y luego * colocando * los valores en la matriz de salida.
+    Por ejemplo, supongamos que tiene una matriz:
+
+    >>> a = np.arange (6) .reshape ((3, 2))
+    un
+    matriz ([[0, 1],
+           [2, 3],
+           [4, 5]])
+
+    Usted puede pensar en remodelar como primero raveling la matriz (utilizando el dado
+    orden de índice), insertando a continuación los elementos de la matriz
+    nueva matriz usando el mismo tipo de ordenación de índice que se utilizó para
+    raveling traducción espanol
+
+    >>> np.reshape (a, (2, 3)) # C-como ordenar el índice
+    array ([[0, 1, 2],
+           [3, 4, 5]])
+    >>> np.reshape (np.ravel (a), (2, 3)) # equivalente a C ravel luego C remodelar
+    array ([[0, 1, 2],
+           [3, 4, 5]])
+    >>> np.reshape (a, (2, 3), order = 'F') # Ordenación de índices tipo Fortran
+    matriz ([[0, 4, 3],
+           [2, 1, 5]])
+    >>> np.reshape (np.ravel (a, order = 'F'), (2, 3), order = 'F')
+    matriz ([[0, 4, 3],
+           [2, 1, 5]])
+
+    Ejemplos
+    --------
+    >>> a = np.array ([[1,2,3], [4,5,6]])
+    >>> np.reshape (a, 6)
+    matriz ([1, 2, 3, 4, 5, 6])
+    >>> np.reshape (a, 6, order = 'F')
+    matriz ([1, 4, 2, 5, 3, 6])
+
+    >>> np.reshape (a, (3, -1)) # el valor no especificado se infiere que es 2
+    matriz ([[1, 2],
+           [3, 4],
+           [5, 6]])

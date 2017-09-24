@@ -1,0 +1,13 @@
+Muestra una figura.
+    Cuando se ejecuta en ipython con su modo pylab,
+    figuras y volver al prompt de ipython.
+
+    En modo no interactivo, muestre todas las figuras y bloquee hasta
+    las cifras han sido cerradas; en modo interactivo no tiene
+    efecto a menos que se hayan creado cifras antes de un
+    no interactivo al modo interactivo (no recomendado). En
+    en ese caso muestra las cifras pero no bloquea.
+
+    Un único argumento experimental de palabras clave, * block *, puede ser
+    establecida en True o False para anular el comportamiento de bloqueo
+    descrito arriba.

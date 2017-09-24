@@ -1,0 +1,1 @@
+El conjunto de funciones de ventana.

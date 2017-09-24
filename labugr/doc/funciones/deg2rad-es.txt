@@ -1,0 +1,40 @@
+(=,,,,,,,,,,,,,,, =)
+
+ConvConvertir ángulos de grados a radianes.
+
+Parámetros
+----------
+x: array_like
+    Ángulos en grados.
+out: ndarray, None, o tuple de ndarray y None, opcional
+    Una ubicación en la que se almacena el resultado. Si se proporciona, debe tener
+    una forma a la que se transmiten las entradas. Si no se proporciona o «Ninguno»,
+    se devuelve una matriz recién asignada. Una tupla (posible sólo como
+    argumento de palabra clave) debe tener una longitud igual al número de salidas.
+donde: array_like, opcional
+    Los valores de True indican para calcular la ufunc en esa posición, los valores
+    de Falso indican para dejar el valor en la salida solo.
+kwargs
+    Para otros argumentos con solo palabras clave, consulte el
+    : ref: `ufunc docs <ufuncs.kwargs>`.
+
+Devoluciones
+-------
+y: ndarray
+    El ángulo correspondiente en radianes.
+
+Ver también
+--------
+rad2deg: Convierte ángulos de radianes a grados.
+desenrollar: Elimina los saltos grandes en ángulo por envoltura.
+
+Notas
+-----
+.. versionadded :: 1.3.0
+
+`` deg2rad (x) `` es `` x * pi / 180``.
+
+Ejemplos
+--------
+>>> np.deg2rad (180)
+3.1415926535897931

@@ -1,0 +1,54 @@
+randint (bajo, alto = ninguno, tamaño = ninguno, dtype = 'l')
+
+        Devuelve enteros aleatorios de `low` (inclusive) a` high` (exclusive).
+
+        Devuelve enteros aleatorios de la distribución "discreta uniforme" de
+        el dtype especificado en el intervalo "medio abierto" [`low`,` high`). Si
+        `high` es None (el valor predeterminado), entonces los resultados son de [0,` low`).
+
+        Parámetros
+        ----------
+        bajo: int
+            El entero más bajo (firmado) que se extraerá de la distribución (a
+            `` high = None``, en cuyo caso este parámetro es uno por encima del
+            * mayor * tal entero).
+        high: int, opcional
+            Si se proporciona, uno por encima del número entero (firmado) más grande que debe dibujarse
+            de la distribución (véase arriba para el comportamiento si `` high = None``).
+        tamaño: int o tupla de ints, opcional
+            Forma de salida. Si la forma dada es, por ejemplo, `` (m, n, k) ``, entonces
+            se toman muestras de "m * n * k". El valor predeterminado es Ninguno, en cuyo caso un
+            se devuelve un solo valor.
+        dtype: dtype, opcional
+            Tipo deseado del resultado. Todos los dtipes son determinados por su
+            nombre, es decir, 'int64', 'int', etc, por lo que byteorder no está disponible
+            y una precisión específica puede tener diferentes tipos C dependiendo
+            en la plataforma. El valor predeterminado es 'np.int'.
+
+            .. versionadded :: 1.11.0
+
+        Devoluciones
+        -------
+        out: int o ndarray de los ints
+            matriz en forma de tamaño de enteros aleatorios de la
+            distribución, o una sola de tales int aleatorio si `size` no proporcionado.
+
+        Ver también
+        --------
+        random.random_integers: similar a `randint`, solo para el archivo cerrado
+            intervalo [`low`,` high`], y 1 es el valor más bajo si `high` es
+            omitido En particular, este otro es el que se utiliza para generar
+            uniformemente distribuidos discretos no enteros.
+
+        Ejemplos
+        --------
+        >>> np.random.randint (2, tamaño = 10)
+        array ([1, 0, 0, 0, 1, 1, 0, 0, 1, 0])
+        >>> np.random.randint (1, tamaño = 10)
+        array ([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+
+        Genere una matriz 2 x 4 de ints entre 0 y 4, inclusive:
+
+        >>> np.random.randint (5, tamaño = (2, 4))
+        matriz ([[4, 0, 2, 1],
+               [3, 2, 2, 0]])

@@ -1,0 +1,114 @@
+Filtrar datos a lo largo de una dimensión con un filtro IIR o FIR.
+
+    Filtra una secuencia de datos, `x`, utilizando un filtro digital. Esto funciona para muchos
+    tipos de datos fundamentales (incluyendo el tipo de objeto). El filtro es un filtro directo
+    la forma II transpone la implementación de la ecuación de diferencia estándar
+    (ver notas).
+
+    Parámetros
+    ----------
+    b: array_like
+        El vector del coeficiente del numerador en una secuencia 1-D.
+    a: array_like
+        El vector del coeficiente denominador en una secuencia 1-D. Si `` a [0] ``
+        no es 1, entonces tanto `a` como` b` son normalizados por `` a [0] ``.
+    x: array_like
+        Una matriz de entrada N-dimensional.
+    eje: int, opcional
+        El eje de la matriz de datos de entrada a lo largo del cual se
+        filtro lineal. El filtro se aplica a cada subarray a lo largo
+        este eje. El valor predeterminado es -1.
+    zi: array_like, opcional
+        Condiciones iniciales para los retardos del filtro. Es un vector
+        (o matriz de vectores para una entrada N-dimensional) de longitud
+        `` máx (len (a), len (b)) - 1``. Si `zi` es Ninguno o no se da entonces
+        se asume el reposo inicial. Consulte `lfiltic` para obtener más información.
+
+    Devoluciones
+    -------
+    y: array
+        La salida del filtro digital.
+    zf: matriz, opcional
+        Si `zi` es Ninguno, esto no se devuelve, de lo contrario,` zf` contiene la
+        valores finales de retardo de filtro.
+
+    Ver también
+    --------
+    lfiltic: Construir las condiciones iniciales para `lfilter`.
+    lfilter_zi: Calcular el estado inicial (estado estacionario de la respuesta al escalón) para
+                 `lfilter`.
+    filtfilt: Un filtro hacia adelante hacia atrás, para obtener un filtro con fase lineal.
+    savgol_filter: Un filtro Savitzky-Golay.
+    sosfilt: Filtra los datos utilizando secciones de segundo orden en cascada.
+    sosfiltfilt: Filtro de retroceso que utiliza secciones de segundo orden.
+
+    Notas
+    -----
+    La función de filtro se implementa como una estructura directa II transpuesta.
+    Esto significa que el filtro implementa ::
+
+       a [0] * y [n] = b [0] * x [n] + b [1] * x [n-1] + ... + b [M]
+                             - a [1] * y [n-1] - ... - a [N] * y [n-N]
+
+    donde «M» es el grado del numerador, «N» es el grado del
+    denominador, y `n 'es el número de muestra. Se implementa utilizando
+    las siguientes ecuaciones de diferencia (asumiendo M = N) ::
+
+         a [0] * y [n] = b [0] * x [n] + d [0] [n-1]
+           d [0] [n] = b [1] * x [n] - a [1] * y [n] + d [1] [n-1]
+           d [1] [n] = b [2] * x [n] - a [2] * y [n] + d [2] [n-1]
+         ...
+         d [N - 2] [n] = b [N - 1] * x [n] - a [N - 1] * y [n] + d [N - 1] [n - 1]
+         d [N-1] [n] = b [N] * x [n] - a [N] * y [n]
+
+    donde `d` son las variables de estado.
+
+    La función de transferencia racional que describe este filtro en la
+    El dominio z-transformation es:
+
+                             -1-M
+                 b [0] + b [1] z + ... + b [M] z
+         Y (z) = -------------------------------- X (z)
+                             -1 -N
+                 a [0] + a [1] z + ... + a [N] z
+
+    Ejemplos
+    --------
+    Generar una señal ruidosa para ser filtrada:
+
+    >>> de la señal de importación de scipy
+    >>> import matplotlib.pyplot como plt
+    >>> t = np.linspace (-1, 1, 201)
+    >>> x = (np.sin (2 * np.pi * 0.75 * t * (1-t) + 2.1) +
+    ... 0,1 * np.sin (2 * np.pi * 1,25 * t + 1) +
+    ... 0,18 * np.cos (2 * np.pi * 3,85 * t))
+    >>> xn = x + np.random.randn (len (t)) * 0.08
+
+    Crear un filtro lowbut butterworth de 3 pedidos:
+
+    >>> b, a = señal.butter (3, 0.05)
+
+    Aplique el filtro a xn. Utilice lfilter_zi para elegir la condición inicial de
+    el filtro:
+
+    >>> zi = signal.lfilter_zi (b, a)
+    >>> z, _ = signal.lfilter (b, a, xn, zi = zi * xn [0])
+
+    Aplique de nuevo el filtro para que un resultado se filtre en un pedido igual que
+    filtfilt:
+
+    >>> z2, _ = signal.lfilter (b, a, z, zi = zi * z [0])
+
+    Utilice filtfilt para aplicar el filtro:
+
+    >>> y = signal.filtfilt (b, a, xn)
+
+    Trace la señal original y las diversas versiones filtradas:
+
+    >>> plt.figure
+    >>> plt.plot (t, xn, 'b', alfa = 0.75)
+    >>> plt.plot (t, z, 'r--', t, z2, 'r', t, y, 'k')
+    >>> plt.legend (('señal ruidosa', 'lfilter, una vez', 'lfilter, dos veces',
+    ... 'filtfilt'), loc = 'mejor')
+    >>> plt.grid (Verdadero)
+    >>> plt.show ()

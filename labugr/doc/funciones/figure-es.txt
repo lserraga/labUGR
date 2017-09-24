@@ -1,0 +1,44 @@
+Crea una nueva figura.
+
+    Parámetros
+    ----------
+
+    num: entero o cadena, opcional, predeterminado: ninguno
+        Si no se proporciona, se creará una nueva figura y el número de la figura
+        se incrementará. Los objetos figura tienen este número en un `número`
+        atributo.
+        Si se proporciona num, y ya existe una figura con este identificador, haga
+        activa, y devuelve una referencia a ella. Si esta cifra no
+        existe, lo crea y lo devuelve.
+        Si num es una cadena, el título de la ventana se ajustará a la cifra
+        `num`.
+
+    figsize: tupla de enteros, opcional, predeterminada: Ninguna
+        ancho, altura en pulgadas. Si no se proporciona, por defecto a rc
+        figure.figsize.
+
+    dpi: entero, opcional, predeterminado: Ninguno
+        resolución de la figura. Si no se proporciona, por defecto rc figure.dpi.
+
+    color de la cara:
+        el color de fondo. Si no se proporciona, por defecto rc figure.facecolor
+
+    edgecolor:
+        el color de la frontera. Si no se proporciona, por defecto rc figure.edgecolor
+
+    Devoluciones
+    -------
+    figura: Figura
+        La instancia de la figura devuelta también se pasará a new_figure_manager
+        en los backends, lo que permite enganchar clases personalizadas de
+        pylab. Los kwargs adicionales se pasarán a la figura init
+        función.
+
+    Notas
+    -----
+    Si está creando muchas cifras, asegúrese de llamar explícitamente a "cerrar"
+    en las cifras que no está utilizando, porque esto permitirá pylab
+    para limpiar adecuadamente la memoria.
+
+    rcParams define los valores predeterminados, que se pueden modificar en
+    archivo matplotlibrc

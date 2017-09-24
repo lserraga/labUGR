@@ -1,0 +1,7 @@
+Reproduce archivos de audio. Si el archivo de audio no está en el formato wav, primero
+    lo decodifica y luego usa read from wavfile para reproducirlo. Utiliza el portaudio
+    biblioteca.
+
+    Parámetros
+    ----------
+    filename: string

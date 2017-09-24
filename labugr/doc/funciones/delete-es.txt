@@ -1,0 +1,54 @@
+Devuelve una matriz nueva con sub-arrays a lo largo de un eje eliminado. Para uno
+    dimensional, esto devuelve aquellas entradas no devueltas por
+    `arr [obj]`.
+
+    Parámetros
+    ----------
+    arr: array_like
+      Array de entrada.
+    obj: slice, int o matriz de ints
+      Indique qué sub-matrices quitar.
+    eje: int, opcional
+      El eje a lo largo del cual eliminar el subarray definido por `obj`.
+      Si `axis` es Ninguno,` obj` se aplica a la matriz aplastada.
+
+    Devoluciones
+    -------
+    salir: ndarray
+        Una copia de `arr` con los elementos especificados por` obj` eliminado. Nota
+        que `delete` no se produce en el lugar. Si `axis` es Ninguno,` out` es
+        una matriz aplanada.
+
+    Ver también
+    --------
+    insertar: Insertar elementos en una matriz.
+    append: Añade elementos al final de una matriz.
+
+    Notas
+    -----
+    A menudo es preferible usar una máscara booleana. Por ejemplo:
+
+    >>> mask = np.ones (len (arr), dtype = bool)
+    >>> Máscara [[0,2,4]] = Falso
+    >>> result = arr [máscara, ...]
+
+    Es equivalente a `np.delete (arr, [0,2,4], axis = 0)`, pero permite
+    uso de `mask`.
+
+    Ejemplos
+    --------
+    >>> arr = np.array ([[1,2,3,4], [5,6,7,8], [9,10,11,12]])
+    arr
+    matriz ([[1, 2, 3, 4],
+           [5, 6, 7, 8],
+           [9, 10, 11, 12]])
+    >>> np.delete (arr, 1, 0)
+    matriz ([[1, 2, 3, 4],
+           [9, 10, 11, 12]])
+
+    >>> np.delete (arr, np.s _ [:: 2], 1)
+    array ([[2, 4],
+           [6, 8],
+           [10, 12]])
+    >>> np.delete (arr, [1,3,5], None)
+    matriz ([1, 3, 5, 7, 8, 9, 10, 11, 12])

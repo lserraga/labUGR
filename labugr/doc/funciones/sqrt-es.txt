@@ -1,0 +1,52 @@
+sqrt (x, /, out = Ninguno, *, donde = True, casting = 'same_kind', order = 'K', dtype = Ninguno, subok = True [, signature, extobj]
+
+DevuDevuelve la raíz cuadrada positiva de una matriz, en función de los elementos.
+
+Parámetros
+----------
+x: array_like
+    Los valores cuyas raíces cuadradas son requeridas.
+out: ndarray, None, o tuple de ndarray y None, opcional
+    Una ubicación en la que se almacena el resultado. Si se proporciona, debe tener
+    una forma a la que se transmiten las entradas. Si no se proporciona o «Ninguno»,
+    se devuelve una matriz recién asignada. Una tupla (posible sólo como
+    argumento de palabra clave) debe tener una longitud igual al número de salidas.
+donde: array_like, opcional
+    Los valores de True indican para calcular la ufunc en esa posición, los valores
+    de Falso indican para dejar el valor en la salida solo.
+kwargs
+    Para otros argumentos con solo palabras clave, consulte el
+    : ref: `ufunc docs <ufuncs.kwargs>`.
+
+Devoluciones
+-------
+y: ndarray
+    Una matriz de la misma forma que `x ', que contiene el positivo
+    raíz cuadrada de cada elemento en `x '. Si cualquier elemento en `x 'es
+    complejo, se devuelve una matriz compleja (y las raíces cuadradas de
+    se calculan los reales negativos). Si todos los elementos en `x`
+    son reales, también lo es `y`, con elementos negativos que devuelven` `nan``.
+    Si `out` fue proporcionado,` y` es una referencia a él.
+
+Ver también
+--------
+lib.scimath.sqrt
+    Una versión que devuelve números complejos cuando se les da valores negativos.
+
+Notas
+-----
+* sqrt * tiene - de acuerdo con la convención común - como su rama cortar el
+real "intervalo" [`-inf`, 0), y es continua desde arriba sobre ella.
+Un corte de rama es una curva en el plano complejo a través del cual un dado
+la función compleja no puede ser continua.
+
+Ejemplos
+--------
+>>> np.sqrt ([1,4,9])
+array ([1., 2., 3.])
+
+>>> np.sqrt ([4, -1, -3 + 4J])
+matriz ([2. + 0.j, 0. + 1.j, 1. + 2.j])
+
+>>> np.sqrt ([4, -1, numpy.inf])
+matriz ([2., NaN, Inf])

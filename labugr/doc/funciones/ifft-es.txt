@@ -1,0 +1,41 @@
+Devuelve la transformada de Fourier inversa discreta de la secuencia real o compleja.
+
+    La matriz compleja devuelta contiene y (0), y (1), ..., y (n-1) `` donde
+
+    `` y (j) = (x * exp (2 * pi * sqrt (-1) * j * np.arange (n) / n)). mean () ``.
+
+    Parámetros
+    ----------
+    x: array_like
+        Datos transformados para invertir.
+    n: int, opcional
+        Longitud de la transformada de Fourier inversa. Si `` n <x.shape [axis] ``,
+        `x` está truncado. Si `` n> x.shape [axis] ``, `x` tiene cero relleno.
+        El resultado predeterminado es `` n = x.shape [axis] ``.
+    eje: int, opcional
+        Eje a lo largo del cual se calculan los ifft; el valor predeterminado es el
+        último eje (es decir, "eje = -1").
+    overwrite_x: bool, opcional
+        Si es cierto, el contenido de `x 'puede ser destruido; El valor predeterminado es falso.
+
+    Devoluciones
+    -------
+    antes: ndarray de flotadores
+        Transformada de Fourier discreta inversa.
+
+    Ver también
+    --------
+    fft: Forward FFT
+
+    Notas
+    -----
+    Se implementan rutinas de precisión simple y doble. Media precisión
+    las entradas se convertirán en una sola precisión. Entradas de punto flotante
+    se convertirá en doble precisión. Las entradas de doble precisión son
+    No soportado.
+
+    Esta función es más eficiente cuando `n` es una potencia de dos, y menos
+    eficiente cuando `n` es primo.
+
+    Si el tipo de datos de `x 'es real, un algoritmo" IFFT real "es automáticamente
+    utilizado, lo que reduce a la mitad el tiempo de cálculo.

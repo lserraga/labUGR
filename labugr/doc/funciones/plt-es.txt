@@ -1,0 +1,12 @@
+Proporciona un marco de trazado similar a MATLAB.
+
+: mod: `~ matplotlib.pylab` combina pyplot con numpy en un solo espacio de nombres.
+Esto es conveniente para el trabajo interactivo, pero para programarlo
+se recomienda que los espacios de nombres se mantengan separados, por ejemplo:
+
+    importar numpy como np
+    import matplotlib.pyplot as plt
+
+    x = np.arange (0, 5, 0,1);
+    y = np.sin (x)
+    plt.plot (x, y)

@@ -1,0 +1,3 @@
+float (x) -> número de punto flotante
+
+Convierta una cadena o número a un número de punto flotante, si es posible.

@@ -1,0 +1,52 @@
+Calcular la respuesta de frecuencia de un sistema de tiempo continuo.
+
+    Parámetros
+    ----------
+    system: una instancia de la clase `lti` o una tupla que describe el sistema.
+        Lo siguiente da el número de elementos en la tupla y
+        la interpretación:
+
+            * 1 (instancia de lti)
+            * 2 (num, den)
+            * 3 (ceros, polos, ganancia)
+            * 4 (A, B, C, D)
+
+    w: array_like, opcional
+        Conjunto de frecuencias (en rad / s). Los datos de magnitud y fase son
+        calculado para cada valor en esta matriz. Si no
+        set.
+    n: int, opcional
+        Número de puntos de frecuencia a calcular si `w` no se da. El `n`
+        las frecuencias se espacian logaritmicamente en un intervalo elegido para
+        incluyen la influencia de los polos y ceros del sistema.
+
+    Devoluciones
+    -------
+    w: 1D ndarray
+        Matriz de frecuencia [rad / s]
+    H: 1D ndarray
+        Array de valores complejos de magnitud
+
+    Notas
+    -----
+    Si (num, den) es pasado para `` system``, los coeficientes tanto para el
+    numerador y denominador debe ser especificado en exponente descendente
+    (por ejemplo, `` s ^ 2 + 3s + 5`` se representaría como `` [1, 3, 5] ``).
+
+    Ejemplos
+    --------
+    Generación del diagrama de Nyquist de una función de transferencia
+
+    >>> de la señal de importación de scipy
+    >>> import matplotlib.pyplot como plt
+
+    Función de transferencia: H (s) = 5 / (s-1) ^ 3
+
+    >>> s1 = señal.ZerosPolesGain ([], [1, 1, 1], [5])
+
+    >>> w, H = señal.freqresp (s1)
+
+    >>> plt.figure ()
+    >>> plt.plot (H.real, H.imag, "b")
+    >>> plt.plot (H.real, -H.imag, "r")
+    >>> plt.show ()

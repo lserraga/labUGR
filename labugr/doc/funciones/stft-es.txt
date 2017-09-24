@@ -1,0 +1,132 @@
+Calcule la transformada de Fourier de corto tiempo (STFT).
+
+    Las STFT pueden usarse como una forma de cuantificar el cambio de una
+    la frecuencia de la señal no estacionaria y el contenido de fase en el tiempo.
+
+    Parámetros
+    ----------
+    x: array_like
+        Series temporales de valores de medición
+    fs: float, opcional
+        Frecuencia de muestreo de la serie temporal `x '. El valor predeterminado es 1,0.
+    window: str o tuple o array_like, opcional
+        Ventana deseada para usar. Si `window` es una cadena o tupla, es
+        pasó a `get_window` para generar los valores de la ventana, que son
+        DFT-incluso por defecto. Vea `get_window` para una lista de ventanas y
+        parámetros requeridos. Si `window` es array_like, se utilizará
+        directamente como la ventana y su longitud debe ser nperseg. Predeterminados
+        a una ventana de Hann.
+    nperseg: int, opcional
+        Longitud de cada segmento. El valor predeterminado es 256.
+    noverlap: int, opcional
+        Número de puntos a superponer entre segmentos. Si `Ninguno`,
+        `` noverlap = nperseg // 2``. El valor predeterminado es `Ninguno '. Cuando
+        especificado, se debe cumplir la restricción COLA (ver Notas más adelante).
+    nfft: int, opcional
+        Longitud de la FFT utilizada, si se desea una FFT con relleno cero. Si
+        `None`, la longitud FFT es` nperseg`. El valor predeterminado es `Ninguno '.
+    detrend: str o función o `Falso`, opcional
+        Especifica cómo detrendir cada segmento. Si `detrend` es un
+        string, se pasa como el argumento `type` al` detrend`
+        función. Si es una función, toma un segmento y devuelve un
+        segmento detrendido. Si `detrend` es` False`, no hay detrending
+        hecho. El valor predeterminado es `Falso`.
+    return_onesided: bool, opcional
+        Si `True`, devuelve un espectro unilateral para datos reales. Si
+        `False` devuelve un espectro de dos caras. Tenga en cuenta que para complejos
+        datos, siempre se devuelve un espectro de dos caras. Por defecto
+        `Verdadero '.
+    boundary: str o Ninguno, opcional
+        Especifica si la señal de entrada se extiende en ambos extremos, y
+        cómo generar los nuevos valores, con el fin de centrar la primera
+        ventana en el primer punto de entrada. Esto tiene el beneficio
+        de habilitar la reconstrucción del primer punto de entrada cuando el
+        la función de ventana empleada comienza en cero. Las opciones válidas son
+        `` ['even', 'odd', 'constant', 'zeros', None] ``. Por defecto
+        'ceros', para la extensión de relleno cero. Es decir. `` [1, 2, 3, 4] `` es
+        extendido a `` [0, 1, 2, 3, 4, 0] `` para `` nperseg = 3``.
+    acolchado: bool, opcional
+        Especifica si la señal de entrada tiene cero relleno al final
+        haga que la señal encaje exactamente en un número entero de ventana
+        segmentos, de manera que toda la señal esté incluida en la salida.
+        El valor predeterminado es `True`. El relleno ocurre después de la extensión del límite, si
+        `boundary` no es` None`, y `padded` es` True`, como es el
+        defecto.
+    eje: int, opcional
+        Eje a lo largo del cual se calcula la STFT; el valor predeterminado es el
+        último eje (es decir, "eje = -1").
+
+    Devoluciones
+    -------
+    f: ndarray
+        Conjunto de frecuencias de muestreo.
+    t: ndarray
+        Conjunto de tiempos de segmento.
+    Zxx: ndarray
+        STFT de `x '. Por defecto, el último eje de `Zxx`
+        a los tiempos del segmento.
+
+    Ver también
+    --------
+    istft: Transformada de Fourier inversa de corto tiempo
+    check_COLA: Compruebe si la restricción Constant OverLap Add (COLA)
+                se cumple
+    welch: Densidad espectral de potencia según el método de Welch.
+    espectrograma: Espectrografía por el método de Welch.
+    csd: Densidad espectral cruzada por el método de Welch.
+    lombscargle: Periódromo Lomb-Scargle para datos desigualmente muestreados
+
+    Notas
+    -----
+    Con el fin de permitir la inversión de una STFT a través de la STFT inversa en
+    `istft`, la ventana de señalización debe obedecer la restricción de" Constant
+    OverLap Add "(COLA), y la señal de entrada debe tener
+    cobertura de ventanas (es decir, "(x.shape [eje] - nperseg)%
+    (nperseg-noverlap) == 0``). El argumento `padded` puede utilizarse para
+    lograr esto.
+
+    La restricción COLA garantiza que cada punto de los datos de entrada es
+    igualmente ponderada, evitando así el aliasing y permitiendo
+    reconstrucción. Ya sea una opción de `ventana`,` nperseg`, y
+    `noverlap` satisfacer esta restricción se puede probar con
+    `check_COLA`.
+
+    .. versionadded :: 0.19.0
+
+    Referencias
+    ----------
+    [1] Oppenheim, Alan V., Ronald W. Schafer, John R. Buck
+           "Procesamiento de Señal de Tiempo Discreto", Prentice Hall, 1999.
+    .. [2] Daniel W. Griffin,Jae S. Limdt "Estimación de la señal de
+           Transformada de Fourier corta modificada ", IEEE 1984,
+           10.1109 / TASSP.1984.1164317
+
+    Ejemplos
+    --------
+    >>> de la señal de importación de scipy
+    >>> import matplotlib.pyplot como plt
+
+    Generar una señal de prueba, una onda senoidal de 2 Vrms cuya frecuencia es lenta
+    modulada alrededor de 3kHz, corrompida por el ruido blanco de forma exponencial
+    la magnitud decreciente se muestrea a 10 kHz.
+
+    >>> fs = 10e3
+    >>> N = 1e5
+    >>> amp = 2 * np.sqrt (2)
+    >>> noise_power = 0.01 * fs / 2
+    >>> time = np.arange (N) / float (fs)
+    >>> mod = 500 * np.cos (2 * np.pi * 0,25 * tiempo)
+    >>> portadora = amp * np.sin (2 * np.pi * 3e3 * time + mod)
+    >>> noise = np.random.normal (scale = np.sqrt (noise_power),
+    ... size = time.shape)
+    >>> noise * = np.exp (-time / 5)
+    >>> x = portador + ruido
+
+    Calcule y traza la magnitud de la STFT.
+
+    >>> f, t, Zxx = señal.stft (x, fs, nperseg = 1000)
+    >>> plt.pcolormesh (t, f, np.abs (Zxx), vmin = 0, vmax = amp)
+    >>> plt.title ('STFT Magnitude')
+    >>> plt.ylabel ('Frecuencia [Hz]')
+    >>> plt.xlabel ('Tiempo [sec]')
+    >>> plt.show ()

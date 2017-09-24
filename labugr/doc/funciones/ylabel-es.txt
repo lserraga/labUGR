@@ -1,0 +1,15 @@
+Establezca la etiqueta del eje * y * del eje actual.
+
+    La anulación por defecto es ::
+
+        anular
+           'fontsize': 'pequeño',
+           «alineación vertical»: «centro»,
+           «alineación horizontal»: «derecha»,
+           'rotación' = 'vertical':}
+
+    .. ver también::
+
+        : func: `~ matplotlib.pyplot.text`
+            Para obtener información sobre cómo anular y los args opcionales
+            trabajo.

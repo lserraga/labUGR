@@ -1,0 +1,47 @@
+Construya una matriz ejecutando una función sobre cada coordenada.
+
+    La matriz resultante tiene por lo tanto un valor "fn (x, y, z)" en
+    coordinar `` (x, y, z) ``.
+
+    Parámetros
+    ----------
+    función: callable
+        La función se llama con N parámetros, donde N es el rango de
+        `forma`. Cada parámetro representa las coordenadas de la matriz
+        variando a lo largo de un eje específico. Por ejemplo, si `shape`
+        eran `` (2, 2) ``, entonces los parámetros serían
+        `` array ([[0, 0], [1, 1]]) `` y `` array ([[0, 1], [0, 1]]) ``
+    forma: (N,) tupla de ints
+        Forma de la matriz de salida, que también determina la forma de
+        los arrays de coordenadas pasados ​​a `function`.
+    dtype: tipo de datos, opcional
+        Tipo de datos de los arreglos de coordenadas pasados ​​a `function`.
+        De forma predeterminada, `dtype` es flotante.
+
+    Devoluciones
+    -------
+    fromfunction: cualquier
+        El resultado de la llamada a `function` se pasa directamente.
+        Por lo tanto, la forma de `fromfunction` está completamente determinada por
+        `función`. Si `function` devuelve un valor escalar, la forma de
+        `fromfunction` coincidiría con el parámetro` shape`.
+
+    Ver también
+    --------
+    índices, meshgrid
+
+    Notas
+    -----
+    Las palabras claves distintas de `dtype` se pasan a` function`.
+
+    Ejemplos
+    --------
+    >>> np.fromfunción (lambda i, j: i == j, (3, 3), dtype = int)
+    array ([[True, Falso, Falso],
+           [Falso, Verdadero, Falso],
+           [Falso, Falso, Verdadero]], dtype = bool)
+
+    >>> np.fromfunción (lambda i, j: i + j, (3, 3), dtype = int)
+    array ([[0, 1, 2],
+           [1, 2, 3],
+           [2, 3, 4]])

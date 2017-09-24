@@ -1,0 +1,37 @@
+,,,,, = = true, casting = 'same_kind', order = 'K', dtype = Ninguno, subok = True [, signature, extobj]
+
+DevuDevuelve el techo de la entrada, en función de los elementos.
+
+El ceil del escalar `x 'es el entero más pequeño` i`, tal que
+`i> = x '. A menudo se denotan como: math: `\ lceil x \ rceil`.
+
+Parámetros
+----------
+x: array_like
+    Datos de entrada.
+out: ndarray, None, o tuple de ndarray y None, opcional
+    Una ubicación en la que se almacena el resultado. Si se proporciona, debe tener
+    una forma a la que se transmiten las entradas. Si no se proporciona o «Ninguno»,
+    se devuelve una matriz recién asignada. Una tupla (posible sólo como
+    argumento de palabra clave) debe tener una longitud igual al número de salidas.
+donde: array_like, opcional
+    Los valores de True indican para calcular la ufunc en esa posición, los valores
+    de Falso indican para dejar el valor en la salida solo.
+kwargs
+    Para otros argumentos con solo palabras clave, consulte el
+    : ref: `ufunc docs <ufuncs.kwargs>`.
+
+Devoluciones
+-------
+y: ndarray o escalar
+    El techo de cada elemento en `x`, con` float` dtype.
+
+Ver también
+--------
+piso, trunc, rint
+
+Ejemplos
+--------
+>>> a = np.array ([- 1.7, -1.5, -0.2, 0.2, 1.5, 1.7, 2.0])
+>>> np.ceil (a)
+matriz ([- 1., -1., -0., 1., 2., 2., 2.])

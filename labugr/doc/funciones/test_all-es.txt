@@ -1,0 +1,7 @@
+Prueba de todos los módulos.
+
+Devoluciones
+-------
+pasado: int
+0 si hay errores importantes, 1 si todo está bien y 2 si hay
+errores no críticos.

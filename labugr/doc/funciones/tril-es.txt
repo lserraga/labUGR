@@ -1,0 +1,28 @@
+Triángulo inferior de una matriz.
+
+    Devuelve una copia de una matriz con elementos por encima de la `k`-ésima diagonal cero.
+
+    Parámetros
+    ----------
+    m: array_like, forma (M, N)
+        Array de entrada.
+    k: int, opcional
+        Diagonal encima de la cual a cero elementos. `k = 0` (el valor predeterminado) es el
+        la diagonal principal, `k <0 'está por debajo y` k> 0` está por encima.
+
+    Devoluciones
+    -------
+    tril: ndarray, forma (M, N)
+        Triángulo inferior de «m», de la misma forma y tipo de datos que «m».
+
+    Ver también
+    --------
+    triu: lo mismo, sólo para el triángulo superior
+
+    Ejemplos
+    --------
+    >>> np.tril ([[1,2,3], [4,5,6], [7,8,9], [10,11,12]], -1)
+    array ([[0, 0, 0],
+           [4, 0, 0],
+           [7, 8, 0],
+           [10, 11, 12]])

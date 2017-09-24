@@ -1,0 +1,10 @@
+Trazar el complejo plano z dado lti sistema representado por los ceros
+    la ganancia de polos, la función de transferencia o el espacio de estado.
+    
+    Parámetros
+    ----------
+    z: lti object
+        En cualquiera de las posibles formas de representación
+    ax: matplotlib subtrama
+        Matplotlib subplot donde se representará el plano z. Si No,
+        la función crea uno y lo muestra

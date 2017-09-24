@@ -1,0 +1,24 @@
+Representación del espacio del estado a la representación de la ganancia del polo cero.
+
+    A, B, C, D define un sistema de espacio de estado lineal con entradas `p`,
+    `q` salidas, y` n` variables de estado.
+
+    Parámetros
+    ----------
+    A: array_like
+        Estado (o sistema) matriz de forma `` (n, n) ``
+    B: array_like
+        Matriz de entrada de la forma `` (n, p) ``
+    C: array_like
+        Matriz de salida de la forma `` (q, n) ``
+    D: array_like
+        Matriz de alimentación (o feedforward) de la forma `` (q, p) ``
+    entrada: int, opcional
+        Para sistemas de entradas múltiples, el índice de la entrada a utilizar.
+
+    Devoluciones
+    -------
+    z, p: secuencia
+        Cero y polo.
+    k: float
+        Ganancia del sistema.

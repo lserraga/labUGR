@@ -1,0 +1,43 @@
+hipot (x1, x2, /, out = Ninguno, *, donde = Verdadero, casting = 'same_kind', order = 'K', dtype =
+
+DadaDadas las "piernas" de un triángulo rectángulo, devuelve su hipotenusa.
+
+Equivalente a `` sqrt (x1 ** 2 + x2 ** 2) ``, en función de los elementos. Si `x1` o
+`x2` es parecido a un escalar (es decir, sin ambigüedad capaz de transmitirse a un tipo escalar),
+se emite para su uso con cada elemento del otro argumento.
+(Ver Ejemplos)
+
+Parámetros
+----------
+x1, x2: array_like
+    Pierna del triángulo (s).
+out: ndarray, None, o tuple de ndarray y None, opcional
+    Una ubicación en la que se almacena el resultado. Si se proporciona, debe tener
+    una forma a la que se transmiten las entradas. Si no se proporciona o «Ninguno»,
+    se devuelve una matriz recién asignada. Una tupla (posible sólo como
+    argumento de palabra clave) debe tener una longitud igual al número de salidas.
+donde: array_like, opcional
+    Los valores de True indican para calcular la ufunc en esa posición, los valores
+    de Falso indican para dejar el valor en la salida solo.
+kwargs
+    Para otros argumentos con solo palabras clave, consulte el
+    : ref: `ufunc docs <ufuncs.kwargs>`.
+
+Devoluciones
+-------
+z: ndarray
+    La hipotenusa del (de los) triángulo (s).
+
+Ejemplos
+--------
+>>> np.hypot (3 * np.ones ((3, 3)), 4 * np.ones ((3, 3)))
+matriz ([[5., 5., 5.],
+       [5., 5., 5.],
+       [5., 5., 5.]])
+
+Ejemplo de difusión del argumento scalar_like:
+
+>>> np.hypot (3 * np.ones ((3, 3)), [4])
+matriz ([[5., 5., 5.],
+       [5., 5., 5.],
+       [5., 5., 5.]])

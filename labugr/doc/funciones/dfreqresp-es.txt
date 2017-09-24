@@ -1,0 +1,58 @@
+Calcular la respuesta en frecuencia de un sistema de tiempo discreto.
+
+    Parámetros
+    ----------
+    system: una instancia de la clase `dlti` o una tupla que describe el sistema.
+        Lo siguiente da el número de elementos en la tupla y
+        la interpretación:
+
+            * 1 (instancia de `dlti`)
+            * 2 (numerador, denominador, dt)
+            * 3 (ceros, polos, ganancia, dt)
+            * 4 (A, B, C, D, dt)
+
+    w: array_like, opcional
+        Conjunto de frecuencias (en radianes / muestra). Los datos de magnitud y fase son
+        calculado para cada valor en esta matriz. Si no se le da un
+        set.
+    n: int, opcional
+        Número de puntos de frecuencia a calcular si `w` no se da. El `n`
+        las frecuencias se espacian logaritmicamente en un intervalo elegido para
+        incluyen la influencia de los polos y ceros del sistema.
+    todo: bool, opcional
+        Normalmente, si 'w' no se da, las frecuencias se calculan de 0 a la
+        Frecuencia de Nyquist, pi radianes / muestra (mitad superior de unidad-círculo). Si
+        `whole` es True, calcula frecuencias de 0 a 2 * pi radianes / muestra.
+
+    Devoluciones
+    -------
+    w: 1D ndarray
+        Matriz de frecuencia [radianes / muestra]
+    H: 1D ndarray
+        Array de valores complejos de magnitud
+
+    Notas
+    -----
+    Si (num, den) es pasado para `` system``, los coeficientes tanto para el
+    numerador y denominador debe ser especificado en exponente descendente
+    (por ejemplo, `` z ^ 2 + 3z + 5`` se representaría como `` [1, 3, 5] ``).
+
+    .. versionadded :: 0.18.0
+
+    Ejemplos
+    --------
+    Generación del diagrama de Nyquist de una función de transferencia
+
+    >>> de la señal de importación de scipy
+    >>> import matplotlib.pyplot como plt
+
+    Función de transferencia: H (z) = 1 / (z ^ 2 + 2z + 3)
+
+    >>> sys = signal.TransferFunction ([1], [1, 2, 3], dt = 0.05)
+
+    >>> w, H = signal.dfreqresp (sys)
+
+    >>> plt.figure ()
+    >>> plt.plot (H.real, H.imag, "b")
+    >>> plt.plot (H.real, -H.imag, "r")
+    >>> plt.show ()

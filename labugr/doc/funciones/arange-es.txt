@@ -1,0 +1,56 @@
+arange ([start,] stop [, paso,], dtype = Ninguno)
+
+    DevuDevuelve valores uniformemente espaciados dentro de un intervalo dado.
+
+    Los valores se generan dentro del intervalo intermedio `` [start, stop) ``
+    (en otras palabras, el intervalo que incluye `start` pero excluyendo` stop`).
+    Para argumentos enteros, la función es equivalente a la función integrada de Python
+    `range <http://docs.python.org/lib/built-in-funcs.html>` _ función,
+    pero devuelve un ndarray en lugar de una lista.
+
+    Cuando se utiliza un paso no entero, tal como 0,1, los resultados a menudo no
+    se consistente. Es mejor usar `` linspace`` para estos casos.
+
+    Parámetros
+    ----------
+    inicio: número, opcional
+        Inicio del intervalo. El intervalo incluye este valor. El valor por defecto
+        el valor inicial es 0.
+    parada número
+        Fin del intervalo. El intervalo no incluye este valor, excepto
+        en algunos casos donde `step` no es un entero y punto flotante
+        redondeo afecta a la longitud de `out`.
+    paso: número, opcional
+        Espaciado entre valores. Para cualquier salida `out`, esta es la distancia
+        entre dos valores adyacentes, `` out [i + 1] - out [i] ``. El valor por defecto
+        el tamaño del paso es 1. Si `step` es especificado,` start` también debe ser dado.
+    dtype: dtype
+        El tipo de matriz de salida. Si `dtype` no se da, deduzca los datos
+        tipo de los otros argumentos de entrada.
+
+    Devoluciones
+    -------
+    arange: ndarray
+        Array de valores uniformemente espaciados.
+
+        Para argumentos de punto flotante, la longitud del resultado es
+        `` ceil ((stop - inicio) / paso) ``. Debido a desbordamiento de coma flotante,
+        esta regla puede resultar en que el último elemento de `out` sea mayor
+        que `detener '.
+
+    Ver también
+    --------
+    linspace: Números uniformemente espaciados con un manejo cuidadoso de los puntos finales.
+    ogrid: Matrices de números uniformemente espaciados en N-dimensiones.
+    mgrid: Matrices en forma de cuadrícula de números uniformemente espaciados en N-dimensiones.
+
+    Ejemplos
+    --------
+    >>> np.arange (3)
+    matriz ([0, 1, 2])
+    >>> np.arange (3.0)
+    matriz ([0., 1., 2.])
+    >>> np.arange (3,7)
+    matriz ([3, 4, 5, 6])
+    >>> np.arange (3,7,2)
+    array ([3, 5])

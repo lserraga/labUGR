@@ -1,0 +1,38 @@
+Establecer un título de los ejes actuales.
+
+    Establezca uno de los tres títulos de ejes disponibles. Los títulos disponibles son
+    colocados por encima de los ejes en el centro, alineados con el borde izquierdo,
+    y a ras con el borde derecho.
+
+    .. ver también::
+        Ver: func: `~ matplotlib.pyplot.text` para agregar texto
+        a los ejes actuales
+
+    Parámetros
+    ----------
+    etiqueta: str
+        Texto a utilizar para el título
+
+    fontdict dict
+        Un diccionario que controla la apariencia del texto del título,
+        el `fontdict` predeterminado es:
+
+            {'fontsize': rcParams ['axes.titlesize'],
+            'fontweight': rcParams ['axes.titleweight'],
+            «alineación vertical»: «línea de base»,
+            'horizontalalignment': loc}
+
+    loc: {'centro', 'izquierda', 'derecha'}, str, opcional
+        Qué título establecer, por defecto a 'centro'
+
+    Devoluciones
+    -------
+    texto:: clase: `~ matplotlib.text.Text`
+        La instancia de texto matplotlib que representa el título
+
+    Otros parámetros
+    ----------------
+    kwargs: propiedades de texto
+        Otros argumentos de palabras clave son propiedades de texto, consulte
+        : class: `~ matplotlib.text.Text` para una lista de texto válido
+        propiedades.

@@ -1,0 +1,2 @@
+Decodifica un archivo de audio en un archivo wav. Genera un nuevo archivo en el
+    proceso.

@@ -1,0 +1,74 @@
+Los números de retorno espaciados uniformemente en una escala de registro.
+
+    En el espacio lineal, la secuencia comienza en `` base ** start``
+    (`base` a la potencia de` start`) y termina con `` base ** stop``
+    (véase `punto final 'a continuación).
+
+    Parámetros
+    ----------
+    comienzo float
+        `` base ** start`` es el valor inicial de la secuencia.
+    detener: flotar
+        `` base ** stop`` es el valor final de la secuencia, a menos que `endpoint`
+        Es falso. En ese caso, los valores de `` num + 1`` están espaciados sobre el
+        intervalo en log-espacio, de los cuales todos excepto el último (una secuencia de
+        longitud `núm ').
+    num: entero, opcional
+        Número de muestras a generar. El valor predeterminado es 50.
+    punto final: booleano, opcional
+        Si es verdadero, `stop` es la última muestra. De lo contrario, no está incluido.
+        El valor predeterminado es True.
+    base: float, opcional
+        La base del espacio de registro. El tamaño del paso entre los elementos
+        `` ln (samples) / ln (base) `` (o `` log_base (samples) ``) es uniforme.
+        El valor predeterminado es 10.0.
+    dtype: dtype
+        El tipo de matriz de salida. Si `dtype` no se da, deduzca los datos
+        tipo de los otros argumentos de entrada.
+
+    Devoluciones
+    -------
+    muestras: ndarray
+        muestras "num", igualmente espaciadas en una escala logarítmica.
+
+    Ver también
+    --------
+    arange: Similar a linspace, con el tamaño de paso especificado en lugar de
+             número de muestras. Tenga en cuenta que, cuando se utiliza con un punto final flotante, el
+             punto final puede o no puede incluirse.
+    linspace: Similar al espacio de registro, pero con las muestras uniformemente distribuidas
+               en espacio lineal, en lugar de espacio de registro.
+    geomspace: Semejante al espacio de registro, pero con endpoints especificados directamente.
+
+    Notas
+    -----
+    El espacio de registro es equivalente al código
+
+    >>> y = np.linspace (start, stop, num = num, endpoint = endpoint)
+    ... # doctest: + SKIP
+    >>> poder (base, y) .tipo (dtype)
+    ... # doctest: + SKIP
+
+    Ejemplos
+    --------
+    >>> np.logspace (2.0, 3.0, num = 4)
+    matriz ([100., 215.443469, 464.15888336, 1000.])
+    >>> np.logspace (2.0, 3.0, num = 4, endpoint = False)
+    matriz ([100., 177.827941, 316.22776602, 562.34132519])
+    >>> np.logspace (2.0, 3.0, num = 4, base = 2.0)
+    matriz ([4., 5.0396842, 6.34960421, 8.])
+
+    Ilustración gráfica:
+
+    >>> import matplotlib.pyplot como plt
+    >>> N = 10
+    >>> x1 = np.logspace (0.1, 1, N, endpoint = True)
+    >>> x2 = np.logspace (0.1, 1, N, punto final = Falso)
+    >>> y = np.zeros (N)
+    >>> plt.plot (x1, y, 'o')
+    [<matplotlib.lines.Line2D objeto en 0x ...>]
+    >>> plt.plot (x2, y + 0.5, 'o')
+    [<matplotlib.lines.Line2D objeto en 0x ...>]
+    >>> plt.ylim ([- 0.5, 1])
+    (-0,5, 1)
+    >>> plt.show ()

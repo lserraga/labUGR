@@ -1,0 +1,81 @@
+Sistema de tiempo lineal invariante en forma de espacio de estado.
+
+    Representa el sistema como el tiempo continuo, diferencial de primer orden
+    ecuación: math: `\ dot {x} = A x + B u 'o la diferencia de tiempo discreto
+    ecuación: math: `x [k + 1] = A x [k] + B u [k]`. Sistemas `StateSpace`
+    heredan funcionalidad adicional del `lti`, respectivamente` dlti`
+    dependiendo de la representación del sistema que se utilice.
+
+    Parámetros
+    ----------
+    * system: argumentos
+        La clase `StateSpace` puede ser instanciada con 1 ó 3 argumentos.
+        A continuación se indica el número de argumentos de entrada y su
+        interpretación:
+
+            * 1: `lti` o` dlti` sistema: (`StateSpace`,` TransferFunction` o
+              `ZerosPolesGain`)
+            * 4: array_like: (A, B, C, D)
+    dt: float, opcional
+        Tiempo de muestreo [s] de los sistemas de tiempo discreto. El valor predeterminado es `None`
+        (tiempo continuo). Debe especificarse como un argumento de palabra clave, para
+        ejemplo, `` dt = 0.1``.
+
+    Ver también
+    --------
+    TransferFunction, ZerosPolesGain, lti, dlti
+    ss2zpk, ss2tf, zpk2sos
+
+    Notas
+    -----
+    Cambiar el valor de las propiedades que no forman parte del
+    La representación del sistema `StateSpace` (como` zeros` o `poles`) es muy
+    ineficiente y puede dar lugar a imprecisiones numéricas. Es mejor
+    convertir primero a la representación del sistema específico. Por ejemplo, llame al
+    `` sys = sys.to_zpk () `` antes de acceder / cambiar los ceros, polos o ganancia.
+
+    Ejemplos
+    --------
+    >>> de la señal de importación de scipy
+
+    >>> a = np.array ([[0, 1], [0, 0]])
+    >>> b = np.array ([[0], [1]])
+    >>> c = np.array ([[1, 0]])
+    >>> d = np.array ([[0]])
+
+    >>> sys = signal.StateSpace (a, b, c, d)
+    >>> imprimir (sys)
+    StateSpaceContinuous (
+    matriz ([[0, 1],
+           [0, 0]]),
+    array ([[0],
+           [1]]),
+    array ([[1, 0]]),
+    array ([[0]]),
+    dt: Ninguno
+    )
+
+    >>> sys.to_discrete (0.1)
+    StateSpaceDiscrete (
+    array ([[1., 0.1],
+           [0., 1.]]),
+    matriz ([[0,005],
+           [0,1]]),
+    array ([[1, 0]]),
+    array ([[0]]),
+    dt: 0,1
+    )
+
+    >>> a = np.array ([[1, 0.1], [0, 1]])
+    >>> b = np.array ([[0.005], [0.1]])
+
+    >>> signal.StateSpace (a, b, c, d, dt = 0.1)
+    StateSpaceDiscrete (
+    array ([[1., 0.1],
+           [0., 1.]]),
+    matriz ([[0,005],
+           [0,1]]),
+    array ([[1, 0]]),
+    array ([[0]]),
+    dt: 0,1
+    )

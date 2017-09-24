@@ -1,0 +1,55 @@
+Roll elementos de la matriz a lo largo de un eje dado.
+
+    Los elementos que ruedan más allá de la última posición se vuelven a introducir en
+    el primero.
+
+    Parámetros
+    ----------
+    a: array_like
+        Array de entrada.
+    shift: int o tupla de ints
+        El número de lugares por los cuales los elementos se desplazan. Si una tupla,
+        entonces `axis` debe ser una tupla del mismo tamaño, y cada uno de los
+        los ejes dados se desplaza por el número correspondiente. Si un int
+        mientras `axis` es una tupla de ints, entonces se usa el mismo valor para
+        todos los ejes dados.
+    eje: int o tupla de ints, opcional
+        Eje o ejes a lo largo de los cuales se desplazan los elementos. De forma predeterminada,
+        array es aplanado antes de cambiar, después de lo cual el original
+        se restablece la forma.
+
+    Devoluciones
+    -------
+    res: ndarray
+        Array de salida, con la misma forma que `a`.
+
+    Ver también
+    --------
+    rollaxis: Rodar el eje especificado hacia atrás, hasta que se encuentre
+               dada la posición.
+
+    Notas
+    -----
+    .. versionadded :: 1.12.0
+
+    Soporta rodar sobre múltiples dimensiones simultáneamente.
+
+    Ejemplos
+    --------
+    >>> x = np.arange (10)
+    >>> np.roll (x, 2)
+    matriz ([8, 9, 0, 1, 2, 3, 4, 5, 6, 7])
+
+    >>> x2 = np.reshape (x, (2,5))
+    x2
+    matriz ([[0, 1, 2, 3, 4],
+           [5, 6, 7, 8, 9]])
+    >>> np.roll (x2, 1)
+    array ([[9, 0, 1, 2, 3],
+           [4, 5, 6, 7, 8]])
+    >>> np.roll (x2, 1, axis = 0)
+    matriz ([[5, 6, 7, 8, 9],
+           [0, 1, 2, 3, 4]])
+    >>> np.roll (x2, 1, axis = 1)
+    matriz ([[4, 0, 1, 2, 3],
+           [9, 5, 6, 7, 8]])

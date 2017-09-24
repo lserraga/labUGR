@@ -1,0 +1,78 @@
+Chebyshev tipo I diseño de filtro digital y analógico.
+
+    Diseñe un filtro de Chebyshev de tipo I de tipo N o de orden
+    devuelven los coeficientes del filtro.
+
+    Parámetros
+    ----------
+    N: int
+        El orden del filtro.
+    rp: float
+        La ondulación máxima permitida por debajo de la ganancia unitaria en la banda de paso.
+        Se especifica en decibelios, como un número positivo.
+    Wn: array_like
+        Una secuencia escalar o longitud-2 que da las frecuencias críticas.
+        Para filtros Tipo I, este es el punto en la banda de transición en la que
+        la ganancia primero cae por debajo de `` rp`.
+        Para los filtros digitales, `Wn` se normaliza de 0 a 1, donde 1 es el
+        Frecuencia de Nyquist, pi radianes / muestra. («Wn» está así en
+        semiciclos / muestra).
+        Para los filtros analógicos, `Wn` es una frecuencia angular (por ejemplo rad / s).
+    btype: {'lowpass', 'highpass', 'bandpass', 'bandstop'}, opcional
+        El tipo de filtro. El valor predeterminado es 'lowpass'.
+    analógico: bool, opcional
+        Cuando True, devuelva un filtro analógico, de lo contrario, se
+        devuelto
+    salida: {'ba', 'zpk', 'sos'}, opcional
+        Tipo de salida: numerador / denominador ('ba'), polo-cero ('zpk'), o
+        secciones de segundo orden ('sos'). El valor predeterminado es 'ba'.
+
+    Devoluciones
+    -------
+    b, a: ndarray, ndarray
+        Numerador (`b`) y denominador (` a`) polinomios del filtro IIR.
+        Sólo devuelto si `` output = 'ba'``.
+    z, p, k: ndarray, ndarray, float
+        Zeros, polos y ganancia del sistema de la transferencia del filtro IIR
+        función. Sólo devuelto si `` output = 'zpk'``.
+    sos: ndarray
+        Representación de secciones de segundo orden del filtro IIR.
+        Sólo devuelto si `` output == 'sos'``.
+
+    Ver también
+    --------
+    cheb1ord cheb1ap
+
+    Notas
+    -----
+    El filtro Chebyshev tipo I maximiza la tasa de corte entre el
+    banda de frecuencias de respuesta de frecuencia y de parada, a expensas de
+    la banda de paso y el aumento de timbre en la respuesta de escalón.
+
+    Los filtros de tipo I se despliegan más rápido que el tipo II (`cheby2`), pero el tipo II
+    los filtros no tienen ninguna ondulación en la banda de paso.
+
+    La banda de paso equiripple tiene N máximos o mínimos (por ejemplo, un
+    El filtro de 5to orden tiene 3 máximos y 2 mínimos). Consecuentemente, la ganancia DC es
+    unidad para filtros de orden impar o -rp dB para filtros de orden par.
+
+    El parámetro de salida `` 'sos'`` se añadió en 0.16.0.
+
+    Ejemplos
+    --------
+    Trace la respuesta de frecuencia del filtro, mostrando los puntos críticos:
+
+    >>> de la señal de importación de scipy
+    >>> import matplotlib.pyplot como plt
+
+    >>> b, a = signal.cheby1 (4, 5, 100, 'bajo', analógico = verdadero)
+    >>> w, h = señal.frecuencias (b, a)
+    >>> plt.semilogx (w, 20 * np.log10 (abs (h)))
+    >>> plt.title ('Chebyshev Tipo I respuesta de frecuencia (rp = 5)')
+    >>> plt.xlabel ('Frecuencia [radianes / segundo]')
+    >>> plt.ylabel ('Amplitud [dB]')
+    >>> plt.margins (0, 0.1)
+    >>> plt.grid (which = 'both', axis = 'both')
+    >>> plt.axvline (100, color = 'verde') # frecuencia de corte
+    >>> plt.axhline (-5, color = 'verde') # rp
+    >>> plt.show ()

@@ -1,0 +1,117 @@
+Integración sobre múltiples variables.
+
+    Wraps `quad` para permitir la integración a través de múltiples variables.
+    Varias opciones permiten una mejor integración de funciones discontinuas,
+    así como el uso de la integración ponderada y, en general, un control más
+    proceso de integración.
+
+    Parámetros
+    ----------
+    func: {callable, scipy.LowLevelCallable}
+        La función a integrar. Tiene argumentos de `` x0, ... xn``,
+        `` t0, tm``, donde la integración se lleva a cabo sobre `` x0, ... xn``, que
+        debe ser flotante. La firma de la función debe ser
+        `` func (x0, x1, ..., xn, t0, t1, ..., tm) ``. La integración se lleva a cabo
+        en orden. Es decir, la integración sobre `` x0`` es la integral más interna,
+        y `` xn`` es la más externa.
+
+        Si el usuario desea mejorar el rendimiento de la integración, entonces `f` puede
+        ser un `scipy.LowLevelCallable` con una de las firmas ::
+
+            función doble (int n, doble * xx)
+            doble función (int n, double * xx, void * user_data)
+
+        donde `` n`` es el número de parámetros adicionales y args es un array
+        de dobles de los parámetros adicionales, el array `` xx`` contiene la
+        coordenadas. El `` user_data`` son los datos contenidos en el
+        `scipy.LowLevelCallable`.
+    rangos: objeto iterable
+        Cada elemento de intervalos puede ser una secuencia de 2 números, o bien
+        un callable que devuelve tal secuencia. `` rangos [0] `` corresponde a
+        integración sobre x0, y así sucesivamente. Si un elemento de rangos es un callable,
+        entonces se llamará con todos los argumentos de integración disponibles,
+        así como cualquier argumento paramétrico. p.ej. Si
+        `` func = f (x0, x1, x2, t0, t1) ``, entonces `` range [0] `` puede ser definido como
+        ya sea `` (a, b) `` o bien como `` (a, b) = range0 (x1, x2, t0, t1) ``.
+    args: objeto iterable, opcional
+        Argumentos adicionales `` t0, ..., tn``, requeridos por `func`,` ranges` y
+        `` opts``.
+    opts: objeto iterable o dict, opcional
+        Opciones que se pasarán a `quad`. Puede estar vacío, un dict, o
+        una secuencia de dictados o funciones que devuelven un dict. Si está vacío, el
+        se usan las opciones predeterminadas de scipy.integrate.quad. Si un dictado, el mismo
+        las opciones se utilizan para todos los niveles de integración. Si una secuencia, entonces cada
+        elemento de la secuencia corresponde a una integración particular. p.ej.
+        opts [0] corresponde a la integración sobre x0, y así sucesivamente. Si un callable,
+        la firma debe ser la misma que para `` ranges``. El disponible
+        junto con sus valores por defecto son:
+
+          - epsabs = 1.49e-08
+          - epsrel = 1.49e-08
+          - límite = 50
+          - puntos = Ninguno
+          - peso = Ninguno
+          - wvar = Ninguno
+          - wopts = Ninguno
+
+        Para obtener más información sobre estas opciones, consulte `quad` y` quad_explain`.
+
+    full_output: bool, opcional
+        Implementación parcial de `` full_output`` de scipy.integrate.quad.
+        Se puede obtener el número de evaluaciones de función integrando `` neval``
+        estableciendo `` full_output = True`` al llamar a nquad.
+
+    Devoluciones
+    -------
+    resultado: float
+        El resultado de la integración.
+    abserr: float
+        El máximo de las estimaciones del error absoluto en los distintos
+        resultados de la integración.
+    out_dict: dict, opcional
+        Una dict que contiene información adicional sobre la integración.
+
+    Ver también
+    --------
+    quad: integración numérica en 1 dimensión
+    dblquad, tplquad: integrales dobles y triples
+    fixed_quad: cuadratura gaussiana de orden fijo
+    cuadratura: cuadratura adaptativa gaussiana
+
+    Ejemplos
+    --------
+    >>> de scipy import integrate
+    >>> func = lambda x0, x1, x2, x3: x0 ** 2 + x1 * x2 - x3 ** 3 + np.sin (x0) + (
+    ... 1 si (x0-.2 * x3-.5-.25 * x1> 0) else 0)
+    >>> puntos = [[lambda x1, x2, x3: 0.2 * x3 + 0.5 + 0.25 * x1], [], [], []]
+    >>> def opts0 (* args, ** kwargs):
+    ... return {'puntos': [0.2 * args [2] + 0.5 + 0.25 * args [0]]}
+    >>> integrate.nquad (func, [[0,1], [-1,1], [.13, .8], [-15,1]],
+    ... opts = [opts0, {}, {}, {}], full_output = True)
+    (1.5267454070738633, 2.9437360001402324e-14, {'neval': 388962})
+
+    >>> scale = .1
+    >>> def func2 (x0, x1, x2, x3, t0, t1):
+    ... x0 * x1 * x3 ** 2 + np.sin (x2) + 1 + (1 si x0 + t1 * x1-t0> 0 más 0)
+    >>> def lim0 (x1, x2, x3, t0, t1):
+    (x1) x2 + np.cos (x3) * t0 * t1 + 1) - 1,
+    scale * (x1 ** 2 + x2 + np.cos (x3) * t0 * t1 + 1) + 1]
+    >>> def lim1 (x2, x3, t0, t1):
+    ... return [escala * (t0 * x2 + t1 * x3) - 1,
+    ... escala * (t0 * x2 + t1 * x3) + 1]
+    >>> def lim2 (x3, t0, t1):
+    ... return [escala * (x3 + t0 ** 2 * t1 ** 3) - 1,
+    ... escala * (x3 + t0 ** 2 * t1 ** 3) + 1]
+    >>> def lim3 (t0, t1):
+    ... regreso [escala * (t0 + t1) - 1, escala * (t0 + t1) + 1]
+    >>> def opts0 (x1, x2, x3, t0, t1):
+    ... return {'puntos': [t0 - t1 * x1]}
+    >>> def opts1 (x2, x3, t0, t1):
+    ...     regreso {}
+    >>> def opts2 (x3, t0, t1):
+    ...     regreso {}
+    >>> def opts3 (t0, t1):
+    ...     regreso {}
+    >>> integrar.nquad (func2, [lim0, lim1, lim2, lim3], args = (0,0),
+    ... opts = [opts0, opts1, opts2, opts3])
+    (25.066666666666666, 2.7829590483937256e-13)

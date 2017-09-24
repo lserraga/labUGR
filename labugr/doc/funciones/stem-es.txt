@@ -1,0 +1,33 @@
+Cree un diagrama de raíz.
+
+Firmas de llamadas ::
+
+  tallo (y, linefmt = 'b-', marcadorfmt = 'bo', basefmt = 'r-')
+  tallo (x, y, linefmt = 'b-', marcadorfmt = 'bo', basefmt = 'r-')
+
+Un diagrama de tallo traza líneas verticales (usando * linefmt *) en cada * x *
+desde la línea de base hasta * y *, y coloca un marcador allí
+usando * markerfmt *. Una línea horizontal a 0 es se representa
+* basefmt *.
+
+Si no se proporcionan valores * x *, el valor predeterminado es (0, 1, ..., len (y) - 1)
+
+El valor de retorno es una tupla (* markerline *, * stemlines *,
+*base*).
+
+.. ver también::
+    Esta
+    `document <http://www.mathworks.com/help/techdoc/ref/stem.html>` _
+    para detalles.
+
+
+**Ejemplo:**
+
+.. plot :: mpl_examples / pylab_examples / stem_plot.py
+
+.. Nota::
+    Además de los argumentos descritos anteriormente, esta función puede
+    ** data ** argumento de palabra clave. Si se presenta un argumento de tipo ** data **,
+    los siguientes argumentos se sustituyen por ** data [<arg>] **:
+
+    * Todos los argumentos posicionales y de palabra clave.

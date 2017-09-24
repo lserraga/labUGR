@@ -1,0 +1,71 @@
+Devuelve la transformada discreta de Fourier de la secuencia real o compleja.
+
+    La matriz compleja devuelta contiene y (0), y (1), ..., y (n-1) `` donde
+
+    `` y (j) = (x * exp (-2 * pi * sqrt (-1) * j * np.arange (n) / n)). sum () ``.
+
+    Parámetros
+    ----------
+    x: array_like
+        Matriz a transformada de Fourier.
+    n: int, opcional
+        Longitud de la transformada de Fourier. Si `` n <x.shape [axis] ``, `x` es
+        truncado. Si `` n> x.shape [axis] ``, `x` tiene cero relleno. los
+        por defecto resulta en `` n = x.shape [axis] ``.
+    eje: int, opcional
+        Eje a lo largo del cual se calculan los fft; el valor predeterminado es el
+        último eje (es decir, "eje = -1").
+    overwrite_x: bool, opcional
+        Si es cierto, el contenido de `x 'puede ser destruido; El valor predeterminado es falso.
+
+    Devoluciones
+    -------
+    z: complejo ndarray
+        con los elementos ::
+
+            [y (0), y (1), .., y (n / 2), y (1-n / 2), ..., y (-1)] si n es par
+            [y (0), y (1), .., y ((n-1) / 2), y (- (n-1) / 2), ..., y (-1)] si n es impar
+
+        dónde::
+
+            y (j) = suma [k = 0..n-1] x [k] * exp (-sqrt (-1) * j * k * 2 * pi / n), j = 0..n-1
+
+    Ver también
+    --------
+    ifft: Inversa FFT
+    rfft: FFT de una secuencia real
+
+    Notas
+    -----
+    El empaque del resultado es "estándar": Si `` A = fft (a, n) ``, entonces
+    `` A [0] `` contiene el término de frecuencia cero, `` A [1: n / 2] `` contiene el
+    términos de frecuencia positiva y `` A [n / 2:] `` contiene la frecuencia negativa
+    términos, en orden de frecuencia decreciente negativa. Así que para un 8-punto
+    transformar, las frecuencias del resultado son [0, 1, 2, 3, -4, -3, -2, -1].
+    Para reorganizar la salida fft de manera que el componente de frecuencia cero sea
+    centrado, como [-4, -3, -2, -1, 0, 1, 2, 3], utilice `fftshift`.
+
+    Se implementan rutinas de precisión simple y doble. Media precisión
+    las entradas se convertirán en una sola precisión. Entradas de punto flotante
+    se convertirá en doble precisión. Las entradas de doble precisión son
+    No soportado.
+
+    Esta función es más eficiente cuando `n` es una potencia de dos, y menos
+    eficiente cuando `n` es primo.
+
+    Tenga en cuenta que si `` x`` tiene valor real entonces `` A [j] == A [n-j] .conjugate () ``.
+    Si `` x`` es real-valorado y `` n`` es igual entonces `` A [n / 2] `` es real.
+
+    Si el tipo de datos de `x 'es real, un algoritmo" FFT real "es automáticamente
+    utilizado, lo que reduce a la mitad el tiempo de cálculo. Aumentar la eficiencia
+    un poco más allá, use `rfft`, que hace el mismo cálculo, pero sólo
+    da salida a la mitad del espectro simétrico. Si los datos son reales y
+    simétrico, el `dct` puede doblar de nuevo la eficacia, generando
+    mitad del espectro de la mitad de la señal.
+
+    Ejemplos
+    --------
+    >>> desde scipy.fftpack import fft, ifft
+    >>> x = np.arange (5)
+    >>> np.allclose (fft (ifft (x)), x, atol = 1e-15) # dentro de la exactitud numérica.
+    Cierto

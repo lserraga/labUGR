@@ -1,0 +1,107 @@
+Devuelve la Transformada de Coseno Discreta de la secuencia de tipo arbitrario x.
+
+    Parámetros
+    ----------
+    x: array_like
+        La matriz de entrada.
+    escriba: {1, 2, 3}, opcional
+        Tipo de la DCT (ver Notas). El tipo predeterminado es 2.
+    n: int, opcional
+        Longitud de la transformación. Si `` n <x.shape [axis] ``, `x` es
+        truncado. Si `` n> x.shape [axis] ``, `x` tiene cero relleno. los
+        por defecto resulta en `` n = x.shape [axis] ``.
+    eje: int, opcional
+        Eje a lo largo del cual se calcula el dct; el valor predeterminado es el
+        último eje (es decir, "eje = -1").
+    norma: {Ninguno, 'orto'}, opcional
+        Modo de normalización (ver Notas). El valor predeterminado es Ninguno.
+    overwrite_x: bool, opcional
+        Si es cierto, el contenido de `x 'puede ser destruido; El valor predeterminado es falso.
+
+    Devoluciones
+    -------
+    y: ndarray de real
+        La matriz de entrada transformada.
+
+    Ver también
+    --------
+    idct: Inversa DCT
+
+    Notas
+    -----
+    Para una matriz de dimensión única `` x``, `` dct (x, norm = 'ortho') `` es igual a
+    MATLAB `` dct (x) ``.
+
+    Hay teóricamente 8 tipos de DCT, sólo los 3 primeros tipos son
+    implementado en scipy. "La" DCT se refiere generalmente a DCT tipo 2, y "la"
+    La DCT inversa generalmente se refiere al DCT tipo 3.
+
+    **Tipo i**
+
+    Hay varias definiciones de la DCT-I; usamos lo siguiente
+    (para `` norm = None``) ::
+
+                                         N-2
+      y [k] = x [0] + (-1) ** k x [N-1] + 2 * suma x [n] * cos (pi * k * n / (N-1)
+                                         n = 1
+
+    Sólo se admite None como modo de normalización para DCT-I. Tenga en cuenta
+    DCT-I sólo es compatible con el tamaño de entrada> 1
+
+    ** Tipo II **
+
+    Hay varias definiciones de la DCT-II; usamos lo siguiente
+    (para `` norm = None``) ::
+
+
+                N-1
+      y [k] = 2 * suma x [n] * cos (pi * k * (2n + 1) / (2 * N)), 0 <= k <N.
+                n = 0
+
+    Si `` norm = 'ortho'``, `` y [k] `` se multiplica por un factor de escala `f` ::
+
+      f = sqrt (1 / (4 * N)) si k = 0,
+      f = sqrt (1 / (2 * N)) en caso contrario.
+
+    Lo que hace que la correspondiente matriz de coeficientes ortonormal
+    (`` OO '= Id``).
+
+    ** Tipo III **
+
+    Hay varias definiciones, usamos las siguientes
+    (para `` norm = None``) ::
+
+                        N-1
+      y [k] = x [0] + 2 * suma x [n] * cos (pi * (k + 0,5) * n / N), 0 <= k <N.
+                        n = 1
+
+    o, para `` norm = 'orto' 'y 0 <= k <N ::
+
+                                          N-1
+      y (k) = x [0] / sqrt (N) + sqrt (2 / N) * suma x [n] * cos (pi * (k + 0,5) * n /
+                                          n = 1
+
+    La DCT-III (no normalizada) es la inversa de la DCT-II (no normalizada), hacia arriba
+    a un factor «2N». La DCT-III ortonormalizada es exactamente la inversa de
+    la DCT-II ortonormalizada.
+
+    Referencias
+    ----------
+    .. [1] "Una transformación de coseno rápido en una y dos dimensiones", por J.
+           Makhoul, `IEEE Transacciones sobre la acústica, el habla y la señal
+           transformación »vol. 28 (1), págs. 27-34,
+           http://dx.doi.org/10.1109/TASSP.1980.1163351 (1980).
+    .. [2] Wikipedia, "transformación de coseno discreta",
+           http://en.wikipedia.org/wiki/Discrete_cosine_transform
+
+    Ejemplos
+    --------
+    El tipo 1 DCT es equivalente a la FFT (aunque más rápido) para el real,
+    incluso-entradas simétricas. La salida es también real e incluso simétrica.
+    La mitad de la entrada FFT se utiliza para generar la mitad de la salida FFT:
+
+    >>> de scipy.fftpack import fft, dct
+    >>> fft (np.array ([4., 3., 5., 10., 5., 3.])). real
+    matriz ([30., -8., 6., -2., 6., -8.])
+    >>> dct (np.array ([4., 3., 5., 10.]), 1)
+    matriz ([30., -8., 6., -2.])

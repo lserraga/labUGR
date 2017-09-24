@@ -1,0 +1,102 @@
+Estimación de la densidad espectral de potencia utilizando un periodograma.
+
+    Parámetros
+    ----------
+    x: array_like
+        Series temporales de valores de medición
+    fs: float, opcional
+        Frecuencia de muestreo de la serie temporal `x '. El valor predeterminado es 1,0.
+    window: str o tuple o array_like, opcional
+        Ventana deseada para usar. Si `window` es una cadena o tupla, es
+        pasó a `get_window` para generar los valores de la ventana, que son
+        DFT-incluso por defecto. Vea `get_window` para una lista de ventanas y
+        parámetros requeridos. Si `window` es array_like, se utilizará
+        directamente como la ventana y su longitud debe ser nperseg. Predeterminados
+        a "furgón".
+    nfft: int, opcional
+        Longitud de la FFT utilizada. Si `Ninguno` la longitud de` x` será
+        usado.
+    detrend: str o función o `Falso`, opcional
+        Especifica cómo detrendir cada segmento. Si `detrend` es un
+        string, se pasa como el argumento `type` al` detrend`
+        función. Si es una función, toma un segmento y devuelve un
+        segmento detrendido. Si `detrend` es` False`, no hay detrending
+        hecho. El valor predeterminado es 'constante'.
+    return_onesided: bool, opcional
+        Si `True`, devuelve un espectro unilateral para datos reales. Si
+        `False` devuelve un espectro de dos caras. Tenga en cuenta que para complejos
+        datos, siempre se devuelve un espectro de dos caras.
+    escala: {'densidad', 'espectro'}, opcional
+        Selecciona entre calcular la densidad espectral de potencia ('densidad')
+        donde `Pxx` tiene unidades de V ** 2 / Hz y calcular la potencia
+        espectro («espectro») donde «Pxx» tiene unidades de V ** 2, si «x»
+        se mide en V y `fs` se mide en Hz. Por defecto
+        'densidad'
+    eje: int, opcional
+        Eje a lo largo del cual se calcula el periodograma; el valor predeterminado es
+        sobre el último eje (es decir, "eje = -1").
+
+    Devoluciones
+    -------
+    f: ndarray
+        Conjunto de frecuencias de muestreo.
+    Pxx: ndarray
+        Densidad espectral de potencia o espectro de potencia de x.
+
+    Notas
+    -----
+    .. versionadded :: 0.12.0
+
+    Ver también
+    --------
+    welch: Estimación de la densidad espectral de potencia utilizando el método de Welch
+    lombscargle: Periódromo Lomb-Scargle para datos desigualmente muestreados
+
+    Ejemplos
+    --------
+    >>> de la señal de importación de scipy
+    >>> import matplotlib.pyplot como plt
+    >>> np.random.seed (1234)
+
+    Generar una señal de prueba, una onda senoidal de 2 Vrms a 1234 Hz, corrompida por
+    0,001 V ** 2 / Hz de ruido blanco muestreado a 10 kHz.
+
+    >>> fs = 10e3
+    >>> N = 1e5
+    >>> amp = 2 * np.sqrt (2)
+    >>> freq = 1234.0
+    >>> noise_power = 0.001 * fs / 2
+    >>> time = np.arange (N) / fs
+    >>> x = amp * np.sin (2 * np.pi * freq * time)
+    >>> x + = np.random.normal (escala = np.sqrt (noise_power), size = time.shape)
+
+    Calcule y traza la densidad espectral de potencia.
+
+    >>> f, Pxx_den = señal.periodograma (x, fs)
+    >>> plt.semilogy (f, Pxx_den)
+    >>> plt.ylim ([1e-7, 1e2])
+    >>> plt.xlabel ('frecuencia [Hz]')
+    >>> plt.ylabel ('PSD [V ** 2 / Hz]')
+    >>> plt.show ()
+
+    Si media la última mitad de la densidad espectral, para excluir la
+    pico, podemos recuperar la potencia de ruido en la señal.
+
+    >>> np.mean (Pxx_den [256:])
+    0.0018156616014838548
+
+    Ahora calcula y traza el espectro de potencia.
+
+    >>> f, Pxx_spec = señal.periodograma (x, fs, 'flattop', escala = 'espectro')
+    >>> plt.figure ()
+    >>> plt.semilogy (f, np.sqrt (Pxx_spec))
+    >>> plt.ylim ([1e-4, 1e1])
+    >>> plt.xlabel ('frecuencia [Hz]')
+    >>> plt.ylabel ('Espectro lineal [V RMS]')
+    >>> plt.show ()
+
+    La altura del pico en el espectro de potencia es una estimación del RMS
+    amplitud.
+
+    >>> np.sqrt (Pxx_spec.max ())
+    2.0077340678640727

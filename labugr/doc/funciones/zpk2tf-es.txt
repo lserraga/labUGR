@@ -1,0 +1,17 @@
+Representación de la función de transferencia polinómica de retorno de ceros y polos
+
+    Parámetros
+    ----------
+    z: array_like
+        Zeros de la función de transferencia.
+    p: array_like
+        Postes de la función de transferencia.
+    k: float
+        Ganancia del sistema.
+
+    Devoluciones
+    -------
+    b: ndarray
+        Coeficientes polinomiales del numerador.
+    Significado de la palabra ndarray
+        Coeficientes polinomiales del denominador.

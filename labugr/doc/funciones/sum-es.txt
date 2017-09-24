@@ -1,0 +1,83 @@
+Suma de elementos de matriz sobre un eje dado.
+
+    Parámetros
+    ----------
+    a: array_like
+        Elementos a sumar.
+    eje: Ninguno o int o tupla de ints, opcional
+        Eje o ejes a lo largo de los cuales se realiza una suma. El valor por defecto,
+        axis = None, sumará todos los elementos de la matriz de entrada. Si
+        el eje es negativo, cuenta desde el último hasta el primer eje.
+
+        .. versionadded :: 1.7.0
+
+        Si el eje es una tupla de ints, se realiza una suma en todos los ejes
+        especificado en la tupla en lugar de un solo eje o todos los ejes como
+        antes de.
+    dtype: dtype, opcional
+        El tipo de la matriz devuelta y del acumulador en el que
+        se suman los elementos. El dtype de `a` se utiliza por defecto a menos que` a`
+        tiene un entero dtype de menor precisión que la plataforma por defecto
+        entero. En ese caso, si `a` está firmado entonces el entero de la plataforma
+        se utiliza mientras que si `a` está sin signo entonces un entero sin signo de la
+        misma precisión que el entero de la plataforma se utiliza.
+    out: ndarray, opcional
+        Matriz de salida alternativa en la que colocar el resultado. Debe tener
+        la misma forma que la salida esperada, pero el tipo de la salida
+        los valores serán emitidos si es necesario.
+    keepdims: bool, opcional
+        Si se establece en True, los ejes que se reducen quedan a la izquierda
+        en el resultado como dimensiones con el tamaño uno. Con esta opción,
+        el resultado se transmitirá correctamente contra la matriz de entrada.
+
+        Si se pasa el valor predeterminado, entonces `keepdims` no será
+        pasado a través del método `sum` de las subclases de
+        `ndarray`, sin embargo cualquier valor no predeterminado será. Si el
+        el método `sum` de las subclases no implementa` keepdims` ninguna
+        se generarán excepciones.
+
+    Devoluciones
+    -------
+    sum_along_axis: ndarray
+        Una matriz con la misma forma que `a`, con la
+        eje eliminado. Si `a` es una matriz 0-d, o si` axis` es Ninguno, un escalar
+        es regresado. Si se especifica una matriz de salida, se
+        `out` se devuelve.
+
+    Ver también
+    --------
+    ndarray.sum: Método equivalente.
+
+    cumsum: suma acumulada de los elementos de la matriz.
+
+    trapz: Integración de los valores del array utilizando la regla trapezoidal compuesta.
+
+    promedio promedio
+
+    Notas
+    -----
+    La aritmética es modular cuando se utilizan tipos enteros, y no hay error
+    levantado en el desbordamiento.
+
+    La suma de una matriz vacía es el elemento neutro 0:
+
+    >>> np.sum ([])
+    0,0
+
+    Ejemplos
+    --------
+    >>> np.sum ([0.5, 1.5])
+    2,0
+    >>> np.sum ([0.5, 0.7, 0.2, 1.5], dtype = np.int32)
+    1
+    >>> np.sum ([[0, 1], [0, 5]])
+    6
+    >>> np.sum ([[0, 1], [0, 5]], eje = 0)
+    array ([0, 6])
+    >>> np.sum ([[0, 1], [0, 5]], eje = 1)
+    matriz ([1, 5])
+
+    Si el acumulador es demasiado pequeño, se produce desbordamiento:
+
+    >>> np.ones (128, dtype = np.int8) .sum (dtype = np.int8)
+    -128

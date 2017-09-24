@@ -1,0 +1,26 @@
+Normalizar el numerador / denominador de una función de transferencia de tiempo continuo.
+
+    Si los valores de `b` están demasiado cerca de 0, se eliminan. En ese caso, un
+    Se emite un aviso de BadCoefficients.
+
+    Parámetros
+    ----------
+    b: array_like
+        Numerador de la función de transferencia. Puede ser una matriz 2d para normalizar
+        múltiples funciones de transferencia.
+    a: array_like
+        Denominador de la función de transferencia. Como máximo 1d.
+
+    Devoluciones
+    -------
+    num: array
+        El numerador de la función de transferencia normalizada. Al menos un 1d
+        formación. Una matriz 2d si la entrada `num` es una matriz 2d.
+    den: 1d-array
+        El denominador de la función de transferencia normalizada.
+
+    Notas
+    -----
+    Los coeficientes tanto para el numerador como para el denominador deben especificarse en
+    orden de exponente descendente (por ejemplo, `` s ^ 2 + 3s + 5`` se representaría como
+    `` [1, 3, 5] ``).

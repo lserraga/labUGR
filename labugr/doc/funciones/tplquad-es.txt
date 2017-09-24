@@ -1,0 +1,50 @@
+Calcule una integral triple (definida).
+
+    Devuelve la integral triple de `` func (z, y, x) `` de x = a..b``,
+    `` y = gfun (x) .. hfun (x) ``, y `` z = qfun (x, y) .. rfun (x, y) ``.
+
+    Parámetros
+    ----------
+    func: función
+        Una función o método Python de al menos tres variables en la
+        orden (z, y, x).
+    a b b
+        Los límites de integración en x: `a` <` b`
+    gfun: función
+        La curva de límite inferior en y que es una función que toma una sola
+        argumento de punto flotante (x) y devolver un resultado de coma flotante:
+        una función lambda puede ser útil aquí.
+    hfun: función
+        La curva límite superior en y (los mismos requisitos que `gfun`).
+    qfun: función
+        La superficie límite inferior en z. Debe ser una función que
+        dos flotadores en el orden (x, y) y devuelve un flotador.
+    rfun: función
+        La superficie límite superior en z. (Los mismos requisitos que `qfun`.)
+    args: tupla, opcional
+        Extra argumentos para pasar a `func`.
+    epsabs: float, opcional
+        La tolerancia absoluta pasa directamente a la cuadratura 1-D más interna
+        integración. El valor predeterminado es 1.49e-8.
+    epsrel: float, opcional
+        Tolerancia relativa de las integrales 1-D más internas. El valor predeterminado es 1.49e-8.
+
+    Devoluciones
+    -------
+    y: float
+        La integral resultante.
+    abserr: float
+        Una estimación del error.
+
+    Ver también
+    --------
+    quad: cuadratura adaptable con QUADPACK
+    cuadratura: cuadratura adaptativa gaussiana
+    fixed_quad: cuadratura gaussiana de orden fijo
+    dblquad: Integrales dobles
+    nquad: integrales N-dimensionales
+    romb: Integradores para datos muestreados
+    simps: Integradores para datos muestreados
+    ode: integradores ODE
+    odeint: integradores ODE
+    scipy.special: Para coeficientes y raíces de polinomios ortogonales

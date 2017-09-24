@@ -1,0 +1,57 @@
+Arcosh (x, /, out = Ninguno, *, donde = True, casting = 'same_kind', order = 'K', dtype = Ninguno, subok = True [, signature, extobj]
+
+CoseCoseno hiperbólico inverso, elemento-sabio.
+
+Parámetros
+----------
+x: array_like
+    Array de entrada.
+out: ndarray, None, o tuple de ndarray y None, opcional
+    Una ubicación en la que se almacena el resultado. Si se proporciona, debe tener
+    una forma a la que se transmiten las entradas. Si no se proporciona o «Ninguno»,
+    se devuelve una matriz recién asignada. Una tupla (posible sólo como
+    argumento de palabra clave) debe tener una longitud igual al número de salidas.
+donde: array_like, opcional
+    Los valores de True indican para calcular la ufunc en esa posición, los valores
+    de Falso indican para dejar el valor en la salida solo.
+kwargs
+    Para otros argumentos con solo palabras clave, consulte el
+    : ref: `ufunc docs <ufuncs.kwargs>`.
+
+Devoluciones
+-------
+arccosh: ndarray
+    Array de la misma forma que `x`.
+
+Ver también
+--------
+
+cosh, arcsinh, sinh, arctanh, tanh
+
+Notas
+-----
+`arccosh` es una función multivalorizada: para cada` x` hay infinitamente
+muchos números «z» tales que «cosh (z) = x». La convención es devolver el
+`z 'cuya parte imaginaria se encuentra en` [-pi, pi] `y la parte real en
+`` [0, inf] ``.
+
+Para tipos de datos de entrada de valor real, `arccosh` siempre devuelve la salida real.
+Para cada valor que no puede ser expresado como un número real o infinito,
+produce `` nan`` y establece el indicador de error de punto flotante `inválido`.
+
+Para la entrada de valor complejo, `arccosh` es una función analítica compleja que
+tiene una rama cortada `[-inf, 1]` y es continua desde arriba sobre ella.
+
+Referencias
+----------
+[1] M. Abramowitz y I.A. Stegun, "Manual de Funciones Matemáticas",
+       10ª edición, 1964, págs. 86. http://www.math.sfu.ca/~cbm/aands/
+[2] Wikipedia, "Función hiperbólica inversa",
+       http://en.wikipedia.org/wiki/Arccosh
+
+Ejemplos
+--------
+>>> np.arccosh ([np.e, 10.0])
+matriz ([1.65745445, 2.99322285])
+>>> np.arccosh (1)
+0,0

@@ -1,0 +1,78 @@
+Construir las condiciones iniciales para lfilter para el estado estacionario de la respuesta de paso.
+
+    Calcular un estado inicial `zi` para la función` lfilter` que corresponde
+    al estado estacionario de la respuesta escalonada.
+
+    Un uso típico de esta función es establecer el estado inicial para que el
+    salida del filtro empieza en el mismo valor que el primer elemento de
+    la señal a filtrar.
+
+    Parámetros
+    ----------
+    b, a: array_like (1-D)
+        Los coeficientes del filtro IIR. Vea `lfilter` para más información
+        información.
+
+    Devoluciones
+    -------
+    zi: 1-D ndarray
+        El estado inicial del filtro.
+
+    Ver también
+    --------
+    lfilter, lfiltic, filtfilt
+
+    Notas
+    -----
+    Un filtro lineal de orden m tiene una representación espacial de estados (A, B, C, D),
+    para la cual la salida y del filtro puede expresarse como:
+
+        z (n + 1) = A * z (n) + B * x (n)
+        y (n) = C * z (n) + D * x (n)
+
+    donde z (n) es un vector de longitud m, A tiene forma (m, m), B tiene forma
+    (m, 1), C tiene forma (1, m) y D tiene forma (1, 1) (suponiendo que x (n) es
+    un escalar). lfilter_zi resuelve ::
+
+        zi = A * zi + B
+
+    En otras palabras, encuentra la condición inicial para la cual la respuesta
+    a una entrada de todos los unos es una constante.
+
+    Dados los coeficientes de filtro «a» y «b», las matrices espaciales de estado
+    para la implementación directa transpuesta de la forma II del filtro lineal,
+    que es la implementación utilizada por scipy.signal.lfilter, son ::
+
+        A = scipy.linalg.companion (a) .T
+        B = b [1:] - a [1:] * b [0]
+
+    suponiendo que `a [0]` es 1,0; si `a [0]` no es 1, `a` y` b` son los primeros
+    dividido por un [0].
+
+    Ejemplos
+    --------
+    El código siguiente crea un filtro Butterworth de paso bajo. Entonces eso
+    aplica ese filtro a una matriz cuyos valores son todos 1.0; el
+    la salida también es 1.0, como se esperaba para un filtro de paso bajo. Si el
+    argumento «zi» de «lfilter», la producción habría
+    se muestra la señal transitoria.
+
+    >>> de numpy matriz de importación, los
+    >>> de scipy.signal importación lfilter, lfilter_zi, mantequilla
+    >>> b, a = mantequilla (5, 0.25)
+    >>> zi = lfilter_zi (b, a)
+    >>> y, zo = lfilter (b, a, unos (10), zi = zi)
+    y
+    arreglo ([1., 1., 1., 1., 1., 1., 1., 1., 1., 1.])
+
+    Otro ejemplo:
+
+    >>> x = matriz ([0,5, 0,5, 0,5, 0,0, 0,0, 0,0, 0,0])
+    >>> y, zf = lfiltro (b, a, x, zi = zi * x [0])
+    y
+    matriz ([0,5, 0,5, 0,5, 0,49836039, 0,48610528,
+        0.44399389, 0.35505241])
+
+    Tenga en cuenta que el argumento `zi` para` lfilter` se calculó usando
+    `lfilter_zi` y escalado por` x [0] `. Entonces la salida `y` no tiene
+    transitorio hasta que la entrada cae de 0,5 a 0,0.

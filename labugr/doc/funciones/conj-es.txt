@@ -1,0 +1,37 @@
+conjugado (x, /, out = Ninguno, *, donde = True, casting = 'same_kind', order = 'K', dtype = Ninguno, subok = True [, signature, extobj]
+
+DevuDevuelve el complejo conjugado, en función de los elementos.
+
+El conjugado complejo de un número complejo se obtiene cambiando el
+signo de su parte imaginaria.
+
+Parámetros
+----------
+x: array_like
+    Valor de entrada.
+out: ndarray, None, o tuple de ndarray y None, opcional
+    Una ubicación en la que se almacena el resultado. Si se proporciona, debe tener
+    una forma a la que se transmiten las entradas. Si no se proporciona o «Ninguno»,
+    se devuelve una matriz recién asignada. Una tupla (posible sólo como
+    argumento de palabra clave) debe tener una longitud igual al número de salidas.
+donde: array_like, opcional
+    Los valores de True indican para calcular la ufunc en esa posición, los valores
+    de Falso indican para dejar el valor en la salida solo.
+kwargs
+    Para otros argumentos con solo palabras clave, consulte el
+    : ref: `ufunc docs <ufuncs.kwargs>`.
+
+Devoluciones
+-------
+y: ndarray
+    El conjugado complejo de 'x', con el mismo tipo que 'y'.
+
+Ejemplos
+--------
+>>> np.conjugate (1 + 2j)
+(1-2j)
+
+>>> x = np.eye (2) + 1j * np.eye (2)
+>>> np.conjugate (x)
+array ([[1.-1.j, 0.-0.j],
+       [0.-0.j, 1.-1.j]])
