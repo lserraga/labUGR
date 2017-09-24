@@ -1,0 +1,76 @@
+Devuelve una ventana de Blackman.
+
+    La ventana de Blackman es una conicidad formada por el uso de los tres primeros términos de
+    una suma de cosenos. Fue diseñado para tener cerca de la mínima
+    posibilidad de fugas. Está cerca de óptimo, sólo ligeramente peor que un
+    Ventana de Kaiser.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Notas
+    -----
+    La ventana de Blackman se define como
+
+    (4 \ pi n / M) + 0,08 \ cos (2 \ pi n / M)
+
+    La ventana "Blackman exacto" fue diseñada para anular la tercera y cuarta
+    lóbulos laterales, pero tiene discontinuidades en los límites, lo que
+    Caída de 6 dB / oct. Esta ventana es una aproximación de la ventana "exacta"
+    que no anula también los lóbulos laterales, sino que es lisa en los bordes,
+    mejorando la tasa de caída a 18 dB / oct. [3] _
+
+    La mayoría de las referencias a la ventana de Blackman provienen del procesador de señales
+    literatura, donde se utiliza como una de las muchas funciones de
+    valores de suavizado. También se conoce como una apodización (que significa
+    "retirar el pie", es decir, suavizar las discontinuidades al principio
+    y final de la señal muestreada) o función de ahusamiento. Se conoce como
+    "casi óptima" función de ahusamiento, casi tan bueno (por algunas medidas)
+    como la ventana de Kaiser.
+
+    Referencias
+    ----------
+    [1] Blackman, R.B. y Tukey, J.W., (1958) La medición del poder
+           espectros, Dover Publications, Nueva York.
+    .. [2] Oppenheim, A.V., y R. W. Schafer. Procesamiento de Señal de Tiempo Discreto.
+           Upper Saddle River, NJ: Prentice - Hall, 1999, págs. 468 - 471.
+    [3] Harris, Fredric J. (Jan 1978). "Sobre el uso de Windows para armónicos
+           Análisis con la Transformada de Fourier Discreta ".
+           IEEE 66 (1): 51 - 83. : doi: «10.1109 / PROC.1978.10837».
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> window = signal.blackman (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("ventana de Blackman")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de Frecuencia de la ventana de Blackman")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")

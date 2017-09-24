@@ -1,0 +1,82 @@
+Regresar una ventana de Bartlett.
+
+    La ventana de Bartlett es muy similar a una ventana triangular, excepto
+    que los puntos finales están en cero. Se utiliza a menudo en señal
+    procesamiento para disminuir una señal, sin generar demasiado
+    ondulación en el dominio de la frecuencia.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana triangular, con la primera y última muestras igual a cero
+        y el valor máximo normalizado a 1 (aunque el valor 1 no
+        aparece si `M` es par y` sym` es True).
+
+    Ver también
+    --------
+    triang: Una ventana triangular que no toca cero en los extremos
+
+    Notas
+    -----
+    La ventana Bartlett se define como
+
+    .. math :: w (n) = \ frac {2} {M-1} \ left (
+              \ frac {M-1} {2} - \ left | n - \ frac {M-1} {2} \ right |
+              \derecho)
+
+    La mayoría de las referencias a la ventana de Bartlett vienen de la señal
+    la literatura de procesamiento, donde se utiliza como uno de muchos windowing
+    funciones para suavizar valores. Tenga en cuenta que la convolución con este
+    ventana produce interpolación lineal. También se conoce como
+    apodización (que significa "retirar el pie", es decir, suavizar
+    discontinuidades al principio y al final de la señal muestreada) o
+    función de ahusamiento. La transformada de Fourier del Bartlett es el producto
+    de dos funciones de sinc.
+    Tenga en cuenta la excelente discusión en Kanasewich. [2] _
+
+    Referencias
+    ----------
+    .. [1] M.S. Bartlett, "Periodogram Analysis and Continuous Spectra",
+           Biometrika 37, 1 - 16, 1950.
+    .. [2] E.R. Kanasewich, "Time Sequence Analysis in Geophysics",
+           The University of Alberta Press, 1975, pp. 109-110.
+    .. [3] A.V. Oppenheim y R. W. Schafer, "Señal de tiempo discreto
+           Processing ", Prentice-Hall, 1999, páginas 468-471.
+    .. [4] Wikipedia, "función de la ventana",
+           http://en.wikipedia.org/wiki/Window_function
+    .. [5] W.H. Prensa, B.P. Flannery, S.A. Teukolsky, y W.T. Vetterling,
+           "Numerical Recipes", Cambridge University Press, 1986, página 429.
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> window = signal.bartlett (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("Ventana de Bartlett")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de frecuencia de la ventana de Bartlett")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")

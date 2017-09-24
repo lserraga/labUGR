@@ -1,1 +1,1235 @@
-El conjunto de funciones de ventana.
+Devuelve una ventana de Bartlett-Hann modificada.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> ventana = señal.barthann (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("Ventana de Bartlett-Hann")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de Frecuencia de la ventana de Bartlett-Hann")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")Regresar una ventana de Bartlett.
+
+    La ventana de Bartlett es muy similar a una ventana triangular, excepto
+    que los puntos finales están en cero. Se utiliza a menudo en señal
+    procesamiento para disminuir una señal, sin generar demasiado
+    ondulación en el dominio de la frecuencia.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana triangular, con la primera y última muestras igual a cero
+        y el valor máximo normalizado a 1 (aunque el valor 1 no
+        aparece si `M` es par y` sym` es True).
+
+    Ver también
+    --------
+    triang: Una ventana triangular que no toca cero en los extremos
+
+    Notas
+    -----
+    La ventana Bartlett se define como
+
+    .. math :: w (n) = \ frac {2} {M-1} \ left (
+              \ frac {M-1} {2} - \ left | n - \ frac {M-1} {2} \ right |
+              \derecho)
+
+    La mayoría de las referencias a la ventana de Bartlett vienen de la señal
+    la literatura de procesamiento, donde se utiliza como uno de muchos windowing
+    funciones para suavizar valores. Tenga en cuenta que la convolución con este
+    ventana produce interpolación lineal. También se conoce como
+    apodización (que significa "retirar el pie", es decir, suavizar
+    discontinuidades al principio y al final de la señal muestreada) o
+    función de ahusamiento. La transformada de Fourier del Bartlett es el producto
+    de dos funciones de sinc.
+    Tenga en cuenta la excelente discusión en Kanasewich. [2] _
+
+    Referencias
+    ----------
+    .. [1] M.S. Bartlett, "Periodogram Analysis and Continuous Spectra",
+           Biometrika 37, 1 - 16, 1950.
+    .. [2] E.R. Kanasewich, "Time Sequence Analysis in Geophysics",
+           The University of Alberta Press, 1975, pp. 109-110.
+    .. [3] A.V. Oppenheim y R. W. Schafer, "Señal de tiempo discreto
+           Processing ", Prentice-Hall, 1999, páginas 468-471.
+    .. [4] Wikipedia, "función de la ventana",
+           http://en.wikipedia.org/wiki/Window_function
+    .. [5] W.H. Prensa, B.P. Flannery, S.A. Teukolsky, y W.T. Vetterling,
+           "Numerical Recipes", Cambridge University Press, 1986, página 429.
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> window = signal.bartlett (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("Ventana de Bartlett")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de frecuencia de la ventana de Bartlett")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")Devuelve una ventana de Blackman.
+
+    La ventana de Blackman es una conicidad formada por el uso de los tres primeros términos de
+    una suma de cosenos. Fue diseñado para tener cerca de la mínima
+    posibilidad de fugas. Está cerca de óptimo, sólo ligeramente peor que un
+    Ventana de Kaiser.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Notas
+    -----
+    La ventana de Blackman se define como
+
+    (4 \ pi n / M) + 0,08 \ cos (2 \ pi n / M)
+
+    La ventana "Blackman exacto" fue diseñada para anular la tercera y cuarta
+    lóbulos laterales, pero tiene discontinuidades en los límites, lo que
+    Caída de 6 dB / oct. Esta ventana es una aproximación de la ventana "exacta"
+    que no anula también los lóbulos laterales, sino que es lisa en los bordes,
+    mejorando la tasa de caída a 18 dB / oct. [3] _
+
+    La mayoría de las referencias a la ventana de Blackman provienen del procesador de señales
+    literatura, donde se utiliza como una de las muchas funciones de
+    valores de suavizado. También se conoce como una apodización (que significa
+    "retirar el pie", es decir, suavizar las discontinuidades al principio
+    y final de la señal muestreada) o función de ahusamiento. Se conoce como
+    "casi óptima" función de ahusamiento, casi tan bueno (por algunas medidas)
+    como la ventana de Kaiser.
+
+    Referencias
+    ----------
+    [1] Blackman, R.B. y Tukey, J.W., (1958) La medición del poder
+           espectros, Dover Publications, Nueva York.
+    .. [2] Oppenheim, A.V., y R. W. Schafer. Procesamiento de Señal de Tiempo Discreto.
+           Upper Saddle River, NJ: Prentice - Hall, 1999, págs. 468 - 471.
+    [3] Harris, Fredric J. (Jan 1978). "Sobre el uso de Windows para armónicos
+           Análisis con la Transformada de Fourier Discreta ".
+           IEEE 66 (1): 51 - 83. : doi: «10.1109 / PROC.1978.10837».
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> window = signal.blackman (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("ventana de Blackman")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de Frecuencia de la ventana de Blackman")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")Devuelve una ventana de Blackman-Harris de 4 terminos.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> ventana = señal.blackmanharris (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("Ventana de Blackman-Harris")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de Frecuencia de la ventana de Blackman-Harris")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")Devuelve una ventana de Bohman.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> ventana = señal.bohman (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("ventana de Bohman")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de frecuencia de la ventana de Bohman")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")Devolver una caja o ventana rectangular.
+
+    También conocida como ventana rectangular o ventana Dirichlet, esto es equivalente
+    a ninguna ventana en absoluto.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Si la ventana es simétrica. (No tiene efecto para el vagón.)
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1.
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> window = signal.boxcar (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("Ventana del vagón")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de frecuencia de la ventana del vagón")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")Devolver una ventana Dolph-Chebyshev.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    en: float
+        Atenuación (en dB).
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo siempre normalizado a 1
+
+    Notas
+    -----
+    Esta ventana se optimiza para la anchura del lóbulo principal más estrecha para un orden dado
+    `M` y la atenuación equiparable de los lóbulos laterales` at`, utilizando Chebyshev
+    polinomios Originalmente fue desarrollado por Dolph para optimizar el
+    direccionalidad de los conjuntos de antenas de radio.
+
+    A diferencia de la mayoría de las ventanas, el Dolph-Chebyshev se define en términos de su
+    respuesta frecuente:
+
+    .. math :: W (k) = \ frac
+              {\ cos \ {M \ cos ^ {- 1} [\ beta \ cos (\ frac {\ pi k} {M})] \}}
+              {\ cosh [M \ cosh ^ {- 1} (\ beta)]}
+
+    dónde
+
+    .. math :: \ beta = \ cosh \ left [\ frac {1} {M}
+              \ cosh ^ {- 1} (10 ^ \ frac {A} {20}) \ derecha]
+
+    y 0 <= abs (k) <= M-1. A es la atenuación en decibeles (`at`).
+
+    La ventana del dominio del tiempo se genera usando el IFFT, por lo que
+    power-of-two `M` son los más rápidos a generar, y el número primo` M` son
+    el más lento.
+
+    La condición equiripple en el dominio de la frecuencia crea impulsos en la
+    tiempo, que aparecen en los extremos de la ventana.
+
+    Referencias
+    ----------
+    [1] C. Dolph, "Una distribución actual de arrays de costado que
+           optimiza la relación entre el ancho del haz y el nivel del lóbulo lateral ",
+           Actas de la IEEE, Vol. 34, Número 6
+    .. [2] Peter Lynch, "La ventana de Dolph-Chebyshev: Un filtro óptimo simple",
+           Sociedad Meteorológica Americana (abril de 1997)
+           http://mathsci.ucd.ie/~plynch/Publications/Dolph.pdf
+    [3] F. J. Harris, "Sobre el uso de ventanas para el análisis armónico con el
+           discreta Fourier transforma ", Proceedings de la IEEE, Vol. 66,
+           No. 1, enero de 1978
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> window = signal.chebwin (51, at = 100)
+    >>> plt.plot (ventana)
+    >>> plt.title ("Ventana Dolph-Chebyshev (100 dB)")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta en frecuencia de la ventana Dolph-Chebyshev (100 dB)")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")Devuelve una ventana con una forma simple de coseno.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Notas
+    -----
+
+    .. versionadded :: 0.13.0
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> ventana = señal.cosina (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("Ventana de Coseno")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de frecuencia de la ventana de coseno")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")
+    >>> plt.show ()Devuelve una ventana exponencial (o Poisson).
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    centro: float, opcional
+        Parámetro que define la posición central de la función de ventana.
+        El valor predeterminado si no se da es `` center = (M-1) / 2``. Esta
+        debe tomar su valor por defecto para las ventanas simétricas.
+    tau: float, opcional
+        Parámetro que define el decaimiento. Para el uso de `` center = 0``
+        `` tau = - (M-1) / ln (x) `` si `` x`` es la fracción de la ventana
+        permaneciendo al final.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Notas
+    -----
+    La ventana Exponencial se define como
+
+    .. matemáticas :: w (n) = e ^ {- | n-center | tau}
+
+    Referencias
+    ----------
+    S. Gade y H. Herlufsen, "Windows to FFT analysis (Part I)",
+    Revisión Técnica 3, Bruel & Kjaer, 1987.
+
+    Ejemplos
+    --------
+    Trace la ventana simétrica y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> M = 51
+    >>> tau = 3.0
+    >>> ventana = señal.exponencial (M, tau = tau)
+    >>> plt.plot (ventana)
+    >>> plt.title ("Ventana Exponencial (tau = 3.0)")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -35, 0])
+    >>> plt.title ("Respuesta en frecuencia de la ventana exponencial (tau = 3.0)")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")
+
+    Esta función también puede generar ventanas no simétricas:
+
+    >>> tau2 = - (M-1) / np.log (0,01)
+    >>> window2 = signal.exponential (M, 0, tau2, False)
+    >>> plt.figure ()
+    >>> plt.plot (ventana2)
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")Devolver una ventana plana superior.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Notas
+    -----
+    Las ventanas superiores planas se utilizan para tomar medidas precisas de la señal
+    amplitud en el dominio de la frecuencia, con un error mínimo de festoneado del
+    centro de un contenedor de frecuencia a sus bordes, en comparación con otros. Esto es un
+    Ventana de coseno de 5º orden, con los 5 términos optimizados para hacer el lóbulo principal
+    máximo plano. [1] _
+
+    Referencias
+    ----------
+    [1] D'Antona, Gabriele y A. Ferrero, "Procesamiento de señales digitales para
+           Sistemas de Medición ", Springer Media, 2006, pág.
+           : doi: `10.1007 / 0-387-28666-7`.
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> window = signal.flattop (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("Ventana superior plana")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de frecuencia de la ventana plana superior")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")Devuelve una ventana gaussiana.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    std: float
+        La desviación estándar, sigma.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Notas
+    -----
+    La ventana gaussiana se define como
+
+    .. matemática :: w (n) = e ^ {- \ frac {1} {2} \ izquierda (\ frac {n} {\ sigma} derecha) ^ 2}
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> window = signal.gaussian (51, std = 7)
+    >>> plt.plot (ventana)
+    >>> plt.title (r "Ventana Gaussiana ($ \ sigma $ = 7)")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title (r "Respuesta de frecuencia de la ventana gaussiana ($ \ sigma $ = 7)")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")Devuelve una ventana con una forma gaussiana generalizada.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    p: float
+        Parámetro de forma. p = 1 es idéntico a `gaussiano ', p = 0,5 es
+        la misma forma que la distribución de Laplace.
+    sig: float
+        La desviación estándar, sigma.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Notas
+    -----
+    La ventana gaussiana generalizada se define como
+
+    .. math :: w (n) = e ^ {- \ frac {1} {2} \ left | \ frac {n} {\ sigma} \ right | ^ {2p}}
+
+    el punto de media potencia está en
+
+    .. math :: (2 \ log (2)) ^ {1 / (2 p)} \ sigma
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> ventana = señal.general_gaussian (51, p = 1,5, sig = 7)
+    >>> plt.plot (ventana)
+    >>> plt.title (r "Ventana gaussiana generalizada (p = 1,5, $ \ sigma $ = 7)")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title (r "Freq. resp. del gen. Gaussiano"
+    ... "(p = 1,5, $ \ sigma $ = 7)")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")Regresar una ventana.
+
+    Parámetros
+    ----------
+    window: string, float o tuple
+        El tipo de ventana a crear. Vea más abajo para más detalles.
+    Nx: int
+        El número de muestras en la ventana.
+    fftbins: bool, opcional
+        Si es True (predeterminado), cree una ventana "periódica", lista para usar con
+        `ifftshift` y se multiplicará por el resultado de una FFT (véase también
+        `fftpack.fftfreq`).
+        Si es Falso, cree una ventana "simétrica", para usarla en el diseño del filtro.
+
+    Devoluciones
+    -------
+    get_window: ndarray
+        Devuelve una ventana de longitud `Nx` y escribe` window`
+
+    Notas
+    -----
+    Tipos de ventanas:
+
+        `boxcar`,` triang`, `blackman`,` hamming`, `hann`,` bartlett`,
+        «flattop», «parzen», «bohman», «blackmanharris», «nuttall»,
+        `barthann`,` kaiser` (necesita beta), `gaussian` (necesita un estándar
+        desviación), `general_gaussian` (necesita potencia, anchura),` slepian`
+        (necesita ancho), `chebwin` (necesita atenuación),` exponencial`
+        (necesita escala de decaimiento), `tukey` (necesita una fracción de conicidad)
+
+    Si la ventana no requiere parámetros, entonces `window` puede ser una cadena.
+
+    Si la ventana requiere parámetros, entonces `window` debe ser una tupla
+    con el primer argumento el nombre de la cadena de la ventana, y el siguiente
+    argumentos los parámetros necesarios.
+
+    Si `window` es un número de coma flotante, se interpreta como la beta
+    parámetro de la ventana `kaiser`.
+
+    Cada uno de los tipos de ventanas enumerados anteriormente es también el nombre de
+    una función que se puede llamar directamente para crear una ventana de
+    ese tipo.
+
+    Ejemplos
+    --------
+    >>> de la señal de importación de scipy
+    >>> signal.get_window ('triang', 7)
+    matriz ([0,125, 0,375, 0,625, 0,875, 0,875, 0,625, 0,375])
+    >>> signal.get_window (('kaiser', 4.0), 9)
+    matriz ([0,08848053, 0,29425961, 0,56437221, 0,82160913, 0,97885093,
+            0.97885093, 0.82160913, 0.56437221, 0.29425961])
+    >>> signal.get_window (4.0, 9)
+    matriz ([0,08848053, 0,29425961, 0,56437221, 0,82160913, 0,97885093,
+            0.97885093, 0.82160913, 0.56437221, 0.29425961])Devuelve una ventana Hamming.
+
+    La ventana Hamming es una conicidad formada por el uso de un coseno elevado con
+    puntos finales distintos de cero, optimizados para minimizar el lóbulo lateral más cercano.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Notas
+    -----
+    La ventana de Hamming se define como
+
+    .. matemática: w (n) = 0.54 - 0.46 \ cos \ left (\ frac {2 \ pi {n}} {M-1}
+               \ qquad 0 \ leq n \ leq M-1
+
+    El Hamming fue nombrado para R. W. Hamming, un asociado de J. W. Tukey y
+    se describe en Blackman y Tukey. Se recomendó para alisar el
+    función de autocovariancia truncada en el dominio del tiempo.
+    La mayoría de las referencias a la ventana Hamming provienen del procesador de señales
+    literatura, donde se utiliza como una de las muchas funciones de
+    valores de suavizado. También se conoce como una apodización (que significa
+    "retirar el pie", es decir, suavizar las discontinuidades al principio
+    y final de la señal muestreada) o función de ahusamiento.
+
+    Referencias
+    ----------
+    [1] Blackman, R.B. y Tukey, J.W., (1958) La medición del poder
+           espectros, Dover Publications, Nueva York.
+    [2] E.R. Kanasewich, "Time Sequence Analysis in Geophysics", The
+           University of Alberta Press, 1975, pp. 109 - 110.
+    .. [3] Wikipedia, "Función de ventana",
+           http://en.wikipedia.org/wiki/Window_function
+    .. [4] W.H. Prensa, B.P. Flannery, S.A. Teukolsky, y W.T. Vetterling,
+           "Numerical Recipes", Cambridge University Press, 1986, página 425.
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> ventana = señal.hamming (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("Ventana de Hamming")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de frecuencia de la ventana de Hamming")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")Devuelve una ventana de Hann.
+
+    La ventana de Hann es una conicidad formada por el uso de un coseno elevado o seno cuadrado
+    con los extremos que tocan cero.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Notas
+    -----
+    La ventana de Hann se define como
+
+    (matemáticas): w (n) = 0.5 - 0.5 \ cos \ left (\ frac {2 \ pi {n}} {M-1}
+               \ qquad 0 \ leq n \ leq M-1
+
+    La ventana fue nombrada para Julius von Hann, un meteorólogo austríaco. Es
+    también conocido como el Cosine Bell. A veces se denomina erróneamente como
+    la ventana "Hanning", a partir del uso de "hann" como verbo en el original
+    papel y confusión con la ventana de Hamming muy similar.
+
+    La mayoría de las referencias a la ventana de Hann proceden del procesamiento de señal
+    literatura, donde se utiliza como una de las muchas funciones de
+    valores de suavizado. También se conoce como una apodización (que significa
+    "retirar el pie", es decir, suavizar las discontinuidades al principio
+    y final de la señal muestreada) o función de ahusamiento.
+
+    Referencias
+    ----------
+    [1] Blackman, R.B. y Tukey, J.W., (1958) La medición del poder
+           espectros, Dover Publications, Nueva York.
+    .. [2] E.R. Kanasewich, "Time Sequence Analysis in Geophysics",
+           The University of Alberta Press, 1975, pp. 106-108.
+    .. [3] Wikipedia, "Función de ventana",
+           http://en.wikipedia.org/wiki/Window_function
+    .. [4] W.H. Prensa, B.P. Flannery, S.A. Teukolsky, y W.T. Vetterling,
+           "Numerical Recipes", Cambridge University Press, 1986, página 425.
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> ventana = señal.hann (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("ventana de Hann")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de frecuencia de la ventana de Hann")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")Devuelve una ventana de Hann.
+
+    La ventana de Hann es una conicidad formada por el uso de un coseno elevado o seno cuadrado
+    con los extremos que tocan cero.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Notas
+    -----
+    La ventana de Hann se define como
+
+    (matemáticas): w (n) = 0.5 - 0.5 \ cos \ left (\ frac {2 \ pi {n}} {M-1}
+               \ qquad 0 \ leq n \ leq M-1
+
+    La ventana fue nombrada para Julius von Hann, un meteorólogo austríaco. Es
+    también conocido como el Cosine Bell. A veces se denomina erróneamente como
+    la ventana "Hanning", a partir del uso de "hann" como verbo en el original
+    papel y confusión con la ventana de Hamming muy similar.
+
+    La mayoría de las referencias a la ventana de Hann proceden del procesamiento de señal
+    literatura, donde se utiliza como una de las muchas funciones de
+    valores de suavizado. También se conoce como una apodización (que significa
+    "retirar el pie", es decir, suavizar las discontinuidades al principio
+    y final de la señal muestreada) o función de ahusamiento.
+
+    Referencias
+    ----------
+    [1] Blackman, R.B. y Tukey, J.W., (1958) La medición del poder
+           espectros, Dover Publications, Nueva York.
+    .. [2] E.R. Kanasewich, "Time Sequence Analysis in Geophysics",
+           The University of Alberta Press, 1975, pp. 106-108.
+    .. [3] Wikipedia, "Función de ventana",
+           http://en.wikipedia.org/wiki/Window_function
+    .. [4] W.H. Prensa, B.P. Flannery, S.A. Teukolsky, y W.T. Vetterling,
+           "Numerical Recipes", Cambridge University Press, 1986, página 425.
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> ventana = señal.hann (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("ventana de Hann")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de frecuencia de la ventana de Hann")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")Devolver una ventana de Kaiser.
+
+    La ventana de Kaiser es una conicidad formada usando una función de Bessel.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    beta: float
+        El parámetro Shape, determina el equilibrio entre el ancho del lóbulo principal y
+        nivel del lóbulo lateral. A medida que la beta se hace grande, la ventana se estrecha.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Notas
+    -----
+    La ventana Kaiser se define como
+
+    .. matemática :: w (n) = I_0 \ left (\ beta \ sqrt {1- \ frac {4n ^ 2} {(M-1) ^ 2}}
+               \ right) / I_0 (\ beta)
+
+    con
+
+    . matemática :: \ quad - \ frac {M-1} {2} \ leq n \ leq \ frac {M-1} {2}
+
+    donde: math: `I_0` es la función de Bessel de orden cero modificada.
+
+    El Kaiser fue nombrado para Jim Kaiser, que descubrió una aproximación simple
+    a la ventana de DPSS basada en las funciones de Bessel.
+    La ventana Kaiser es una muy buena aproximación al Digital Prolate
+    Secuencia esferoidal, o ventana de Slepian, que es la transformación que
+    maximiza la energía en el lóbulo principal de la ventana en relación con el total
+    energía.
+
+    El Kaiser puede aproximarse a otras ventanas variando el parámetro beta.
+    (Alguna literatura usa alfa = beta / pi.) [4] _
+
+    ==== ====================================================
+    beta Forma de ventana
+    ==== ====================================================
+    0 Rectangular
+    5 Similar a un Hamming
+    6 Similar a un Hann
+    8.6 Similar a un Blackman
+    ==== ====================================================
+
+    Un valor beta de 14 es probablemente un buen punto de partida. Tenga en cuenta que como beta
+    la ventana se estrecha, por lo que el número de muestras debe ser
+    suficiente para probar el punto cada vez más estrecho, de lo contrario NaNs
+    ser devuelto.
+
+    La mayoría de las referencias a la ventana Kaiser vienen del procesador de señales
+    literatura, donde se utiliza como una de las muchas funciones de
+    valores de suavizado. También se conoce como una apodización (que significa
+    "retirar el pie", es decir, suavizar las discontinuidades al principio
+    y final de la señal muestreada) o función de ahusamiento.
+
+    Referencias
+    ----------
+    [1] J. F. Kaiser, "Filtros digitales" - Ch 7 en "Análisis de sistemas por
+           digital computer ", Editores: F.F. Kuo y J.F. Kaiser, p 218-285.
+           John Wiley and Sons, Nueva York, (1966).
+    [2] E.R. Kanasewich, "Time Sequence Analysis in Geophysics", The
+           University of Alberta Press, 1975, páginas 177-178.
+    .. [3] Wikipedia, "Función de ventana",
+           http://en.wikipedia.org/wiki/Window_function
+    [4] F. J. Harris, "Sobre el uso de ventanas para el análisis armónico con el
+           transformada discreta de Fourier ", Proceedings of the IEEE, vol. 66,
+           no. 1, págs. 51-83, enero 1978.: doi: `10.1109 / PROC.1978.10837`.
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> window = signal.kaiser (51, beta = 14)
+    >>> plt.plot (ventana)
+    >>> plt.title (r "ventana de Kaiser ($ \ beta $ = 14)")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title (r "Respuesta de frecuencia de la ventana Kaiser ($ \ beta $ = 14)")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")Devuelva una ventana de Blackman-Harris de 4 terminales de acuerdo a Nuttall.
+
+    Esta variación se llama "Nuttall4c" por Heinzel. [2] _
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Referencias
+    ----------
+    [1] A. Nuttall, "Algunas ventanas con comportamiento de lóbulo lateral muy bueno", IEEE
+           Transacciones en acústica, habla y procesamiento de señales, vol. 29,
+           no. 1, págs. 84-91, feb 1981.: doi: '10.1109 / TASSP.1981.1163506'.
+    [2] Heinzel G. et al., "Espectro y estimación de la densidad espectral por el
+           Transformación discreta de Fourier (DFT), incluyendo una lista
+           funciones de ventanas y algunas nuevas ventanas planas ", 15 de febrero de 2002
+           https://holometer.fnal.gov/GH_FFT.pdf
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> window = signal.nuttall (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("ventana de Nuttall")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de frecuencia de la ventana Nuttall")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")Devuelve una ventana Parzen.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Referencias
+    ----------
+    [1] E. Parzen, "Consideraciones matemáticas en la estimación de
+           Spectra ", Technometrics, Vol. 3, No. 2 (Mayo, 1961), págs. 167-190
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> ventana = señal.parzen (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("Ventana Parzen")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de frecuencia de la ventana de Parzen")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")Devuelve una ventana triangular.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Ver también
+    --------
+    bartlett: Una ventana triangular que toca cero
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> window = signal.triang (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("Ventana triangular")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de frecuencia de la ventana triangular")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")Devuelve una ventana de Tukey, también conocida como una ventana de coseno cónico.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    alpha: float, opcional
+        Parámetro de forma de la ventana de Tukey, que representa la fracción de la
+        ventana dentro de la región cónica coseno.
+        Si es cero, la ventana de Tukey es equivalente a una ventana rectangular.
+        Si uno, la ventana de Tukey es equivalente a una ventana de Hann.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Referencias
+    ----------
+    [1] Harris, Fredric J. (enero de 1978). "Sobre el uso de Windows para armónicos
+           Análisis con la Transformada de Fourier Discreta ".
+           IEEE 66 (1): 51 - 83. : doi: `10.1109 / PROC.1978.10837`
+    .. [2] Wikipedia, "Función de ventana",
+           http://en.wikipedia.org/wiki/Window_function#Tukey_window
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> ventana = señal.tukey (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("Ventana Tukey")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+    >>> plt.ylim ([0, 1.1])
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de frecuencia de la ventana de Tukey")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")El conjunto de funciones de ventana.
