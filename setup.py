@@ -78,7 +78,7 @@ def setup_package():
     
     metadata = dict(
         name='labugr',
-        version='0.1.3',
+        version='1.0.0',
         author='Luis Serra Garcia',
         author_email='lsgarcia@correo.ugr.es',
         url='http://github.com/lserraga/labUGR',

@@ -10,7 +10,7 @@ def configuration(parent_package='',top_path=None):
     config.add_subpackage('fftpack')
     config.add_subpackage('signal')
     config.add_subpackage('doc') 
-    config.add_subpackage('dependencias')
+    config.add_subpackage('dependencies')
     config.add_subpackage('integrate')
     config.add_subpackage('filters')
     config.add_subpackage('systems')
