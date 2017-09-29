@@ -41,7 +41,7 @@ lapack_libs = numpy-atlas
 with open(os.path.join(directorio,'site.cfg'),'w') as f:
     #Solo queremos utilizar site.cfg cuando estamos en windows
     if os.name == 'nt':
-        if (get_bitness()==32):
+        if (get_bitness()=='32'):
             atlas_compil=atlas_compil.format(version="atlas-3.10.1-sse2-32",
                                              dir=directorio)
         else:
@@ -85,7 +85,7 @@ def setup_package():
         package_data={'':['README.txt']},
         scripts=['scripts/remove_build.sh'],
         description="Laboratorio de señales UGR",
-        license='',
+        license='MIT',
         keywords='signal analysis',
         long_description=long_description,
         install_requires=install_requires,
@@ -99,7 +99,7 @@ def setup_package():
             'dev': ['cython'],
             'test': ['pytest', 'nose'],
         },
-        python_requires='!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*',
+        python_requires='>=3.4.*',
     )
 
     from numpy.distutils.core import setup
