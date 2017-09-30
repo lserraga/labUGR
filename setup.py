@@ -78,12 +78,11 @@ def setup_package():
     
     metadata = dict(
         name='labugr',
-        version='1.0.0',
+        version='1.0.5',
         author='Luis Serra Garcia',
         author_email='lsgarcia@correo.ugr.es',
         url='http://github.com/lserraga/labUGR',
         package_data={'':['README.txt']},
-        scripts=['scripts/remove_build.sh'],
         description="Laboratorio de señales UGR",
         license='MIT',
         keywords='signal analysis',

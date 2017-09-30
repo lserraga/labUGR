@@ -4,23 +4,24 @@ import os
 
 __all__ = ['write', 'read', 'decode', 'test']
 
+
 def read(filename):
 	"""
-    Return the sample rate (in samples/sec) and data from a audio file.
-    If the audio file is not in the wav format it firsts decodes it and
-    then uses read from wavfile to read it.
+	Return the sample rate (in samples/sec) and data from a audio file.
+	If the audio file is not in the wav format it firsts decodes it and
+	then uses read from wavfile to read it.
 
-    Parameters
-    ----------
-    filename : string
+	Parameters
+	----------
+	filename : string
 
-    Returns
-    -------
-    rate : int
-        Sample rate of audio file.
-    data : numpy array
-        Data read from audio file.
-    """
+	Returns
+	-------
+	rate : int
+		Sample rate of audio file.
+	data : numpy array
+		Data read from audio file.
+	"""
 
 	# Checking if the file exists
 	if not os.path.isfile(filename):
@@ -41,15 +42,15 @@ def read(filename):
 
 def play(filename):
 	"""
-    Plays audio files. If the audio file is not in the wav format it firsts
-    decodes it and then uses read from wavfile to play it. It uses the portaudio
-    library.
+	Plays audio files. If the audio file is not in the wav format it firsts
+	decodes it and then uses read from wavfile to play it. It uses the portaudio
+	library.
 
-    Parameters
-    ----------
-    filename : string
+	Parameters
+	----------
+	filename : string
 
-    """
+	"""
 	import pyaudio
 	import wave
 	import sys
@@ -73,15 +74,15 @@ def play(filename):
 	p = pyaudio.PyAudio()
 
 	stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
-	                channels=wf.getnchannels(),
-	                rate=wf.getframerate(),
-	                output=True)
+					channels=wf.getnchannels(),
+					rate=wf.getframerate(),
+					output=True)
 
 	data = wf.readframes(CHUNK)
 
 	while len(data) > 0:
-	    stream.write(data)
-	    data = wf.readframes(CHUNK)
+		stream.write(data)
+		data = wf.readframes(CHUNK)
 
 	stream.stop_stream()
 	stream.close()
@@ -98,9 +99,9 @@ def test_portaudio():
 	installed in the system.
 
 	Returns
-    -------
-    result : bool
-        True if the library is installed, false otherwise.
+	-------
+	result : bool
+		True if the library is installed, false otherwise.
 	"""
 	result = True
 	try:
@@ -112,6 +113,32 @@ def test_portaudio():
 
 if test_portaudio():
 	__all__.append('play')
+
+def test_backend():
+	"""
+	Checks whether there is an avaliable audio backend in the system.
+
+	Returns
+	-------
+	result : bool
+		True if there is a backend, false otherwise.
+	"""
+	abspath = os.path.abspath(__file__)
+	os.chdir(os.path.dirname(abspath))
+	test_file = os.path.join('tests', 'data', 'chicken.mp3')
+	result = True
+	try: 
+		decode(test_file)
+	except:
+		result = False
+
+	# delete any file generated
+	try:
+		os.remove("{}.wav".format(test_file))
+	except OSError:
+		pass
+
+	return result
 
 from labugr.testing.utils import PytestTester
 test = PytestTester(__name__)
