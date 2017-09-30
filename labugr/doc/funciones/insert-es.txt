@@ -1,0 +1,84 @@
+Insertar valores a lo largo del eje dado antes de los índices dados.
+
+    Parámetros
+    ----------
+    arr: array_like
+        Array de entrada.
+    obj: int, slice o secuencia de ints
+        Objeto que define el índice o los índices antes de que `values` sea
+        insertado.
+
+        .. versionadded :: 1.8.0
+
+        Soporte para inserciones múltiples cuando `obj` es un único escalar o un
+        secuencia con un elemento (similar a la llamada insert multiple
+        veces).
+    valores: array_like
+        Valores a insertar en `arr`. Si el tipo de `values` es diferente
+        de la de `arr`,` values` se convierte en el tipo de `arr`.
+        `values` debe ser conformado de manera que` `arr [..., obj, ...] = values``
+        es legal.
+    eje: int, opcional
+        Eje a lo largo del cual insertar valores ``. Si `axis` es None entonces` arr`
+        se aplana primero.
+
+    Devoluciones
+    -------
+    salir: ndarray
+        Se ha insertado una copia de `arr` con` values`. Tenga en cuenta que `insert`
+        no se produce en el lugar: se devuelve una matriz nueva. Si
+        `axis` es None,` out` es un arreglo plano.
+
+    Ver también
+    --------
+    append: Añade elementos al final de una matriz.
+    concatenar: Unir una secuencia de matrices a lo largo de un eje existente.
+    delete: Elimina elementos de una matriz.
+
+    Notas
+    -----
+    Obsérvese que para inserciones dimensionales superiores `obj = 0` se comporta muy diferente
+    de `obj = [0]` igual que 'arr [:, 0 ,:] = values` es diferente de
+    `arr [:, [0],:] = valores`.
+
+    Ejemplos
+    --------
+    >>> a = np.array ([[1, 1], [2, 2], [3, 3]])
+    un
+    matriz ([[1, 1],
+           [2, 2],
+           [3, 3]])
+    >>> np.insert (a, 1, 5)
+    matriz ([1, 5, 1, 2, 2, 3, 3])
+    >>> np.insert (a, 1, 5, axis = 1)
+    matriz ([[1, 5, 1],
+           [2, 5, 2],
+           [3, 5, 3]])
+
+    Diferencia entre secuencias y escalares:
+
+    >>> np.insert (a, [1], [[1], [2], [3]], eje = 1)
+    matriz ([[1, 1, 1],
+           [2, 2, 2],
+           [3, 3, 3]])
+    >>> np.array_equal (np.insert (a, 1, [1, 2, 3], axis = 1),
+    ... np.insert (a, [1], [[1], [2], [3]], eje = 1))
+    Cierto
+
+    >>> b = a.flatten ()
+    b
+    matriz ([1, 1, 2, 2, 3, 3])
+    >>> np.insert (b, [2, 2], [5, 6])
+    matriz ([1, 1, 5, 6, 2, 2, 3, 3])
+
+    >>> np.insert (b, slice (2, 4), [5, 6])
+    matriz ([1, 1, 5, 2, 6, 2, 3, 3])
+
+    >>> np.insert (b, [2, 2], [7.13, False]) # tipo casting
+    matriz ([1, 1, 7, 0, 2, 2, 3, 3])
+
+    >>> x = np.arange (8) .reshape (2, 4)
+    >>> idx = (1, 3)
+    >>> np.insert (x, idx, 999, axis = 1)
+    matriz ([[0, 999, 1, 2, 999, 3],
+           [4, 999, 5, 6, 999, 7]])

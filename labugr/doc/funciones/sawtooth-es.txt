@@ -1,0 +1,28 @@
+Devuelve una forma de onda periódica de diente de sierra o triángulo.
+    La forma de onda de dientes de sierra tiene un período `` 2 * pi``, sube de -1 a 1 en la
+    intervalo 0 a `` width * 2 * pi``, luego cae de 1 a -1 en el intervalo
+    `` width * 2 * pi`` a `` 2 * pi``. `width` debe estar en el intervalo [0, 1].
+    Tenga en cuenta que esto no es banda limitada. Produce un número infinito
+    de armónicos, que están aliados de un lado a otro a través de la frecuencia
+    espectro.
+    Parámetros
+    ----------
+    t: array_like
+        Hora.
+    anchura: array_like, opcional
+        Ancho de la rampa ascendente como proporción del ciclo total.
+        El valor predeterminado es 1, produciendo una rampa ascendente, mientras que 0 produce una caída
+        rampa. `width` = 0.5 produce una onda triangular.
+        Si una matriz, hace que la forma de onda cambie con el tiempo, y debe ser la
+        misma longitud que t.
+    Devoluciones
+    -------
+    y: ndarray
+        Matriz de salida que contiene la forma de onda de diente de sierra.
+    Ejemplos
+    --------
+    Una forma de onda de 5 Hz muestreada a 500 Hz durante 1 segundo:
+    >>> de la señal de importación de scipy
+    >>> import matplotlib.pyplot como plt
+    >>> t = np.linspace (0, 1, 500)
+    >>> plt.plot (t, signal.sawtooth (2 * np.pi * 5 * t))

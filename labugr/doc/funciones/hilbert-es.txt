@@ -1,0 +1,35 @@
+Transformada de Hilbert de retorno de una secuencia periódica x.
+
+    Si x_j e y_j son coeficientes de Fourier de funciones periódicas x
+    yy, respectivamente, entonces:
+
+      y_j = sqrt (-1) * signo (j) * x_j
+      y_0 = 0
+
+    Parámetros
+    ----------
+    x: array_like
+        La matriz de entrada debe ser periódica.
+    _cache: dict, opcional
+        Diccionario que contiene el kernel utilizado para hacer una convolución con.
+
+    Devoluciones
+    -------
+    y: ndarray
+        La entrada transformada.
+
+    Ver también
+    --------
+    scipy.signal.hilbert: Calcule la señal analítica, usando el método de Hilbert
+                           transformar.
+
+    Notas
+    -----
+    Si `` sum (x, axis = 0) == 0`` entonces `` hilbert (ihilbert (x)) == x``.
+
+    Para incluso len (x), el modo de Nyquist de x se toma cero.
+
+    El signo de la transformada devuelta no tiene un factor -1 que es más
+    a menudo que no se encuentra en la definición de la transformada de Hilbert. Tenga en cuenta también
+    que `scipy.signal.hilbert` tiene un factor extra-1 en comparación con este
+    función.

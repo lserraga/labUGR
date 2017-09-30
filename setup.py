@@ -74,23 +74,17 @@ def generate_cython():
 
 def setup_package():
 
-    try:
-        import numpy
-    except ImportError:
-        install_requires = ['numpy>=1.8.2','mpmath']
-    else:
-        install_requires = ['mpmath']
+    install_requires = ['numpy>=1.8.2','mpmath', 'pyaudio', 'matplotlib']
     
     metadata = dict(
         name='labugr',
-        version='0.1.3',
+        version='1.0.5',
         author='Luis Serra Garcia',
         author_email='lsgarcia@correo.ugr.es',
         url='http://github.com/lserraga/labUGR',
         package_data={'':['README.txt']},
-        scripts=['scripts/remove_build.sh'],
         description="Laboratorio de señales UGR",
-        license='',
+        license='MIT',
         keywords='signal analysis',
         long_description=long_description,
         install_requires=install_requires,
@@ -104,7 +98,7 @@ def setup_package():
             'dev': ['cython'],
             'test': ['pytest', 'nose'],
         },
-        python_requires='!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*',
+        python_requires='>=3.4.*',
     )
 
     from numpy.distutils.core import setup

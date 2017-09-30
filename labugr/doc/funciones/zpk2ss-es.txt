@@ -1,0 +1,14 @@
+Representación de ganancia de polo cero a la representación del espacio de estados
+
+    Parámetros
+    ----------
+    z, p: secuencia
+        Cero y polo.
+    k: float
+        Ganancia del sistema.
+
+    Devoluciones
+    -------
+    A, B, C, D: ndarray
+        Representación espacial de estados del sistema, en controlador canónico
+        formar.

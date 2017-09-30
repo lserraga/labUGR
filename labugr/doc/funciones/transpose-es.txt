@@ -1,0 +1,42 @@
+Permitir las dimensiones de una matriz.
+
+    Parámetros
+    ----------
+    a: array_like
+        Array de entrada.
+    ejes: lista de entradas, opcional
+        Por defecto, invertir las dimensiones, de lo contrario permute los ejes
+        de acuerdo con los valores dados.
+
+    Devoluciones
+    -------
+    p: ndarray
+        `a` con sus ejes permutados. Se devuelve una vista siempre que
+        posible.
+
+    Ver también
+    --------
+    moveaxis
+    argsort
+
+    Notas
+    -----
+    Utilice `transpose (a, argsort (axes))` para invertir la transposición de los tensores
+    cuando se utiliza el argumento de la palabra clave `axes`.
+
+    La transposición de una matriz 1-D devuelve una vista sin cambios de la matriz original.
+
+    Ejemplos
+    --------
+    >>> x = np.arange (4) .reshape ((2,2))
+    x
+    matriz ([[0, 1],
+           [2, 3]])
+
+    >>> np.transpose (x)
+    matriz ([[0, 2],
+           [1, 3]])
+
+    >>> x = np.ones ((1, 2, 3))
+    >>> np.transpose (x, (1, 0, 2)). forma
+    (2, 1, 3)

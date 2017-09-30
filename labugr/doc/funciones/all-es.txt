@@ -1,0 +1,69 @@
+Compruebe si todos los elementos de la matriz a lo largo de un eje dado se evalúan en True.
+
+    Parámetros
+    ----------
+    a: array_like
+        Matriz de entrada o objeto que se puede convertir en una matriz.
+    eje: Ninguno o int o tupla de ints, opcional
+        Eje o ejes a lo largo de los cuales se realiza una reducción AND lógica.
+        El valor por defecto (`axis` =` None`) es realizar un AND lógico sobre todos
+        las dimensiones de la matriz de entrada. «eje» puede ser negativo,
+        cuyo caso cuenta desde el último hasta el primer eje.
+
+        .. versionadded :: 1.7.0
+
+        Si se trata de una tupla de ints, se realiza una reducción en múltiples
+        ejes, en lugar de un solo eje o todos los ejes como antes.
+    out: ndarray, opcional
+        Matriz de salida alternativa en la que colocar el resultado.
+        Debe tener la misma forma que la producción esperada y su
+        (por ejemplo, si `` dtype (out) `` es flotante, el resultado
+        consistirá en 0.0 y 1.0). Véase `doc.ufuncs` (Sección
+        "Argumentos de salida") para más detalles.
+
+    keepdims: bool, opcional
+        Si se establece en True, los ejes que se reducen quedan a la izquierda
+        en el resultado como dimensiones con el tamaño uno. Con esta opción,
+        el resultado se transmitirá correctamente contra la matriz de entrada.
+
+        Si se pasa el valor predeterminado, entonces `keepdims` no será
+        pasó a través del método `all` de las subclases de
+        `ndarray`, sin embargo cualquier valor no predeterminado será. Si el
+        el método `sum` de las subclases no implementa` keepdims` ninguna
+        se generarán excepciones.
+
+    Devoluciones
+    -------
+    todos: ndarray, bool
+        Se devuelve un nuevo booleano o matriz, a menos que se especifique `out`,
+        en cuyo caso se devuelve una referencia a `out`.
+
+    Ver también
+    --------
+    ndarray.all: método equivalente
+
+    any: Prueba si cualquier elemento a lo largo de un eje dado se evalúa como True.
+
+    Notas
+    -----
+    No un número (NaN), un infinito positivo y un infinito negativo
+    evaluar a `True` porque no son iguales a cero.
+
+    Ejemplos
+    --------
+    >>> np.all ([[True, False], [True, True]])
+    Falso
+
+    >>> np.all ([[True, False], [True, True]], axis = 0)
+    array ([True, False], dtype = bool)
+
+    >>> np.all ([- 1, 4, 5])
+    Cierto
+
+    >>> np.all ([1.0, np.nan])
+    Cierto
+
+    >>> o = np.array ([False])
+    >>> z = np.all ([- 1, 4, 5], out = o)
+    >>> id (z), id (o), z # doctest: + SKIP
+    (28293632, 28293632, array ([True], dtype = bool))

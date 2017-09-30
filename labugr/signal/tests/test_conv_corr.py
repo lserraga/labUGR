@@ -13,7 +13,7 @@ from numpy.testing import (
 from numpy import array, arange
 import numpy as np
 
-from labugr.signal import convolve, correlate, fftconvolve, choose_conv_method
+from labugr.signal.conv_corr import convolve, correlate, fftconvolve, choose_conv_method
 
 class _TestConvolve(object):
 

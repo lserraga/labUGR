@@ -1,0 +1,57 @@
+Devuelve una ventana con una forma gaussiana generalizada.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    p: float
+        Parámetro de forma. p = 1 es idéntico a `gaussiano ', p = 0,5 es
+        la misma forma que la distribución de Laplace.
+    sig: float
+        La desviación estándar, sigma.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Notas
+    -----
+    La ventana gaussiana generalizada se define como
+
+    .. math :: w (n) = e ^ {- \ frac {1} {2} \ left | \ frac {n} {\ sigma} \ right | ^ {2p}}
+
+    el punto de media potencia está en
+
+    .. math :: (2 \ log (2)) ^ {1 / (2 p)} \ sigma
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> ventana = señal.general_gaussian (51, p = 1,5, sig = 7)
+    >>> plt.plot (ventana)
+    >>> plt.title (r "Ventana gaussiana generalizada (p = 1,5, $ \ sigma $ = 7)")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title (r "Freq. resp. del gen. Gaussiano"
+    ... "(p = 1,5, $ \ sigma $ = 7)")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")

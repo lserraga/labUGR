@@ -1,0 +1,47 @@
+Devuelve una sinusoide modulada gaussiana:
+        `` exp (-a t ^ 2) exp (1j * 2 * pi * fc * t).
+    Si `retquad` es True, devuelve las partes reales e imaginarias
+    (en fase y en cuadratura).
+    Si `retenv` es True, devuelva el sobre (señal no modulada).
+    De lo contrario, devolver la parte real de la sinusoide modulada.
+    Parámetros
+    ----------
+    t: ndarray o la cadena 'cutoff'
+        Array de entrada.
+    fc: int, opcional
+        Frecuencia central (por ejemplo, Hz). El valor predeterminado es 1000.
+    bw: float, opcional
+        Ancho de banda fraccional en el dominio de frecuencia del pulso (por ejemplo, Hz).
+        El valor predeterminado es 0,5.
+    bwr: float, opcional
+        Nivel de referencia en el que se calcula el ancho de banda fraccionario (dB).
+        El valor predeterminado es -6.
+    tpr: float, opcional
+        Si `t` es 'cutoff', entonces la función devuelve el cutoff
+        tiempo para cuando la amplitud del impulso cae por debajo de `tpr` (en dB).
+        El valor predeterminado es -60.
+    retquad: bool, opcional
+        Si es True, devuelve la cuadratura (imaginaria) así como la parte real
+        de la señal. El valor predeterminado es False.
+    retenv: bool, opcional
+        Si es True, devuelva el sobre de la señal. El valor predeterminado es False.
+    Devoluciones
+    -------
+    yI: ndarray
+        Parte real de la señal. Siempre regresó.
+    yQ: ndarray
+        Parte imaginaria de la señal. Sólo se devuelve si `retquad` es True.
+    yenv: ndarray
+        Sobre de señal. Sólo devuelto si `retenv` es True.
+    Ver también
+    --------
+    scipy.signal.morlet
+    Ejemplos
+    --------
+    Trazar componente real, componente imaginario y envolvente para un pulso de 5 Hz,
+    muestreado a 100 Hz durante 2 segundos:
+    >>> de la señal de importación de scipy
+    >>> import matplotlib.pyplot como plt
+    >>> t = np.linspace (-1, 1, 2 * 100, punto final = Falso)
+    >>> i, q, e = signal.gausspulse (t, fc = 5, retquad = True, retenv = True)
+    >>> plt.plot (t, i, t, q, t, e, '-')

@@ -1,0 +1,82 @@
+Devolver una ventana Dolph-Chebyshev.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    en: float
+        Atenuación (en dB).
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo siempre normalizado a 1
+
+    Notas
+    -----
+    Esta ventana se optimiza para la anchura del lóbulo principal más estrecha para un orden dado
+    `M` y la atenuación equiparable de los lóbulos laterales` at`, utilizando Chebyshev
+    polinomios Originalmente fue desarrollado por Dolph para optimizar el
+    direccionalidad de los conjuntos de antenas de radio.
+
+    A diferencia de la mayoría de las ventanas, el Dolph-Chebyshev se define en términos de su
+    respuesta frecuente:
+
+    .. math :: W (k) = \ frac
+              {\ cos \ {M \ cos ^ {- 1} [\ beta \ cos (\ frac {\ pi k} {M})] \}}
+              {\ cosh [M \ cosh ^ {- 1} (\ beta)]}
+
+    dónde
+
+    .. math :: \ beta = \ cosh \ left [\ frac {1} {M}
+              \ cosh ^ {- 1} (10 ^ \ frac {A} {20}) \ derecha]
+
+    y 0 <= abs (k) <= M-1. A es la atenuación en decibeles (`at`).
+
+    La ventana del dominio del tiempo se genera usando el IFFT, por lo que
+    power-of-two `M` son los más rápidos a generar, y el número primo` M` son
+    el más lento.
+
+    La condición equiripple en el dominio de la frecuencia crea impulsos en la
+    tiempo, que aparecen en los extremos de la ventana.
+
+    Referencias
+    ----------
+    [1] C. Dolph, "Una distribución actual de arrays de costado que
+           optimiza la relación entre el ancho del haz y el nivel del lóbulo lateral ",
+           Actas de la IEEE, Vol. 34, Número 6
+    .. [2] Peter Lynch, "La ventana de Dolph-Chebyshev: Un filtro óptimo simple",
+           Sociedad Meteorológica Americana (abril de 1997)
+           http://mathsci.ucd.ie/~plynch/Publications/Dolph.pdf
+    [3] F. J. Harris, "Sobre el uso de ventanas para el análisis armónico con el
+           discreta Fourier transforma ", Proceedings de la IEEE, Vol. 66,
+           No. 1, enero de 1978
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> window = signal.chebwin (51, at = 100)
+    >>> plt.plot (ventana)
+    >>> plt.title ("Ventana Dolph-Chebyshev (100 dB)")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta en frecuencia de la ventana Dolph-Chebyshev (100 dB)")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")

@@ -1,0 +1,27 @@
+Devuelve el número de dimensiones de una matriz.
+
+    Parámetros
+    ----------
+    a: array_like
+        Array de entrada. Si no es ya un ndarray, una conversión es
+        intentó.
+
+    Devoluciones
+    -------
+    number_of_dimensions: int
+        El número de dimensiones en `a`. Los escalares son de dimensión cero.
+
+    Ver también
+    --------
+    ndarray.ndim: método equivalente
+    forma: dimensiones de la matriz
+    ndarray.shape: dimensiones de la matriz
+
+    Ejemplos
+    --------
+    >>> np.ndim ([[1,2,3], [4,5,6]])
+    2
+    >>> np.ndim (np.array ([[1,2,3], [4,5,6]]))
+    2
+    >>> np.ndim (1)
+    0

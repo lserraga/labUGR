@@ -1,0 +1,85 @@
+Devuelve la transformación sinusoidal discreta de la secuencia de tipos arbitrarios x.
+
+    Parámetros
+    ----------
+    x: array_like
+        La matriz de entrada.
+    escriba: {1, 2, 3}, opcional
+        Tipo de DST (ver Notas). El tipo predeterminado es 2.
+    n: int, opcional
+        Longitud de la transformación. Si `` n <x.shape [axis] ``, `x` es
+        truncado. Si `` n> x.shape [axis] ``, `x` tiene cero relleno. los
+        por defecto resulta en `` n = x.shape [axis] ``.
+    eje: int, opcional
+        Eje a lo largo del cual se calcula el dst; el valor predeterminado es el
+        último eje (es decir, "eje = -1").
+    norma: {Ninguno, 'orto'}, opcional
+        Modo de normalización (ver Notas). El valor predeterminado es Ninguno.
+    overwrite_x: bool, opcional
+        Si es cierto, el contenido de `x 'puede ser destruido; El valor predeterminado es falso.
+
+    Devoluciones
+    -------
+    dst: ndarray de reales
+        La matriz de entrada transformada.
+
+    Ver también
+    --------
+    idst: DST inversa
+
+    Notas
+    -----
+    Para una matriz de dimensión única `` x``.
+
+    Hay teóricamente 8 tipos de DST para diferentes combinaciones de
+    condiciones de frontera pares / impares y conjuntos de límites [1] _, sólo las primeras
+    3 tipos son implementados en scipy.
+
+    **Tipo i**
+
+    Existen varias definiciones del DST-I; usamos lo siguiente
+    para `` norm = None``. DST-I supone que la entrada es impar alrededor de n = -1 y n = N. ::
+
+                 N-1
+      y [k] = 2 * suma x [n] * sin (pi * (k + 1) * (n + 1) / (N + 1))
+                 n = 0
+
+    Sólo se admite None como modo de normalización para DCT-I. Tenga en cuenta
+    DCT-I sólo es compatible con el tamaño de entrada> 1
+    El DCT-I (no normalizado) es su propio inverso, hasta un factor «2 (N + 1)».
+
+    ** Tipo II **
+
+    Hay varias definiciones del DST-II; usamos lo siguiente
+    para `` norm = None``. DST-II supone que la entrada es impar alrededor de n = -1 / 2 y
+    n = N - 1/2; la salida es impar alrededor de k = -1 e incluso alrededor de k = N-1 ::
+
+                N-1
+      y [k] = 2 * suma x [n] * sin (pi * (k + 1) * (n + 0,5) / N), 0 <= k <N.
+                n = 0
+
+    si `` norm = 'ortho'``, `` y [k] `` se multiplica por un factor de escala `f` ::
+
+        f = sqrt (1 / (4 * N)) si k == 0
+        f = sqrt (1 / (2 * N)) en caso contrario.
+
+    ** Tipo III **
+
+    Existen varias definiciones del DST-III, utilizamos las siguientes
+    (para `` norm = None``). DST-III asume que la entrada es impar alrededor de n = -1
+    e incluso alrededor de n = N-1 ::
+
+                                 N-2
+      y (k) = x [N-1] * (- 1) ** k + 2 * suma x [n] * sin (pi * (k + 0,5) * (n + 1) k <N.
+                                 n = 0
+
+    La DCT-III (no normalizada) es la inversa de la DCT-II (no normalizada), hacia arriba
+    a un factor «2N». El DST-III ortonormalizado es exactamente el inverso de
+    el DST-II ortonormalizado.
+
+    .. versionadded :: 0.11.0
+
+    Referencias
+    ----------
+    .. [1] Wikipedia, "Transformación senoidal discreta",
+           http://en.wikipedia.org/wiki/Discrete_sine_transform

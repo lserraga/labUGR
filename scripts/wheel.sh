@@ -16,7 +16,7 @@ for version in $pythonV
 do
 	ENV=opt/python/$version/bin
 	"${ENV}/pip" install numpy cython
-	"${ENV}/pip" wheel labugr/ -w wheelhouse/
+	"${ENV}/pip" wheel --no-deps labugr/ -w wheelhouse/
 done
 
 #Para cada wheel creada utilizamos auditwheel para comprobar que esta

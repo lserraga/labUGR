@@ -1178,7 +1178,6 @@ def cheby1(N, rp, Wn, btype='low', analog=False, output='ba'):
     return iirfilter(N, Wn, rp=rp, btype=btype, analog=analog,
                      output=output, ftype='cheby1')
 
-
 def cheby2(N, rs, Wn, btype='low', analog=False, output='ba'):
     """
     Chebyshev type II digital and analog filter design.

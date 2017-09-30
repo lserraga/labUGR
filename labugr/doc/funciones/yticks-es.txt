@@ -1,0 +1,18 @@
+Obtenga o establezca los * y * -limits de las ubicaciones y etiquetas actuales.
+
+    ::
+
+      # return locs, etiquetas donde locs es una matriz de localizaciones de tick y
+      # etiquetas es una matriz de etiquetas de garrapatas.
+      locs, etiquetas = yticks ()
+
+      # establecer las ubicaciones de los yticks
+      yachts (arange (6))
+
+      # establecer las ubicaciones y las etiquetas de los yticks
+      yks (arange (5), ('Tom', 'Dick', 'Harry', 'Sally', 'Sue'))
+
+    Las palabras clave args, si las hay, son: class: `~ matplotlib.text.Text`
+    propiedades. Por ejemplo, para girar etiquetas largas:
+
+      yticks (arange (12), calendar.month_name [1:13], rotación = 45)

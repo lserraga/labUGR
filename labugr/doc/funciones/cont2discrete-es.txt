@@ -1,0 +1,57 @@
+Transformar un sistema continuo en un sistema de estado-espacio discreto.
+
+    Parámetros
+    ----------
+    sistema: una tupla que describe el sistema o una instancia de `lti`
+        Lo siguiente da el número de elementos en la tupla y
+        la interpretación:
+
+            * 1: (ejemplo de `lti`)
+            * 2: (num, den)
+            * 3: (ceros, polos, ganancia)
+            * 4: (A, B, C, D)
+
+    dt: float
+        El paso del tiempo de discretización.
+    método: {"gbt", "bilinear", "euler", "backward_diff", "zoh"}, opcional
+        Qué método usar:
+
+            * gbt: transformación bilineal generalizada
+            * bilineal: La aproximación de Tustin ("gbt" con alfa = 0.5)
+            * euler: Método de Euler (o diferenciación directa) ("gbt" con alpha = 0)
+            * backward_diff: Diferenciación hacia atrás ("gbt" con alfa = 1.0)
+            * zoh: retención de orden cero (predeterminado)
+
+    alpha: float dentro de [0, 1], opcional
+        El parámetro de ponderación de la transformación bilineal generalizada, que
+        sólo se debe especificar con method = "gbt", y se ignora de otra manera
+
+    Devoluciones
+    -------
+    sysd: tupla que contiene el sistema discreto
+        Basándose en el tipo de entrada, la salida será de la forma
+
+        * (num, den, dt) para la entrada de función de transferencia
+        * (ceros, polos, ganancia, dt) para entrada de ganancia de ceros-polos
+        * (A, B, C, D, dt) para la entrada del sistema de espacio de estado
+
+    Notas
+    -----
+    De forma predeterminada, la rutina utiliza un método de retención de orden cero (zoh) para realizar
+    la transformación. Alternativamente, una transformación bilineal generalizada
+    puede usarse, que incluye la aproximación bilineal de Tustin común,
+    una técnica del método de Euler, o una técnica de diferenciación hacia atrás.
+
+    El método de retención de orden cero (zoh) se basa en [1] _, el método bilineal generalizado
+    la aproximación se basa en [2] _ y [3] _.
+
+    Referencias
+    ----------
+    .. [1] http://en.wikipedia.org/wiki/Discretization#Discretization_of_linear_state_space_models
+
+    .. [2] http://techteach.no/publications/discretetime_signals_systems/discrete.pdf
+
+    .. [3] G. Zhang, X. Chen, y T. Chen, rediseño digital a través de la generalizada
+        transformación bilineal, Int. J. Control, vol. 82, no. 4, págs. 741 - 754,
+        2009.
+        (http://www.ece.ualberta.ca/~gfzhang/research/ZCC07_preprint.pdf)

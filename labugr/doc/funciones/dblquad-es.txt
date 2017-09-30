@@ -1,0 +1,45 @@
+Calcule una integral doble.
+
+    Devuelve la integral doble (definida) de `` func (y, x) `` a partir de `` x = a..b``
+    y `` y = gfun (x) .. hfun (x) ``.
+
+    Parámetros
+    ----------
+    func: callable
+        Una función o método Python de al menos dos variables: y debe ser la
+        primer argumento y x el segundo argumento.
+    a b b
+        Los límites de integración en x: `a` <` b`
+    gfun: callable
+        La curva de límite inferior en y que es una función que toma una sola
+        argumento de punto flotante (x) y devolver un resultado de coma flotante: a
+        la función lambda puede ser útil aquí.
+    hfun: callable
+        La curva límite superior en y (los mismos requisitos que `gfun`).
+    args: secuencia, opcional
+        Extra argumentos para pasar a `func`.
+    epsabs: float, opcional
+        La tolerancia absoluta pasa directamente a la cuadratura 1-D interna
+        integración. El valor predeterminado es 1.49e-8.
+    epsrel: float, opcional
+        Tolerancia relativa de las integrales 1-D internas. El valor predeterminado es 1.49e-8.
+
+    Devoluciones
+    -------
+    y: float
+        La integral resultante.
+    abserr: float
+        Una estimación del error.
+
+    Ver también
+    --------
+    quad: single integral
+    tplquad: integral triple
+    nquad: integrales N-dimensionales
+    fixed_quad: cuadratura gaussiana de orden fijo
+    cuadratura: cuadratura adaptativa gaussiana
+    odeint: integrador ODE
+    ode: integrador ODE
+    simps: integrador para datos muestreados
+    romb: integrador para datos muestreados
+    scipy.special: para coeficientes y raíces de polinomios ortogonales

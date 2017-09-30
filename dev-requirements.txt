@@ -1,4 +1,0 @@
-nose
-pytest
-numpy
-cython

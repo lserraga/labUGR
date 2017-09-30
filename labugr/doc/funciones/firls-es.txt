@@ -1,0 +1,99 @@
+Diseño de filtro FIR utilizando la minimización de errores por mínimos cuadrados.
+
+    Calcular los coeficientes de filtro para la fase lineal finita
+    filtro de respuesta de impulso (FIR) que tiene la mejor aproximación
+    a la respuesta de frecuencia deseada descrita por `bandas 'y
+    'deseado' en el sentido de los mínimos cuadrados (es decir, la integral de la
+    el error cuadrático medio ponderado dentro de las bandas especificadas es
+    minimizado).
+
+    Parámetros
+    ----------
+    numtaps: int
+        El número de taps en el filtro FIR. `numtaps` debe ser impar.
+    bandas: array_like
+        Una secuencia monotónica no decrescendente que contiene los bordes de la banda en
+        Hz. Todos los elementos deben ser no negativos e iguales o menores que
+        la frecuencia de Nyquist dada por `nyq`.
+    deseado: array_like
+        Una secuencia del mismo tamaño que "bandas" que contiene la ganancia deseada
+        en el punto inicial y final de cada banda.
+    peso: array_like, opcional
+        Una ponderación relativa para dar a cada región de la banda al resolver
+        el problema de los mínimos cuadrados. `peso` tiene que ser la mitad del tamaño de
+        bandas
+    nyq: float, opcional
+        Frecuencia de Nyquist. Cada frecuencia en "bandas" debe estar entre 0
+        y `nyq` (inclusive).
+
+    Devoluciones
+    -------
+    coeffs: ndarray
+        Coeficientes del filtro FIR óptimo (en un sentido de mínimos cuadrados).
+
+    Ver también
+    --------
+    firmar
+    firwin2
+    fase mínima
+    remezclar
+
+    Notas
+    -----
+    Esta implementación sigue el algoritmo dado en [1] _.
+    Como se observa, el diseño de mínimos cuadrados tiene múltiples ventajas:
+
+        1. Óptimo en un sentido de mínimos cuadrados.
+        2. Método simple, no-iterativo.
+        3. La solución general puede obtenerse resolviendo una
+           sistema de ecuaciones.
+        4. Permite el uso de una función de ponderación dependiente de la frecuencia.
+
+    Esta función construye un filtro FIR de fase lineal tipo I, que
+    contiene un número impar de `coeffs` que satisfacen para: math:` n <numtaps`:
+
+    .. math :: coeffs (n) = coeffs (numtaps - 1 - n)
+
+    El número impar de coeficientes y la simetría del filtro evitan límites
+    condiciones que podrían ocurrir en el Nyquist y 0 frecuencias
+    (por ejemplo, para las variantes de Tipo II, III o IV).
+
+    .. versionadded :: 0.18
+
+    Referencias
+    ----------
+    .. [1] Ivan Selesnick, Linear-Phase Fir Filtro Diseño Por mínimos cuadrados.
+           OpenStax CNX. 9 de agosto de 2005.
+           http://cnx.org/contents/eb1ecb35-03a9-4610-ba87-41cd771c95f2@7
+
+    Ejemplos
+    --------
+    Queremos construir un filtro de paso de banda. Tenga en cuenta que el comportamiento
+    los rangos de frecuencia entre nuestras bandas de parada y bandas de paso no se especifica,
+    y por lo tanto puede superar dependiendo de los parámetros de nuestro filtro:
+
+    >>> de la señal de importación de scipy
+    >>> import matplotlib.pyplot como plt
+    >>> fig, axs = plt.subplots (2)
+    >>> nyq = 5. # Hz
+    >>> deseado = (0, 0, 1, 1, 0, 0)
+    >>> para bi, bandas en enumerar (((0, 1, 2, 3, 4, 5), (0, 1, 2, 4, 4,5, 5))):
+    ... fir_firls = signal.firls (73, bandas, deseado, nyq = nyq)
+    ... fir_remez = signal.remez (73, bandas deseadas [:: 2], Hz = 2 * nyq)
+    ... fir_firwin2 = signal.firwin2 (73, bandas, deseado, nyq = nyq)
+    ... hs = list ()
+    ... ax = axs [bi]
+    ... para abeto (fir_firls, fir_remez, fir_firwin2):
+    ... frecuencia, respuesta = señal.freqz (abeto)
+    ... hs.append (ax.semilogy (nyq * freq / (np.pi), np.abs (respuesta)) [0])
+    ... para banda, ganancias en zip (zip [bandas [:: 2], bandas [1 :: 2]), zip (deseado [:: 2], deseado [1 :: 2])):
+    ... ax.semilogy (banda, np.maximum (ganancias, 1e-7), 'k--', linewidth = 2)
+    ... si bi == 0:
+    ... ax.legend (hs, ('firls', 'remez', 'firwin2'), loc = 'lower center', frameon = False)
+    ... además:
+    ... ax.set_xlabel ('Frecuencia (Hz)')
+    ... ax.grid (Verdadero)
+    ... ax.set (título = 'Band-pass% d-% d Hz'% bandas [2: 4], ylabel = 'Magnitude')
+    ...
+    >>> fig.tight_layout ()
+    >>> plt.show ()

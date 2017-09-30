@@ -1,0 +1,71 @@
+Devuelve una ventana exponencial (o Poisson).
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    centro: float, opcional
+        Parámetro que define la posición central de la función de ventana.
+        El valor predeterminado si no se da es `` center = (M-1) / 2``. Esta
+        debe tomar su valor por defecto para las ventanas simétricas.
+    tau: float, opcional
+        Parámetro que define el decaimiento. Para el uso de `` center = 0``
+        `` tau = - (M-1) / ln (x) `` si `` x`` es la fracción de la ventana
+        permaneciendo al final.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Notas
+    -----
+    La ventana Exponencial se define como
+
+    .. matemáticas :: w (n) = e ^ {- | n-center | tau}
+
+    Referencias
+    ----------
+    S. Gade y H. Herlufsen, "Windows to FFT analysis (Part I)",
+    Revisión Técnica 3, Bruel & Kjaer, 1987.
+
+    Ejemplos
+    --------
+    Trace la ventana simétrica y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> M = 51
+    >>> tau = 3.0
+    >>> ventana = señal.exponencial (M, tau = tau)
+    >>> plt.plot (ventana)
+    >>> plt.title ("Ventana Exponencial (tau = 3.0)")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -35, 0])
+    >>> plt.title ("Respuesta en frecuencia de la ventana exponencial (tau = 3.0)")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")
+
+    Esta función también puede generar ventanas no simétricas:
+
+    >>> tau2 = - (M-1) / np.log (0,01)
+    >>> window2 = signal.exponential (M, 0, tau2, False)
+    >>> plt.figure ()
+    >>> plt.plot (ventana2)
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")

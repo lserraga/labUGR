@@ -24,11 +24,8 @@ if not __LABUGR_SETUP__:
         raise ImportError(msg)
 
 
-from .signal import *
-from .doc.ayuda import ayuda
-
 import numpy as np
-#import matplotlib as plt
+import matplotlib.pyplot as plt
 
 from numpy import arange, pi, e
 
@@ -62,6 +59,15 @@ from numpy import(
     minimum)
 from numpy import around as round 
 
+#Funciones para graficar
+from matplotlib.pyplot import (
+    axis, title, grid, xlabel, ylabel, xscale, yscale, xlim, ylim, xticks,
+    yticks)
+from matplotlib.pyplot import (
+    plot, subplot, figure, bar, barh, stem, step, subplot, show, close,
+    ion, ioff)
+    
+## see spectral
 
 #Algebra lineal
 #from numpy.linalg import 
@@ -80,15 +86,23 @@ from numpy import nditer
 from numpy import (
     all, any, logical_and, logical_or, allclose, isclose,)
 
-from . import fftpack
+from .fftpack import (
+    fft, ifft, fftn, ifftn, dct, idct, dst, idst, diff, hilbert,
+    ihilbert)
 
-from . import integrate
 
+from .signal import *
+from .doc.ayuda import ayuda
+from .integrate import *
 from .testing import test_all
+from .systems import *
+from .filters import *
+from .audio import *
 
 
-excluidos = ['respuestaF', 'signal', 'spectral', 'testing', 'windows',
-            'doc','waveforms','dependencias', 'doc']
+excluded = ['signal', 'testing', 'doc','dependencies', 'systems',
+'signal', 'fftpack', 'audio', 'filters', 'integrate' ,'excluded',
+'test', 'show_config']
 
-__all__ = [s for s in dir() if not ((s in excluidos)or s.startswith('_'))]
+__all__ = [s for s in dir() if not ((s in excluded)or s.startswith('_'))]
 

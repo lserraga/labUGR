@@ -1,0 +1,53 @@
+Devuelva una ventana de Blackman-Harris de 4 terminales de acuerdo a Nuttall.
+
+    Esta variación se llama "Nuttall4c" por Heinzel. [2] _
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Referencias
+    ----------
+    [1] A. Nuttall, "Algunas ventanas con comportamiento de lóbulo lateral muy bueno", IEEE
+           Transacciones en acústica, habla y procesamiento de señales, vol. 29,
+           no. 1, págs. 84-91, feb 1981.: doi: '10.1109 / TASSP.1981.1163506'.
+    [2] Heinzel G. et al., "Espectro y estimación de la densidad espectral por el
+           Transformación discreta de Fourier (DFT), incluyendo una lista
+           funciones de ventanas y algunas nuevas ventanas planas ", 15 de febrero de 2002
+           https://holometer.fnal.gov/GH_FFT.pdf
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> window = signal.nuttall (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("ventana de Nuttall")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de frecuencia de la ventana Nuttall")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")

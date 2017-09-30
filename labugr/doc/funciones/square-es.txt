@@ -1,0 +1,36 @@
+Devuelve una forma de onda periódica de onda cuadrada.
+    La onda cuadrada tiene un período `` 2 * pi``, tiene un valor +1 de 0 a
+    `` 2 * pi * duty`` y -1 desde `` 2 * pi * duty`` a `` 2 * pi``. deber debe estar en
+    el intervalo [0,1].
+    Tenga en cuenta que esto no es banda limitada. Produce un número infinito
+    de armónicos, que están aliados de un lado a otro a través de la frecuencia
+    espectro.
+    Parámetros
+    ----------
+    t: array_like
+        La matriz de tiempo de entrada.
+    duty: array_like, opcional
+        Ciclo de trabajo. El valor predeterminado es 0,5 (ciclo de trabajo del 50%).
+        Si una matriz, hace que la forma de onda cambie con el tiempo, y debe ser la
+        misma longitud que t.
+    Devoluciones
+    -------
+    y: ndarray
+        Matriz de salida que contiene la forma de onda cuadrada.
+    Ejemplos
+    --------
+    Una forma de onda de 5 Hz muestreada a 500 Hz durante 1 segundo:
+    >>> de la señal de importación de scipy
+    >>> import matplotlib.pyplot como plt
+    >>> t = np.linspace (0, 1, 500, punto final = Falso)
+    >>> plt.plot (t, signal.square (2 * np.pi * 5 * t))
+    >>> plt.ylim (-2, 2)
+    Una onda sinusoidal modulada en anchura de impulso:
+    >>> plt.figure ()
+    >>> sig = np.sin (2 * np.pi * t)
+    >>> pwm = signal.square (2 * np.pi * 30 * t, duty = (sig + 1) / 2)
+    >>> plt.subplot (2, 1, 1)
+    >>> plt.plot (t, sig)
+    >>> plt.subplot (2, 1, 2)
+    >>> plt.plot (t, pwm)
+    >>> plt.ylim (-1,5, 1,5)

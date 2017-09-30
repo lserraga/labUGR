@@ -1,0 +1,7 @@
+Devuelve la transformada inversa de Hilbert de una secuencia periódica x.
+
+    Si `` x_j`` y `` y_j`` son coeficientes de Fourier de funciones periódicas x
+    yy, respectivamente, entonces:
+
+      y_j = -sqrt (-1) * signo (j) * x_j
+      y_0 = 0

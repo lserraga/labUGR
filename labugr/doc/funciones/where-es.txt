@@ -1,0 +1,66 @@
+donde (condición, [x, y])
+
+    Devuelve elementos, ya sea de `x` o` y`, dependiendo de `condition`.
+
+    Si sólo se da `condition`, devuelve` `condition.nonzero ()` `.
+
+    Parámetros
+    ----------
+    condición: array_like, bool
+        Cuando True, produce `x`, de lo contrario, produce` y`.
+    x, y: array_like, opcional
+        Valores a partir de los cuales elegir. `x`,` y` y `condition` necesitan ser
+        difundible a alguna forma.
+
+    Devoluciones
+    -------
+    out: ndarray o tupla de ndarrays
+        Si se especifican tanto `x` como` y`, la matriz de salida contiene
+        elementos de `x` donde` condition` es True, y elementos de
+        `y` en otra parte.
+
+        Si sólo se da `condition`, devuelve la tupla
+        `` condition.nonzero () ``, los índices donde `condition` es True.
+
+    Ver también
+    --------
+    diferente de cero, elija
+
+    Notas
+    -----
+    Si se dan `x` y` y` y los arrays de entrada son 1-D, `where` es
+    equivalente a::
+
+        [xv if c else yv para (c, xv, yv) en zip (condición, x, y)]
+
+    Ejemplos
+    --------
+    >>> np.where ([[True, False], [True, True]],
+    ... [[1, 2], [3, 4]],
+    ... [[9, 8], [7, 6]])
+    matriz ([[1, 8],
+           [3, 4]])
+
+    >>> np.where ([[0, 1], [1, 0]])
+    (matriz ([0, 1]), matriz ([1, 0]))
+
+    >>> x = np.arange (9.) remodelar (3, 3)
+    >>> np.where (x> 5)
+    (array ([2, 2, 2]), matriz ([0, 1, 2]))
+    >>> x [np.where (x> 3.0)] # Nota: el resultado es 1D.
+    matriz ([4., 5., 6., 7., 8.])
+    >>> np.where (x <5, x, -1) # Nota: la radiodifusión.
+    matriz ([[0., 1., 2.],
+           [3., 4., -1.],
+           [-1., -1., -1.]])
+
+    Encuentra los índices de elementos de `x` que están en` goodvalues`.
+
+    >>> buenos valores = [3, 4, 7]
+    >>> ix = np.isin (x, buenos valores)
+    ix
+    matriz ([[Falso, Falso, Falso],
+           [Verdadero, Verdadero, Falso],
+           [Falso, Verdadero, Falso]], dtype = bool)
+    >>> np.where (ix)
+    (array ([1, 1, 2]), matriz ([0, 1, 1]))

@@ -1,0 +1,57 @@
+Calcular la magnitud de Bode y los datos de fase de un sistema de tiempo discreto.
+
+    Parámetros
+    ----------
+    system: una instancia de la clase LTI o una tupla que describe el sistema.
+        Lo siguiente da el número de elementos en la tupla y
+        la interpretación:
+
+            * 1 (instancia de `dlti`)
+            * 2 (num, den, dt)
+            * 3 (ceros, polos, ganancia, dt)
+            * 4 (A, B, C, D, dt)
+
+    w: array_like, opcional
+        Conjunto de frecuencias (en radianes / muestra). Los datos de magnitud y fase son
+        calculado para cada valor en esta matriz. Si no se le da un
+        set.
+    n: int, opcional
+        Número de puntos de frecuencia a calcular si `w` no se da. El `n`
+        las frecuencias se espacian logaritmicamente en un intervalo elegido para
+        incluyen la influencia de los polos y ceros del sistema.
+
+    Devoluciones
+    -------
+    w: 1D ndarray
+        Matriz de frecuencia [rad / time_unit]
+    mag: 1D ndarray
+        Magnitud array [dB]
+    fase: 1D ndarray
+        Fase de matriz [deg]
+
+    Notas
+    -----
+    Si (num, den) es pasado para `` system``, los coeficientes tanto para el
+    numerador y denominador debe ser especificado en exponente descendente
+    (por ejemplo, `` z ^ 2 + 3z + 5`` se representaría como `` [1, 3, 5] ``).
+
+    .. versionadded :: 0.18.0
+
+    Ejemplos
+    --------
+    >>> de la señal de importación de scipy
+    >>> import matplotlib.pyplot como plt
+
+    Función de transferencia: H (z) = 1 / (z ^ 2 + 2z + 3)
+
+    >>> sys = signal.TransferFunction ([1], [1, 2, 3], dt = 0.05)
+
+    Equivalente: sys.bode ()
+
+    >>> w, mag, phase = signal.dbode (sys)
+
+    >>> plt.figure ()
+    >>> plt.semilogx (w, mag) # Gráfico de magnitud de Bode
+    >>> plt.figure ()
+    >>> plt.semilogx (w, fase) # Diagrama de fase Bode
+    >>> plt.show ()

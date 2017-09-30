@@ -1,0 +1,16 @@
+Dividir una matriz en varios sub-arrays.
+
+    Consulte la documentación `` split``. La unica diferencia
+    entre estas funciones es que `` array_split`` permite
+    `indices_or_sections` para ser un entero que no * no * igualmente
+    divida el eje.
+
+    Ver también
+    --------
+    split: Split array en múltiples sub-arrays de igual tamaño.
+
+    Ejemplos
+    --------
+    >>> x = np.arange (8.0)
+    >>> np.array_split (x, 3)
+        [array ([0., 1., 2.]), array ([3., 4., 5.]), array ([6., 7.])]

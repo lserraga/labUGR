@@ -1,0 +1,33 @@
+Una matriz con unos en y debajo de la diagonal dada y ceros en otros lugares.
+
+    Parámetros
+    ----------
+    N: int
+        Número de filas en la matriz.
+    M: int, opcional
+        Número de columnas en la matriz.
+        Por defecto, `M` se toma igual a` N`.
+    k: int, opcional
+        La sub-diagonal en y debajo de la cual se rellena la matriz.
+        `k` = 0 es la diagonal principal, mientras que` k` <0 está por debajo de ella,
+        y `k`> 0 está por encima. El valor predeterminado es 0.
+    dtype: dtype, opcional
+        Tipo de datos de la matriz devuelta. El valor predeterminado es float.
+
+    Devoluciones
+    -------
+    tri: ndarray de forma (N, M)
+        Array con su triángulo inferior lleno de unos y cero en otra parte;
+        en otras palabras `` T [i, j] == 1`` para `` i <= j + k``, 0 en caso contrario.
+
+    Ejemplos
+    --------
+    >>> np.tri (3, 5, 2, dtype = int)
+    array ([[1, 1, 1, 0, 0],
+           [1, 1, 1, 1, 0],
+           [1, 1, 1, 1, 1]])
+
+    >>> np.tri (3, 5, -1)
+    matriz ([[0., 0., 0., 0., 0.],
+           [1., 0., 0., 0., 0.],
+           [1., 1., 0., 0., 0.]])

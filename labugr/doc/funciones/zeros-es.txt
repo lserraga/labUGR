@@ -1,0 +1,48 @@
+ceros (forma, dtype = float, orden = 'C')
+
+    Devuelve un nuevo arreglo de forma y tipo dado, lleno de ceros.
+
+    Parámetros
+    ----------
+    forma: int o secuencia de ints
+        Forma de la nueva matriz, por ejemplo, `` (2, 3) `` o `` 2``.
+    dtype: tipo de datos, opcional
+        El tipo de datos deseado para la matriz, por ejemplo, `numpy.int8`. El valor predeterminado es
+        `numpy.float64`.
+    orden: {'C', 'F'}, opcional
+        Si se deben almacenar datos multidimensionales en C-o Fortran-contiguos
+        (en fila o columna) en la memoria.
+
+    Devoluciones
+    -------
+    salir: ndarray
+        Conjunto de ceros con la forma dada, dtype y orden.
+
+    Ver también
+    --------
+    zeros_like: Devuelve una matriz de ceros con forma y tipo de entrada.
+    ones_like: Devuelve una matriz de unos con forma y tipo de entrada.
+    empty_like: Devuelve una matriz vacía con forma y tipo de entrada.
+    ones: Devuelve una nueva matriz estableciendo valores a uno.
+    empty: Devuelve una nueva matriz no inicializada.
+
+    Ejemplos
+    --------
+    >>> np.zeros (5)
+    matriz ([0., 0., 0., 0., 0.])
+
+    >>> np.zeros ((5,), dtype = np.int)
+    array ([0, 0, 0, 0, 0])
+
+    >>> np.zeros ((2, 1))
+    matriz ([[0.],
+           [0.]])
+
+    >>> s = (2,2)
+    >>> np.zeros (s)
+    matriz ([[0., 0.],
+           [0., 0.]])
+
+    >>> np.zeros ((2), dtype = [('x', 'i4'), ('y', 'i4')]) # dtype personalizado
+    matriz ([(0, 0), (0, 0)],
+          dtype = [('x', '<i4'), ('y', '<i4')])

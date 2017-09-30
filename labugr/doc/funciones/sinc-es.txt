@@ -1,0 +1,70 @@
+Devuelve la función sinc.
+
+    La función sinc es: math: `\ sin (\ pi x) / (\ pi x)`.
+
+    Parámetros
+    ----------
+    x: ndarray
+        Array (posiblemente multidimensional) de valores para los cuales a
+        calcule `` sinc (x) ``.
+
+    Devoluciones
+    -------
+    salir: ndarray
+        `` sinc (x) ``, que tiene la misma forma que la entrada.
+
+    Notas
+    -----
+    `` sinc (0) `` es el valor límite 1.
+
+    El nombre sinc es abreviatura de "sine cardinal" o "sinus cardinalis".
+
+    La función sinc se utiliza en varias aplicaciones de procesamiento de señales,
+    incluyendo en anti-aliasing, en la construcción de un resampling de Lanczos
+    filtro, y en la interpolación.
+
+    Para la interpolación de bandas de señales de tiempo discreto, el ideal
+    el núcleo de la interpolación es proporcional a la función sinc.
+
+    Referencias
+    ----------
+    .. [1] Weisstein, Eric W. "Función Sinc". De MathWorld - Una web de Wolfram
+           Recurso. http://mathworld.wolfram.com/SincFunction.html
+    .. [2] Wikipedia, "Función Sinc",
+           http://en.wikipedia.org/wiki/Sinc_function
+
+    Ejemplos
+    --------
+    >>> x = np.linspace (-4, 4, 41)
+    >>> np.sinc (x)
+    matriz ([-3.89804309e-17, -4.92362781e-02, -8.40918587e-02,
+            -8.90384387e-02, -5.84680802e-02, 3.89804309e-17,
+             6.68206631e-02, 1.16434881e-01, 1.26137788e-01,
+             8.50444803e-02, -3.89804309e-17, -1.03943254e-01,
+            -1.89206682e-01, -2.16236208e-01, -1.55914881e-01,
+             3.89804309e - 17, 2.33872321e - 01, 5.04551152e - 01,
+             7.56826729e - 01, 9.35489284e - 01, 1.00000000e + 00,
+             9.35489284e - 01, 7.56826729e - 01, 5.04551152e - 01,
+             2.33872321e - 01, 3.89804309e - 17, -1.55914881e - 01,
+            -2.16236208e-01, -1.89206682e-01, -1.03943254e-01,
+            -3.89804309e-17, 8.50444803e-02, 1.26137788e-01,
+             1.16434881e - 01, 6.68206631e - 02, 3.89804309e - 17,
+            -5.84680802e-02, -8.90384387e-02, -8.40918587e-02,
+            -4.92362781e-02, -3.89804309e-17])
+
+    >>> plt.plot (x, np.sinc (x))
+    [<matplotlib.lines.Line2D objeto en 0x ...>]
+    >>> plt.title ("Función Sinc")
+    <objeto matplotlib.text.Text en 0x ...>
+    >>> plt.ylabel ("Amplitud")
+    <objeto matplotlib.text.Text en 0x ...>
+    >>> plt.xlabel ("X")
+    <objeto matplotlib.text.Text en 0x ...>
+    >>> plt.show ()
+
+    Funciona en 2-D también:
+
+    >>> x = np.linspace (-4, 4, 401)
+    >>> xx = np.outer (x, x)
+    >>> plt.imshow (np.sinc (xx))
+    <objeto matplotlib.image.AxesImage en 0x ...>

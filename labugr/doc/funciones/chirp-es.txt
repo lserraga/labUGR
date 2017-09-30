@@ -1,0 +1,122 @@
+Generador de coseno con barrido de frecuencia.
+    En lo que sigue, 'Hz' debe interpretarse como 'ciclos por unidad';
+    no es necesario aquí que la unidad sea un segundo. los
+    distinción importante es que las unidades de rotación son ciclos, no
+    radianes Del mismo modo, `t 'podría ser una medida de espacio en vez de tiempo.
+    Parámetros
+    ----------
+    t: array_like
+        Tiempos de evaluación de la forma de onda.
+    f0: float
+        Frecuencia (por ejemplo Hz) en el tiempo t = 0.
+    t1: float
+        Hora en la que se especifica `f1`.
+    f1: float
+        Frecuencia (por ejemplo, Hz) de la forma de onda en el instante t1.
+    método: {'linear', 'cuadrático', 'logarítmico', 'hiperbólico'}, opcional
+        Tipo de barrido de frecuencia. Si no se da, se supone `lineal '. Ver
+        Notas a continuación para más detalles.
+    phi: float, opcional
+        Compensación de fase, en grados. El valor predeterminado es 0.
+    vertex_zero: bool, opcional
+        Este parámetro sólo se utiliza cuando `method` es 'quadratic'.
+        Determina si el vértice de la parábola que es el gráfico
+        de la frecuencia está en t = 0 o t = t1.
+    Devoluciones
+    -------
+    y: ndarray
+        Una matriz numpy que contiene la señal evaluada en `t 'con la
+        frecuencia solicitada en función del tiempo. Más precisamente, la función
+        devuelve `` cos (fase + (pi / 180) * phi) `` donde `fase` es la integral
+        (de 0 a `t ') de` `2 * pi * f (t)` `. `` f (t) `` se define a continuación.
+    Ver también
+    --------
+    sweep_poly
+    Notas
+    -----
+    Hay cuatro opciones para el `método`. Las fórmulas siguientes dan
+    la frecuencia instantánea (en Hz) de la señal generada por
+    `chirp ()`. Para mayor comodidad, los nombres más cortos
+    usado.
+    lineal, lin, li:
+        f (t) = f0 + (f1 - f0) * t / t1``
+    cuadrático, quad, q:
+        La gráfica de la frecuencia f (t) es una parábola a través de (0, f0) y
+        (t _ {1}, f _ {1}). Por defecto, el vértice de la parábola está en (0, f0).
+        Si `vertex_zero` es False, entonces el vértice está en (t1, f1). los
+        fórmula es:
+        si vertex_zero es verdadero:
+            f (t) = f0 + (f1 - f0) * t ** 2 / t1 ** 2``
+        más:
+            f (t) = f1 - (f1 - f0) * (t1 - t) ** 2 / t1 ** 2``
+        Para utilizar una función cuadrática más general, o una función arbitraria
+        polinomio, utilice la función `scipy.signal.waveforms.sweep_poly`.
+    logarítmico, log, lo:
+        f (t) = f0 * (f1 / f0) ** (t / t1) ``
+        f0 y f1 deben ser distintos de cero y tener el mismo signo.
+        Esta señal también se conoce como chirrido geométrico o exponencial.
+    hiperbólico, hip:
+        f (t) = f0 * f1 * t1 / ((f0 - f1) * t + f1 * t1) ``
+        f0 y f1 deben ser distintos de cero.
+    Ejemplos
+    --------
+    En los ejemplos se utilizará lo siguiente:
+    >>> de scipy.signal importación chirp, espectrograma
+    >>> import matplotlib.pyplot como plt
+    Para el primer ejemplo, trazaremos la forma de onda para un chirrido lineal
+    de 6 Hz a 1 Hz en 10 segundos:
+    >>> t = np.linspace (0, 10, 5001)
+    >>> w = chirp (t, f0 = 6, f1 = 1, t1 = 10, método = 'lineal')
+    >>> plt.plot (t, w)
+    >>> plt.title ("Chirp Lineal, f (0) = 6, f (10) = 1")
+    >>> plt.xlabel ('t (sec)')
+    >>> plt.show ()
+    Para los ejemplos restantes, utilizaremos rangos de frecuencia más altos,
+    y demuestre el resultado usando `scipy.signal.spectrogram`.
+    Utilizaremos un intervalo de 10 segundos muestreado a 8000 Hz.
+    >>> fs = 8000
+    >>> T = 10
+    >>> t = np.linspace (0, T, T * fs, punto final = Falso)
+    Chirrido cuádratico de 1500 Hz a 250 Hz en 10 segundos
+    (vértice de la curva parabólica de la frecuencia está en t = 0):
+    >>> w = chirp (t, f0 = 1500, f1 = 250, t1 = 10, método = 'cuadrático')
+    >>> ff, tt, Sxx = espectrograma (w, fs = fs, noverlap = 256, nperseg = 512,
+    ... nfft = 2048)
+    >>> plt.pcolormesh (tt, ff [: 513], Sxx [: 513], cmap = 'gray_r')
+    >>> plt.title ('Quadratic Chirp, f (0) = 1500, f (10) = 250')
+    >>> plt.xlabel ('t (sec)')
+    >>> plt.label ('Frecuencia (Hz)')
+    >>> plt.grid ()
+    >>> plt.show ()
+    Chirrido cuádratico de 1500 Hz a 250 Hz en 10 segundos
+    (vértice de la curva parabólica de la frecuencia está en t = 10):
+    >>> w = chirp (t, f0 = 1500, f1 = 250, t1 = 10, método = 'cuadrático'
+    ... vertex_zero = False)
+    >>> ff, tt, Sxx = espectrograma (w, fs = fs, noverlap = 256, nperseg = 512,
+    ... nfft = 2048)
+    >>> plt.pcolormesh (tt, ff [: 513], Sxx [: 513], cmap = 'gray_r')
+    >>> plt.title ('Quadratic Chirp, f (0) = 2500, f (10) = 250 \ n' +
+    ... '(vertex_zero = False)')
+    >>> plt.xlabel ('t (sec)')
+    >>> plt.label ('Frecuencia (Hz)')>>> plt.grid ()
+    >>> plt.show ()
+    Chirrido logarítmico de 1500 Hz a 250 Hz en 10 segundos:
+    >>> w = chirp (t, f0 = 1500, f1 = 250, t1 = 10, método = 'logarítmico')
+    >>> ff, tt, Sxx = espectrograma (w, fs = fs, noverlap = 256, nperseg = 512,
+    ... nfft = 2048)
+    >>> plt.pcolormesh (tt, ff [: 513], Sxx [: 513], cmap = 'gray_r')
+    >>> plt.title ('Chirp logarítmico, f (0) = 1500, f (10) = 250')
+    >>> plt.xlabel ('t (sec)')
+    >>> plt.label ('Frecuencia (Hz)')
+    >>> plt.grid ()
+    >>> plt.show ()
+    Chirrido hiperbólico de 1500 Hz a 250 Hz en 10 segundos:
+    >>> w = chirp (t, f0 = 1500, f1 = 250, t1 = 10, método = 'hiperbólico')
+    >>> ff, tt, Sxx = espectrograma (w, fs = fs, noverlap = 256, nperseg = 512,
+    ... nfft = 2048)
+    >>> plt.pcolormesh (tt, ff [: 513], Sxx [: 513], cmap = 'gray_r')
+    >>> plt.title ('Chirp hiperbólico, f (0) = 1500, f (10) = 250')
+    >>> plt.xlabel ('t (sec)')
+    >>> plt.label ('Frecuencia (Hz)')
+    >>> plt.grid ()
+    >>> plt.show ()

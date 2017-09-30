@@ -1,0 +1,70 @@
+Devuelve los ejes de una subtrama colocados por la definición de cuadrícula dada.
+
+    Firma de llamada típica:
+
+      subtrama (nrows, ncols, plot_number)
+
+    Donde * nrows * y * ncols * se usan para dividir conceptualmente la cifra
+    en sub-ejes `` nrows * ncols``, y * plot_number * se utiliza para identificar
+    la subtrama particular que esta función es crear dentro de la nocional
+    cuadrícula. * plot_number * comienza en 1, incrementa a través de las filas primero y tiene una
+    máximo de `` nrows * ncols``.
+
+    En el caso en que * nrows *, * ncols * y * plot_number * son todos menos de 10,
+    existe una conveniencia, tal que el número de 3 dígitos puede darse en su lugar,
+    donde los centenares representan * nrows *, las decenas representan * ncols * y la
+    las unidades representan * numero de trama *. Por ejemplo::
+
+      subtrama (211)
+
+    produce una subaxes en una figura que representa la gráfica superior (es decir, la
+    primero) en una rejilla nocional de 2 filas por 1 columna (no existe realmente ninguna cuadrícula,
+    pero conceptualmente esto es cómo se ha colocado la subtrama devuelta).
+
+    .. Nota::
+
+       La creación de una subtrama eliminará cualquier subtrama preexistente que se superponga
+       con ella más allá de compartir un límite ::
+
+          import matplotlib.pyplot as plt
+          # trazar una línea, creando implícitamente una subtrama (111)
+          plt.plot ([1,2,3])
+          # ahora crea una subtrama que representa la trama superior de una cuadrícula
+          # con 2 filas y 1 columna. Dado que esta subtrama se superponen
+          # primero, se eliminará la trama (y sus ejes) creados previamente
+          plt.subplot (211)
+          plt.plot (rango (12))
+          plt.subplot (212, facecolor = 'y') # crea la segunda subtrama con fondo amarillo
+
+       Si no desea este comportamiento, utilice el
+       : meth: `~ matplotlib.figure.Figure.add_subplot` o el método
+       : función func: `~ matplotlib.pyplot.axes` en su lugar.
+
+    Argumentos de palabras clave:
+
+      * facecolor *:
+        El color de fondo de la subtrama, que puede ser cualquier
+        especificador de color. Vea: mod: `matplotlib.colors` para más
+        información.
+
+      *polar*:
+        Una bandera booleana que indica si el diagrama de subparcelas debe ser
+        una proyección polar. El valor predeterminado es * Falso *.
+
+      *proyección*:
+        Una cadena que da el nombre de una proyección personalizada que se utilizará
+        para la subtrama. Esta proyección debe haber sido previamente
+        registrado. Véase: mod: `matplotlib.projections`.
+
+    .. ver también::
+
+        : func: `~ matplotlib.pyplot.axes`
+            Para obtener información adicional sobre: ​​func: `axes` y
+            : argumentos de palabra clave func: `subplot`.
+
+        : archivo: `examples / pie_and_polar_charts / polar_scatter_demo.py`
+            Para un ejemplo
+
+    **Ejemplo:**
+
+    .. plot :: mpl_examples / subplots_axes_and_figures / subplot_demo.py

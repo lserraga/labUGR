@@ -9,7 +9,7 @@ from numpy.testing import (assert_,
 import pytest
 
 from labugr.integrate import quad, dblquad, tplquad, nquad
-from labugr.dependencias.six import xrange
+from labugr.dependencies.six import xrange
 from .._lib._ccallback import LowLevelCallable
 
 import ctypes

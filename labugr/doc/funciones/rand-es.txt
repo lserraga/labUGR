@@ -1,0 +1,35 @@
+rand (d0, d1, ..., dn)
+
+        Valores aleatorios en una forma dada.
+
+        Cree una matriz de la forma dada y rellénela con
+        muestras aleatorias de una distribución uniforme
+        sobre "[0, 1]".
+
+        Parámetros
+        ----------
+        d0, d1, ..., dn: int, opcional
+            Las dimensiones de la matriz devuelta, deberían ser todas positivas.
+            Si no se da ningún argumento, se devuelve un solo flotador de Python.
+
+        Devoluciones
+        -------
+        out: ndarray, forma `` (d0, d1, ..., dn) ``
+            Valores aleatorios.
+
+        Ver también
+        --------
+        aleatorio
+
+        Notas
+        -----
+        Esta es una función de conveniencia. Si desea una interfaz que
+        toma una forma-tupla como el primer argumento, refiérase a
+        np.random.random_sample.
+
+        Ejemplos
+        --------
+        >>> np.random.rand (3,2)
+        matriz ([[0,14022471, 0,96360618], # aleatorio
+               [0,37601032, 0,25528411], # aleatorio
+               [0.49313049, 0.94909878]]) #random

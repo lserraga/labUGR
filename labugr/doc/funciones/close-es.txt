@@ -1,0 +1,11 @@
+Cierra una ventana de figura.
+
+    `` close () `` por sí mismo cierra la cifra actual
+
+    `` close (h) `` donde * h * es una clase: `Figure` instancia, cierra esa cifra
+
+    `` cierre (num) `` cierra el número de la figura * num *
+
+    `` close (nombre) `` donde * name * es una cadena, cierra la figura con esa etiqueta
+
+    `` close ('all') `` cierra todas las ventanas de la figura

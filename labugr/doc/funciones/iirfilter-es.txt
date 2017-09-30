@@ -1,0 +1,83 @@
+IIR diseño de filtro digital y analógico dado el orden y los puntos críticos.
+
+    Diseñe un filtro digital o analógico de orden N y devuelva el filtro
+    coeficientes.
+
+    Parámetros
+    ----------
+    N: int
+        El orden del filtro.
+    Wn: array_like
+        Una secuencia escalar o longitud-2 que da las frecuencias críticas.
+        Para los filtros digitales, `Wn` se normaliza de 0 a 1, donde 1 es el
+        Frecuencia de Nyquist, pi radianes / muestra. («Wn» está así en
+        semiciclos / muestra).
+        Para los filtros analógicos, `Wn` es una frecuencia angular (por ejemplo rad / s).
+    rp: float, opcional
+        Para Chebyshev y los filtros elípticos, proporciona la ondulación máxima
+        en la banda de paso. (dB)
+    rs: float, opcional
+        Para Chebyshev y filtros elípticos, proporciona la atenuación mínima
+        en la banda de parada. (dB)
+    btype: {'paso de banda', 'paso bajo', 'alto paso', 'banda de banda'}, opcional
+        El tipo de filtro. El valor predeterminado es 'bandpass'.
+    analógico: bool, opcional
+        Cuando True, devuelva un filtro analógico, de lo contrario, se
+        devuelto
+    ftype: str, opcional
+        El tipo de filtro IIR para diseñar:
+
+            - Butterworth: "mantequilla"
+            - Chebyshev I: 'cheby1'
+            - Chebyshev II: 'cheby2'
+            - Cauer / elíptica: 'elipso'
+            - Bessel / Thomson: «bessel»
+
+    salida: {'ba', 'zpk', 'sos'}, opcional
+        Tipo de salida: numerador / denominador ('ba') o polo-cero ('zpk').
+        El valor predeterminado es 'ba'.
+
+    Devoluciones
+    -------
+    b, a: ndarray, ndarray
+        Numerador (`b`) y denominador (` a`) polinomios del filtro IIR.
+        Sólo devuelto si `` output = 'ba'``.
+    z, p, k: ndarray, ndarray, float
+        Zeros, polos y ganancia del sistema de la transferencia del filtro IIR
+        función. Sólo devuelto si `` output = 'zpk'``.
+    sos: ndarray
+        Representación de secciones de segundo orden del filtro IIR.
+        Sólo devuelto si `` output == 'sos'``.
+
+    Ver también
+    --------
+    mantequilla: diseño del filtro utilizando el orden y los puntos críticos
+    cheby1, cheby2, ellip, bessel
+    buttord: Buscar el orden y los puntos críticos de la banda de paso y stopband spec
+    cheb1ord cheb2ord ellipord
+    iirdesign: Diseño general del filtro utilizando la banda de paso y la especificación de banda de detención
+
+    Notas
+    -----
+    El parámetro de salida `` 'sos'`` se añadió en 0.16.0.
+
+    Ejemplos
+    --------
+    Genere un filtro de paso de Chebyshev II de orden 17 y trace la frecuencia
+    respuesta:
+
+    >>> de la señal de importación de scipy
+    >>> import matplotlib.pyplot como plt
+
+    >>> b, a = signal.iirfilter (17, [50, 200], rs = 60, btype = 'banda',
+    ... analog = True, ftype = 'cheby2')
+    >>> w, h = señal.frecuencias (b, a, 1000)
+    >>> fig = plt.figure ()
+    >>> ax = fig.add_subplot (111)
+    >>> ax.semilogx (w, 20 * np.log10 (abs (h)))
+    >>> ax.set_title ('Chebyshev Tipo II respuesta de frecuencia de paso de banda')
+    >>> ax.set_xlabel ('Frecuencia [radianes / segundo]')
+    >>> ax.set_ylabel ('Amplitud [dB]')
+    >>> ax.axis ((10, 1000, -100, 10))
+    >>> ax.grid (which = 'both', axis = 'both')
+    >>> plt.show ()

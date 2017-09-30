@@ -1,0 +1,38 @@
+Devuelve una nueva matriz de forma y tipo dada, llena de unos.
+
+    Parámetros
+    ----------
+    forma: int o secuencia de ints
+        Forma de la nueva matriz, por ejemplo, `` (2, 3) `` o `` 2``.
+    dtype: tipo de datos, opcional
+        El tipo de datos deseado para la matriz, por ejemplo, `numpy.int8`. El valor predeterminado es
+        `numpy.float64`.
+    orden: {'C', 'F'}, opcional
+        Si se deben almacenar datos multidimensionales en C-o Fortran-contiguos
+        (en fila o columna) en la memoria.
+
+    Devoluciones
+    -------
+    salir: ndarray
+        Array de los que tienen la forma dada, dtype y orden.
+
+    Ver también
+    --------
+    ceros, unos
+
+    Ejemplos
+    --------
+    >>> np.ones (5)
+    matriz ([1., 1., 1., 1., 1.])
+
+    >>> np.ones ((5,), dtype = np.int)
+    matriz ([1, 1, 1, 1, 1])
+
+    >>> np.ones ((2, 1))
+    array ([[1.],
+           [1.]])
+
+    >>> s = (2,2)
+    >>> np.ones (s)
+    array ([[1., 1.],
+           [1., 1.]])

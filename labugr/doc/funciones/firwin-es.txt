@@ -1,0 +1,109 @@
+FIR utilizando el método window.
+
+    Esta función calcula los coeficientes de una respuesta de impulso finito
+    filtrar. El filtro tendrá fase lineal; será Tipo I si
+    `numtaps` es impar y Type II si` numtaps` es par.
+
+    Los filtros de tipo II siempre tienen respuesta cero a la velocidad de Nyquist,
+    La excepción de ValueError se eleva si firwin se llama con `numtaps` incluso y
+    con una banda de paso cuyo extremo derecho está a la velocidad de Nyquist.
+
+    Parámetros
+    ----------
+    numtaps: int
+        Longitud del filtro (número de coeficientes, es decir, el filtro
+        orden + 1). `numtaps` debe ser incluso si una banda de paso incluye la
+        Frecuencia de Nyquist.
+    cutoff: float o 1D array_like
+        Frecuencia de corte del filtro (expresada en las mismas unidades que 'nyq`)
+        O una matriz de frecuencias de corte (es decir, bordes de banda). En el
+        En este último caso, las frecuencias en «corte» deberían ser
+        aumentando monotónicamente entre 0 y 'nyq'. Los valores 0 y
+        `nyq` no debe incluirse en` cutoff`.
+    anchura: float o Ninguno, opcional
+        Si `width` no es None, asuma que es el ancho aproximado
+        de la región de transición (expresada en las mismas unidades que 'nyq`)
+        para su uso en el diseño del filtro FIR de Kaiser. En este caso, la 'ventana'
+        argumento es ignorado.
+    window: cadena o tupla de valores de cadena y parámetro, opcional
+        Ventana deseada para usar. Consulte `scipy.signal.get_window` para obtener una lista
+        de ventanas y parámetros requeridos.
+    pass_zero: bool, opcional
+        Si es True, la ganancia a la frecuencia 0 (es decir, la "ganancia DC") es 1.
+        De lo contrario, la ganancia DC es 0.
+    escala: bool, opcional
+        Seleccione True para escalar los coeficientes para que la frecuencia
+        respuesta es exactamente la unidad a una cierta frecuencia.
+        Esa frecuencia es:
+
+        - 0 (DC) si la primera banda de paso comienza en 0 (es decir, pass_zero
+          es verdad)
+        - `nyq` (la tasa de Nyquist) si la primera banda de paso termina en
+          `nyq '(es decir, el filtro es un filtro de paso alto de banda única);
+          centro de la primera banda de paso de lo contrario
+
+    nyq: float, opcional
+        Frecuencia de Nyquist. Cada frecuencia en `cutoff` debe estar entre 0
+        y 'nyq'.
+
+    Devoluciones
+    -------
+    h: (numtaps,) ndarray
+        Coeficientes de longitud `numtaps` Filtro FIR.
+
+    Levanta
+    ------
+    ValorError
+        Si cualquier valor en `cutoff` es menor o igual a 0 o mayor
+        igual o igual a `nyq`, si los valores en` cutoff` no son estrictamente
+        monotonically creciente, o si `numtaps` incluso es una banda de paso
+        incluye la frecuencia de Nyquist.
+
+    Ver también
+    --------
+    firwin2
+    firls
+    fase mínima
+    remezclar
+
+    Ejemplos
+    --------
+    Paso bajo de 0 a f:
+
+    >>> de la señal de importación de scipy
+    >>> numtaps = 3
+    >>> f = 0.1
+    >>> signal.firwin (numtaps, f)
+    matriz ([0,06799017, 0,86401967, 0,06799017])
+
+    Utilice una función de ventana específica:
+
+    >>> signal.firwin (numtaps, f, window = 'nuttall')
+    matriz ([3.56607041e-04, 9.99286786e-01, 3.56607041e-04])
+
+    Paso alto ('stop' de 0 a f):
+
+    >>> signal.firwin (numtaps, f, pass_zero = False)
+    matriz ([- 0,00859313, 0,98281375, -0,00859313])
+
+    Paso de banda
+
+    >>> f1, f2 = 0,1, 0,2
+    >>> signal.firwin (numtaps, [f1, f2], pass_zero = False)
+    matriz ([0,06301614, 0,88770441, 0,06301614])
+
+    Banda de parada:
+
+    >>> signal.firwin (numtaps, [f1, f2])
+    matriz ([- 0,00801395, 1,0160279, -0,00801395])
+
+    Multibanda (las bandas son [0, f1], [f2, f3] y [f4, 1]):
+
+    >>> f3, f4 = 0,3, 0,4
+    >>> signal.firwin (numtaps, [f1, f2, f3, f4])
+    matriz ([- 0,01376344, 1,02752689, -0,01376344])
+
+    Multibanda (las bandas son [f1, f2] y [f3, f4]):
+
+    >>> signal.firwin (numtaps, [f1, f2, f3, f4], pass_zero = False)
+    matriz ([0,04890915, 0,91284326, 0,04890915])

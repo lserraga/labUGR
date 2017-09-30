@@ -5,7 +5,7 @@ import warnings
 
 import numpy as np
 from labugr import fftpack
-from labugr.dependencias.six import string_types
+from labugr.dependencies.six import string_types
 from numpy import asarray, arange
 
 __all__ = ['boxcar', 'triang', 'parzen', 'bohman', 'blackman', 'nuttall',

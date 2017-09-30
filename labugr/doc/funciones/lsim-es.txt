@@ -1,0 +1,53 @@
+Simula la salida de un sistema lineal de tiempo continuo.
+
+    Parámetros
+    ----------
+    system: una instancia de la clase LTI o una tupla que describe el sistema.
+        Lo siguiente da el número de elementos en la tupla y
+        la interpretación:
+
+        * 1: (ejemplo de `lti`)
+        * 2: (num, den)
+        * 3: (ceros, polos, ganancia)
+        * 4: (A, B, C, D)
+
+    U: array_like
+        Una matriz de entrada que describe la entrada en cada momento `T`
+        (se supone interpolación entre tiempos dados). Si hay
+        múltiples entradas, entonces cada columna de la matriz de rango-2
+        representa una entrada. Si U = 0 o Ninguno, se utiliza una entrada cero.
+    T: array_like
+        Los pasos de tiempo en los que se define la entrada y en los que
+        salida. Debe ser no negativo, creciente e igualmente espaciado.
+    X0: array_like, opcional
+        Las condiciones iniciales en el vector de estado (cero por defecto).
+    interp: bool, opcional
+        Si se usa lineal (True, el valor por defecto) o cero-order-hold (False)
+        interpolación para la matriz de entrada.
+
+    Devoluciones
+    -------
+    T: 1D ndarray
+        Valores de tiempo para la salida.
+    yout: 1D ndarray
+        Respuesta del sistema.
+    xout: ndarray
+        Evolución del tiempo del vector de estado.
+
+    Notas
+    -----
+    Si (num, den) es pasado para `` system``, los coeficientes tanto para el
+    numerador y denominador debe ser especificado en exponente descendente
+    (por ejemplo, `` s ^ 2 + 3s + 5`` se representaría como `` [1, 3, 5] ``).
+
+    Ejemplos
+    --------
+    Simule un integrador doble y '' = u, con una entrada constante u = 1
+
+    >>> de la señal de importación de scipy
+    >>> system = signal.lti ([[0., 1.], [0., 0.]], [[0.], [1.]], [[1., 0.]], 0 .)
+    >>> t = np.linspace (0, 5)
+    >>> u = np.ones_like (t)
+    >>> tout, y, x = signal.lsim (sistema, u, t)
+    >>> import matplotlib.pyplot como plt
+    >>> plt.plot (t, y)

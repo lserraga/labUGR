@@ -1,0 +1,103 @@
+Número
+===
+
+Proporciona
+  1. Objeto de matriz de elementos homogéneos arbitrarios
+  2. Operaciones matemáticas rápidas sobre matrices
+  3. Álgebra lineal, transformaciones de Fourier, generación de números aleatorios
+
+Cómo utilizar la documentación
+Unesdoc.unesco.org unesdoc.unesco.org
+La documentación está disponible en dos formas: docstrings provided
+con el código, y una guía de referencia permanente, disponible
+`la página principal de NumPy <http://www.scipy.org>` _.
+
+Se recomienda explorar las docstrings utilizando
+`IPython <http://ipython.scipy.org>` _, un shell avanzado de Python con
+TAB-compleción y capacidades de introspección. Ver más abajo para más información
+instrucciones.
+
+Los ejemplos de docstring suponen que `numpy` ha sido importado como` np` ::
+
+  >>> import numpy como np
+
+Los fragmentos de código se indican con tres signos mayores que:
+
+  >>> x = 42
+  >>> x = x + 1
+
+Utilice la función `` help`` para ver la docstring de una función ::
+
+  >>> ayuda (np.sort)
+  ... # doctest: + SKIP
+
+Para algunos objetos, `` np.info (obj) `` puede proporcionar ayuda adicional. Esto es
+particularmente cierto si ve la línea "Ayuda sobre objeto ufunc:" en la parte superior
+de la página de ayuda (). Ufuncs se implementan en C, no en Python, por velocidad.
+La ayuda nativa de Python () no sabe cómo ver su ayuda, pero nuestra
+Función np.info ().
+
+Para buscar documentos que contengan una palabra clave, do ::
+
+  >>> np.lookfor ('palabra clave')
+  ... # doctest: + SKIP
+
+Documentos de propósito general como un glosario y ayuda sobre los conceptos básicos
+de numpy están disponibles bajo el submódulo `` doc`` ::
+
+  >>> de numpy import doc
+  >>> ayuda (doc)
+  ... # doctest: + SKIP
+
+Sub-paquetes disponibles
+---------------------
+doc
+    Documentación tópica sobre radiodifusión, indexación, etc.
+lib
+    Funciones básicas utilizadas por varios subpaquetes.
+aleatorio
+    Herramientas básicas aleatorias
+linalg
+    Herramientas básicas de álgebra lineal
+fft
+    Core FFT rutinas
+polinomio
+    Herramientas polinomiales
+pruebas
+    Herramientas de prueba NumPy
+f2py
+    Generador de interfaz Fortran a Python.
+distutils
+    Mejoras en distutils con soporte para
+    Soporte de compiladores Fortran y mucho más.
+
+Utilidades
+---------
+prueba
+    Ejecutar pruebas de unidad numpy
+show_config
+    Mostrar configuración de compilación numpy
+doble
+    Sobrescribir ciertas funciones con herramientas Scipy de alto rendimiento
+Matlib
+    Hacer todas las matrices.
+__versión__
+    Cadena de versión NumPy
+
+Visualización de documentación mediante IPython
+-----------------------------------
+Inicie IPython con el perfil NumPy (`` ipython -p numpy``), que
+import `numpy` bajo el alias` np`. A continuación, utilice el comando `` cpaste`` para
+pegar ejemplos en el shell. Para ver qué funciones están disponibles en
+`numpy`, escriba` `np. <TAB>` `(donde` `<TAB>` `se refiere a la tecla TAB) o utilice
+`` np. * cos *? <ENTER> `` (donde `` <ENTER> `` se refiere a la tecla ENTER) para restringir
+en la lista. Para ver la docstring de una función, utilice
+`` np.cos? <ENTER> `` (para ver la docstring) y `` np.cos ?? <ENTER> `` (para ver
+el código fuente).
+
+Copias vs. operación en el lugar
+-----------------------------
+La mayoría de las funciones de `numpy` devuelven una copia del argumento array
+(por ejemplo, `np.sort`). Las versiones in situ de estas funciones son
+disponibles como métodos de matriz, es decir, "x = np.array ([1,2,3]); x.sort () ``.
+Las excepciones a esta regla están documentadas.

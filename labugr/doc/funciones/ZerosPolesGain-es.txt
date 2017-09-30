@@ -1,0 +1,62 @@
+Linear Time Invariante clase de sistema en ceros, polos, forma de ganancia.
+
+    Representa el sistema como la función de transferencia de tiempo continuo o discreto
+    : math: `H (s) = k \ prod_i (s - z [i]) / \ prod_j (s - p [j])`, donde: math: `k` es
+    el `gain`,: math:` z` son los `zeros` y: math:` p` son los `poles`.
+    Los sistemas `ZerosPolesGain` heredan funcionalidad adicional del` lti`,
+    respectivamente las clases `dlti`, dependiendo de la representación del sistema
+    se utiliza.
+
+    Parámetros
+    ----------
+    * system: argumentos
+        La clase `ZerosPolesGain` puede ser instanciada con 1 o 3
+        argumentos. A continuación se indica el número de argumentos de entrada y su
+        interpretación:
+
+            * 1: `lti` o` dlti` sistema: (`StateSpace`,` TransferFunction` o
+              `ZerosPolesGain`)
+            * 3: array_like: (ceros, polos, ganancia)
+    dt: float, opcional
+        Tiempo de muestreo [s] de los sistemas de tiempo discreto. El valor predeterminado es `None`
+        (tiempo continuo). Debe especificarse como un argumento de palabra clave, para
+        ejemplo, `` dt = 0.1``.
+
+
+    Ver también
+    --------
+    TransferFunction, StateSpace, lti, dlti
+    zpk2ss, zpk2tf, zpk2sos
+
+    Notas
+    -----
+    Cambiar el valor de las propiedades que no forman parte del
+    La representación del sistema `ZerosPolesGain` (como el` A `,` B`, `C`,` D`
+    matrices espacio-estado) es muy ineficiente y puede dar lugar a
+    inexactitudes Es mejor convertir al sistema específico
+    primera representación. Por ejemplo, llame a `` sys = sys.to_ss () `` antes
+    acceder / cambiar las matrices del sistema A, B, C, D.
+
+    Ejemplos
+    --------
+    >>> de la señal de importación de scipy
+
+    Función de transferencia: H (s) = 5 (s - 1) (s - 2) / (s - 3) (s - 4)
+
+    >>> signal.ZerosPolesGain ([1, 2], [3, 4], 5)
+    ZerosPolesGainContinuous (
+    matriz ([1, 2]),
+    matriz ([3, 4]),
+    5,
+    dt: Ninguno
+    )
+
+    Función de transferencia: H (z) = 5 (z - 1) (z - 2) / (z - 3) (z - 4)
+
+    >>> signal.ZerosPolesGain ([1, 2], [3, 4], 5, dt = 0,1)
+    ZerosPolesGainDiscrete (
+    matriz ([1, 2]),
+    matriz ([3, 4]),
+    5,
+    dt: 0,1
+    )

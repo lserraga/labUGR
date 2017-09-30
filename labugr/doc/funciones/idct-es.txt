@@ -1,0 +1,51 @@
+Devuelve la Transformada de Coseno Discreto Inversa de una secuencia de tipo arbitrario.
+
+    Parámetros
+    ----------
+    x: array_like
+        La matriz de entrada.
+    escriba: {1, 2, 3}, opcional
+        Tipo de la DCT (ver Notas). El tipo predeterminado es 2.
+    n: int, opcional
+        Longitud de la transformación. Si `` n <x.shape [axis] ``, `x` es
+        truncado. Si `` n> x.shape [axis] ``, `x` tiene cero relleno. los
+        por defecto resulta en `` n = x.shape [axis] ``.
+    eje: int, opcional
+        Eje a lo largo del cual se calcula el idct; el valor predeterminado es el
+        último eje (es decir, "eje = -1").
+    norma: {Ninguno, 'orto'}, opcional
+        Modo de normalización (ver Notas). El valor predeterminado es Ninguno.
+    overwrite_x: bool, opcional
+        Si es cierto, el contenido de `x 'puede ser destruido; El valor predeterminado es falso.
+
+    Devoluciones
+    -------
+    idct: ndarray de real
+        La matriz de entrada transformada.
+
+    Ver también
+    --------
+    dct: Forward DCT
+
+    Notas
+    -----
+    Para una matriz de dimensión única `x`,` `idct (x, norm = 'ortho')` `es igual a
+    MATLAB `` idct (x) ``.
+
+    'El' IDCT es el IDCT de tipo 2, que es el mismo que DCT de tipo 3.
+
+    IDCT de tipo 1 es la DCT de tipo 1, IDCT de tipo 2 es la DCT de tipo
+    3, y IDCT de tipo 3 es la DCT de tipo 2. Para la definición de estos
+    tipos, vea `dct`.
+
+    Ejemplos
+    --------
+    La DCT de Tipo 1 es equivalente a la DFT para real, even-symmetrical
+    insumos La salida es también real e incluso simétrica. La mitad del IFFT
+    entrada se utiliza para generar la mitad de la salida IFFT:
+
+    >>> de scipy.fftpack import ifft, idct
+    >>> ifft (np.array ([30., -8., 6., -2., 6., -8.])). real
+    matriz ([4., 3., 5., 10., 5., 3.])
+    >>> idct (np.array ([30., -8., 6., -2.]), 1) / 6
+    matriz ([4., 3., 5., 10.])

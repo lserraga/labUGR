@@ -1,0 +1,34 @@
+Devuelve la forma de una matriz.
+
+    Parámetros
+    ----------
+    a: array_like
+        Array de entrada.
+
+    Devoluciones
+    -------
+    forma: tupla de ints
+        Los elementos de la tupla de forma dan las longitudes de la
+        correspondientes.
+
+    Ver también
+    --------
+    alen
+    ndarray.shape: Método de matriz equivalente.
+
+    Ejemplos
+    --------
+    >>> np.shape (np.eye (3))
+    (3, 3)
+    >>> np.shape ([[1, 2]])
+    (1, 2)
+    >>> np.shape ([0])
+    (1,)
+    >>> np.shape (0)
+    ()
+
+    >>> a = np.array ([(1, 2), (3, 4)], dtype = [('x', 'i4'), ('y', 'i4')]
+    >>> np.shape (a)
+    (2,)
+    forma de a
+    (2,)

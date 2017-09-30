@@ -1,0 +1,73 @@
+Devuelve una ventana de Hann.
+
+    La ventana de Hann es una conicidad formada por el uso de un coseno elevado o seno cuadrado
+    con los extremos que tocan cero.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Notas
+    -----
+    La ventana de Hann se define como
+
+    (matemáticas): w (n) = 0.5 - 0.5 \ cos \ left (\ frac {2 \ pi {n}} {M-1}
+               \ qquad 0 \ leq n \ leq M-1
+
+    La ventana fue nombrada para Julius von Hann, un meteorólogo austríaco. Es
+    también conocido como el Cosine Bell. A veces se denomina erróneamente como
+    la ventana "Hanning", a partir del uso de "hann" como verbo en el original
+    papel y confusión con la ventana de Hamming muy similar.
+
+    La mayoría de las referencias a la ventana de Hann proceden del procesamiento de señal
+    literatura, donde se utiliza como una de las muchas funciones de
+    valores de suavizado. También se conoce como una apodización (que significa
+    "retirar el pie", es decir, suavizar las discontinuidades al principio
+    y final de la señal muestreada) o función de ahusamiento.
+
+    Referencias
+    ----------
+    [1] Blackman, R.B. y Tukey, J.W., (1958) La medición del poder
+           espectros, Dover Publications, Nueva York.
+    .. [2] E.R. Kanasewich, "Time Sequence Analysis in Geophysics",
+           The University of Alberta Press, 1975, pp. 106-108.
+    .. [3] Wikipedia, "Función de ventana",
+           http://en.wikipedia.org/wiki/Window_function
+    .. [4] W.H. Prensa, B.P. Flannery, S.A. Teukolsky, y W.T. Vetterling,
+           "Numerical Recipes", Cambridge University Press, 1986, página 425.
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> ventana = señal.hann (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("ventana de Hann")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de frecuencia de la ventana de Hann")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")

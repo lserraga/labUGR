@@ -1,0 +1,51 @@
+Devuelve la transformada de Fourier discreta multidimensional.
+
+    La matriz devuelta contiene:
+
+      y [j_1, .., j_d] = suma [k_1 = 0..n_1-1, ..., k_d = 0..n_d-1]
+         x [k_1, .., k_d] * prod [i = 1..d] exp (-sqrt (-1) * 2 * pi / n_i * j_i * k_i)
+
+    donde d = len (x.shape) y n = x.shape.
+
+    Parámetros
+    ----------
+    x: array_like
+        La matriz (n-dimensional) a transformar.
+    forma: tupla de ints, opcional
+        La forma del resultado. Si tanto `shape` como` axes` (ver más abajo) son
+        Ninguno, `shape` es` `x.shape``; si `shape` es None pero` axes` es
+        no None, entonces `shape` es` `scipy.take (x.shape, axes, axis = 0)` `.
+        Si `` shape [i]> x.shape [i] ``, la i-ésima dimensión se rellena con ceros.
+        Si `` shape [i] <x.shape [i] ``, la i-ésima dimensión se trunca a
+        longitud `` forma [i] ``.
+    ejes: array_like de ints, opcional
+        Los ejes de `x` (` y` si `shape` no es None) a lo largo de los cuales el
+        se aplica la transformación.
+    overwrite_x: bool, opcional
+        Si es True, el contenido de `x 'puede ser destruido. El valor predeterminado es False.
+
+    Devoluciones
+    -------
+    y: array numpy numérico complejo-valorado
+        La DFT (n-dimensional) de la matriz de entrada.
+
+    Ver también
+    --------
+    si
+
+    Notas
+    -----
+    Si `` x`` es valor real, entonces
+    `` y [..., j_i, ...] == y [..., n_i-j_i, ...]. conjugate () ``.
+
+    Se implementan rutinas de precisión simple y doble. Media precisión
+    las entradas se convertirán en una sola precisión. Entradas de punto flotante
+    se convertirá en doble precisión. Las entradas de doble precisión son
+    No soportado.
+
+    Ejemplos
+    --------
+    >>> de scipy.fftpack import fftn, ifftn
+    >>> y = (-np.arange (16), 8 - np.arange (16), np.arange (16))
+    >>> np.allclose (y, fftn (ifftn (y)))
+    Cierto

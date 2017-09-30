@@ -1,0 +1,116 @@
+Calcule un espectrograma con transformaciones consecutivas de Fourier.
+
+    Los espectrogramas se pueden utilizar como una forma de visualizar el cambio de una
+    frecuencia de la señal no estacionaria en el tiempo.
+
+    Parámetros
+    ----------
+    x: array_like
+        Series temporales de valores de medición
+    fs: float, opcional
+        Frecuencia de muestreo de la serie temporal `x '. El valor predeterminado es 1,0.
+    window: str o tuple o array_like, opcional
+        Ventana deseada para usar. Si `window` es una cadena o tupla, es
+        pasó a `get_window` para generar los valores de la ventana, que son
+        DFT-incluso por defecto. Vea `get_window` para una lista de ventanas y
+        parámetros requeridos. Si `window` es array_like, se utilizará
+        directamente como la ventana y su longitud debe ser nperseg.
+        La opción predeterminada es una ventana Tukey con un parámetro de forma de 0,25.
+    nperseg: int, opcional
+        Longitud de cada segmento. El valor predeterminado es Ninguno, pero si la ventana es str o
+        tupla, se establece en 256, y si window es array_like, se establece en el
+        longitud de la ventana.
+    noverlap: int, opcional
+        Número de puntos a superponer entre segmentos. Si `Ninguno`,
+        `` noverlap = nperseg // 8``. El valor predeterminado es `Ninguno '.
+    nfft: int, opcional
+        Longitud de la FFT utilizada, si se desea una FFT con relleno cero. Si
+        `None`, la longitud FFT es` nperseg`. El valor predeterminado es `Ninguno '.
+    detrend: str o función o `Falso`, opcional
+        Especifica cómo detrendir cada segmento. Si `detrend` es un
+        string, se pasa como el argumento `type` al` detrend`
+        función. Si es una función, toma un segmento y devuelve un
+        segmento detrendido. Si `detrend` es` False`, no hay detrending
+        hecho. El valor predeterminado es 'constante'.
+    return_onesided: bool, opcional
+        Si `True`, devuelve un espectro unilateral para datos reales. Si
+        `False` devuelve un espectro de dos caras. Tenga en cuenta que para complejos
+        datos, siempre se devuelve un espectro de dos caras.
+    escala: {'densidad', 'espectro'}, opcional
+        Selecciona entre calcular la densidad espectral de potencia ('densidad')
+        donde `Sxx` tiene unidades de V ** 2 / Hz y calcular la potencia
+        espectro («espectro») donde «Sxx» tiene unidades de V ** 2, si «x»
+        se mide en V y `fs` se mide en Hz. Por defecto
+        'densidad'.
+    eje: int, opcional
+        Eje a lo largo del cual se calcula el espectrograma; el valor predeterminado ha terminado
+        el último eje (es decir, "eje = -1").
+    modo: str, opcional
+        Define qué tipo de valores de retorno se esperan. Las opciones son
+        ['psd', 'complejo', 'magnitud', 'ángulo', 'fase']. complejo es
+        equivalente a la salida de `stft` sin relleno ni límite
+        extensión. «magnitud» devuelve la magnitud absoluta de la
+        STFT. 'ángulo' y 'fase' devuelven el ángulo complejo de la STFT,
+        con y sin desembalaje, respectivamente.
+
+    Devoluciones
+    -------
+    f: ndarray
+        Conjunto de frecuencias de muestreo.
+    t: ndarray
+        Conjunto de tiempos de segmento.
+    Sxx: ndarray
+        Espectrograma de x. Por defecto, el último eje de Sxx corresponde
+        a los tiempos del segmento.
+
+    Ver también
+    --------
+    periodograma: Periodograma simple, opcionalmente modificado
+    lombscargle: Periódromo Lomb-Scargle para datos desigualmente muestreados
+    welch: Densidad espectral de potencia según el método de Welch.
+    csd: Densidad espectral cruzada por el método de Welch.
+
+    Notas
+    -----
+    Una cantidad adecuada de superposición dependerá de la elección de la ventana
+    y en sus requisitos. En contraste con el método de welch, donde el
+    corriente de datos completa, se puede utilizar un
+    superposición (o quizás ninguna en absoluto) al calcular un espectrograma,
+    mantener una cierta independencia estadística entre segmentos individuales.
+    Es por esta razón que la ventana predeterminada es una ventana Tukey con
+    1/8 de la longitud de una ventana se superponen en cada extremo.
+
+    .. versionadded :: 0.16.0
+
+    Referencias
+    ----------
+    [1] Oppenheim, Alan V., Ronald W. Schafer, John R. Buck
+           "Procesamiento de Señal de Tiempo Discreto", Prentice Hall, 1999.
+
+    Ejemplos
+    --------
+    >>> de la señal de importación de scipy
+    >>> import matplotlib.pyplot como plt
+
+    Generar una señal de prueba, una onda senoidal de 2 Vrms cuya frecuencia es lenta
+    modulada alrededor de 3kHz, corrompida por el ruido blanco de forma exponencial
+    la magnitud decreciente se muestrea a 10 kHz.
+
+    >>> fs = 10e3
+    >>> N = 1e5
+    >>> amp = 2 * np.sqrt (2)
+    >>> noise_power = 0.01 * fs / 2
+    >>> time = np.arange (N) / float (fs)
+    >>> mod = 500 * np.cos (2 *np.pi * 0,25 * tiempo)
+    >>> portadora = amp * np.sin (2 * np.pi * 3e3 * time + mod)
+    >>> noise = np.random.normal (escala = np.sqrt (noise_power), size = time.shape)
+    >>> noise * = np.exp (-time / 5)
+    >>> x = portador + ruido
+
+    Calcule y trace el espectrograma.
+
+    >>> f, t, Sxx = señal.spectrograma (x, fs)
+    >>> plt.pcolormesh (t, f, Sxx)
+    >>> plt.ylabel ('Frecuencia [Hz]')
+    >>> plt.xlabel ('Tiempo [sec]')
+    >>> plt.show ()

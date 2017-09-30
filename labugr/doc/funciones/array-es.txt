@@ -1,0 +1,101 @@
+array (objeto, dtype = None, copy = True, order = 'K', subok = False, ndmin = 0)
+
+    Cree una matriz.
+
+    Parámetros
+    ----------
+    objeto: array_like
+        Una matriz, cualquier objeto que exponga la interfaz de la matriz, un objeto cuyo
+        El método __array__ devuelve una matriz o cualquier secuencia (anidada).
+    dtype: tipo de datos, opcional
+        El tipo de datos deseado para la matriz. Si no se da, entonces el tipo
+        se determinará como el tipo mínimo requerido para mantener los objetos
+        secuencia. Este argumento sólo se puede usar para "upcast" de la matriz. por
+        downcasting, utilice el método .astype (t).
+    copia: bool, opcional
+        Si es true (predeterminado), entonces se copia el objeto. De lo contrario, se
+        sólo se puede hacer si __array__ devuelve una copia, si obj es una secuencia anidada,
+        o si se necesita una copia para satisfacer cualquiera de los otros requisitos
+        (`dtype`,` order`, etc.).
+    orden: {'K', 'A', 'C', 'F'}, opcional
+        Especifique el diseño de memoria de la matriz. Si object no es una matriz, el
+        La nueva matriz creada estará en orden C (fila mayor) a menos que 'F' sea
+        especificada, en cuyo caso estará en orden Fortran (columna mayor).
+        Si object es una matriz, se cumple lo siguiente.
+
+        ========= ========= ==================================================================================== Unesdoc.unesco.org unesdoc.unesco.org
+        order no copy copy = True
+        ========= ========= ==================================================================================== Unesdoc.unesco.org unesdoc.unesco.org
+        'K' sin cambios F & C orden preservado, de lo contrario orden más similar
+        'A' sin cambios F si la entrada es F y no C, de lo contrario C orden
+        'C' C pedido C pedido
+        Orden de f
+        ========= ========= ==================================================================================== Unesdoc.unesco.org unesdoc.unesco.org
+
+        Cuando `` copy = False`` y una copia se hace por otras razones, el resultado es
+        igual que si `` copy = True``, con algunas excepciones para `A`, vea el
+        Notas. El orden predeterminado es 'K'.
+    subok: bool, opcional
+        Si es Verdadero, entonces las subclases serán pasadas a través, de lo contrario
+        la matriz devuelta se verá forzada a ser una matriz de clase base (predeterminada).
+    ndmin: int, opcional
+        Especifica el número mínimo de dimensiones que el resultado
+        matriz debe tener. Los unos estarán pendientes de la forma como
+        necesario para cumplir con este requisito.
+
+    Devoluciones
+    -------
+    salir: ndarray
+        Objeto de matriz que satisface los requisitos especificados.
+
+    Ver también
+    --------
+    empty, empty_like, zeros, zeros_like, ones, ones_like, full, full_like
+
+    Notas
+    -----
+    Cuando el orden es 'A' y `object` es un arreglo en orden 'C' y 'F'
+    y una copia es forzada por un cambio en dtype, entonces el orden del resultado es
+    no necesariamente 'C' como se esperaba. Esto es probablemente un error.
+
+    Ejemplos
+    --------
+    >>> np.array ([1, 2, 3])
+    matriz ([1, 2, 3])
+
+    Upcasting:
+
+    >>> np.array ([1, 2, 3.0])
+    array ([1., 2., 3.])
+
+    Más de una dimensión:
+
+    >>> np.array ([[1, 2], [3, 4]])
+    matriz ([[1, 2],
+           [3, 4]])
+
+    Dimensiones mínimas 2:
+
+    >>> np.array ([1, 2, 3], ndmin = 2)
+    array ([[1, 2, 3]])
+
+    Tipo siempre:
+
+    >>> np.array ([1, 2, 3], dtype = complejo)
+    array ([1. + 0.j, 2. + 0.j, 3. + 0.j])
+
+    Tipo de datos que consta de más de un elemento:
+
+    >>> x = np.array ([(1,2), (3,4)], dtype = [('a', '<i4'), ('b', '<i4')]
+    xa
+    matriz ([1, 3])
+
+    Creación de una matriz a partir de subclases:
+
+    >>> np.array (np.mat ('1 2; 3 4'))
+    matriz ([[1, 2],
+           [3, 4]])
+
+    >>> np.array (np.mat ('1 2; 3 4'), subok = True)
+    matriz ([[1, 2],
+            [3, 4]])

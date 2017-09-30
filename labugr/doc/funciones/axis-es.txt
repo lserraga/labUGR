@@ -1,0 +1,63 @@
+Método de conveniencia para obtener o establecer las propiedades del eje.
+
+    Llamando sin argumentos ::
+
+      >>> eje ()
+
+    devuelve los límites de ejes actuales `` [xmin, xmax, ymin, ymax] ``. ::
+
+      >>> eje (v)
+
+    establece el min y el max de los ejes xey, con
+    `` v = [xmin, xmax, ymin, ymax] ``. ::
+
+      >>> eje ('apagado')
+
+    desactiva las líneas de eje y las etiquetas. ::
+
+      >>> eje ('igual')
+
+    cambia los límites del eje * x * o * y * para que los incrementos iguales de * x *
+    y * y * tienen la misma longitud; un círculo es circular.
+
+      >>> eje ('escalado')
+
+    logra el mismo resultado cambiando las dimensiones de la caja de trazado
+    de los límites de los datos del eje.
+
+      >>> eje ("apretado")
+
+    cambios * x * y * y * límites de eje de tal manera que se muestran todos los datos. Si
+    todos los datos ya se muestran, se moverá al centro de la
+    figura sin modificar (* xmax * - * xmin *) o (* ymax * -
+    * ymin *). Tenga en cuenta que esto es ligeramente diferente que en MATLAB. ::
+
+      >>> eje ('imagen')
+
+    está "escalado" con los límites de eje iguales a los límites de datos.
+
+      >>> eje ('auto')
+
+    y::
+
+      >>> eje ("normal")
+
+    están obsoletos. Restauran el comportamiento predeterminado; los límites de eje son automáticamente
+    escalado para que los datos encajen cómodamente dentro de la caja de trazado.
+
+    si es `` len (* v) == 0``, puede pasar * xmin *, * xmax *, * ymin *, * ymax *
+    como kwargs selectivamente para alterar sólo esos límites sin cambiar
+    los demás.
+
+      >>> eje ('cuadrado')
+
+    cambia los rangos límite (* xmax * - * xmin *) y (* ymax * - * ymin *) de
+    los ejes * x * y * y * son iguales y tienen el mismo escalamiento,
+    resultando en una parcela cuadrada.
+
+    Se devuelve la xplema xmin, xmax, ymin, ymax
+
+    .. ver también::
+
+        : func: `xlim`,: func:` ylim`
+           Para establecer individualmente los límites x e y.

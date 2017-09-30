@@ -1,0 +1,70 @@
+concatenar ((a1, a2, ...), eje = 0)
+
+    Unir una secuencia de matrices a lo largo de un eje existente.
+
+    Parámetros
+    ----------
+    a1, a2, ...: secuencia de array_like
+        Las matrices deben tener la misma forma, excepto en la dimensión
+        correspondiente a `eje` (la primera, por defecto).
+    eje: int, opcional
+        El eje a lo largo del cual se unirán las matrices. El valor predeterminado es 0.
+
+    Devoluciones
+    -------
+    res: ndarray
+        La matriz concatenada.
+
+    Ver también
+    --------
+    ma.concatenate: Concatena la función que preserva las máscaras de entrada.
+    array_split: Divide una matriz en varios sub-arrays de igual o
+                  casi igual tamaño.
+    split: Dividir matriz en una lista de múltiples sub-matrices de igual tamaño.
+    hsplit: Divide la matriz en varios sub-arrays horizontalmente (en columna)
+    vsplit: Divide la matriz en múltiples sub-matrices verticalmente (en fila)
+    dsplit: Divide la matriz en varios sub-arrays a lo largo del tercer eje (profundidad).
+    pila: Apila una secuencia de matrices a lo largo de un nuevo eje.
+    hstack: Arrays de pila en secuencia horizontalmente (en columna)
+    vstack: Stack arrays en secuencia verticalmente (en fila)
+    dstack: Arrays de pila en secuencia de profundidad en sentido (a lo largo de la tercera dimensión)
+
+    Notas
+    -----
+    Cuando una o más de las matrices a concatenar es un MaskedArray,
+    esta función devolverá un objeto MaskedArray en lugar de un ndarray,
+    pero las máscaras de entrada no se conservan. En los casos en que MaskedArray
+    se espera como entrada, utilice la función ma.concatenate de la máscara
+    array módulo en su lugar.
+
+    Ejemplos
+    --------
+    >>> a = np.array ([[1, 2], [3, 4]])
+    >>> b = np.array ([[5, 6]])
+    >>> np.concatenate ((a, b), axis = 0)
+    matriz ([[1, 2],
+           [3, 4],
+           [5, 6]])
+    >>> np.concatenate ((a, b.T), axis = 1)
+    array ([[1, 2, 5],
+           [3, 4, 6]])
+
+    Esta función no preservará el enmascaramiento de las entradas de MaskedArray.
+
+    >>> a = np.ma.arange (3)
+    >>> a [1] = np.ma.masked
+    >>> b = np.arange (2, 5)
+    un
+    masked_array (datos = [0 - 2],
+                 mask = [Falso Verdadero Falso],
+           fill_value = 999999)
+    b
+    matriz ([2, 3, 4])
+    >>> np.concatenate ([a, b])
+    masked_array (datos = [0 1 2 2 3 4],
+                 máscara = Falso,
+           fill_value = 999999)
+    >>> np.ma.concatenate ([a, b])
+    masked_array (datos = [0 - 2 2 3 4],
+                 mask = [Falso Verdadero Falso Falso Falso Falso],
+           fill_value = 999999)

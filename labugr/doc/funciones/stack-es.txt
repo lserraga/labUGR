@@ -1,0 +1,48 @@
+Unir una secuencia de matrices a lo largo de un nuevo eje.
+
+    El parámetro `axis` especifica el índice del nuevo eje en las dimensiones
+    del resultado. Por ejemplo, si `` axis = 0`` será la primera dimensión
+    y si `` axis = -1`` será la última dimensión.
+
+    .. versionadded :: 1.10.0
+
+    Parámetros
+    ----------
+    arrays: secuencia de array_like
+        Cada matriz debe tener la misma forma.
+    eje: int, opcional
+        El eje de la matriz de resultados a lo largo del cual se apilan las matrices de entrada.
+
+    Devoluciones
+    -------
+    apilados: ndarray
+        El arreglo apilado tiene una dimensión más que los arrays de entrada.
+
+    Ver también
+    --------
+    concatenar: Unir una secuencia de matrices a lo largo de un eje existente.
+    split: Dividir matriz en una lista de múltiples sub-matrices de igual tamaño.
+    block: Ensamble los arreglos de los bloques.
+
+    Ejemplos
+    --------
+    >>> arrays = [np.random.randn (3, 4) para _ en rango (10)]
+    >>> np.stack (arrays, axis = 0) .shape
+    (10, 3, 4)
+
+    >>> np.stack (arrays, axis = 1) .shape
+    (3, 10, 4)
+
+    >>> np.stack (arrays, axis = 2) .shape
+    (3, 4, 10)
+
+    >>> a = np.array ([1, 2, 3])
+    >>> b = np.array ([2, 3, 4])
+    >>> np.stack ((a, b))
+    matriz ([[1, 2, 3],
+           [2, 3, 4]])
+
+    >>> np.stack ((a, b), axis = -1)
+    matriz ([[1, 2],
+           [2, 3],
+           [3, 4]])

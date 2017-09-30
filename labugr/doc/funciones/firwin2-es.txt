@@ -1,0 +1,96 @@
+FIR utilizando el método window.
+
+    A partir de las frecuencias dadas `freq` y de las ganancias` gain` correspondientes,
+    esta función construye un filtro FIR con fase lineal y
+    (aproximadamente) la respuesta de frecuencia dada.
+
+    Parámetros
+    ----------
+    numtaps: int
+        El número de taps en el filtro FIR. «numtaps» debe ser inferior a
+        `nfreqs`.
+    freq: array_like, 1D
+        Los puntos de muestreo de frecuencia. Tıpicamente de 0,0 a 1,0 con 1,0 siendo
+        Nyquist. La frecuencia de Nyquist puede redefinirse con el argumento
+        `nyq`.
+        Los valores en `freq` deben ser no decrecientes. Un valor puede repetirse
+        una vez para implementar una discontinuidad. El primer valor de `freq` debe
+        ser 0, y el último valor debe ser `nyq`.
+    ganancia: array_like
+        El filtro gana en los puntos de muestreo de frecuencias. Cierto
+        se aplican restricciones para obtener valores, dependiendo del tipo de filtro,
+        vea Notas para más detalles.
+    nfreqs: int, opcional
+        El tamaño de la malla de interpolación utilizada para construir el filtro.
+        Para el comportamiento más eficiente, esto debe ser una potencia de 2 más 1
+        (por ejemplo, 129, 257, etc.). El valor predeterminado es uno más que el más pequeño
+        potencia de 2 que no sea inferior a `numtaps`. `nfreqs` debe ser mayor
+        que `numtaps`.
+    window: string o (string, float) o float, o None, opcional
+        Función de ventana a utilizar. El valor predeterminado es "hamming". Ver
+        `scipy.signal.get_window` para la lista completa de posibles valores.
+        Si no se aplica ninguna función de ventana.
+    nyq: float, opcional
+        Frecuencia de Nyquist. Cada frecuencia en `freq` debe estar entre 0 y
+        `nyq` (incluido).
+    antisimétrico: bool, opcional
+        Si la respuesta al impulso resultante es simétrica / antisimétrica.
+        Ver Notas para más detalles.
+
+    Devoluciones
+    -------
+    grifos: ndarray
+        Los coeficientes de filtro del filtro FIR, como una matriz 1-D de longitud
+        `numtaps`.
+
+    Ver también
+    --------
+    firls
+    firmar
+    fase mínima
+    remezclar
+
+    Notas
+    -----
+    A partir del conjunto dado de frecuencias y ganancias, la respuesta deseada es
+    construido en el dominio de la frecuencia. La FFT inversa se aplica a la
+    respuesta deseada para crear el núcleo de convolución asociado, y
+    primeros `numtaps` coeficientes de este kernel, escalado por` window`, son
+    devuelto
+
+    El filtro FIR tendrá fase lineal. El tipo de filtro está determinado por
+    el valor del indicador numtaps y antisymmetric.
+    Hay cuatro combinaciones posibles:
+
+       - odd `numtaps`,` antisymmetric` es False, se produce el filtro de tipo I
+       - incluso `numtaps`,` antisymmetric` es False, se produce el filtro de tipo II
+       - odd `numtaps`,` antisymmetric` es True, se produce el filtro tipo III
+       - incluso `numtaps`,` antisymmetric` es True, se produce el filtro tipo IV
+
+    La respuesta de magnitud de todos los filtros, excepto los de tipo I,
+    restricciones
+
+       - tipo II - cero a la frecuencia de Nyquist
+       - tipo III - cero a cero y frecuencias de Nyquist
+       - tipo IV - cero a frecuencia cero
+
+    .. versionadded :: 0.9.0
+
+    Referencias
+    ----------
+    [1] Oppenheim, A. V. y Schafer, R. W., "Señal de tiempo discreto
+       Processing ", Prentice-Hall, Englewood Cliffs, New Jersey (1989).
+       (Véase, por ejemplo, la sección 7.4.)
+
+    [2] Smith, Steven W., "El científico y la guía del ingeniero de Digital
+       Procesamiento de señales ", Ch. 17. http://www.dspguide.com/ch17/1.htm
+
+    Ejemplos
+    --------
+    Un filtro FIR de paso bajo con una respuesta que es 1 en [0.0, 0.5], y
+    que disminuye linealmente en [0.5, 1.0] de 1 a 0:
+
+    >>> de la señal de importación de scipy
+    >>> taps = signal.firwin2 (150, [0.0, 0.5, 1.0], [1.0, 1.0, 0.0])
+    >>> imprimir (grifos [72:78])
+    [-0.02286961 -0.06362756 0.57310236 0.57310236 -0.06362756 -0.02286961]

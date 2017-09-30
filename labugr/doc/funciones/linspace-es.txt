@@ -1,0 +1,71 @@
+Devuelve números uniformemente espaciados en un intervalo especificado.
+
+    Devuelve `num` muestras uniformemente espaciadas, calculadas sobre la
+    intervalo [`start`,` stop`].
+
+    Opcionalmente, se puede excluir el punto final del intervalo.
+
+    Parámetros
+    ----------
+    inicio: escalar
+        El valor inicial de la secuencia.
+    parada: escalar
+        El valor final de la secuencia, a menos que `endpoint` esté establecido en False.
+        En ese caso, la secuencia consta de todos, excepto el último de "num + 1"
+        muestras uniformemente espaciadas, por lo que `stop` está excluido. Tenga en cuenta que el paso
+        size cambia cuando `endpoint` es False.
+    num: int, opcional
+        Número de muestras a generar. El valor predeterminado es 50. Debe ser no negativo.
+    punto final: bool, opcional
+        Si es True, `stop` es la última muestra. De lo contrario, no está incluido.
+        El valor predeterminado es True.
+    retstep: bool, opcional
+        Si es True, devuelve (`samples`,` step`), donde `step` es el espaciado
+        entre muestras.
+    dtype: dtype, opcional
+        El tipo de matriz de salida. Si `dtype` no se da, deduzca los datos
+        tipo de los otros argumentos de entrada.
+
+        .. versionadded :: 1.9.0
+
+    Devoluciones
+    -------
+    muestras: ndarray
+        Hay muestras `n 'iguales en el intervalo cerrado
+        `` [start, stop] `` o el intervalo entreabierto `` [start, stop) ``
+        (dependiendo de si `endpoint` es Verdadero o Falso).
+    paso: float, opcional
+        Sólo se devuelve si `retstep` es verdadero
+
+        Tamaño del espaciamiento entre muestras.
+
+
+    Ver también
+    --------
+    arange: Similar a `linspace`, pero usa un tamaño de paso (en lugar del
+             número de muestras).
+    logspace: Muestras uniformemente distribuidas en el espacio de registro.
+
+    Ejemplos
+    --------
+    >>> np.linspace (2.0, 3.0, num = 5)
+    matriz ([2., 2.25, 2.5, 2.75, 3.])
+    >>> np.linspace (2.0, 3.0, num = 5, endpoint = False)
+    array ([2., 2.2, 2.4, 2.6, 2.8])
+    >>> np.linspace (2.0, 3.0, num = 5, retstep = True)
+    (matriz ([2., 2.25, 2.5, 2.75, 3.]), 0.25)
+
+    Ilustración gráfica:
+
+    >>> import matplotlib.pyplot como plt
+    >>> N = 8
+    >>> y = np.zeros (N)
+    >>> x1 = np.linspace (0, 10, N, endpoint = True)
+    >>> x2 = np.linspace (0, 10, N, punto final = Falso)
+    >>> plt.plot (x1, y, 'o')
+    [<matplotlib.lines.Line2D objeto en 0x ...>]
+    >>> plt.plot (x2, y + 0.5, 'o')
+    [<matplotlib.lines.Line2D objeto en 0x ...>]
+    >>> plt.ylim ([- 0.5, 1])
+    (-0,5, 1)
+    >>> plt.show ()

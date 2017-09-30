@@ -1,0 +1,17 @@
+Obtener o establecer los límites * y * de los ejes actuales.
+
+    ::
+
+      ymin, ymax = ylim () # devolver el ylim actual
+      ylim ((ymin, ymax)) # establece el ylim a ymin, ymax
+      ylim (ymin, ymax) # establece el ylim en ymin, ymax
+
+    Si no especifica args, puede pasar el * ymin * y * ymax * como
+    kwargs, por ejemplo:
+
+      ylim (ymax = 3) # ajustar el máximo dejando min sin cambios
+      ylim (ymin = 1) # ajustar el min dejando max sin cambios
+
+    Al establecer límites, se desactiva la escala automática para el eje y.
+
+    Los nuevos límites de eje se devuelven como una tupla de longitud 2.

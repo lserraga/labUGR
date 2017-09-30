@@ -1,0 +1,72 @@
+Calcule la respuesta de frecuencia de un filtro digital.
+
+    Dado el numerador de orden M `b` y el denominador de orden N` a` de un sistema digital
+    filtrar, calcular su respuesta de frecuencia ::
+
+                 jw-jw-jwM
+        jw B (e) b [0] + b [1] e + .... + b [M] e
+     H (e) = ---- = -----------------------------------
+                 jw-jw-jwN
+              A (e) a [0] + a [1] e + .... + a [N] e
+
+    Parámetros
+    ----------
+    b: array_like
+        numerador de un filtro lineal
+    a: array_like
+        denominador de un filtro lineal
+    worN: {Ninguno, int, array_like}, opcional
+        Si No (por defecto), luego calcule a 512 frecuencias equidistantes
+        alrededor del círculo de la unidad.
+        Si un solo entero, a continuación, calcular en que muchas frecuencias.
+        Si un array_like, calcular la respuesta a las frecuencias dadas (en
+        radianes / muestra).
+    todo: bool, opcional
+        Normalmente, las frecuencias se calculan de 0 a la frecuencia de Nyquist,
+        pi radians / muestra (mitad superior de la unidad de círculo). Si `whole` es verdadero,
+        calcular frecuencias de 0 a 2 * pi radianes / muestra.
+    parcela: callable
+        Un callable que toma dos argumentos. Si se dan, los parámetros de retorno
+        `w` y` h` pasan a la parcela. Útil para trazar la frecuencia
+        respuesta dentro de `freqz`.
+
+    Devoluciones
+    -------
+    w: ndarray
+        Las frecuencias normalizadas a las que se calculó «h», en
+        radianes / muestra.
+    h: ndarray
+        La respuesta de frecuencia, como números complejos.
+
+    Ver también
+    --------
+    sosfreqz
+
+    Notas
+    -----
+    El uso de la función "plot" de Matplotlib como el callable para `plot` produce
+    resultados inesperados, este traza la parte real de la compleja transferencia
+    función, no la magnitud. Intente `` lambda w, h: parcela (w, abs (h)) ``.
+
+    Ejemplos
+    --------
+    >>> de la señal de importación de scipy
+    >>> b = señal.firwin (80, 0.5, ventana = ('kaiser', 8))
+    >>> w, h = señal.freqz (b)
+
+    >>> import matplotlib.pyplot como plt
+    >>> fig = plt.figure ()
+    >>> plt.title ('Respuesta de frecuencia del filtro digital')
+    >>> ax1 = fig.add_subplot (111)
+
+    >>> plt.plot (w, 20 * np.log10 (abs (h)), 'b')
+    >>> plt.ylabel ('Amplitud [dB]', color = 'b')
+    >>> plt.xlabel ('Frecuencia [rad / muestra]')
+
+    >>> ax2 = ax1.twinx ()
+    >>> ángulos = np.unwrap (np.angle (h))
+    >>> plt.plot (w, ángulos, 'g')
+    >>> plt.ylabel ('Ángulo (radianes)', color = 'g')
+    >>> plt.grid ()
+    >>> plt.axis ('apretado')
+    >>> plt.show ()

@@ -1,0 +1,56 @@
+Calcular la respuesta de frecuencia del filtro analógico.
+
+    Dado el numerador de orden M `b` y el denominador de orden N` a` de un análogo
+    filtrar, calcular su respuesta de frecuencia ::
+
+             b [0] * (jw) ** M + b [1] * (jw) ** (M-1) + ... + b [M]
+     H (w) = --------------------------------------------- -
+             a [0] * (jw) ** N + a [1] * (jw) ** (N-1) + ... + a [N]
+
+    Parámetros
+    ----------
+    b: array_like
+        Numerador de un filtro lineal.
+    a: array_like
+        Denominador de un filtro lineal.
+    worN: {Ninguno, int, array_like}, opcional
+        Si no, a continuación, calcular a 200 frecuencias alrededor de las partes interesantes
+        de la curva de respuesta (determinada por posiciones polo-cero). Si un solo
+        entero, a continuación, calcular en que muchas frecuencias. De lo contrario, calcule el
+        respuesta a las frecuencias angulares (por ejemplo rad / s) dadas en `worN '.
+    parcela: callable, opcional
+        Un callable que toma dos argumentos. Si se dan, los parámetros de retorno
+        `w` y` h` pasan a la parcela. Útil para trazar la frecuencia
+        respuesta dentro de `freqs`.
+
+    Devoluciones
+    -------
+    w: ndarray
+        Las frecuencias angulares a las que se calculó «h».
+    h: ndarray
+        La respuesta de frecuencia.
+
+    Ver también
+    --------
+    freqz: Calcular la respuesta de frecuencia de un filtro digital.
+
+    Notas
+    -----
+    El uso de la función "plot" de Matplotlib como el callable para `plot` produce
+    resultados inesperados, este traza la parte real de la compleja transferencia
+    función, no la magnitud. Intente `` lambda w, h: parcela (w, abs (h)) ``.
+
+    Ejemplos
+    --------
+    >>> de frases de importación de scipy.signal, iirfilter
+
+    >>> b, a = iirfilter (4, [1, 10], 1, 60, analógico = True, ftype = 'cheby1')
+
+    >>> w, h = freqs (b, a, worN = np.logspace (-1, 2, 1000))
+
+    >>> import matplotlib.pyplot como plt
+    >>> plt.semilogx (w, 20 * np.log10 (abs (h)))
+    >>> plt.xlabel ('Frecuencia')
+    >>> plt.ylabel ('Respuesta de amplitud [dB]')
+    >>> plt.grid ()
+    >>> plt.show ()

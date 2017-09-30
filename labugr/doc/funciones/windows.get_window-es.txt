@@ -1,0 +1,54 @@
+Regresar una ventana.
+
+    Parámetros
+    ----------
+    window: string, float o tuple
+        El tipo de ventana a crear. Vea más abajo para más detalles.
+    Nx: int
+        El número de muestras en la ventana.
+    fftbins: bool, opcional
+        Si es True (predeterminado), cree una ventana "periódica", lista para usar con
+        `ifftshift` y se multiplicará por el resultado de una FFT (véase también
+        `fftpack.fftfreq`).
+        Si es Falso, cree una ventana "simétrica", para usarla en el diseño del filtro.
+
+    Devoluciones
+    -------
+    get_window: ndarray
+        Devuelve una ventana de longitud `Nx` y escribe` window`
+
+    Notas
+    -----
+    Tipos de ventanas:
+
+        `boxcar`,` triang`, `blackman`,` hamming`, `hann`,` bartlett`,
+        «flattop», «parzen», «bohman», «blackmanharris», «nuttall»,
+        `barthann`,` kaiser` (necesita beta), `gaussian` (necesita un estándar
+        desviación), `general_gaussian` (necesita potencia, anchura),` slepian`
+        (necesita ancho), `chebwin` (necesita atenuación),` exponencial`
+        (necesita escala de decaimiento), `tukey` (necesita una fracción de conicidad)
+
+    Si la ventana no requiere parámetros, entonces `window` puede ser una cadena.
+
+    Si la ventana requiere parámetros, entonces `window` debe ser una tupla
+    con el primer argumento el nombre de la cadena de la ventana, y el siguiente
+    argumentos los parámetros necesarios.
+
+    Si `window` es un número de coma flotante, se interpreta como la beta
+    parámetro de la ventana `kaiser`.
+
+    Cada uno de los tipos de ventanas enumerados anteriormente es también el nombre de
+    una función que se puede llamar directamente para crear una ventana de
+    ese tipo.
+
+    Ejemplos
+    --------
+    >>> de la señal de importación de scipy
+    >>> signal.get_window ('triang', 7)
+    matriz ([0,125, 0,375, 0,625, 0,875, 0,875, 0,625, 0,375])
+    >>> signal.get_window (('kaiser', 4.0), 9)
+    matriz ([0,08848053, 0,29425961, 0,56437221, 0,82160913, 0,97885093,
+            0.97885093, 0.82160913, 0.56437221, 0.29425961])
+    >>> signal.get_window (4.0, 9)
+    matriz ([0,08848053, 0,29425961, 0,56437221, 0,82160913, 0,97885093,
+            0.97885093, 0.82160913, 0.56437221, 0.29425961])

@@ -1,0 +1,32 @@
+Paso respuesta del sistema de tiempo discreto.
+
+    Parámetros
+    ----------
+    sistema: tuple de array_like
+        Una tupla que describe el sistema.
+        Lo siguiente da el número de elementos en la tupla y
+        la interpretación:
+
+            * 1: (instancia de `dlti`)
+            * 3: (num, den, dt)
+            * 4: (ceros, polos, ganancia, dt)
+            * 5: (A, B, C, D, dt)
+
+    x0: array_like, opcional
+        Vector de estado inicial. El valor predeterminado es cero.
+    t: array_like, opcional
+        Puntos de tiempo. Se calcula si no se da.
+    n: int, opcional
+        El número de puntos de tiempo para calcular (si `t 'no se da).
+
+    Devoluciones
+    -------
+    tout ndarray
+        Puntos de tiempo de salida, como una matriz 1-D.
+    yout: ndarray
+        Paso de respuesta del sistema. Cada elemento de la tupla representa
+        la salida del sistema basada en una respuesta escalonada a cada entrada.
+
+    Ver también
+    --------
+    paso, dimpulse, dlsim, cont2discrete

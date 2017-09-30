@@ -1,0 +1,102 @@
+Devolver una ventana de Kaiser.
+
+    La ventana de Kaiser es una conicidad formada usando una función de Bessel.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    beta: float
+        El parámetro Shape, determina el equilibrio entre el ancho del lóbulo principal y
+        nivel del lóbulo lateral. A medida que la beta se hace grande, la ventana se estrecha.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Notas
+    -----
+    La ventana Kaiser se define como
+
+    .. matemática :: w (n) = I_0 \ left (\ beta \ sqrt {1- \ frac {4n ^ 2} {(M-1) ^ 2}}
+               \ right) / I_0 (\ beta)
+
+    con
+
+    . matemática :: \ quad - \ frac {M-1} {2} \ leq n \ leq \ frac {M-1} {2}
+
+    donde: math: `I_0` es la función de Bessel de orden cero modificada.
+
+    El Kaiser fue nombrado para Jim Kaiser, que descubrió una aproximación simple
+    a la ventana de DPSS basada en las funciones de Bessel.
+    La ventana Kaiser es una muy buena aproximación al Digital Prolate
+    Secuencia esferoidal, o ventana de Slepian, que es la transformación que
+    maximiza la energía en el lóbulo principal de la ventana en relación con el total
+    energía.
+
+    El Kaiser puede aproximarse a otras ventanas variando el parámetro beta.
+    (Alguna literatura usa alfa = beta / pi.) [4] _
+
+    ==== ====================================================
+    beta Forma de ventana
+    ==== ====================================================
+    0 Rectangular
+    5 Similar a un Hamming
+    6 Similar a un Hann
+    8.6 Similar a un Blackman
+    ==== ====================================================
+
+    Un valor beta de 14 es probablemente un buen punto de partida. Tenga en cuenta que como beta
+    la ventana se estrecha, por lo que el número de muestras debe ser
+    suficiente para probar el punto cada vez más estrecho, de lo contrario NaNs
+    ser devuelto.
+
+    La mayoría de las referencias a la ventana Kaiser vienen del procesador de señales
+    literatura, donde se utiliza como una de las muchas funciones de
+    valores de suavizado. También se conoce como una apodización (que significa
+    "retirar el pie", es decir, suavizar las discontinuidades al principio
+    y final de la señal muestreada) o función de ahusamiento.
+
+    Referencias
+    ----------
+    [1] J. F. Kaiser, "Filtros digitales" - Ch 7 en "Análisis de sistemas por
+           digital computer ", Editores: F.F. Kuo y J.F. Kaiser, p 218-285.
+           John Wiley and Sons, Nueva York, (1966).
+    [2] E.R. Kanasewich, "Time Sequence Analysis in Geophysics", The
+           University of Alberta Press, 1975, páginas 177-178.
+    .. [3] Wikipedia, "Función de ventana",
+           http://en.wikipedia.org/wiki/Window_function
+    [4] F. J. Harris, "Sobre el uso de ventanas para el análisis armónico con el
+           transformada discreta de Fourier ", Proceedings of the IEEE, vol. 66,
+           no. 1, págs. 51-83, enero 1978.: doi: `10.1109 / PROC.1978.10837`.
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> window = signal.kaiser (51, beta = 14)
+    >>> plt.plot (ventana)
+    >>> plt.title (r "ventana de Kaiser ($ \ beta $ = 14)")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title (r "Respuesta de frecuencia de la ventana Kaiser ($ \ beta $ = 14)")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")

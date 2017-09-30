@@ -1,0 +1,83 @@
+Convolucione dos matrices N-dimensionales.
+
+    Convierta `in1` y` in2`, con el tamaño de salida determinado por el
+    `mode` argumento.
+
+    Parámetros
+    ----------
+    in1: array_like
+        Primera entrada.
+    in2: array_like
+        Segunda entrada. Debe tener el mismo número de dimensiones que 'in1`.
+    modo: str {'completo', 'válido', 'mismo'}, opcional
+        Una cadena que indica el tamaño de la salida:
+
+        lleno
+           La salida es la convolución lineal discreta completa
+           de las entradas. (Defecto)
+        `` válido``
+           La salida consiste sólo en aquellos elementos que no
+           se basan en el relleno cero. En el modo 'válido', `in1` o` in2`
+           debe ser al menos tan grande como el otro en cada dimensión.
+        igual
+           La salida es del mismo tamaño que `in1`, centrada
+           con respecto a la producción "completa".
+    método: str {'auto', 'directo', 'fft'}, opcional
+        Cadena que indica el método a utilizar para calcular la convolución.
+
+        directo
+           La convolución se determina directamente a partir de sumas, la definición de
+           circunvolución.
+        fft
+           La Transformada de Fourier se utiliza para realizar la convolución llamando
+           `fftconvolve`.
+        auto
+           Elige automáticamente el método directo o Fourier basado en una estimación
+           de los cuales es más rápido (predeterminado). Consulte Notas para obtener más detalles.
+
+           .. versionadded :: 0.19.0
+
+    Devoluciones
+    -------
+    convolve: array
+        Una matriz N-dimensional que contiene un subconjunto de la línea lineal discreta
+        convolución de `in1` con 'in2`.
+
+    Ver también
+    --------
+    numpy.polymul: realiza la multiplicación polinomial (misma operación, pero
+                    también acepta objetos poly1d)
+    choose_conv_method: elige el método de convolución más rápido
+    fftconvolve
+
+    Notas
+    -----
+    Por defecto, `convolve` y` correlate` utilizan `` method = 'auto'``, que llama
+    `choose_conv_method` para elegir el método más rápido usando el método pre-calculado
+    valores (`choose_conv_method` también puede medir el tiempo real con una
+    argumento de palabra clave). Debido a que `fftconvolve` se basa en números de coma flotante,
+    hay ciertas restricciones que pueden forzar a `method = direct` (más detalles
+    en `choose_conv_method` docstring).
+
+    Ejemplos
+    --------
+    Suavizar un pulso cuadrado usando una ventana de Hann:
+
+    >>> de la señal de importación de scipy
+    >>> sig = np.repeat ([0., 1., 0.], 100)
+    >>> win = signal.hann (50)
+    >>> filter = signal.convolve (sig, win, mode = 'same') / sum (win)
+
+    >>> import matplotlib.pyplot como plt
+    >>> fig, (ax_orig, ax_win, ax_filt) = plt.subplots (3, 1, sharex = True)
+    >>> ax_orig.plot (sig)
+    >>> ax_orig.set_title ('Pulso original')
+    >>> ax_orig.margins (0, 0.1)
+    >>> ax_win.plot (ganar)
+    >>> ax_win.set_title ('Respuesta al impulso del filtro')
+    >>> ax_win.margins (0, 0.1)
+    >>> ax_filt.plot (filtrado)
+    >>> ax_filt.set_title ('Señal filtrada')
+    >>> ax_filt.margins (0, 0.1)
+    >>> fig.tight_layout ()
+    >>> fig.show ()

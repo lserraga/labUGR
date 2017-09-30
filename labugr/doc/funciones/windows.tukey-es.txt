@@ -1,0 +1,55 @@
+Devuelve una ventana de Tukey, también conocida como una ventana de coseno cónico.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    alpha: float, opcional
+        Parámetro de forma de la ventana de Tukey, que representa la fracción de la
+        ventana dentro de la región cónica coseno.
+        Si es cero, la ventana de Tukey es equivalente a una ventana rectangular.
+        Si uno, la ventana de Tukey es equivalente a una ventana de Hann.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Referencias
+    ----------
+    [1] Harris, Fredric J. (enero de 1978). "Sobre el uso de Windows para armónicos
+           Análisis con la Transformada de Fourier Discreta ".
+           IEEE 66 (1): 51 - 83. : doi: `10.1109 / PROC.1978.10837`
+    .. [2] Wikipedia, "Función de ventana",
+           http://en.wikipedia.org/wiki/Window_function#Tukey_window
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> ventana = señal.tukey (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("Ventana Tukey")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+    >>> plt.ylim ([0, 1.1])
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de frecuencia de la ventana de Tukey")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")

@@ -1,0 +1,35 @@
+Devuelve una matriz bidimensional con unos en la diagonal y ceros en otra parte.
+
+    Parámetros
+    ----------
+    N: int
+      Número de filas en la salida.
+    M: int, opcional
+      Número de columnas en la salida. Si no, el valor por defecto es `N`.
+    k: int, opcional
+      Índice de la diagonal: 0 (el valor por defecto) se refiere a la diagonal principal,
+      un valor positivo se refiere a una diagonal superior y un valor negativo
+      a una diagonal inferior.
+    dtype: tipo de datos, opcional
+      Tipo de datos de la matriz devuelta.
+
+    Devoluciones
+    -------
+    I: ndarray de forma (N, M)
+      Una matriz donde todos los elementos son iguales a cero, excepto para el `k`-th
+      diagonal, cuyos valores son iguales a uno.
+
+    Ver también
+    --------
+    identidad: función (casi) equivalente
+    diag: matriz diagonal 2-D de una matriz 1-D especificada por el usuario.
+
+    Ejemplos
+    --------
+    >>> np.eye (2, dtype = int)
+    matriz ([[1, 0],
+           [0, 1]])
+    >>> np.eye (3, k = 1)
+    matriz ([[0., 1., 0.],
+           [0., 0., 1.],
+           [0., 0., 0.]])

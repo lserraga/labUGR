@@ -1,0 +1,64 @@
+sin (x, /, out = Ninguno, *, donde = Verdadero, casting = 'same_kind', order = 'K', dtype = Ninguno, subok = True [, signature, extobj]
+
+SenoSeno trigonométrico, elemento-sabio.
+
+Parámetros
+----------
+x: array_like
+    Ángulo, en radianes (: math: `2 \ pi` rad equivale a 360 grados).
+out: ndarray, None, o tuple de ndarray y None, opcional
+    Una ubicación en la que se almacena el resultado. Si se proporciona, debe tener
+    una forma a la que se transmiten las entradas. Si no se proporciona o «Ninguno»,
+    se devuelve una matriz recién asignada. Una tupla (posible sólo como
+    argumento de palabra clave) debe tener una longitud igual al número de salidas.
+donde: array_like, opcional
+    Los valores de True indican para calcular la ufunc en esa posición, los valores
+    de Falso indican para dejar el valor en la salida solo.
+kwargs
+    Para otros argumentos con solo palabras clave, consulte el
+    : ref: `ufunc docs <ufuncs.kwargs>`.
+
+Devoluciones
+-------
+y: array_like
+    El seno de cada elemento de x.
+
+Ver también
+--------
+arcsin, sinh, cos
+
+Notas
+-----
+El seno es una de las funciones fundamentales de la trigonometría (la
+estudio matemático de triángulos). Considere un círculo de radio 1
+centrado en el origen. Un rayo proviene de: math: `+ x` axis, makes
+un ángulo en el origen (medido en sentido contrario a las agujas del reloj desde ese eje), y
+parte del origen. La: math: `y` coordenada de la salida
+La intersección del rayo con el círculo unitario es el seno de ese ángulo. Eso
+varía desde -1 para: math: `x = 3 \ pi / 2` a +1 para: math:` \ pi / 2.`
+función tiene ceros donde el ángulo es un múltiplo de: math: `\ pi`.
+Sines de ángulos entre: math: `\ pi` y: math:` 2 \ pi` son negativos.
+Las numerosas propiedades del seno y funciones relacionadas están incluidas
+en cualquier texto trigonométrico estándar.
+
+Ejemplos
+--------
+Imprimir seno de un ángulo:
+
+>>> np.sin (np.pi / 2.)
+1.0
+
+Imprimir los senos de una serie de ángulos dados en grados:
+
+>>> np.sin (np.array ((0, 30, 45., 60., 90.)) * np.pi / 180.)
+matriz ([0., 0.5, 0.70710678, 0.8660254, 1.])
+
+Trace la función sinusoidal:
+
+>>> import matplotlib.pylab como plt
+>>> x = np.linspace (-np.pi, np.pi, 201)
+>>> plt.plot (x, np.sin (x))
+>>> plt.xlabel ('Angle [rad]')
+>>> plt.label ('sin (x)')
+>>> plt.axis ('apretado')
+>>> plt.show ()

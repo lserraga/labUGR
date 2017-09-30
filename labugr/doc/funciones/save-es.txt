@@ -1,0 +1,47 @@
+Guardar una matriz en un archivo binario en formato NumPy `` .npy``.
+
+    Parámetros
+    ----------
+    file: file, str o pathlib.Path
+        Archivo o nombre de archivo al que se guardan los datos. Si file es un objeto de archivo,
+        entonces el nombre de archivo no cambia. Si file es una cadena o Path, un `` .npy``
+        extensión se añadirá al nombre de archivo si aún no
+        Toma uno.
+    allow_pickle: bool, opcional
+        Permitir guardar arrays de objetos utilizando encurtidos de Python. Razones para rechazar
+        encurtidos incluyen la seguridad (carga de datos encurtidos puede ejecutar arbitraria
+        código) y la portabilidad (los objetos encurtidos no pueden cargarse en
+        Las instalaciones de Python, por ejemplo, si los objetos almacenados requieren bibliotecas
+        que no están disponibles, y no todos los datos decapados son compatibles entre
+        Python 2 y Python 3).
+        Predeterminado: True
+    fix_imports: bool, opcional
+        Sólo es útil para forzar objetos en matrices de objetos en Python 3 a ser
+        pickled en una forma compatible con Python 2. Si `fix_imports` es True, pickle
+        intentará asignar los nuevos nombres de Python 3 a los nombres de módulo antiguos utilizados en
+        Python 2, de manera que el flujo de datos pickle sea legible con Python 2.
+    arr: array_like
+        Datos de matriz que se guardarán.
+
+    Ver también
+    --------
+    savez: Guarda varios arrays en un archivo `` .npz``
+    savetxt, carga
+
+    Notas
+    -----
+    Para obtener una descripción del formato `` .npy``, consulte el módulo docstring
+    de `numpy.lib.format` o la Propuesta de mejora de NumPy
+    http://docs.scipy.org/doc/numpy/neps/npy-format.html
+
+    Ejemplos
+    --------
+    >>> from tempfile import TemporaryFile
+    >>> outfile = TemporaryFile ()
+
+    >>> x = np.arange (10)
+    >>> np.save (outfile, x)
+
+    >>> outfile.seek (0) # Sólo se necesita aquí para simular cierre y reapertura de archivo
+    >>> np.load (archivo)
+    matriz ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])

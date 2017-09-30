@@ -1,0 +1,54 @@
+Señal de impulso de unidad (función delta discreta) o vector de base de unidad.
+    Parámetros
+    ----------
+    shape: int o tuple de int
+        Número de muestras en la salida (1-D), o una tupla que representa la
+        forma de la salida (N-D).
+    idx: Ninguno o int o tuple de int o 'mid', opcional
+        Índice en el que el valor es 1. Si No, el valor predeterminado es el 0º elemento.
+        Si `` idx = 'mid'``, el impulso se centrará en `` shape // 2`` en
+        todas las dimensiones. Si un int, el impulso estará en `idx` en todos
+        dimensiones.
+    dtype: tipo de datos, opcional
+        El tipo de datos deseado para la matriz, por ejemplo, `numpy.int8`. El valor predeterminado es
+        `numpy.float64`.
+    Devoluciones
+    -------
+    y: ndarray
+        Matriz de salida que contiene una señal de impulso.
+    Notas
+    -----
+    El caso 1D también se conoce como el delta de Kronecker.
+    .. versionadded :: 0.19.0
+    Ejemplos
+    --------
+    Un impulso en el elemento 0 (: math: `\ delta [n]`):
+    >>> de la señal de importación de scipy
+    >>> signal.unit_impulse (8)
+    matriz ([1., 0., 0., 0., 0., 0., 0., 0.])
+    Impulso compensado por 2 muestras (: math: `\ delta [n-2]`):
+    >>> signal.unit_impulse (7, 2)
+    matriz ([0., 0., 1., 0., 0., 0., 0.])
+    Impulso bidimensional, centrado:
+    >>> signal.unit_impulse ((3, 3), 'mid')
+    matriz ([[0., 0., 0.],
+           [0., 1., 0.],
+           [0., 0., 0.]])
+    Impulse en (2, 2), usando la radiodifusión:
+    >>> signal.unit_impulse ((4, 4), 2)
+    matriz ([[0., 0., 0., 0.],
+           [0., 0., 0., 0.],
+           [0., 0., 1., 0.],
+           [0., 0., 0., 0.]])
+    Trace la respuesta de impulso de un filtro de paso bajo Butterworth de 4to orden:
+    >>> imp = signal.unit_impulse (100, 'mid')
+    >>> b, a = señal.butter (4, 0.2)
+    >>> respuesta = signal.lfilter (b, a, imp)
+    >>> import matplotlib.pyplot como plt
+    >>> plt.plot (np.arange (-50, 50), imp)
+    >>> plt.plot (np.arange (-50, 50), respuesta)
+    >>> plt.margins (0.1, 0.1)
+    >>> plt.xlabel ('Tiempo [muestras]')
+    >>> plt.ylabel ('Amplitud')
+    >>> plt.grid (Verdadero)
+    >>> plt.show ()

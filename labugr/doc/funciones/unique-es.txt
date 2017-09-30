@@ -1,0 +1,90 @@
+Encuentra los elementos únicos de una matriz.
+
+    Devuelve los elementos únicos ordenados de una matriz. Hay tres opciones
+    salidas además de los elementos únicos: los índices de la matriz de entrada
+    que dan los valores únicos, los índices de la matriz única que
+    reconstruir la matriz de entrada, y el número de veces que cada valor único
+    aparece en la matriz de entrada.
+
+    Parámetros
+    ----------
+    ar: array_like
+        Array de entrada. A menos que se especifique "eje", éste se aplastará si
+        ya no es 1-D.
+    return_index: bool, opcional
+        Si es True, también devuelve los índices de `ar` (a lo largo del eje especificado,
+        si se proporciona, o en la matriz aplanada) que resultan en la matriz única.
+    return_inverse: bool, opcional
+        Si es True, también devuelve los índices de la matriz única (para el
+        eje, si se proporciona) que se puede utilizar para reconstruir `ar`.
+    return_counts: bool, opcional
+        Si es True, también devuelve el número de veces que cada elemento único aparece
+        en `ar`.
+        .. versionadded :: 1.9.0
+    eje: int o Ninguno, opcional
+        El eje para operar. Si Ninguno, `ar` será aplastado de antemano.
+        De lo contrario, los elementos duplicados se eliminarán a lo largo del eje proporcionado,
+        con todos los demás ejes pertenecientes a cada uno de los elementos únicos.
+        Arrays de objetos o matrices estructuradas que contienen objetos no son
+        soportado si se utiliza el kwarg del `eje '.
+        .. versionadded :: 1.13.0
+
+
+
+    Devoluciones
+    -------
+    único: ndarray
+        Los valores únicos clasificados.
+    unique_indices: ndarray, opcional
+        Los índices de las primeras ocurrencias de los valores únicos en la
+        matriz original. Sólo se proporciona si `return_index` es True.
+    unique_inverse: ndarray, opcional
+        Los índices para reconstruir la matriz original desde la
+        matriz única. Sólo se proporciona si `return_inverse` es True.
+    unique_counts: ndarray, opcional
+        El número de veces que cada uno de los valores únicos aparece en el
+        matriz original. Sólo se proporciona si `return_counts` es True.
+        .. versionadded :: 1.9.0
+
+    Ver también
+    --------
+    numpy.lib.arraysetops: Módulo con una serie de otras funciones para
+                            realizando operaciones de conjunto en matrices.
+
+    Ejemplos
+    --------
+    >>> np.unique ([1, 1, 2, 2, 3, 3])
+    matriz ([1, 2, 3])
+    >>> a = np.array ([[1, 1], [2, 3]])
+    >>> np.unique (a)
+    matriz ([1, 2, 3])
+
+    Devuelve las filas únicas de una matriz 2D
+
+    >>> a = np.array ([[1, 0, 0], [1, 0, 0], [2, 3, 4]])
+    >>> np.unique (a, eje = 0)
+    matriz ([[1, 0, 0], [2, 3, 4]])
+
+    Devuelve los índices de la matriz original que dan los valores únicos:
+
+    >>> a = np.array (['a', 'b', 'b', 'c', 'a'])
+    >>> u, indices = np.unique (a, return_index = True)
+    u
+    matriz (['a', 'b', 'c'],
+           dtype = '| S1')
+    >>> índices
+    matriz ([0, 1, 3])
+    >>> a [índices]
+    matriz (['a', 'b', 'c'],
+           dtype = '| S1')
+
+    Reconstruya la matriz de entrada de los valores únicos:
+
+    >>> a = np.array ([1, 2, 6, 4, 2, 3, 2])
+    >>> u, indices = np.unique (a, return_inverse = True)
+    u
+    matriz ([1, 2, 3, 4, 6])
+    >>> índices
+    matriz ([0, 1, 4, 3, 1, 2, 1])
+    >>> u [índices]
+    matriz ([1, 2, 6, 4, 2, 3, 2])

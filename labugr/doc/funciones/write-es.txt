@@ -1,0 +1,37 @@
+Escriba una matriz numpy como un archivo WAV.
+
+    Parámetros
+    ----------
+    filename: cadena o archivo abierto manejar
+        Archivo wav de salida.
+    rate: int
+        La velocidad de muestreo (en muestras / seg).
+    data: ndarray
+        Un array 1-D o 2-D numpy de tipo de datos enteros o flotantes.
+
+    Notas
+    -----
+    * Escribe un archivo WAV sin comprimir simple.
+    * Para escribir varios canales, use una matriz bidimensional de forma
+      (Nsamples, Nchannels).
+    * Los bits por muestra y PCM / flotante serán determinados por el tipo de datos.
+
+    Tipos de datos comunes: [1] _
+
+    ==================================================== ======
+         Formato WAV Min Max NumPy dtype
+    ==================================================== ======
+    Punto flotante de 32 bits -1.0 +1.0 float32
+    PCM de 32 bits -2147483648 +2147483647 int32
+    PCM de 16 bits -32768 +32767 int16
+    PCM de 8 bits 0 255 uint8
+    ==================================================== ======
+
+    Tenga en cuenta que PCM de 8 bits no está firmado.
+
+    Referencias
+    ----------
+    .. [1] IBM Corporation y Microsoft Corporation, "Programación multimedia
+       Especificaciones de interfaz y datos 1.0 ", sección" Formato de datos del
+       Muestras ", agosto de 1991
+       http://www-mmsp.ece.mcgill.ca/documents/audioformats/wave/Docs/riffmci.pdf

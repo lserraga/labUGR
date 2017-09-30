@@ -1,0 +1,14 @@
+Establezca la etiqueta del eje * x * del eje actual.
+
+    La anulación predeterminada es:
+
+      anular
+          'fontsize': 'pequeño',
+          «alineación vertical»: «superior»,
+          'horizontalalignment': 'centro'
+          }
+
+    .. ver también::
+
+        : func: `~ matplotlib.pyplot.text`
+            Para obtener información sobre cómo funciona el override y los argumentos opcionales

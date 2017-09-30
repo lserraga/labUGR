@@ -1,0 +1,38 @@
+Devuelve un nuevo arreglo de forma y tipo dado, rellenado con `fill_value`.
+
+    Parámetros
+    ----------
+    forma: int o secuencia de ints
+        Forma de la nueva matriz, por ejemplo, `` (2, 3) `` o `` 2``.
+    fill_value: escalar
+        Valor de relleno.
+    dtype: tipo de datos, opcional
+        El tipo de datos deseado para la matriz El valor predeterminado, `Ninguno`, significa
+         `np.array (fill_value) .dtype`.
+    orden: {'C', 'F'}, opcional
+        Si se deben almacenar datos multidimensionales en C-o Fortran-contiguos
+        (en fila o columna) en la memoria.
+
+    Devoluciones
+    -------
+    salir: ndarray
+        Array de `fill_value` con la forma dada, dtype y order.
+
+    Ver también
+    --------
+    zeros_like: Devuelve una matriz de ceros con forma y tipo de entrada.
+    ones_like: Devuelve una matriz de unos con forma y tipo de entrada.
+    empty_like: Devuelve una matriz vacía con forma y tipo de entrada.
+    full_like: Rellena una matriz con forma y tipo de entrada.
+    ceros: Devuelve un valor nuevo a cero.
+    ones: Devuelve una nueva matriz estableciendo valores a uno.
+    empty: Devuelve una nueva matriz no inicializada.
+
+    Ejemplos
+    --------
+    >>> np.full ((2, 2), np.inf)
+    array ([[inf, inf],
+           inf
+    >>> np.full ((2, 2), 10)
+    matriz ([[10, 10],
+           [10, 10]])

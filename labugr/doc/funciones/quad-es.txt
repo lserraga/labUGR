@@ -1,0 +1,268 @@
+Calcule una integral definida.
+
+    Integre func de `a` a` b` (posiblemente intervalo infinito) usando un
+    técnica de la biblioteca Fortran QUADPACK.
+
+    Parámetros
+    ----------
+    func: {función, scipy.LowLevelCallable}
+        Una función o método de Python para integrar. Si `func` toma muchas
+        argumentos, se integra a lo largo del eje correspondiente al
+        primer argumento.
+
+        Si el usuario desea mejorar el rendimiento de la integración, entonces `f` puede
+        ser un `scipy.LowLevelCallable` con una de las firmas ::
+
+            función doble (doble x)
+            doble función (doble x, void * user_data)
+            función doble (int n, doble * xx)
+            doble función (int n, double * xx, void * user_data)
+
+        El `` user_data`` son los datos contenidos en el `scipy.LowLevelCallable`.
+        En los formularios de llamada con `` xx``, `` n`` es la longitud del `` xx``
+        array que contiene `` xx [0] == x`` y el resto de los elementos son
+        números contenidos en el argumento `` args`` de quad.
+
+        Además, se admiten ciertas firmas de llamada de ctypes para
+        compatibilidad con versiones anteriores, pero no deben utilizarse en el nuevo código.
+    un flotador
+        Límite inferior de integración (use -numpy.inf para -infinity).
+    b: float
+        Límite superior de integración (use numpy.inf para + infinito).
+    args: tupla, opcional
+        Extra argumentos para pasar a `func`.
+    full_output: int, opcional
+        No es cero para devolver un diccionario de información de integración.
+        Si no es cero, también se suprimen los mensajes de advertencia y
+        mensaje se añade a la tupla de salida.
+
+    Devoluciones
+    -------
+    y: float
+        La integral de func de `a` a` b`.
+    abserr: float
+        Una estimación del error absoluto en el resultado.
+    infodict: dict
+        Un diccionario que contiene información adicional.
+        Ejecute scipy.integrate.quad_explain () para obtener más información.
+    mensaje
+        Un mensaje de convergencia.
+    explique
+        Se adjunta sólo con la ponderación 'cos' o 'sin' e infinita
+        límites de integración, contiene una explicación de los códigos
+        infodict ['ierlst']
+
+    Otros Parámetros
+    ----------------
+    epsabs: float o int, opcional
+        Tolerancia de error absoluta.
+    epsrel: float o int, opcional
+        Tolerancia relativa al error.
+    límite: float o int, opcional
+        Un límite superior sobre el número de subintervalos utilizados en la adaptación
+        algoritmo.
+    puntos: (secuencia de flotadores, ints), opcional
+        Una secuencia de puntos de ruptura en el intervalo de integración acotado
+        donde pueden presentarse dificultades locales del integrando (por ejemplo,
+        singularidades, discontinuidades). La secuencia no tiene
+        para ser clasificado.
+    peso: float o int, opcional
+        Cadena que indica la función de ponderación. Explicación completa de esto
+        y los argumentos restantes se pueden encontrar a continuación.
+    wvar: opcional
+        Variables para uso con funciones de ponderación.
+    wopts: opcional
+        Entrada opcional para reutilizar los momentos de Chebyshev.
+    maxp1: float o int, opcional
+        Un límite superior en el número de momentos Chebyshev.
+    limlst: int, opcional
+        Límite superior del número de ciclos (> = 3) para uso con un sinusoidal
+        ponderación y un punto final infinito.
+
+    Ver también
+    --------
+    dblquad: integral doble
+    tplquad: integral triple
+    nquad: integrales n-dimensionales (usa `quad` recursivamente)
+    fixed_quad: cuadratura gaussiana de orden fijo
+    cuadratura: cuadratura adaptativa gaussiana
+    odeint: integrador ODE
+    ode: integrador ODE
+    simps: integrador para datos muestreados
+    romb: integrador para datos muestreados
+    scipy.special: para coeficientes y raíces de polinomios ortogonales
+
+    Notas
+    -----
+
+    ** Información adicional para entradas y salidas quad () **
+
+    Si full_output no es cero, entonces el tercer argumento de salida
+    (infodict) es un diccionario con entradas como se tabula a continuación. por
+    límites infinitos, el rango se transforma en (0,1) y el
+    se proporcionan salidas opcionales con respecto a este intervalo transformado.
+    Sea M el límite del argumento de entrada y sea K infodict ['last'].
+    Las entradas son:
+
+    neval
+        El número de evaluaciones de funciones.
+    'último'
+        El número, K, de subintervalos producidos en el proceso de subdivisión.
+    'una lista'
+        Una matriz de rango 1 de longitud M, cuyos primeros elementos K son los
+        extremos izquierdos de los subintervalos en la partición del
+        integración.
+    blísterUna matriz de rango 1 de longitud M, cuyos primeros elementos K son los
+        los extremos derechos de los subintervalos.
+    rlist
+        Una matriz de rango 1 de longitud M, cuyos primeros elementos K son los
+        aproximaciones integrales sobre los subintervalos.
+    elist traducción espanol
+        Una matriz de rango 1 de longitud M, cuyos primeros elementos K son los
+        moduli de las estimaciones de error absoluto en los subintervalos.
+    iord
+        Una matriz de números enteros de rango 1 de longitud M, los primeros L elementos de
+        que son indicadores de las estimaciones de error sobre los subintervalos
+        con `` L = K`` si `` K <= M / 2 + 2`` o `` L = M + 1-K`` en caso contrario. Déjame ser el
+        secuencia `` infodict ['iord'] `` y sea E la secuencia
+        infodict ['elist'] ``. Entonces E [I [1]], ..., E [I [L]] `` forma una
+        secuencia decreciente.
+
+    Si se proporcionan los puntos de argumento de entrada (es decir, no es Ninguno),
+    las siguientes salidas adicionales se colocan en la salida
+    diccionario. Supongamos que la secuencia de puntos es de longitud P.
+
+    pts
+        Una matriz de rango 1 de longitud P + 2 que contiene los límites de integración
+        y los puntos de ruptura de los intervalos en orden ascendente.
+        Esta es una matriz que da los subintervalos sobre los cuales la integración
+        ocurrira.
+    'nivel'
+        Una matriz de rangos de rango 1 de longitud M (= límite), que contiene el
+        niveles de subdivisión de los subintervalos, es decir, si (aa, bb) es un
+        subintervalo de `` (pts [1], pts [2]) `` donde `` pts [0] `` y `` pts [2] ``
+        son elementos adyacentes de `` infodict ['pts'] ``, entonces (aa, bb) tiene nivel l
+        si `` | bb-aa | = | pts [2] -pts [1] | * 2 ** (- l) ``.
+    ndin
+        Una matriz de rangos de rango 1 de longitud P + 2. Después de la primera integración
+        sobre los intervalos (pts [1], pts [2]), las estimaciones de error sobre algunos
+        de los intervalos puede haber aumentado artificialmente para
+        poner su subdivisión hacia adelante. Esta matriz tiene unos en ranuras
+        correspondiente a los subintervalos para los que esto sucede.
+
+    ** Ponderación del integrando **
+
+    Las variables de entrada, * peso * y * wvar *, se utilizan para
+    integrand por una lista selecta de funciones. Integración diferente
+    se utilizan métodos para calcular la integral con estas ponderaciones
+    funciones. Los posibles valores de peso y los correspondientes
+    funciones de ponderación.
+
+    =========== ============================================================== =================
+    `` weight`` Función de peso utilizada `` wvar``
+    =========== ============================================================== =================
+    'cos' cos (w * x) wvar = w
+    'sin' sin (w * x) wvar = w
+    alfa) () () () () b)
+    'alg-loga' g (x) * log (x-a) wvar = (alfa, beta)
+    'alg-logb' g (x) * log (b-x) wvar = (alfa, beta)
+    'alg-log' g (x) * log (x-a) * log (b-x) wvar = (alfa, beta)
+    'cauchy' 1 / (x-c) wvar = c
+    =========== ============================================================== =================
+
+    wvar tiene el parámetro w, (alfa, beta) oc en función del peso
+    seleccionado. En estas expresiones, a y b son los límites de integración.
+
+    Para la ponderación 'cos' y 'sin', las entradas y salidas adicionales son
+    disponible.
+
+    Para los límites finitos de integración, la integración se realiza
+    Clenshaw-Curtis método que utiliza Chebyshev momentos. Para repetir
+    estos momentos se guardan en el diccionario de salida:
+
+    momia
+        El nivel máximo de Chebyshev momentos que se han calculado,
+        es decir, si `` M_c`` es `` infodict ['momcom'] `` entonces los momentos han sido
+        calculado para intervalos de longitud `` | b-a | * 2 ** (- l) ``,
+        `` l = 0,1, ..., M_c``.
+    'nnlog'
+        Una matriz de rangos de rango 1 de longitud M (= límite), que contiene el
+        niveles de subdivisión de los subintervalos, es decir, un elemento de este
+        array es igual a l si el subintervalo correspondiente es
+        b-a | * 2 ** (- l) ``.
+    chebmo
+        Una matriz de rango-2 de forma (25, maxp1) que contiene el cálculo
+        Chebyshev momentos. Estos pueden ser pasados ​​a una integración
+        sobre el mismo intervalo pasando esta matriz como el segundo
+        elemento de la secuencia wopts y pasar infodict ['momcom'] como
+        el primer elemento.
+
+    Si uno de los límites de integración es infinito, entonces una integral de Fourier es
+    calculado (suponiendo w w 0 0). Si full_output es 1 y un error numérico
+    esencontrado, además del mensaje de error adjunto a la tupla de salida,
+    un diccionario también se añade a la tupla de salida que traduce el
+    códigos de error en la matriz `` info ['ierlst'] `` a los mensajes en inglés. los
+    El diccionario de información de salida contiene las siguientes entradas en lugar de
+    «último», «alist», «blist», «rlist» y «elist»:
+
+    lst
+        El número de subintervalos necesarios para la integración (llámelo `` K_f``).
+    rslst
+        Una matriz de rango-1 de longitud M_f = limlst, cuyos primeros elementos `` K_f``
+        contener la contribución integral durante el intervalo
+        a + (k-1) c, a + kc) donde `` c = (2 * floor (| w |) + 1) * pi / | w | ``
+        y "k = 1,2, ..., K_f".
+    erlst
+        Una matriz de rango-1 de longitud `` M_f`` que contiene la estimación del error
+        correspondiente al intervalo en la misma posición en
+        `` infodict ['rslist'] ``.
+    'ierlst'
+        Una matriz de números enteros de rango-1 de longitud `` M_f`` que contiene un indicador de error
+        correspondiente al intervalo en la misma posición en
+        `` infodict ['rslist'] ``. Ver el diccionario de explicaciones (última entrada
+        en la tupla de salida) para el significado de los códigos.
+
+    Ejemplos
+    --------
+    Calcular: math: `\ int ^ 4_0 x ^ 2 dx` y comparar con un resultado analítico
+
+    >>> de scipy import integrate
+    >>> x2 = lambda x: x ** 2
+    >>> integrar.quad (x2, 0, 4)
+    (21.333333333333332, 2.3684757858670003e - 13)
+    >>> print (4 ** 3 / 3.) # resultado analítico
+    21.3333333333
+
+    Calcular: math: `\ int ^ \ infty_0 e ^ {- x} dx
+
+    >>> invexp = lambda x: np.exp (-x)
+    >>> integrate.quad (invexp, 0, np.inf)
+    (1,0, 5,842605999138044e - 11)
+
+    >>> f = lambda x, a: a * x
+    >>> y, err = integrate.quad (f, 0, 1, args = (1,))
+    y
+    0,5
+    >>> y, err = integrate.quad (f, 0, 1, args = (3,))
+    y
+    1,5
+
+    Calcular: math: `\ int ^ 1_0 x ^ 2 + y ^ 2 dx` con ctypes, sosteniendo
+    y como 1 ::
+
+        testlib.c =>
+            doble función (int n, args doble [n]) {
+                args de retorno [0] * args [0] + args [1] * args [1];}
+        compilar a la biblioteca testlib. *
+
+    ::
+
+       de scipy import integrate
+       tipos de importación
+       lib = ctypes.CDLL ('/ home /.../ testlib. *') #use ruta absoluta
+       lib.func.restype = ctypes.c_double
+       lib.func.argtypes = (ctypes.c_int, ctypes.c_double)
+       integrate.quad (lib.func, 0,1, (1))
+       # (1.3333333333333333, 1.4802973661668752e-14)
+       impresión ((1,0 ** 3 / 3,0 + 1,0) - (0,0 ** 3 / 3,0 + 0,0)) # Resultado analítico
+       # 1.3333333333333333

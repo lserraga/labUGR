@@ -1,0 +1,97 @@
+Cargue arrays o objetos decapados de `` .npy``, `` .npz`` o archivos decapados.
+
+    Parámetros
+    ----------
+    file: file-like object, string o pathlib.Path
+        El archivo a leer. Los objetos similares a archivos deben
+        `` seek () `` y `` read () `` métodos. Los archivos en vinagre requieren que el
+        un objeto similar a un archivo apoya también el método `` readline () ``.
+    mmap_mode: {Ninguno, 'r +', 'r', 'w +', 'c'}, opcional
+        Si no es Ninguno, entonces mapea la memoria del archivo, usando el modo dado (véase
+        `numpy.memmap` para una descripción detallada de los modos). UN
+        matriz almacenada en memoria se mantiene en disco. Sin embargo, se puede acceder a ella
+        y rebanado como cualquier ndarray. La asignación de memoria es especialmente útil
+        para acceder a pequeños fragmentos de archivos grandes sin leer el
+        todo el archivo en la memoria.
+    allow_pickle: bool, opcional
+        Permitir cargar las matrices de objeto en conserva almacenadas en archivos npy. Razones para
+        la prohibición de encurtidos incluye la seguridad, ya que
+        ejecutar código arbitrario. Si los encurtidos no son permitidos, el objeto de carga
+        las matrices fallarán.
+        Predeterminado: True
+    fix_imports: bool, opcional
+        Sólo es útil cuando se carga Python 2 generó archivos encurtidos en Python 3,
+        que incluye archivos npy / npz que contienen matrices de objetos. Si `fix_imports`
+        es cierto, pickle intentará asignar los nombres antiguos de Python 2 a los nuevos nombres
+        utilizado en Python 3.
+    codificación: str, opcional
+        Qué codificación utilizar en la lectura de cadenas de Python 2. Sólo útil cuando
+        cargar Python 2 generó archivos encurtidos en Python 3, que incluye
+        npy / npz archivos que contienen arrays de objetos. Los valores distintos de 'latin1',
+        'ASCII' y 'bytes' no están permitidos, ya que pueden corromper valores numéricos
+        datos. Predeterminado: 'ASCII'
+
+    Devoluciones
+    -------
+    resultado: array, tuple, dict, etc.
+        Datos almacenados en el archivo. Para los archivos `` .npz``, la instancia devuelta
+        de la clase NpzFile debe cerrarse para evitar la pérdida de descriptores de archivo.
+
+    Levanta
+    ------
+    IOError
+        Si el archivo de entrada no existe o no se puede leer.
+    ValorError
+        El archivo contiene una matriz de objetos, pero allow_pickle = False given.
+
+    Ver también
+    --------
+    guardar, savez, savez_compressed, loadtxt
+    memmap: Crea un mapa de memoria en una matriz almacenada en un archivo en disco.
+    lib.format.open_memmap: Crea o carga un archivo `` .npy`` asignado a la memoria.
+
+    Notas
+    -----
+    - Si el archivo contiene datos pickle, entonces cualquier objeto se almacena
+      en el pickle se devuelve.
+    - Si el archivo es un archivo `` .npy``, se devuelve una sola matriz.
+    - Si el archivo es un archivo `` .npz``, entonces un objeto parecido a un diccionario es
+      devuelto, que contiene los pares clave-valor `` {filename: array} ``, uno para
+      cada archivo en el archivo.
+    - Si el archivo es un archivo `` .npz``, el valor devuelto
+      protocolo de gestor de contexto de una manera similar a la función abierta ::
+
+        con carga ('foo.npz') como datos:
+            a = data ['a']
+
+      El descriptor de archivo subyacente se cierra al salir de 'con'
+      bloquear.
+
+    Ejemplos
+    --------
+    Almacene los datos en el disco y vuelva a cargarlos:
+
+    >>> np.save ('/ tmp / 123', np.array ([[1, 2, 3], [4, 5, 6]]))
+    >>> np.load ('/ tmp / 123.npy')
+    matriz ([[1, 2, 3],
+           [4, 5, 6]])
+
+    Almacene los datos comprimidos en el disco y vuelva a cargarlos:
+
+    >>> a = np.array ([[1, 2, 3], [4, 5, 6]])
+    >>> b = np.array ([1, 2])
+    >>> np.savez ('/ tmp / 123.npz', a = a, b = b)
+    >>> data = np.load ('/ tmp / 123.npz')
+    >>> datos ['a']
+    matriz ([[1, 2, 3],
+           [4, 5, 6]])
+    >>> datos ['b']
+    matriz ([1, 2])
+    >>> data.close ()
+
+    Mem-mapear la matriz almacenada, y luego acceder a la segunda fila
+    directamente desde el disco:
+
+    >>> X = np.load ('/ tmp / 123.npy', mmap_mode = 'r')
+    >>> X [1,:]
+    memmap ([4, 5, 6])

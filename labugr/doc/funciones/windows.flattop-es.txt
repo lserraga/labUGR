@@ -1,0 +1,55 @@
+Devolver una ventana plana superior.
+
+    Parámetros
+    ----------
+    Menta
+        Número de puntos en la ventana de salida. Si es cero o menos,
+        matriz se devuelve.
+    sym: bool, opcional
+        Cuando True (predeterminado), genera una ventana simétrica, para usarla en filtro
+        diseño.
+        Cuando Falso, genera una ventana periódica, para su uso en análisis espectral.
+
+    Devoluciones
+    -------
+    w: ndarray
+        La ventana, con el valor máximo normalizado a 1 (aunque el valor 1
+        no aparece si `M` es par y` sym` es True).
+
+    Notas
+    -----
+    Las ventanas superiores planas se utilizan para tomar medidas precisas de la señal
+    amplitud en el dominio de la frecuencia, con un error mínimo de festoneado del
+    centro de un contenedor de frecuencia a sus bordes, en comparación con otros. Esto es un
+    Ventana de coseno de 5º orden, con los 5 términos optimizados para hacer el lóbulo principal
+    máximo plano. [1] _
+
+    Referencias
+    ----------
+    [1] D'Antona, Gabriele y A. Ferrero, "Procesamiento de señales digitales para
+           Sistemas de Medición ", Springer Media, 2006, pág.
+           : doi: `10.1007 / 0-387-28666-7`.
+
+    Ejemplos
+    --------
+    Trace la ventana y su respuesta de frecuencia:
+
+    >>> de la señal de importación de scipy
+    >>> desde scipy.fftpack import fft, fftshift
+    >>> import matplotlib.pyplot como plt
+
+    >>> window = signal.flattop (51)
+    >>> plt.plot (ventana)
+    >>> plt.title ("Ventana superior plana")
+    >>> plt.ylabel ("Amplitud")
+    >>> plt.xlabel ("Muestra")
+
+    >>> plt.figure ()
+    >>> A = fft (ventana, 2048) / (len (ventana) /2.0)
+    >>> freq = np.linspace (-0.5, 0.5, len (A))
+    >>> respuesta = 20 * np.log10 (np.abs (fftshift (A / abs (A) .max ())))
+    >>> plt.plot (freq, respuesta)
+    >>> plt.axis ([- 0.5, 0.5, -120, 0])
+    >>> plt.title ("Respuesta de frecuencia de la ventana plana superior")
+    >>> plt.ylabel ("Magnitud normalizada [dB]")
+    >>> plt.xlabel ("Frecuencia normalizada [ciclos por muestra]")
