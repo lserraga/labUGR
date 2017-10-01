@@ -7,10 +7,15 @@ py_versions=('3.4.7' '3.5.4' '3.6.2')
 aux=4
 
 for py in ${py_versions[@]};do
+	# Activando la version de python correspondiente
 	pyenv global $py
 	ENV="${PYENV_ROOT}/versions/${py}/bin"
+
+	# Instalando requisitos y generando la wheel
 	"${ENV}/pip" install wheel numpy cython
-	# "${ENV}/pip" wheel --no-deps . -w wheelhouse/
+	"${ENV}/pip" wheel --no-deps . -w wheelhouse/
+
+	# Instalando la libreria y corriendo los tests
 	"${ENV}/pip" install pytest nose
 	wheel=$(find . -name "*cp3${aux}*")
 	"${ENV}/pip" install $wheel
@@ -18,14 +23,16 @@ for py in ${py_versions[@]};do
 	let "aux+=1"
 done
 
-"${ENV}/pip" install delocate
-
+# Anadiendo las dependencias externas a la wheel
+pyenv global system
+pip3 install delocate
 for whl in wheelhouse/*.whl
 do
-	"${ENV}/delocate-wheel" $whl
+	delocate-wheel $whl
 done
 
-#Cargamos la contraseña de pipy desde un archivo txt
-TWINE_PASSWORD=$(</labugr/scripts/pipyPass.txt)
-"${ENV}/pip" install twine
-"${ENV}/twine" upload wheelhouse/*.whl -u lserraga -p "${TWINE_PASSWORD}"
+# Cargamos la contraseña de pipy desde un archivo txt
+TWINE_PASSWORD=$(<scripts/pipyPass.txt)
+pip3 install twine
+# Subiendo las wheels a pypi
+twine upload wheelhouse/*.whl -u lserraga -p "${TWINE_PASSWORD}"
