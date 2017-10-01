@@ -48,12 +48,14 @@ def test_all():
 
 		if platform == "linux" or platform == "linux2":
 			warning_msg += """Para instalar portaudio en Linux utilice este comando:\
-		\n\tsudo apt-get install portaudio19-dev"""
+		\n\tsudo apt-get install portaudio19-dev\
+		\n\tpip3 install pyaudio"""
 
 		elif platform == "darwin":
 			warning_msg += """Para instalar portaudio en macOS utilice este comando:\
 		\nEs necesario tener instalado Homebrew\
-		\n\tbrew install portaudio"""
+		\n\tbrew install portaudio\
+		\n\tpip3 install pyaudio"""
 
 		# Para windows es bastante complicado instalar portaudio por ello, los binarios
 		# estan incluidos en el paquete pyaudio.

@@ -74,7 +74,13 @@ def generate_cython():
 
 def setup_package():
 
-    install_requires = ['numpy>=1.8.2','mpmath', 'pyaudio', 'matplotlib']
+    install_requires = ['numpy>=1.8.2','mpmath', 'matplotlib']
+
+    # En MAC y linux pyaudio produce errores que paran la instalacion de 
+    # labugr si el sistema no tiene instalado portaudio
+    if os.name == 'nt':
+        install_requires.append('pyaudio')
+
     
     metadata = dict(
         name='labugr',
