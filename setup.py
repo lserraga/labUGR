@@ -20,7 +20,7 @@ builtins.__LABUGR_SETUP__ = True
 directorio = os.path.abspath(os.path.dirname(__file__))
 
 #Descripcion completa del paquete
-with open(os.path.join(directorio, 'README.txt')) as f:
+with open(os.path.join(directorio, 'README.md')) as f:
     long_description = f.read()
 
 
@@ -82,7 +82,7 @@ def setup_package():
         author='Luis Serra Garcia',
         author_email='lsgarcia@correo.ugr.es',
         url='http://github.com/lserraga/labUGR',
-        package_data={'':['README.txt']},
+        package_data={'':['README.md']},
         description="Laboratorio de señales UGR",
         license='MIT',
         keywords='signal analysis',

@@ -64,3 +64,8 @@ pipyPass.txt
 # Localizacion atlas #
 ######################
 site.cfg
+
+# Wheel folder #
+######################
+wheelhouse
+
