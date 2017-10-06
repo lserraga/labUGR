@@ -22,4 +22,3 @@ services:
     volumes:
       -./scripts/wheel.sh:./scripts/wheel.sh
     command: bash scripts/wheel.sh Proyecto2017UGR
-
