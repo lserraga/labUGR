@@ -1,0 +1,53 @@
+
+    Compute a triple (definite) integral.
+
+    Return the triple integral of ``func(z, y, x)`` from ``x = a..b``,
+    ``y = gfun(x)..hfun(x)``, and ``z = qfun(x,y)..rfun(x,y)``.
+
+    Parameters
+    ----------
+    func : function
+        A Python function or method of at least three variables in the
+        order (z, y, x).
+    a, b : float
+        The limits of integration in x: `a` < `b`
+    gfun : function
+        The lower boundary curve in y which is a function taking a single
+        floating point argument (x) and returning a floating point result:
+        a lambda function can be useful here.
+    hfun : function
+        The upper boundary curve in y (same requirements as `gfun`).
+    qfun : function
+        The lower boundary surface in z.  It must be a function that takes
+        two floats in the order (x, y) and returns a float.
+    rfun : function
+        The upper boundary surface in z. (Same requirements as `qfun`.)
+    args : tuple, optional
+        Extra arguments to pass to `func`.
+    epsabs : float, optional
+        Absolute tolerance passed directly to the innermost 1-D quadrature
+        integration. Default is 1.49e-8.
+    epsrel : float, optional
+        Relative tolerance of the innermost 1-D integrals. Default is 1.49e-8.
+
+    Returns
+    -------
+    y : float
+        The resultant integral.
+    abserr : float
+        An estimate of the error.
+
+    See Also
+    --------
+    quad: Adaptive quadrature using QUADPACK
+    quadrature: Adaptive Gaussian quadrature
+    fixed_quad: Fixed-order Gaussian quadrature
+    dblquad: Double integrals
+    nquad : N-dimensional integrals
+    romb: Integrators for sampled data
+    simps: Integrators for sampled data
+    ode: ODE integrators
+    odeint: ODE integrators
+    scipy.special: For coefficients and roots of orthogonal polynomials
+
+    

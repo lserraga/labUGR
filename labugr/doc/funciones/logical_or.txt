@@ -1,0 +1,42 @@
+logical_or(x1, x2, /, out=None, *, where=True, casting='same_kind', order='K', dtype=None, subok=True[, signature, extobj])
+
+Compute the truth value of x1 OR x2 element-wise.
+
+Parameters
+----------
+x1, x2 : array_like
+    Logical OR is applied to the elements of `x1` and `x2`.
+    They have to be of the same shape.
+out : ndarray, None, or tuple of ndarray and None, optional
+    A location into which the result is stored. If provided, it must have
+    a shape that the inputs broadcast to. If not provided or `None`,
+    a freshly-allocated array is returned. A tuple (possible only as a
+    keyword argument) must have length equal to the number of outputs.
+where : array_like, optional
+    Values of True indicate to calculate the ufunc at that position, values
+    of False indicate to leave the value in the output alone.
+**kwargs
+    For other keyword-only arguments, see the
+    :ref:`ufunc docs <ufuncs.kwargs>`.
+
+Returns
+-------
+y : ndarray or bool
+    Boolean result with the same shape as `x1` and `x2` of the logical
+    OR operation on elements of `x1` and `x2`.
+
+See Also
+--------
+logical_and, logical_not, logical_xor
+bitwise_or
+
+Examples
+--------
+>>> np.logical_or(True, False)
+True
+>>> np.logical_or([True, False], [False, False])
+array([ True, False], dtype=bool)
+
+>>> x = np.arange(5)
+>>> np.logical_or(x < 1, x > 3)
+array([ True, False, False, False,  True], dtype=bool)

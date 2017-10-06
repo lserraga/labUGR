@@ -1,0 +1,48 @@
+zeros(shape, dtype=float, order='C')
+
+    Return a new array of given shape and type, filled with zeros.
+
+    Parameters
+    ----------
+    shape : int or sequence of ints
+        Shape of the new array, e.g., ``(2, 3)`` or ``2``.
+    dtype : data-type, optional
+        The desired data-type for the array, e.g., `numpy.int8`.  Default is
+        `numpy.float64`.
+    order : {'C', 'F'}, optional
+        Whether to store multidimensional data in C- or Fortran-contiguous
+        (row- or column-wise) order in memory.
+
+    Returns
+    -------
+    out : ndarray
+        Array of zeros with the given shape, dtype, and order.
+
+    See Also
+    --------
+    zeros_like : Return an array of zeros with shape and type of input.
+    ones_like : Return an array of ones with shape and type of input.
+    empty_like : Return an empty array with shape and type of input.
+    ones : Return a new array setting values to one.
+    empty : Return a new uninitialized array.
+
+    Examples
+    --------
+    >>> np.zeros(5)
+    array([ 0.,  0.,  0.,  0.,  0.])
+
+    >>> np.zeros((5,), dtype=np.int)
+    array([0, 0, 0, 0, 0])
+
+    >>> np.zeros((2, 1))
+    array([[ 0.],
+           [ 0.]])
+
+    >>> s = (2,2)
+    >>> np.zeros(s)
+    array([[ 0.,  0.],
+           [ 0.,  0.]])
+
+    >>> np.zeros((2,), dtype=[('x', 'i4'), ('y', 'i4')]) # custom dtype
+    array([(0, 0), (0, 0)],
+          dtype=[('x', '<i4'), ('y', '<i4')])

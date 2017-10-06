@@ -1,0 +1,15 @@
+
+	Muestra en pantalla la documentación en español de una función.
+
+	Carga la documentación desde el directorio doc/funciones.
+
+	Parámetros
+    ----------
+    funcion : string o función
+    	El nombre de la función como string o como objeto en si 
+
+    Ejemplos
+    --------
+    >>> ayuda(arange)
+    >>> ayuda('arange')
+	

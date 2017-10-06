@@ -1,0 +1,48 @@
+Transfer function to state-space representation.
+
+    Parameters
+    ----------
+    num, den : array_like
+        Sequences representing the coefficients of the numerator and
+        denominator polynomials, in order of descending degree. The
+        denominator needs to be at least as long as the numerator.
+
+    Returns
+    -------
+    A, B, C, D : ndarray
+        State space representation of the system, in controller canonical
+        form.
+
+    Examples
+    --------
+    Convert the transfer function:
+
+    .. math:: H(s) = \frac{s^2 + 3s + 3}{s^2 + 2s + 1}
+
+    >>> num = [1, 3, 3]
+    >>> den = [1, 2, 1]
+
+    to the state-space representation:
+
+    .. math::
+
+        \dot{\textbf{x}}(t) =
+        \begin{bmatrix} -2 & -1 \\ 1 & 0 \end{bmatrix} \textbf{x}(t) +
+        \begin{bmatrix} 1 \\ 0 \end{bmatrix} \textbf{u}(t) \\
+
+        \textbf{y}(t) = \begin{bmatrix} 1 & 2 \end{bmatrix} \textbf{x}(t) +
+        \begin{bmatrix} 1 \end{bmatrix} \textbf{u}(t)
+
+    >>> from scipy.signal import tf2ss
+    >>> A, B, C, D = tf2ss(num, den)
+    >>> A
+    array([[-2., -1.],
+           [ 1.,  0.]])
+    >>> B
+    array([[ 1.],
+           [ 0.]])
+    >>> C
+    array([[ 1.,  2.]])
+    >>> D
+    array([[ 1.]])
+    

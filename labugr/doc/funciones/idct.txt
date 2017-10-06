@@ -1,0 +1,54 @@
+
+    Return the Inverse Discrete Cosine Transform of an arbitrary type sequence.
+
+    Parameters
+    ----------
+    x : array_like
+        The input array.
+    type : {1, 2, 3}, optional
+        Type of the DCT (see Notes). Default type is 2.
+    n : int, optional
+        Length of the transform.  If ``n < x.shape[axis]``, `x` is
+        truncated.  If ``n > x.shape[axis]``, `x` is zero-padded. The
+        default results in ``n = x.shape[axis]``.
+    axis : int, optional
+        Axis along which the idct is computed; the default is over the
+        last axis (i.e., ``axis=-1``).
+    norm : {None, 'ortho'}, optional
+        Normalization mode (see Notes). Default is None.
+    overwrite_x : bool, optional
+        If True, the contents of `x` can be destroyed; the default is False.
+
+    Returns
+    -------
+    idct : ndarray of real
+        The transformed input array.
+
+    See Also
+    --------
+    dct : Forward DCT
+
+    Notes
+    -----
+    For a single dimension array `x`, ``idct(x, norm='ortho')`` is equal to
+    MATLAB ``idct(x)``.
+
+    'The' IDCT is the IDCT of type 2, which is the same as DCT of type 3.
+
+    IDCT of type 1 is the DCT of type 1, IDCT of type 2 is the DCT of type
+    3, and IDCT of type 3 is the DCT of type 2. For the definition of these
+    types, see `dct`.
+
+    Examples
+    --------
+    The Type 1 DCT is equivalent to the DFT for real, even-symmetrical
+    inputs.  The output is also real and even-symmetrical.  Half of the IFFT
+    input is used to generate half of the IFFT output:
+
+    >>> from scipy.fftpack import ifft, idct
+    >>> ifft(np.array([ 30.,  -8.,   6.,  -2.,   6.,  -8.])).real
+    array([  4.,   3.,   5.,  10.,   5.,   3.])
+    >>> idct(np.array([ 30.,  -8.,   6.,  -2.]), 1) / 6
+    array([  4.,   3.,   5.,  10.])
+
+    

@@ -1,0 +1,16 @@
+
+	Return the sample rate (in samples/sec) and data from a audio file.
+	If the audio file is not in the wav format it firsts decodes it and
+	then uses read from wavfile to read it.
+
+	Parameters
+	----------
+	filename : string
+
+	Returns
+	-------
+	rate : int
+		Sample rate of audio file.
+	data : numpy array
+		Data read from audio file.
+	

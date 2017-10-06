@@ -1,0 +1,27 @@
+Normalize numerator/denominator of a continuous-time transfer function.
+
+    If values of `b` are too close to 0, they are removed. In that case, a
+    BadCoefficients warning is emitted.
+
+    Parameters
+    ----------
+    b: array_like
+        Numerator of the transfer function. Can be a 2d array to normalize
+        multiple transfer functions.
+    a: array_like
+        Denominator of the transfer function. At most 1d.
+
+    Returns
+    -------
+    num: array
+        The numerator of the normalized transfer function. At least a 1d
+        array. A 2d-array if the input `num` is a 2d array.
+    den: 1d-array
+        The denominator of the normalized transfer function.
+
+    Notes
+    -----
+    Coefficients for both the numerator and denominator should be specified in
+    descending exponent order (e.g., ``s^2 + 3s + 5`` would be represented as
+    ``[1, 3, 5]``).
+    

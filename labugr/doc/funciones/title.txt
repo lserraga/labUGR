@@ -1,0 +1,41 @@
+
+    Set a title of the current axes.
+
+    Set one of the three available axes titles. The available titles are
+    positioned above the axes in the center, flush with the left edge,
+    and flush with the right edge.
+
+    .. seealso::
+        See :func:`~matplotlib.pyplot.text` for adding text
+        to the current axes
+
+    Parameters
+    ----------
+    label : str
+        Text to use for the title
+
+    fontdict : dict
+        A dictionary controlling the appearance of the title text,
+        the default `fontdict` is:
+
+            {'fontsize': rcParams['axes.titlesize'],
+            'fontweight' : rcParams['axes.titleweight'],
+            'verticalalignment': 'baseline',
+            'horizontalalignment': loc}
+
+    loc : {'center', 'left', 'right'}, str, optional
+        Which title to set, defaults to 'center'
+
+    Returns
+    -------
+    text : :class:`~matplotlib.text.Text`
+        The matplotlib text instance representing the title
+
+    Other parameters
+    ----------------
+    kwargs : text properties
+        Other keyword arguments are text properties, see
+        :class:`~matplotlib.text.Text` for a list of valid text
+        properties.
+
+    

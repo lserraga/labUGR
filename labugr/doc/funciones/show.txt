@@ -1,0 +1,15 @@
+
+    Display a figure.
+    When running in ipython with its pylab mode, display all
+    figures and return to the ipython prompt.
+
+    In non-interactive mode, display all figures and block until
+    the figures have been closed; in interactive mode it has no
+    effect unless figures were created prior to a change from
+    non-interactive to interactive mode (not recommended).  In
+    that case it displays the figures but does not block.
+
+    A single experimental keyword argument, *block*, may be
+    set to True or False to override the blocking behavior
+    described above.
+    

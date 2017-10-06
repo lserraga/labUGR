@@ -1,0 +1,81 @@
+
+    Discrete-time linear time invariant system base class.
+
+    Parameters
+    ----------
+    *system: arguments
+        The `dlti` class can be instantiated with either 2, 3 or 4 arguments.
+        The following gives the number of arguments and the corresponding
+        discrete-time subclass that is created:
+
+            * 2: `TransferFunction`:  (numerator, denominator)
+            * 3: `ZerosPolesGain`: (zeros, poles, gain)
+            * 4: `StateSpace`:  (A, B, C, D)
+
+        Each argument can be an array or a sequence.
+    dt: float, optional
+        Sampling time [s] of the discrete-time systems. Defaults to ``True``
+        (unspecified sampling time). Must be specified as a keyword argument,
+        for example, ``dt=0.1``.
+
+    See Also
+    --------
+    ZerosPolesGain, StateSpace, TransferFunction, lti
+
+    Notes
+    -----
+    `dlti` instances do not exist directly. Instead, `dlti` creates an instance
+    of one of its subclasses: `StateSpace`, `TransferFunction` or
+    `ZerosPolesGain`.
+
+    Changing the value of properties that are not directly part of the current
+    system representation (such as the `zeros` of a `StateSpace` system) is
+    very inefficient and may lead to numerical inaccuracies.  It is better to
+    convert to the specific system representation first. For example, call
+    ``sys = sys.to_zpk()`` before accessing/changing the zeros, poles or gain.
+
+    If (numerator, denominator) is passed in for ``*system``, coefficients for
+    both the numerator and denominator should be specified in descending
+    exponent order (e.g., ``z^2 + 3z + 5`` would be represented as ``[1, 3,
+    5]``).
+
+    .. versionadded:: 0.18.0
+
+    Examples
+    --------
+    >>> from scipy import signal
+
+    >>> signal.dlti(1, 2, 3, 4)
+    StateSpaceDiscrete(
+    array([[1]]),
+    array([[2]]),
+    array([[3]]),
+    array([[4]]),
+    dt: True
+    )
+
+    >>> signal.dlti(1, 2, 3, 4, dt=0.1)
+    StateSpaceDiscrete(
+    array([[1]]),
+    array([[2]]),
+    array([[3]]),
+    array([[4]]),
+    dt: 0.1
+    )
+
+    >>> signal.dlti([1, 2], [3, 4], 5, dt=0.1)
+    ZerosPolesGainDiscrete(
+    array([1, 2]),
+    array([3, 4]),
+    5,
+    dt: 0.1
+    )
+
+    >>> signal.dlti([3, 4], [1, 2], dt=0.1)
+    TransferFunctionDiscrete(
+    array([ 3.,  4.]),
+    array([ 1.,  2.]),
+    dt: 0.1
+    )
+
+    

@@ -1,0 +1,16 @@
+
+    Set the *x* axis label of the current axis.
+
+    Default override is::
+
+      override = {
+          'fontsize'            : 'small',
+          'verticalalignment'   : 'top',
+          'horizontalalignment' : 'center'
+          }
+
+    .. seealso::
+
+        :func:`~matplotlib.pyplot.text`
+            For information on how override and the optional args work
+    

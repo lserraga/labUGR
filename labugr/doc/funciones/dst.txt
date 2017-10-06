@@ -1,0 +1,88 @@
+
+    Return the Discrete Sine Transform of arbitrary type sequence x.
+
+    Parameters
+    ----------
+    x : array_like
+        The input array.
+    type : {1, 2, 3}, optional
+        Type of the DST (see Notes). Default type is 2.
+    n : int, optional
+        Length of the transform.  If ``n < x.shape[axis]``, `x` is
+        truncated.  If ``n > x.shape[axis]``, `x` is zero-padded. The
+        default results in ``n = x.shape[axis]``.
+    axis : int, optional
+        Axis along which the dst is computed; the default is over the
+        last axis (i.e., ``axis=-1``).
+    norm : {None, 'ortho'}, optional
+        Normalization mode (see Notes). Default is None.
+    overwrite_x : bool, optional
+        If True, the contents of `x` can be destroyed; the default is False.
+
+    Returns
+    -------
+    dst : ndarray of reals
+        The transformed input array.
+
+    See Also
+    --------
+    idst : Inverse DST
+
+    Notes
+    -----
+    For a single dimension array ``x``.
+
+    There are theoretically 8 types of the DST for different combinations of
+    even/odd boundary conditions and boundary off sets [1]_, only the first
+    3 types are implemented in scipy.
+
+    **Type I**
+
+    There are several definitions of the DST-I; we use the following
+    for ``norm=None``.  DST-I assumes the input is odd around n=-1 and n=N. ::
+
+                 N-1
+      y[k] = 2 * sum x[n]*sin(pi*(k+1)*(n+1)/(N+1))
+                 n=0
+
+    Only None is supported as normalization mode for DCT-I. Note also that the
+    DCT-I is only supported for input size > 1
+    The (unnormalized) DCT-I is its own inverse, up to a factor `2(N+1)`.
+
+    **Type II**
+
+    There are several definitions of the DST-II; we use the following
+    for ``norm=None``.  DST-II assumes the input is odd around n=-1/2 and
+    n=N-1/2; the output is odd around k=-1 and even around k=N-1 ::
+
+                N-1
+      y[k] = 2* sum x[n]*sin(pi*(k+1)*(n+0.5)/N), 0 <= k < N.
+                n=0
+
+    if ``norm='ortho'``, ``y[k]`` is multiplied by a scaling factor `f` ::
+
+        f = sqrt(1/(4*N)) if k == 0
+        f = sqrt(1/(2*N)) otherwise.
+
+    **Type III**
+
+    There are several definitions of the DST-III, we use the following
+    (for ``norm=None``).  DST-III assumes the input is odd around n=-1
+    and even around n=N-1 ::
+
+                                 N-2
+      y[k] = x[N-1]*(-1)**k + 2* sum x[n]*sin(pi*(k+0.5)*(n+1)/N), 0 <= k < N.
+                                 n=0
+
+    The (unnormalized) DCT-III is the inverse of the (unnormalized) DCT-II, up
+    to a factor `2N`.  The orthonormalized DST-III is exactly the inverse of
+    the orthonormalized DST-II.
+
+    .. versionadded:: 0.11.0
+
+    References
+    ----------
+    .. [1] Wikipedia, "Discrete sine transform",
+           http://en.wikipedia.org/wiki/Discrete_sine_transform
+
+    

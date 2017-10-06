@@ -1,0 +1,14 @@
+
+Provides a MATLAB-like plotting framework.
+
+:mod:`~matplotlib.pylab` combines pyplot with numpy into a single namespace.
+This is convenient for interactive work, but for programming it
+is recommended that the namespaces be kept separate, e.g.::
+
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    x = np.arange(0, 5, 0.1);
+    y = np.sin(x)
+    plt.plot(x, y)
+

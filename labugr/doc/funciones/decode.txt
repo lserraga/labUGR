@@ -1,0 +1,4 @@
+
+    Decodes an audio file into a wav file. Generates a new file in the 
+    process.
+    

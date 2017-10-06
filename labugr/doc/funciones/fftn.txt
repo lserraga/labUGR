@@ -1,0 +1,54 @@
+
+    Return multidimensional discrete Fourier transform.
+
+    The returned array contains::
+
+      y[j_1,..,j_d] = sum[k_1=0..n_1-1, ..., k_d=0..n_d-1]
+         x[k_1,..,k_d] * prod[i=1..d] exp(-sqrt(-1)*2*pi/n_i * j_i * k_i)
+
+    where d = len(x.shape) and n = x.shape.
+
+    Parameters
+    ----------
+    x : array_like
+        The (n-dimensional) array to transform.
+    shape : tuple of ints, optional
+        The shape of the result.  If both `shape` and `axes` (see below) are
+        None, `shape` is ``x.shape``; if `shape` is None but `axes` is
+        not None, then `shape` is ``scipy.take(x.shape, axes, axis=0)``.
+        If ``shape[i] > x.shape[i]``, the i-th dimension is padded with zeros.
+        If ``shape[i] < x.shape[i]``, the i-th dimension is truncated to
+        length ``shape[i]``.
+    axes : array_like of ints, optional
+        The axes of `x` (`y` if `shape` is not None) along which the
+        transform is applied.
+    overwrite_x : bool, optional
+        If True, the contents of `x` can be destroyed.  Default is False.
+
+    Returns
+    -------
+    y : complex-valued n-dimensional numpy array
+        The (n-dimensional) DFT of the input array.
+
+    See Also
+    --------
+    ifftn
+
+    Notes
+    -----
+    If ``x`` is real-valued, then
+    ``y[..., j_i, ...] == y[..., n_i-j_i, ...].conjugate()``.
+
+    Both single and double precision routines are implemented.  Half precision
+    inputs will be converted to single precision.  Non floating-point inputs
+    will be converted to double precision.  Long-double precision inputs are
+    not supported.
+
+    Examples
+    --------
+    >>> from scipy.fftpack import fftn, ifftn
+    >>> y = (-np.arange(16), 8 - np.arange(16), np.arange(16))
+    >>> np.allclose(y, fftn(ifftn(y)))
+    True
+
+    

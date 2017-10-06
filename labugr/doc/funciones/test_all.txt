@@ -1,0 +1,9 @@
+
+	Testing all modules.
+
+	Returns
+	-------
+	passed: int
+		0 if there are major errors, 1 if everything is ok and 2 if there are
+		non-critical errors.
+	

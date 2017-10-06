@@ -1,0 +1,74 @@
+
+    Return discrete Fourier transform of real or complex sequence.
+
+    The returned complex array contains ``y(0), y(1),..., y(n-1)`` where
+
+    ``y(j) = (x * exp(-2*pi*sqrt(-1)*j*np.arange(n)/n)).sum()``.
+
+    Parameters
+    ----------
+    x : array_like
+        Array to Fourier transform.
+    n : int, optional
+        Length of the Fourier transform.  If ``n < x.shape[axis]``, `x` is
+        truncated.  If ``n > x.shape[axis]``, `x` is zero-padded. The
+        default results in ``n = x.shape[axis]``.
+    axis : int, optional
+        Axis along which the fft's are computed; the default is over the
+        last axis (i.e., ``axis=-1``).
+    overwrite_x : bool, optional
+        If True, the contents of `x` can be destroyed; the default is False.
+
+    Returns
+    -------
+    z : complex ndarray
+        with the elements::
+
+            [y(0),y(1),..,y(n/2),y(1-n/2),...,y(-1)]        if n is even
+            [y(0),y(1),..,y((n-1)/2),y(-(n-1)/2),...,y(-1)]  if n is odd
+
+        where::
+
+            y(j) = sum[k=0..n-1] x[k] * exp(-sqrt(-1)*j*k* 2*pi/n), j = 0..n-1
+
+    See Also
+    --------
+    ifft : Inverse FFT
+    rfft : FFT of a real sequence
+
+    Notes
+    -----
+    The packing of the result is "standard": If ``A = fft(a, n)``, then
+    ``A[0]`` contains the zero-frequency term, ``A[1:n/2]`` contains the
+    positive-frequency terms, and ``A[n/2:]`` contains the negative-frequency
+    terms, in order of decreasingly negative frequency. So for an 8-point
+    transform, the frequencies of the result are [0, 1, 2, 3, -4, -3, -2, -1].
+    To rearrange the fft output so that the zero-frequency component is
+    centered, like [-4, -3, -2, -1,  0,  1,  2,  3], use `fftshift`.
+
+    Both single and double precision routines are implemented.  Half precision
+    inputs will be converted to single precision.  Non floating-point inputs
+    will be converted to double precision.  Long-double precision inputs are
+    not supported.
+
+    This function is most efficient when `n` is a power of two, and least
+    efficient when `n` is prime.
+
+    Note that if ``x`` is real-valued then ``A[j] == A[n-j].conjugate()``.
+    If ``x`` is real-valued and ``n`` is even then ``A[n/2]`` is real.
+
+    If the data type of `x` is real, a "real FFT" algorithm is automatically
+    used, which roughly halves the computation time.  To increase efficiency
+    a little further, use `rfft`, which does the same calculation, but only
+    outputs half of the symmetrical spectrum.  If the data is both real and
+    symmetrical, the `dct` can again double the efficiency, by generating
+    half of the spectrum from half of the signal.
+
+    Examples
+    --------
+    >>> from scipy.fftpack import fft, ifft
+    >>> x = np.arange(5)
+    >>> np.allclose(fft(ifft(x)), x, atol=1e-15)  # within numerical accuracy.
+    True
+
+    

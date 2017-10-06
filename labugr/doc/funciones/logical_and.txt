@@ -1,0 +1,41 @@
+logical_and(x1, x2, /, out=None, *, where=True, casting='same_kind', order='K', dtype=None, subok=True[, signature, extobj])
+
+Compute the truth value of x1 AND x2 element-wise.
+
+Parameters
+----------
+x1, x2 : array_like
+    Input arrays. `x1` and `x2` must be of the same shape.
+out : ndarray, None, or tuple of ndarray and None, optional
+    A location into which the result is stored. If provided, it must have
+    a shape that the inputs broadcast to. If not provided or `None`,
+    a freshly-allocated array is returned. A tuple (possible only as a
+    keyword argument) must have length equal to the number of outputs.
+where : array_like, optional
+    Values of True indicate to calculate the ufunc at that position, values
+    of False indicate to leave the value in the output alone.
+**kwargs
+    For other keyword-only arguments, see the
+    :ref:`ufunc docs <ufuncs.kwargs>`.
+
+Returns
+-------
+y : ndarray or bool
+    Boolean result with the same shape as `x1` and `x2` of the logical
+    AND operation on corresponding elements of `x1` and `x2`.
+
+See Also
+--------
+logical_or, logical_not, logical_xor
+bitwise_and
+
+Examples
+--------
+>>> np.logical_and(True, False)
+False
+>>> np.logical_and([True, False], [False, False])
+array([False, False], dtype=bool)
+
+>>> x = np.arange(5)
+>>> np.logical_and(x>1, x<4)
+array([False, False,  True,  True, False], dtype=bool)

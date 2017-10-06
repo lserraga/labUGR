@@ -1,0 +1,19 @@
+
+    Split an array into multiple sub-arrays.
+
+    Please refer to the ``split`` documentation.  The only difference
+    between these functions is that ``array_split`` allows
+    `indices_or_sections` to be an integer that does *not* equally
+    divide the axis.
+
+    See Also
+    --------
+    split : Split array into multiple sub-arrays of equal size.
+
+    Examples
+    --------
+    >>> x = np.arange(8.0)
+    >>> np.array_split(x, 3)
+        [array([ 0.,  1.,  2.]), array([ 3.,  4.,  5.]), array([ 6.,  7.])]
+
+    

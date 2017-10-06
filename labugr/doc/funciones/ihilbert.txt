@@ -1,0 +1,10 @@
+
+    Return inverse Hilbert transform of a periodic sequence x.
+
+    If ``x_j`` and ``y_j`` are Fourier coefficients of periodic functions x
+    and y, respectively, then::
+
+      y_j = -sqrt(-1)*sign(j) * x_j
+      y_0 = 0
+
+    

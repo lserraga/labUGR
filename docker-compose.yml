@@ -6,20 +6,20 @@ services:
   #Creando el container para linux 32 bits
   linux32:
     container_name: linux32
-    #Epecificamos donde se encuentran los archivos para el container
-    build:
-          #Context nos permite acceder a los archivos de la libreria
-          #desde la dockerfile (sino estos estarían fuera de contexto)
-          context: ./
-          dockerfile: ./docker/linux32/dockerfile
+    #Especificamos la imagen a utilizar
+    image: quay.io/pypa/manylinux1_i686
+    #Link para que el script se pueda utlizar desde dentro del contenedor
+    volumes:
+      -./scripts/wheel.sh:./scripts/wheel.sh
     #Script para la creación de las wheels
-    command: bash labugr/scripts/wheel.sh
+    command: bash scripts/wheel.sh Proyecto2017UGR
 
+  
   #Mismo proceso para linux 64 bits
   linux64:
     container_name: linux64
-    build: 
-          context: ./
-          dockerfile: ./docker/linux64/dockerfile
-    command: bash labugr/scripts/wheel.sh
+    image: quay.io/pypa/manylinux1_x86_64
+    volumes:
+      -./scripts/wheel.sh:./scripts/wheel.sh
+    command: bash scripts/wheel.sh Proyecto2017UGR
 

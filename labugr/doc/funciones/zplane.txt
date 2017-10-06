@@ -1,0 +1,13 @@
+
+    Plot the complex z-plane given lti system represented by the zeros 
+    poles gain, the transfer function or the state space.
+    
+    Parameters
+    ----------
+    z: lti object
+        In any of the possible representation forms
+    ax: matplotlib subplot
+        Matplotlib subplot where the zplane will be plotted. If None, 
+        the function creates one and shows it 
+
+    

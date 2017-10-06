@@ -1,0 +1,20 @@
+
+    Get or set the *x* limits of the current axes.
+
+    ::
+
+      xmin, xmax = xlim()   # return the current xlim
+      xlim( (xmin, xmax) )  # set the xlim to xmin, xmax
+      xlim( xmin, xmax )    # set the xlim to xmin, xmax
+
+    If you do not specify args, you can pass the xmin and xmax as
+    kwargs, e.g.::
+
+      xlim(xmax=3) # adjust the max leaving min unchanged
+      xlim(xmin=1) # adjust the min leaving max unchanged
+
+    Setting limits turns autoscaling off for the x-axis.
+
+    The new axis limits are returned as a length 2 tuple.
+
+    

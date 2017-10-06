@@ -1,0 +1,118 @@
+Make a horizontal bar plot.
+
+Make a horizontal bar plot with rectangles bounded by:
+
+  `left`, `left` + `width`, `bottom`, `bottom` + `height`
+        (left, right, bottom and top edges)
+
+`bottom`, `width`, `height`, and `left` can be either scalars
+or sequences
+
+Parameters
+----------
+bottom : scalar or array-like
+    the y coordinate(s) of the bars
+
+width : scalar or array-like
+    the width(s) of the bars
+
+height : sequence of scalars, optional, default: 0.8
+    the heights of the bars
+
+left : sequence of scalars
+    the x coordinates of the left sides of the bars
+
+Returns
+-------
+`matplotlib.patches.Rectangle` instances.
+
+Other parameters
+----------------
+color : scalar or array-like, optional
+    the colors of the bars
+
+edgecolor : scalar or array-like, optional
+    the colors of the bar edges
+
+linewidth : scalar or array-like, optional, default: None
+    width of bar edge(s). If None, use default
+    linewidth; If 0, don't draw edges.
+
+tick_label : string or array-like, optional, default: None
+    the tick labels of the bars
+
+xerr : scalar or array-like, optional, default: None
+    if not None, will be used to generate errorbar(s) on the bar chart
+
+yerr : scalar or array-like, optional, default: None
+    if not None, will be used to generate errorbar(s) on the bar chart
+
+ecolor : scalar or array-like, optional, default: None
+    specifies the color of errorbar(s)
+
+capsize : scalar, optional
+   determines the length in points of the error bar caps
+   default: None, which will take the value from the
+   ``errorbar.capsize`` :data:`rcParam<matplotlib.rcParams>`.
+
+error_kw :
+    dictionary of kwargs to be passed to errorbar method. `ecolor` and
+    `capsize` may be specified here rather than as independent kwargs.
+
+align : {'center', 'edge'}, optional
+    If 'edge', aligns bars by their left edges (for vertical
+    bars) and by their bottom edges (for horizontal bars). If
+    'center', interpret the `bottom` argument as the
+    coordinates of the centers of the bars.  To align on the
+    align bars on the top edge pass a negative 'height'.
+
+log : boolean, optional, default: False
+    If true, sets the axis to be log scale
+
+Notes
+-----
+The optional arguments `color`, `edgecolor`, `linewidth`,
+`xerr`, and `yerr` can be either scalars or sequences of
+length equal to the number of bars.  This enables you to use
+bar as the basis for stacked bar charts, or candlestick plots.
+Detail: `xerr` and `yerr` are passed directly to
+:meth:`errorbar`, so they can also have shape 2xN for
+independent specification of lower and upper errors.
+
+Other optional kwargs:
+
+  agg_filter: unknown
+  alpha: float or None 
+  animated: [True | False] 
+  antialiased or aa: [True | False]  or None for default 
+  axes: an :class:`~matplotlib.axes.Axes` instance 
+  capstyle: ['butt' | 'round' | 'projecting'] 
+  clip_box: a :class:`matplotlib.transforms.Bbox` instance 
+  clip_on: [True | False] 
+  clip_path: [ (:class:`~matplotlib.path.Path`, :class:`~matplotlib.transforms.Transform`) | :class:`~matplotlib.patches.Patch` | None ] 
+  color: matplotlib color spec
+  contains: a callable function 
+  edgecolor or ec: mpl color spec, None, 'none', or 'auto' 
+  facecolor or fc: mpl color spec, or None for default, or 'none' for no color 
+  figure: a :class:`matplotlib.figure.Figure` instance 
+  fill: [True | False] 
+  gid: an id string 
+  hatch: ['/' | '\\' | '|' | '-' | '+' | 'x' | 'o' | 'O' | '.' | '*'] 
+  joinstyle: ['miter' | 'round' | 'bevel'] 
+  label: string or anything printable with '%s' conversion. 
+  linestyle or ls: ['solid' | 'dashed', 'dashdot', 'dotted' | (offset, on-off-dash-seq) | ``'-'`` | ``'--'`` | ``'-.'`` | ``':'`` | ``'None'`` | ``' '`` | ``''``]
+  linewidth or lw: float or None for default 
+  path_effects: unknown
+  picker: [None|float|boolean|callable] 
+  rasterized: [True | False | None] 
+  sketch_params: unknown
+  snap: unknown
+  transform: :class:`~matplotlib.transforms.Transform` instance 
+  url: a url string 
+  visible: [True | False] 
+  zorder: any number 
+
+See also
+--------
+bar: Plot a vertical bar plot.
+

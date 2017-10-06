@@ -1,0 +1,37 @@
+conjugate(x, /, out=None, *, where=True, casting='same_kind', order='K', dtype=None, subok=True[, signature, extobj])
+
+Return the complex conjugate, element-wise.
+
+The complex conjugate of a complex number is obtained by changing the
+sign of its imaginary part.
+
+Parameters
+----------
+x : array_like
+    Input value.
+out : ndarray, None, or tuple of ndarray and None, optional
+    A location into which the result is stored. If provided, it must have
+    a shape that the inputs broadcast to. If not provided or `None`,
+    a freshly-allocated array is returned. A tuple (possible only as a
+    keyword argument) must have length equal to the number of outputs.
+where : array_like, optional
+    Values of True indicate to calculate the ufunc at that position, values
+    of False indicate to leave the value in the output alone.
+**kwargs
+    For other keyword-only arguments, see the
+    :ref:`ufunc docs <ufuncs.kwargs>`.
+
+Returns
+-------
+y : ndarray
+    The complex conjugate of `x`, with same dtype as `y`.
+
+Examples
+--------
+>>> np.conjugate(1+2j)
+(1-2j)
+
+>>> x = np.eye(2) + 1j * np.eye(2)
+>>> np.conjugate(x)
+array([[ 1.-1.j,  0.-0.j],
+       [ 0.-0.j,  1.-1.j]])
