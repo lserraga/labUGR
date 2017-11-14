@@ -24,15 +24,15 @@ from labugr.signal.windows import *
 #Cambiando directorio de trabajo al directorio del script
 os.chdir(sys.path[0])
 
-#Crear el directorio funciones si este no eciste
-if not os.path.exists("funciones"):
-	os.makedirs("funciones")
+#Crear el directorio funciones si este no existe
+if not os.path.exists("doc-ESP"):
+	os.makedirs("doc-ESP")
 
 aux = 0
 for funcion in funciones:
 	#Cada documentación se guarda como "nombre_función".txt
-	nombre_doc = os.path.join('funciones','{}.txt'.format(funcion))
-	nombre_doc_trad = os.path.join('funciones','{}-es.txt'.format(funcion))
+	nombre_doc = os.path.join('doc-ESP','{}.txt'.format(funcion))
+	nombre_doc_trad = os.path.join('doc-ESP','{}-es.txt'.format(funcion))
 
 	#Si el archivo ya existe o su traduccion, no sobreescribirlo
 	if not isfile(nombre_doc) and not isfile(nombre_doc_trad):

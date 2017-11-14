@@ -33,7 +33,7 @@ def ayuda(funcion):
     >>> ayuda('arange')
 	"""
 	directorio_previo = os.getcwd()
-	os.chdir(os.path.join(os.path.dirname(__file__),'funciones'))
+	os.chdir(os.path.join(os.path.dirname(__file__),'doc-ESP'))
 
 	lista = __nombre_funciones()
 	

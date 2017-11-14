@@ -2,16 +2,12 @@ import sys
 import os
 import subprocess
 from platform import architecture
+import builtins
 
 #Comprobamos que la version de python es la correcta
-if sys.version_info[:2] < (2, 7) or (3, 0) <= sys.version_info[:2] < (3, 4):
-    raise RuntimeError("Requerido python 2.7, 3.4, 3.5 o 3.6")
+if sys.version_info[:2] < (3, 4):
+    raise RuntimeError("Requerido python 3.4, 3.5 o 3.6")
 
-#Compatibilidad con 2.7
-if sys.version_info[0] < 3:
-    import __builtin__ as builtins
-else:
-    import builtins
 
 #Para poder determinar si estamos instalando labUGR
 builtins.__LABUGR_SETUP__ = True
@@ -74,6 +70,7 @@ def generate_cython():
 
 def setup_package():
 
+    # Modulos externos requeridos
     install_requires = ['numpy>=1.8.2','mpmath', 'matplotlib']
 
     # En MAC y linux pyaudio produce errores que paran la instalacion de 
@@ -84,7 +81,7 @@ def setup_package():
     
     metadata = dict(
         name='labugr',
-        version='1.0.5',
+        version='1.1',
         author='Luis Serra Garcia',
         author_email='lsgarcia@correo.ugr.es',
         url='http://github.com/lserraga/labUGR',
@@ -110,7 +107,6 @@ def setup_package():
     from numpy.distutils.core import setup
     cwd = os.path.abspath(os.path.dirname(__file__))
     if not os.path.exists(os.path.join(cwd, 'PKG-INFO')):
-        # Generate Cython sources, unless building from source release
         generate_cython()
     metadata['configuration'] = configuration
 

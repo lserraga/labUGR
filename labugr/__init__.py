@@ -27,20 +27,16 @@ if not __LABUGR_SETUP__:
 import numpy as np
 import matplotlib.pyplot as plt
 
-from numpy import arange, pi, e
+from numpy import pi, e, inf
 
 #Creacion de arrays
 from numpy import (
 	array, zeros, ones, eye, full, asarray, copy, fromfunction,
 	arange, linspace, logspace, geomspace, tri)
 
-#Guardando y cargando arrays
-from numpy import (
-	save, load, fromfile)
-
 #Propiedades del array
 from numpy import (
-	shape, ndim, size, dtype, real, imag, conj, diag, tril ,triu)
+	shape, ndim, size, dtype, real, imag, angle, conj, diag, tril ,triu)
 
 #Funciones trigonométricas (son igual que las de math pero se pueden utilizar en arrays)
 from numpy import (
@@ -55,24 +51,21 @@ from numpy import array_split as split
 
 #Funciones matemáticas (abs() y pow() estan incluido)
 from numpy import(
-    floor, ceil, exp, log, sqrt, sum, gradient, cross, maximum,
-    minimum)
+    floor, ceil, exp, log, log10, log2, sqrt, sum, gradient, cross, maximum,
+    minimum, abs, dot)
 from numpy import around as round 
 
 #Funciones para graficar
 from matplotlib.pyplot import (
     axis, title, grid, xlabel, ylabel, xscale, yscale, xlim, ylim, xticks,
-    yticks)
+    yticks, legend)
 from matplotlib.pyplot import (
     plot, subplot, figure, bar, barh, stem, step, subplot, show, close,
-    ion, ioff)
+    ion, ioff, semilogy, semilogx, axvline, hlines, vlines)
     
-## see spectral
-
 #Algebra lineal
-#from numpy.linalg import 
-
-#See masked arrays, y allclose para eliminar e-12
+from numpy.linalg import (
+    matrix_power, det, solve, inv)
 
 #Random
 from numpy.random import (
@@ -84,11 +77,11 @@ from numpy import nditer
 #Funciones lógicas. All y any substituyen a las built_in para 
 #que sean compatibles con numpy arrays (use allclose to compare allrays)
 from numpy import (
-    all, any, logical_and, logical_or, allclose, isclose,)
+    all, any, logical_and, logical_or, allclose, isclose, array_equal)
 
 from .fftpack import (
     fft, ifft, fftn, ifftn, dct, idct, dst, idst, diff, hilbert,
-    ihilbert)
+    ihilbert, fftshift, ifftshift, fftfreq)
 
 
 from .signal import *

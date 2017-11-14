@@ -1,5 +1,5 @@
 from .spectral import (
-	periodogram, spectrogram, csd, coherence, stft, istft)
+	periodogram, spectrogram, csd, coherence, stft, istft, check_COLA)
 from .waveforms import *
 from . import windows 
 from .conv_corr import correlate, convolve
