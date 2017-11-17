@@ -10,7 +10,7 @@ services:
     image: quay.io/pypa/manylinux1_i686
     #Link para que el script se pueda utlizar desde dentro del contenedor
     volumes:
-      -./scripts/wheel.sh:./scripts/wheel.sh
+      - ./scripts:/scripts
     #Script para la creación de las wheels
     command: bash scripts/wheel.sh Proyecto2017UGR
 
@@ -20,5 +20,5 @@ services:
     container_name: linux64
     image: quay.io/pypa/manylinux1_x86_64
     volumes:
-      -./scripts/wheel.sh:./scripts/wheel.sh
+      - ./scripts:/scripts
     command: bash scripts/wheel.sh Proyecto2017UGR
