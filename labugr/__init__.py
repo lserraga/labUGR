@@ -52,7 +52,7 @@ from numpy import array_split as split
 #Funciones matemáticas (abs() y pow() estan incluido)
 from numpy import(
     floor, ceil, exp, log, log10, log2, sqrt, sum, gradient, cross, maximum,
-    minimum, abs, dot)
+    minimum, abs, dot, outer)
 from numpy import around as round 
 
 #Funciones para graficar
